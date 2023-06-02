@@ -54,24 +54,26 @@ npm install
 - Jira was used to track product backlog and track and plan our project.
 
 ## Contributing 
-#### Clone the repository
+To contribute to our project, one can follow the following steps below: 
+
+Clone the repository
 ```
 git clone 
 ```
-#### Install packages
+Install packages
 ```
 npm install 
 ```
-#### Create branch
+Create branch
 ```
 git checkout -b /branchname
 ```
-#### Commit changes
+Commit changes
 ```
 git commit -m 'commit message describing what you did'
 ```
-#### Push to branch
+Push to branch
 ```
 git push origin /branchname
 ```
-#### Open a pull request and await for 2 memebers to code check
+Open a pull request and await for 2 memebers to code check
