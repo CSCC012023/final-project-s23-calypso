@@ -1,5 +1,11 @@
 # Calypso
 
+## Table of Contents
+1. [Overview](#overview)
+2. [Getting Started](#getting-started)
+3. [Development](#development)
+4. [Contributing](#contributing)
+
 ## Overview
 Calypso is a platform that allows artists to express their creativity and allows art enthusiasts to explore a diverse range of art. Our platform is designed to accommodate all artforms: digital art, music, animations and much more. 
 
@@ -20,7 +26,7 @@ Pre-requisites:
 
 #### 1. Clone the repository
 ```
-git clone 
+git clone https://github.com/CSCC012023/final-project-s23-calypso.git
 ```
 #### 2. Install packages by running the following commands
 ```
@@ -58,7 +64,7 @@ To contribute to our project, one can follow the following steps below:
 
 Clone the repository
 ```
-git clone 
+git clone https://github.com/CSCC012023/final-project-s23-calypso.git
 ```
 Install packages
 ```
