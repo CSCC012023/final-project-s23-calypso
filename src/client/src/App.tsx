@@ -1,52 +1,77 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect, FormEvent } from 'react';
 import './App.css';
 
 
 
 function App() {
-  const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
+  const [text, setText] = useState('');
+  const [texts, setTexts] = useState([]);
 
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+
+  const getTexts = async () => {
+    const response = await fetch('http://localhost:8080/api/texts/retrieve');
+    const data = await response.json();
+    //console.log(data);
+    const texts = data.text.map((item: { text: any; }) => item.text);
+    //console.log(texts);
+    setTexts(texts);
+
+    if (response.ok){
+      console.log('Response worked!');
+    }
+    else{
+      console.log('Response failed!');
+    }
   };
 
-  const handleMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setMessage(e.target.value);
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Button was clicked, info was submitted!', name, message);
-    // You can perform further actions like sending the data to an API or updating state
-  };
+
+    // Send a POST request to the server with the entered text
+    const request = new Request('http://localhost:8080/api/texts/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text }),
+    });
+
+    fetch(request).then((response) => {
+      if (response.ok) {
+        // If the response is ok (server returns 200), update the texts state
+        console.log('Response worked!');
+      }
+      else{
+        console.log('Response failed!');
+      }
+    });
+  }
+  
+
+  useEffect(() => {
+    // Get the initial texts when the component mounts
+    getTexts();
+  }, []);
+
 
   return (
     <div>
-      <h1>React App Button Testing</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={handleNameChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="message">Message:</label>
-          <input
-            type="text"
-            id="message"
-            value={message}
-            onChange={handleMessageChange}
-          />
-        </div>
-        <button type="submit">Submit</button>
+        <h1>React App - Database Request/Response Testing</h1>
+        <input
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Enter text..."
+        />
+        <button type="submit">Submit Text</button> 
       </form>
+
+      <div>
+        <button onClick={ getTexts }>Fetch Data from Database</button>
+        <h2>All Texts from Database:</h2>
+        {texts?.map((text => <p>{ text }</p>))}
+      </div>
     </div>
   );
 }
