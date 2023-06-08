@@ -6,7 +6,8 @@ export default function DiscoverPage() {
     const discoverPanel = {
         img: require("/Users/maanethdesilva/Documents/CSCC01/Calypso/final-project-s23-calypso/src/client/src/assets/panda.png"),
         name: 'Prodaye X Shadman Bundle',
-        streams: 5123123
+        streams: 5123123,
+        price: 4.99
     }
     
     const categories = [
@@ -92,17 +93,17 @@ export default function DiscoverPage() {
     return (
         <>
             <div className="flex bg-darkestGrey text-white">
-                <div className="w-3/12">
+                <div className="w-[25%] bg-menu">
                 </div>
-                <div className="m-10 space-y-5 w-9/12">
+                <div className="m-10 space-y-5 w-full">
                     <p className="text-4xl font-bold">Featured Products</p>
                     <p className="text-2xl font-semibold">Popular Beats</p>
                     <div className="flex bg-darkGrey rounded-lg">
                         <img className="h-52 w-52 object-cover" src={discoverPanel.img} />
-                        <div className="p-5 space-y-5">
+                        <div className="p-5 space-y-5 w-full">
                             <p className="text-5xl font-semibold">{discoverPanel.name}</p>
                             <p>{discoverPanel.streams} streams</p>
-                            <p className="text-right">4.99</p>
+                            <p className="text-right text-xl font-bold pt-5">$ {discoverPanel.price}</p>
                         </div>
                     </div>
                     <div className="flex justify-between">
@@ -110,7 +111,7 @@ export default function DiscoverPage() {
                             categories.map((c,i) => { 
 
                                 return i < 4 && (
-                                    <div style={{backgroundImage: `url(${c.bg})`}} className="py-5 w-60 rounded-lg text-center">
+                                    <div style={{backgroundImage: `url(${c.bg})`}} className="py-5 w-1/4 mx-2 rounded-lg text-center">
                                     {/* <img src={c.icon} className="mx-auto h-10"/> */}
                                     {c.icon}
                                     <h1 className="text-center">{c.name}</h1> 
@@ -124,7 +125,7 @@ export default function DiscoverPage() {
                             categories.map((c,i) => { 
 
                                 return i > 3 && (
-                                    <div style={{backgroundImage: `url(${c.bg})`}} className="py-5 w-60 rounded-lg text-center">
+                                    <div style={{backgroundImage: `url(${c.bg})`}} className="py-5 w-1/4 mx-2 rounded-lg text-center">
                                     <div className="mx-auto">
                                         {c.icon}
                                     </div>
@@ -138,7 +139,7 @@ export default function DiscoverPage() {
                     <p className="text-2xl font-semibold">Popular Sceneric Art</p>
                     <div className="flex space-x-5">
                         <img src={popularDigitalArt[0]} className="w-8/12 h-96 object-cover"/>
-                        <div className="w-1/4">
+                        <div className="overflow-scroll">
                             <div className="flex space-x-5 mb-5">
                             {
                                 
