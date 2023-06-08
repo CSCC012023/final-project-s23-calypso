@@ -8,7 +8,8 @@ module.exports = {
       backgroundColor: {
         darkestGrey: "#121212",
         darkGrey: "#1D1D1D",
-        menu: "#212121"
+        menu: "#212121",
+        menuSelected: "#2D2D2D"
       }
     },
   },
