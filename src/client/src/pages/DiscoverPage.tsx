@@ -31,39 +31,51 @@ export default function DiscoverPage() {
     return (
         <>
             <div className="flex bg-darkestGrey text-white">
-                <div className="w-72">
+                <div className="w-3/12">
                 </div>
-                <div className="w-full m-10 space-y-5">
+                <div className="m-10 space-y-5 w-9/12">
                     <div className="flex bg-darkGrey rounded-lg">
-                            <img className="h-52 w-52 object-cover" src={discoverPanel.img} />
-                            <div className="p-5 w-full space-y-">
-                                <p className="text-5xl font-semibold">{discoverPanel.name}</p>
-                                <p>{discoverPanel.streams} streams</p>
-                                <p className="text-right">4.99</p>
-                            </div>
+                        <img className="h-52 w-52 object-cover" src={discoverPanel.img} />
+                        <div className="p-5 space-y-5">
+                            <p className="text-5xl font-semibold">{discoverPanel.name}</p>
+                            <p>{discoverPanel.streams} streams</p>
+                            <p className="text-right">4.99</p>
                         </div>
-                        <div className="flex justify-between">
-                            {
-                                categories.map(c => { 
-
-                                    return (
-                                    <div className="pt-10 pb-10 w-48 rounded-lg text-center space-x-2 bg-darkGrey">
-                                    <h1>{c}</h1> 
-                                    </div>
-                                    )
-                                })
-                            }
-                        </div>
-                        <p className="text-lg font-semibold">Popular Digial Art</p>
-                        <div className="flex space-x-5">
-                        <img src={popularDigitalArt[0]} className="w-1/2 h-72 object-cover"/>
+                    </div>
+                    <div className="flex justify-between">
                         {
-                            
-                            popularDigitalArt.map((i,j) => { 
-                                return j > 0 && <img src={i} className="w-36 h-36 object-cover"/>
+                            categories.map(c => { 
+
+                                return (
+                                <div className="pt-10 pb-10 w-48 rounded-lg text-center space-x-2 bg-darkGrey">
+                                <h1>{c}</h1> 
+                                </div>
+                                )
                             })
                         }
+                    </div>
+                    <p className="text-lg font-semibold">Popular Digial Art</p>
+                    <div className="flex space-x-5">
+                        <img src={popularDigitalArt[0]} className="w-8/12 h-72 object-cover"/>
+                        <div>
+                            <div className="flex space-x-5 mb-5">
+                            {
+                                
+                                popularDigitalArt.map((i,j) => { 
+                                    return j > 0 && j < 3 && <img src={i} className="w-36 h-36 object-cover"/>
+                                })
+                            }
+                            </div>
+                            <div className="flex space-x-5">
+                            {
+                                
+                                popularDigitalArt.map((i,j) => { 
+                                    return j > 0 && j < 3 && <img src={i} className="w-36 h-36 object-cover"/>
+                                })
+                            }
+                            </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </>
