@@ -7,7 +7,8 @@ module.exports = {
     extend: {
       backgroundColor: {
         darkestGrey: "#121212",
-        darkGrey: "#1D1D1D"
+        darkGrey: "#1D1D1D",
+        menu: "#212121"
       }
     },
   },
