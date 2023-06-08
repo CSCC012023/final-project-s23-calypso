@@ -1,77 +1,37 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import './App.css';
-import DiscoverPage from './pages/DiscoverPage'
+import HomePage from './pages/HomePage';
+import BiddingPage from './pages/BiddingPage';
+import DiscoverPage from './pages/DiscoverPage';
+import LandingPage from './pages/LandingPage';
+import ProfilePage from './pages/ProfilePage';
+import LoginPage from './pages/LoginPage';
+import ProductPage from './pages/ProductPage';
+import RegisterPage from './pages/RegisterPage';
+
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 
 function App() {
-  const [text, setText] = useState('');
-  const [texts, setTexts] = useState([]);
-
-
-  const getTexts = async () => {
-    const response = await fetch('http://localhost:8080/api/texts/retrieve');
-    const data = await response.json();
-    //console.log(data);
-    const texts = data.text.map((item: { text: any; }) => item.text);
-    //console.log(texts);
-    setTexts(texts);
-
-    if (response.ok){
-      console.log('Response worked!');
-    } 
-    else{
-      console.log('Response failed!');
-    }
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // Send a POST request to the server with the entered text
-    const request = new Request('http://localhost:8080/api/texts/submit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ text }),
-    });
-
-    fetch(request).then((response) => {
-      if (response.ok) {
-        // If the response is ok (server returns 200), update the texts state
-        console.log('Response worked!');
-      }
-      else{
-        console.log('Response failed!');
-      }
-    });
-  }
-  
-
-  useEffect(() => {
-    // Get the initial texts when the component mounts
-    getTexts();
-  }, []);
-
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <h1>React App - Database Request/Response Testing</h1>
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Enter text..."
-        />
-        <button type="submit">Submit Text</button> 
-      </form>
-
-      <div>
-        <button onClick={ getTexts }>Fetch Data from Database</button>
-        <h2>All Texts from Database:</h2>
-        {texts?.map((text => <p>{ text }</p>))}
-      </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/bidding" element={<BiddingPage />} />
+        <Route path="/discover" element={<DiscoverPage />} />
+        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/product" element={<ProductPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
+    </BrowserRouter>
     </div>
   );
 }
