@@ -4,7 +4,7 @@ import React from "react";
 export default function DiscoverPage() {
 
     const discoverPanel = {
-        img: require("/Users/maanethdesilva/Documents/CSCC01/Calypso/final-project-s23-calypso/src/client/src/assets/panda.png"),
+        img: require("../assets/panda.png"),
         name: 'Prodaye X Shadman Bundle',
         streams: 5123123
     }
