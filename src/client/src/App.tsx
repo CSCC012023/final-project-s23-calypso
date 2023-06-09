@@ -8,6 +8,7 @@ import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/LoginPage';
 import ProductPage from './pages/ProductPage';
 import RegisterPage from './pages/RegisterPage';
+import TrendingPage from './pages/Discover/TrendingPage';
 import TestingPage from './pages/TestingPage';
 
 import {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/bidding" element={<BiddingPage />} />
         <Route path="/discover" element={<DiscoverPage />} />
+        <Route path="/discover/trending" element={<TrendingPage />} />
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/login" element={<LoginPage />} />
