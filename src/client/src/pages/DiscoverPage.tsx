@@ -111,14 +111,15 @@ export default function DiscoverPage() {
             {categories.map((c, i) => {
               return (
                 i < 4 && (
-                  <div
+                  <a
+                    href='/discover/trending'
                     style={{ backgroundImage: `url(${c.bg})` }}
                     className="py-5 w-1/4 mx-2 rounded-lg text-center"
                   >
                     {/* <img src={c.icon} className="mx-auto h-10"/> */}
                     {c.icon}
                     <h1 className="text-center">{c.name}</h1>
-                  </div>
+                  </a>
                 )
               )
             })}
@@ -127,14 +128,15 @@ export default function DiscoverPage() {
             {categories.map((c, i) => {
               return (
                 i > 3 && (
-                  <div
+                  <a
+                    href='/discover/trending'
                     style={{ backgroundImage: `url(${c.bg})` }}
                     className="py-5 w-1/4 mx-2 rounded-lg text-center"
                   >
                     <div className="mx-auto">{c.icon}</div>
                     {/* <img src={c.icon} className="mx-auto h-10"/> */}
                     <h1 className="text-center">{c.name}</h1>
-                  </div>
+                  </a>
                 )
               )
             })}
