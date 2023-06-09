@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import ProductPage from './pages/ProductPage';
 import RegisterPage from './pages/RegisterPage';
 import TrendingPage from './pages/Discover/TrendingPage';
+import TestingPage from './pages/TestingPage';
 
 import {
   BrowserRouter,
@@ -32,6 +33,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/testing" element={<TestingPage />} />
       </Routes>
     </BrowserRouter>
     </div>
