@@ -15,7 +15,7 @@ function LoginPage({}: Props) {
       <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
         <form className='text-white w-full max-w-[300px] rounded-xl mx-auto p-8 px-8 '>
           <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
-            CALYPSO
+            Welcome to Calypso
           </h1>
           <div>
               <label className="block mb-2 text-sm font-medium text-white ">Your email</label>
