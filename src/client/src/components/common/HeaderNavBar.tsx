@@ -29,7 +29,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ExampleNavBar() {
+export default function HeaderNavBar() {
   return (
     <Disclosure as="header" className="bg-menu">
       {({ open }) => (
