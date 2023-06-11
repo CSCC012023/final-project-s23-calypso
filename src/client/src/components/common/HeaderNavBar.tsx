@@ -6,8 +6,8 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import profilePicture from '../../assets/sampleProfilePicture1.png'
 
 const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
+  name: 'William Slicer',
+  email: 'william@example.com',
   imageUrl: profilePicture,
 }
 const navigation = [

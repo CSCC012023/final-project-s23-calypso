@@ -10,6 +10,7 @@ import ProductPage from './pages/ProductPage';
 import RegisterPage from './pages/RegisterPage';
 import TrendingPage from './pages/Discover/TrendingPage';
 import TestingPage from './pages/TestingPage';
+import TestingPage2 from './pages/TestingPage2'
 
 import {
   BrowserRouter,
@@ -34,6 +35,7 @@ function App() {
         <Route path="/product" element={<ProductPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/testing" element={<TestingPage />} />
+        <Route path="/testing2" element={<TestingPage2 />} />
       </Routes>
     </BrowserRouter>
     </div>

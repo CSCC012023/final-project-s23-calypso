@@ -1,12 +1,12 @@
 import React from 'react'
-import ExampleNavBar from '../components/common/HeaderNavBar'
+import HeaderNavBar from '../components/common/HeaderNavBar'
 
 type Props = {}
 
 function HomePage({}: Props) {
   return (
-    <div className="App">
-      <ExampleNavBar />
+    <div className="bg-darkestGrey h-screen" >
+      <HeaderNavBar />
     </div>
   );
 }
