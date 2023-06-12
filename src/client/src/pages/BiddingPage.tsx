@@ -22,7 +22,7 @@ function BiddingPage({}: Props) {
         <h1 className="text-4xl font-semibold">Art Name</h1>
         <p className="text-2xl font-semibold">Creator</p>
         <div className="flex bg-darkGrey rounded-lg ">
-          <img className="h-52 w-52 object-cover z-10" src={previewArtPanel.img} />
+          <img className="h-52 w-52 object-cover z-10" src={previewArtPanel.img} /> 
         </div>
 
         <div className="bg-darkGrey rounded-lg p-5 space-y-5">
