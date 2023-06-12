@@ -9,6 +9,10 @@ function BiddingPage({}: Props) {
     name: 'Preview Art',
   }
 
+  const descriptionPanel = {
+    description: 'Description',
+    price: 'Current Price'
+  }
   
 
   return (
@@ -17,11 +21,18 @@ function BiddingPage({}: Props) {
       <div className="m-10 space-y-5 w-9/12">
         <h1 className="text-4xl font-semibold">Art Name</h1>
         <p className="text-2xl font-semibold">Creator</p>
-        <div className="flex bg-darkGrey rounded-lg">
+        <div className="flex bg-darkGrey rounded-lg ">
           <img className="h-52 w-52 object-cover z-10" src={previewArtPanel.img} />
-          <p className="text-5xl font-semibold">{previewArtPanel.name}</p>
-
         </div>
+
+        <div className="bg-darkGrey rounded-lg p-5 space-y-5">
+          <p className="text-xl font-semibold">{descriptionPanel.description}</p>
+          <p className="text-xl font-semibold">{descriptionPanel.price}</p>
+        </div>
+
+        <div className="bg-darkGrey rounded-lg p-5 space-y-5">
+        </div>
+
       </div>
 
     </div>
