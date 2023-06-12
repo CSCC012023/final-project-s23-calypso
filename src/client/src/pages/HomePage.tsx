@@ -29,14 +29,14 @@ function HomePage({ }: Props) {
       </div>
 
       {/* For full screen width card */}
-        <div className="">{<LargeStoryCard />}</div>
+      {/* <div className="">{<LargeStoryCard />}</div> */}
 
       {/* For sectioned middle width card */}
-      {/* <div className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-16 py-16">
+      <div className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-16 py-16">
         <div className="max-w-7xl mx-auto">{<LargeStoryCard />}</div>
-      </div> */}
+      </div>
 
-      {/* Trending products */}
+      {/* Featured artworks */}
       <section aria-labelledby="trending-heading" className="bg-white">
         <div className="py-16 sm:py-8 lg:max-w-7xl lg:mx-auto lg:py-16 lg:px-8">
           <div className="px-4 flex items-center justify-between sm:px-6 lg:px-0">
