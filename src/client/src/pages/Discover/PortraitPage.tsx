@@ -6,8 +6,8 @@ import MusicList from '../../components/MusicList'
 export default function BeatsPage() {
   const categories = [
     {
-      name: 'Beats',
-      bg: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b3be1dae-3caa-4d45-be6c-3de586ba95e2/der4s0l-a25aa7c7-2c57-43a2-885d-e6a26c71faaf.jpg/v1/fill/w_1192,h_670,q_70,strp/chasing_a_dream_by_bisbiswas_der4s0l-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvYjNiZTFkYWUtM2NhYS00ZDQ1LWJlNmMtM2RlNTg2YmE5NWUyXC9kZXI0czBsLWEyNWFhN2M3LTJjNTctNDNhMi04ODVkLWU2YTI2YzcxZmFhZi5qcGciLCJ3aWR0aCI6Ijw9MTYwMCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.4ZIPQ0voxSL5e5VC5DLhxMWxYzWzOB8pgGV2wYZT3UY',
+      name: 'Portraits',
+      bg: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6c147535-fed3-4eaa-9feb-220ab7531223/d5bjwe2-1a1421d0-2320-4193-a7fb-cbfa4a7b29bb.png/v1/fill/w_1165,h_686,q_70,strp/illusions_by_sewer_pancake_d5bjwe2-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzU0IiwicGF0aCI6IlwvZlwvNmMxNDc1MzUtZmVkMy00ZWFhLTlmZWItMjIwYWI3NTMxMjIzXC9kNWJqd2UyLTFhMTQyMWQwLTIzMjAtNDE5My1hN2ZiLWNiZmE0YTdiMjliYi5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.DIgEkYnhalNd4vtk5YanF-lZZuN2NVBmG2g-o8eaWOU',
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -15,7 +15,11 @@ export default function BeatsPage() {
           fill="currentColor"
           className="w-24 h-24 mx-auto"
         >
-          <path d="M6 12a.75.75 0 01-.75-.75v-7.5a.75.75 0 111.5 0v7.5A.75.75 0 016 12zM18 12a.75.75 0 01-.75-.75v-7.5a.75.75 0 011.5 0v7.5A.75.75 0 0118 12zM6.75 20.25v-1.5a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0zM18.75 18.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 011.5 0zM12.75 5.25v-1.5a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0zM12 21a.75.75 0 01-.75-.75v-7.5a.75.75 0 011.5 0v7.5A.75.75 0 0112 21zM3.75 15a2.25 2.25 0 104.5 0 2.25 2.25 0 00-4.5 0zM12 11.25a2.25 2.25 0 110-4.5 2.25 2.25 0 010 4.5zM15.75 15a2.25 2.25 0 104.5 0 2.25 2.25 0 00-4.5 0z" />
+          <path
+            fillRule="evenodd"
+            d="M20.599 1.5c-.376 0-.743.111-1.055.32l-5.08 3.385a18.747 18.747 0 00-3.471 2.987 10.04 10.04 0 014.815 4.815 18.748 18.748 0 002.987-3.472l3.386-5.079A1.902 1.902 0 0020.599 1.5zm-8.3 14.025a18.76 18.76 0 001.896-1.207 8.026 8.026 0 00-4.513-4.513A18.75 18.75 0 008.475 11.7l-.278.5a5.26 5.26 0 013.601 3.602l.502-.278zM6.75 13.5A3.75 3.75 0 003 17.25a1.5 1.5 0 01-1.601 1.497.75.75 0 00-.7 1.123 5.25 5.25 0 009.8-2.62 3.75 3.75 0 00-3.75-3.75z"
+            clipRule="evenodd"
+          />
         </svg>
       ),
     },
@@ -109,10 +113,9 @@ export default function BeatsPage() {
 
           <div className="m-10 h-screen">
             <p className="text-4xl pb-5 font-bold">Lofi beats</p>
-            <MusicList musicList={trendingSongs}/>
+            <MusicList musicList={trendingSongs} />
             <p className="text-4xl pb-5 pt-10 font-bold">Freestyle beats</p>
-            <MusicList musicList={trendingSongs}/>
-            
+            <MusicList musicList={trendingSongs} />
           </div>
         </div>
       </div>

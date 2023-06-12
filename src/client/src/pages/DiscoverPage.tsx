@@ -112,7 +112,7 @@ export default function DiscoverPage() {
               return (
                 i < 4 && (
                   <a
-                    href={'/discover/' + c.name}
+                    href={'/discover/' + c.name.toLowerCase()}
                     style={{ backgroundImage: `url(${c.bg})` }}
                     className="py-5 w-1/4 mx-2 rounded-lg text-center"
                   >
@@ -129,7 +129,7 @@ export default function DiscoverPage() {
               return (
                 i > 3 && (
                   <a
-                    href='/discover/trending'
+                    href={'/discover/' + c.name.toLowerCase()}
                     style={{ backgroundImage: `url(${c.bg})` }}
                     className="py-5 w-1/4 mx-2 rounded-lg text-center"
                   >
