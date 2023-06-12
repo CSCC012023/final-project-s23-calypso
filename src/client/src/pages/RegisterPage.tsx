@@ -1,6 +1,6 @@
 import React from 'react'
 
-function LoginPage() {
+function RegisterPage() {
 
   return (
     <div className='grid bg-darkestGrey text-white h-screen w-full overflow-scroll lg:overflow-clip grid-cols-1 sm:grid-cols-2'>
@@ -33,9 +33,9 @@ function LoginPage() {
           </div>
 
           <div>
-            <a type="submit" href="/" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-base px-5 py-2.5 text-center">Register</a>
+            <a type="submit" href="/login" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-base px-5 py-2.5 text-center">Register</a>
             <p className="flex justify-center items-center text-base space-x-3 font-light text-gray-500">
-              Already have an account? <a href="/register" className="font-medium text-primary-600 hover:underline">Sign in</a>
+              Already have an account? <a href="/login" className="font-medium text-primary-600 hover:underline">Sign in</a>
             </p>
           </div>
       
@@ -46,4 +46,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage
+export default RegisterPage
