@@ -4,7 +4,7 @@ export default function ArtGrid(props: any) {
   const artList = props.artList
 
   return (
-    <div className="overflow-clip flex justify-evenly">
+    <div className="overflow-clip flex justify-between">
         {
             [0,1,2,3].map(iter => {
                 return (
