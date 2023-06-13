@@ -2,6 +2,7 @@ import React from 'react'
 import HeaderNavBar from '../components/common/HeaderNavBar'
 import LargeStoryCard from '../components/home/LargeStoryCard'
 import SmallProductCard from '../components/home/SmallProductCard'
+import CollectionCard from '../components/home/CollectionCard'
 
 const trendingArtWorks = [
   {
@@ -34,6 +35,30 @@ const trendingArtWorks = [
   },
 ]
 
+const collections = [
+  {
+      name: 'Desk and Office',
+      description: 'Work from home accessories',
+      imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg',
+      imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
+      href: '#',
+  },
+  {
+      name: 'Self-Improvement',
+      description: 'Journals and note-taking',
+      imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg',
+      imageAlt: 'Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.',
+      href: '#',
+  },
+  {
+      name: 'Travel',
+      description: 'Daily commute essentials',
+      imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg',
+      imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
+      href: '#',
+  },
+]
+
 function HomePage() {
   return (
     <div className="bg-darkestGrey h-screen" >
@@ -50,8 +75,8 @@ function HomePage() {
       </div>
 
       {/* Featured artworks */}
-      <section aria-labelledby="trending-heading" className="bg-white">
-        <div className="py-16 sm:py-8 lg:max-w-7xl lg:mx-auto lg:py-16 lg:px-8">
+      <section aria-labelledby="trending-heading" className="bg-gray-200">
+        <div className="py-24 lg:max-w-7xl lg:mx-auto sm:py-8 lg:py-24 lg:px-8">
           <div className="px-4 flex items-center justify-between sm:px-6 lg:px-0">
             <h2 id="trending-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
               Featured Art Works
@@ -70,49 +95,8 @@ function HomePage() {
                 {/* Product */}
                 {trendingArtWorks.map((product) => (
                   <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto">
-                    <SmallProductCard productProp={product}/>
+                    <SmallProductCard productProp={product} />
                   </li>
-                  
-                  
-                  // <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto">
-                  //   <div className="group relative">
-
-                  //     {/* Product Image */}
-                  //     <div className="w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1">
-                  //       <img
-                  //         src={product.imageSrc}
-                  //         alt={product.imageAlt}
-                  //         className="w-full h-full object-center object-cover group-hover:opacity-75"
-                  //       />
-                  //     </div>
-
-                  //     {/* Description and Pricing */}
-                  //     <div className="mt-6">
-                  //       <p className="text-sm text-gray-500">{product.color}</p>
-                  //       <h3 className="mt-1 font-semibold text-gray-900">
-                  //         <a href={product.href}>
-                  //           <span className="absolute inset-0" />
-                  //           {product.name}
-                  //         </a>
-                  //       </h3>
-                  //       <p className="mt-1 text-gray-900">{product.price}</p>
-                  //     </div>
-                  //   </div>
-
-                  //   <h4 className="sr-only">Available colors</h4>
-                  //   <ul role="list" className="mt-auto pt-6 flex items-center justify-center space-x-3">
-                  //     {product.availableColors.map((color) => (
-                  //       <li
-                  //         key={color.name}
-                  //         className="w-4 h-4 rounded-full border border-black border-opacity-10"
-                  //         style={{ backgroundColor: color.colorBg }}
-                  //       >
-                  //         <span className="sr-only">{color.name}</span>
-                  //       </li>
-                  //     ))}
-                  //   </ul>
-                  // </li>
-
                 ))}
 
               </ul>
@@ -123,6 +107,23 @@ function HomePage() {
             <a href="#" className="text-sm font-semibold text-indigo-600 hover:text-indigo-500">
               See everything<span aria-hidden="true"> &rarr;</span>
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Collections */}
+      <section aria-labelledby="collections-heading" className="bg-darkGrey">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto py-24 sm:py-16 lg:py-24 lg:max-w-none">
+            <h2 id="collections-heading" className="text-2xl font-extrabold text-white">
+              Collections
+            </h2>
+
+            <div className="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-6">
+              {collections.map((collection) => (
+                <CollectionCard collectionProp={collection} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
