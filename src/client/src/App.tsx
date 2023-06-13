@@ -9,6 +9,14 @@ import LoginPage from './pages/LoginPage';
 import ProductPage from './pages/ProductPage';
 import RegisterPage from './pages/RegisterPage';
 import TrendingPage from './pages/Discover/TrendingPage';
+import DealsPage from './pages/Discover/DealsPage';
+import BeatsPage from './pages/Discover/BeatsPage';
+import SceneryPage from './pages/Discover/SceneryPage';
+import DigitalPage from './pages/Discover/DigitalPage';
+import NewPage from './pages/Discover/NewPage';
+import ClassicalPage from './pages/Discover/ClassicalPage';
+import PortraitPage from './pages/Discover/PortraitPage';
+
 import TestingPage from './pages/TestingPage';
 
 import {
@@ -27,7 +35,16 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/bidding" element={<BiddingPage />} />
         <Route path="/discover" element={<DiscoverPage />} />
+
         <Route path="/discover/trending" element={<TrendingPage />} />
+        <Route path="/discover/deals" element={<DealsPage />} />
+        <Route path="/discover/beats" element={<BeatsPage />} />
+        <Route path="/discover/scenery" element={<SceneryPage />} />
+        <Route path="/discover/new" element={<NewPage />} />
+        <Route path="/discover/digital" element={<DigitalPage />} />
+        <Route path="/discover/classical" element={<ClassicalPage />} />
+        <Route path="/discover/portraits" element={<DealsPage />} />
+
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/login" element={<LoginPage />} />

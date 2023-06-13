@@ -94,7 +94,7 @@ export default function DiscoverPage() {
     <>
       <div className="flex bg-darkestGrey text-white h-screen overflow-clip">
         <Menu />
-        <div className="m-10 space-y-5 w-full pt-20 h-screen overflow-scroll">
+        <div className="px-10 space-y-5 w-full pt-20 h-screen overflow-scroll">
           <p className="text-4xl font-bold">Featured Products</p>
           <p className="text-2xl font-semibold">Popular Beats</p>
           <div className="flex bg-darkGrey rounded-lg">
@@ -112,7 +112,7 @@ export default function DiscoverPage() {
               return (
                 i < 4 && (
                   <a
-                    href='/discover/trending'
+                    href={'/discover/' + c.name.toLowerCase()}
                     style={{ backgroundImage: `url(${c.bg})` }}
                     className="py-5 w-1/4 mx-2 rounded-lg text-center"
                   >
@@ -129,7 +129,7 @@ export default function DiscoverPage() {
               return (
                 i > 3 && (
                   <a
-                    href='/discover/trending'
+                    href={'/discover/' + c.name.toLowerCase()}
                     style={{ backgroundImage: `url(${c.bg})` }}
                     className="py-5 w-1/4 mx-2 rounded-lg text-center"
                   >
@@ -147,7 +147,7 @@ export default function DiscoverPage() {
               src={popularDigitalArt[0]}
               className="w-8/12 h-96 object-cover"
             />
-            <div className="overflow-scroll">
+            <div className="overflow-clip">
               <div className="flex space-x-5 mb-5">
                 {popularDigitalArt.map((i, j) => {
                   return (
