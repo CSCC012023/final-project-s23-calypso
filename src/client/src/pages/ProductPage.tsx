@@ -1,76 +1,57 @@
-import React from 'react'
-import ExampleNavBar from "../components/common/HeaderNavBar"
+import React from 'react';
+import ExampleNavBar from '../components/common/HeaderNavBar';
 
-type Props = {}
-
-type Product = {
-  image: string,
-  title: string,
-  price: number
-}
-
-function ProductCard({image, title, price}: Product) {
-  return (
-    <a href="/product" className="flex flex-row h-32 bg-darkGrey rounded-lg space-x-10 overflow-hidden justify-between">
-      <div className="flex flex-row space-x-5">
-        <img className="flex-shrink-0 h-32 w-32" src={image} />
-        <p className="text-4xl font-semibold my-2">{title}</p>
-      </div>
-      <div className="flex flex-col justify-end p-5">
-        <p className="text-xl font-bold">$ {price}</p>
-      </div>
-    </a>
-  );
-}
+type Props = {};
 
 function ProductPage({}: Props) {
-
   const previewArtPanel = {
-    img: require("../assets/previewArt.jpg"),
+    img: require('../assets/previewArt.jpg'),
     name: 'Preview Art',
-  }
+  };
 
   return (
-    //<div>ProductPage
-    <div className="flex flex-col bg-darkestGrey text-white h-screen w-screen"> 
-      <ExampleNavBar/>
-      <div 
-        style = {{
-          width: '900px',
-          height: '500px',
-          //display: 'flex',
-          //backgroundColor: 'white',
-          border: '1px solid black',
-          position: 'absolute',
-          top: '250px',
-          left: '250px',
-          //justifyContent: 'center',
-          //alignItems: 'center',
-          
-        }}
+    <div className="flex flex-col bg-darkestGrey h-screen w-screen">
+      <ExampleNavBar />
+      <div className="flex flex-col items-center">
+        <div className = "justify-center"
+          style={{
+            width: '900px',
+            height: '500px',
+            position: 'absolute',
+            top: '250px',
+            //left: '250px',
+            overflow: 'auto',
+          }}
         >
           <img
-            src= {previewArtPanel.img} //"image-url.jpg" // Replace with the actual image URL
+            src={previewArtPanel.img}
             alt="Image"
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
-
-          <div className= "text-white text-center mt-2">
+          <div className="text-white text-center mt-auto bottom-0 left-0 w-full">
             {previewArtPanel.name}
           </div>
-
-          <div>
-            
-          </div>
-
         </div>
 
-
-
-
-
+        <div
+          className="flex justify-center mt-4"
+          style={{ width: '900px', backgroundColor: 'gray' }}
+        >
+          <div className="bg-lightGrey p-4">
+            <p className="text-black">A Maaneth De Silva Original piece !</p>
+          </div>
+        </div>
+        <div className="flex justify-center mt-4">
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+            Add to cart
+          </button>
+          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">
+            Place a bid
+          </button>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default ProductPage
+export default ProductPage;
