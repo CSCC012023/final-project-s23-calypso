@@ -1,8 +1,9 @@
 import React from 'react'
 import HeaderNavBar from '../components/common/HeaderNavBar'
 import LargeStoryCard from '../components/home/LargeStoryCard'
+import SmallProductCard from '../components/home/SmallProductCard'
 
-const trendingProducts = [
+const trendingArtWorks = [
   {
     id: 1,
     name: 'Machined Pen',
@@ -17,11 +18,23 @@ const trendingProducts = [
       { name: 'Chrome', colorBg: '#E5E7EB' },
     ],
   },
+  {
+    id: 2,
+    name: 'Machined Pen',
+    color: 'Black',
+    price: '$35',
+    href: '#',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-product-01.jpg',
+    imageAlt: 'Black machined steel pen with hexagonal grip and small white logo at top.',
+    availableColors: [
+      { name: 'Black', colorBg: '#111827' },
+      { name: 'Brass', colorBg: '#FDE68A' },
+      { name: 'Chrome', colorBg: '#E5E7EB' },
+    ],
+  },
 ]
 
-type Props = {}
-
-function HomePage({ }: Props) {
+function HomePage() {
   return (
     <div className="bg-darkestGrey h-screen" >
       <div className="">
@@ -55,45 +68,51 @@ function HomePage({ }: Props) {
                 className="mx-4 inline-flex space-x-8 sm:mx-6 lg:mx-0 lg:space-x-0 lg:grid lg:grid-cols-4 lg:gap-x-8"
               >
                 {/* Product */}
-                {trendingProducts.map((product) => (
+                {trendingArtWorks.map((product) => (
                   <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto">
-                    <div className="group relative">
-
-                      {/* Product Image */}
-                      <div className="w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1">
-                        <img
-                          src={product.imageSrc}
-                          alt={product.imageAlt}
-                          className="w-full h-full object-center object-cover group-hover:opacity-75"
-                        />
-                      </div>
-
-                      {/* Description and Pricing */}
-                      <div className="mt-6">
-                        <p className="text-sm text-gray-500">{product.color}</p>
-                        <h3 className="mt-1 font-semibold text-gray-900">
-                          <a href={product.href}>
-                            <span className="absolute inset-0" />
-                            {product.name}
-                          </a>
-                        </h3>
-                        <p className="mt-1 text-gray-900">{product.price}</p>
-                      </div>
-                    </div>
-
-                    <h4 className="sr-only">Available colors</h4>
-                    <ul role="list" className="mt-auto pt-6 flex items-center justify-center space-x-3">
-                      {product.availableColors.map((color) => (
-                        <li
-                          key={color.name}
-                          className="w-4 h-4 rounded-full border border-black border-opacity-10"
-                          style={{ backgroundColor: color.colorBg }}
-                        >
-                          <span className="sr-only">{color.name}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <SmallProductCard productProp={product}/>
                   </li>
+                  
+                  
+                  // <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto">
+                  //   <div className="group relative">
+
+                  //     {/* Product Image */}
+                  //     <div className="w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1">
+                  //       <img
+                  //         src={product.imageSrc}
+                  //         alt={product.imageAlt}
+                  //         className="w-full h-full object-center object-cover group-hover:opacity-75"
+                  //       />
+                  //     </div>
+
+                  //     {/* Description and Pricing */}
+                  //     <div className="mt-6">
+                  //       <p className="text-sm text-gray-500">{product.color}</p>
+                  //       <h3 className="mt-1 font-semibold text-gray-900">
+                  //         <a href={product.href}>
+                  //           <span className="absolute inset-0" />
+                  //           {product.name}
+                  //         </a>
+                  //       </h3>
+                  //       <p className="mt-1 text-gray-900">{product.price}</p>
+                  //     </div>
+                  //   </div>
+
+                  //   <h4 className="sr-only">Available colors</h4>
+                  //   <ul role="list" className="mt-auto pt-6 flex items-center justify-center space-x-3">
+                  //     {product.availableColors.map((color) => (
+                  //       <li
+                  //         key={color.name}
+                  //         className="w-4 h-4 rounded-full border border-black border-opacity-10"
+                  //         style={{ backgroundColor: color.colorBg }}
+                  //       >
+                  //         <span className="sr-only">{color.name}</span>
+                  //       </li>
+                  //     ))}
+                  //   </ul>
+                  // </li>
+
                 ))}
 
               </ul>

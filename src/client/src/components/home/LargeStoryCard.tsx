@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import { ExternalLinkIcon } from '@heroicons/react/solid'
 import previewArt from '../../assets/previewArt.jpg'
 
