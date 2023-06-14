@@ -1,4 +1,5 @@
 import React from 'react'
+import Menu from '../components/Menu'
 
 type Props = {}
 
@@ -9,34 +10,43 @@ function BiddingPage({}: Props) {
     name: 'Preview Art',
   }
 
+  const creatorPanel = {
+    img: require("../assets/sampleProfilePicture1.png"),
+  }
+
   const descriptionPanel = {
-    description: 'Description',
-    price: 'Current Price'
+    description: 'Description:',
+    price: 'Current Price:'
   }
   
 
   return (
-    <div className="flex bg-darkestGrey text-white h-screen">
-      <div className="w-1/12 h-1/12"></div>
-      <div className="m-10 space-y-5 w-9/12">
+    <div className="flex bg-darkestGrey text-white overflow-clip">
+      <Menu />
+      <div>
+        <button className="bg-darkGrey text-white text-center ml-8 mt-8 font rounded-lg text-2xl p-5 space-y-5">{"<"}</button>
+      </div>
+      <div className="bg-darkestGrey text-white h-screen w-3/4 mx-auto my-20 space-y-5">
         <h1 className="text-4xl font-semibold">Art Name</h1>
-        <p className="text-2xl font-semibold">Creator</p>
-        <div className="flex bg-darkGrey rounded-lg ">
-          <img className="h-52 w-52 object-cover z-10" src={previewArtPanel.img} /> 
+        <div className="flex items-center">
+          <img className="h-1/12 w-1/12 rounded-full" src={creatorPanel.img}/>
+          <p className="text-2xl font-semibold mx-8">Creator</p>
         </div>
-
+        
+        <img className="h-1/3 w-full object-cover" src={previewArtPanel.img} />
         <div className="bg-darkGrey rounded-lg p-5 space-y-5">
-          <p className="text-xl font-semibold">{descriptionPanel.description}</p>
+          <p className="text-xl font-semibold mb-40">{descriptionPanel.description}</p>
           <p className="text-xl font-semibold">{descriptionPanel.price}</p>
         </div>
-
-        <div className="bg-darkGrey rounded-lg p-5 space-y-5">
+        <div className="rounded-lg p-5 space-y-5">
+          <p className="text-xl font-semibold"> Bid Amount</p>
+          <div className="flex justify-between">
+            <input className="text-black rounded-lg p-5 space-y-5" type="text" placeholder="Enter Bid Amount" pattern="[0-9]+"/>
+            <button className="bg-white text-black text-center rounded-sm p-5 space-y-5">Place Bid</button>
+          </div>
         </div>
-
       </div>
-
     </div>
-
   )
 }
 
