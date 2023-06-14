@@ -16,6 +16,7 @@ import DigitalPage from './pages/Discover/DigitalPage';
 import NewPage from './pages/Discover/NewPage';
 import ClassicalPage from './pages/Discover/ClassicalPage';
 import PortraitPage from './pages/Discover/PortraitPage';
+import BiddingPurchasePage from './pages/Bidding/BiddingPurchasePage';
 
 import TestingPage from './pages/TestingPage';
 
@@ -34,6 +35,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/bidding" element={<BiddingPage />} />
+        <Route path="/bidding/purchase" element={<BiddingPurchasePage />} />
+
         <Route path="/discover" element={<DiscoverPage />} />
 
         <Route path="/discover/trending" element={<TrendingPage />} />
