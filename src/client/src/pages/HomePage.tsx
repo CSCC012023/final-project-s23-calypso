@@ -3,8 +3,10 @@ import HeaderNavBar from '../components/common/HeaderNavBar'
 import LargeStoryCard from '../components/home/LargeStoryCard'
 import SmallProductCard from '../components/home/SmallProductCard'
 import CollectionCard from '../components/home/CollectionCard'
+import previewArt from '../assets/previewArt.jpg'
+import ProductsRow from '../components/home/ProductsRow'
 
-const trendingArtWorks = [
+const trendingArtworks = [
   {
     id: 1,
     name: 'Machined Pen',
@@ -66,49 +68,43 @@ function HomePage() {
         <HeaderNavBar />
       </div>
 
-      {/* For full screen width card */}
-      {/* <div className="">{<LargeStoryCard />}</div> */}
+      {/* For large hero banner */}
+      <div className="relative bg-gray-900">
+        {/* Decorative image and overlay */}
+        <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
+          <img
+            src={previewArt}
+            alt=""
+            className="w-full h-full object-center object-cover"
+          />
+        </div>
+        <div aria-hidden="true" className="absolute inset-0 bg-gray-900 opacity-50" />
 
-      {/* For sectioned middle width card */}
+        <div className="relative max-w-3xl mx-auto py-32 px-6 flex flex-col items-center text-center sm:py-64 lg:px-0">
+          <h1 className="text-4xl font-extrabold tracking-tight text-white lg:text-6xl">New arrivals are here</h1>
+          <p className="mt-4 text-xl text-white">
+            The new arrivals have, well, newly arrived. Check out the latest options from our summer small-batch release
+            while they're still in stock.
+          </p>
+          <a
+            href="#"
+            className="mt-8 inline-block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100"
+          >
+            Shop New Arrivals
+          </a>
+        </div>
+      </div>
+
+      {/* For sectioned middle width banner
       <div className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-16 py-16">
         <div className="max-w-7xl mx-auto">{<LargeStoryCard />}</div>
-      </div>
+      </div> */}
+
+
 
       {/* Featured artworks */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <div className="py-24 lg:max-w-7xl lg:mx-auto sm:py-8 lg:py-24 lg:px-8">
-          <div className="px-4 flex items-center justify-between sm:px-6 lg:px-0">
-            <h2 id="trending-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
-              Featured Art Works
-            </h2>
-            <a href="#" className="hidden sm:block text-sm font-semibold text-sky-600 hover:text-indigo-500">
-              See more<span aria-hidden="true"> &rarr;</span>
-            </a>
-          </div>
-
-          <div className="mt-8 relative">
-            <div className="relative w-full overflow-x-auto">
-              <ul
-                role="list"
-                className="mx-4 inline-flex space-x-8 sm:mx-6 lg:mx-0 lg:space-x-0 lg:grid lg:grid-cols-4 lg:gap-x-8"
-              >
-                {/* Product */}
-                {trendingArtWorks.map((product) => (
-                  <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto">
-                    <SmallProductCard productProp={product} />
-                  </li>
-                ))}
-
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-12 px-4 sm:hidden">
-            <a href="#" className="text-sm font-semibold text-indigo-600 hover:text-indigo-500">
-              See everything<span aria-hidden="true"> &rarr;</span>
-            </a>
-          </div>
-        </div>
+        <ProductsRow productsList={trendingArtworks}/>
       </section>
 
       {/* Collections */}
@@ -128,6 +124,11 @@ function HomePage() {
         </div>
       </section>
 
+      {/* Newly added */}
+      <section aria-labelledby="trending-heading" className="bg-gray-200">
+        <ProductsRow productsList={trendingArtworks}/>
+      </section>
+      
 
     </div>
   );

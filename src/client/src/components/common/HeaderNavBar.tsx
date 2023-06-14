@@ -5,6 +5,7 @@ import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import profilePicture from '../../assets/sampleProfilePicture1.png'
 
+
 const user = {
   name: 'William Slicer',
   email: 'william@example.com',
