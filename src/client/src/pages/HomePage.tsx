@@ -3,75 +3,96 @@ import HeaderNavBar from '../components/common/HeaderNavBar'
 import LargeStoryCard from '../components/home/LargeStoryCard'
 import SmallProductCard from '../components/home/SmallProductCard'
 import CollectionCard from '../components/home/CollectionCard'
-import previewArt from '../assets/previewArt.jpg'
 import ProductsRow from '../components/home/ProductsRow'
 import Footer from '../components/common/Footer'
 
-const trendingArtworks = [
+import previewArt from '../assets/previewArt.jpg'
+import samplePanda from '../assets/panda.png'
+import sampleProductImage from '../assets/sampleProductImage.png'
+import sampleProductImage2 from '../assets/sampleProductImage2.jpg'
+import sampleLargeProductImage from '../assets/sampleLargeProductImage.jpg'
+import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
+
+
+const artworks = [
   {
     id: 1,
-    name: 'Machined Pen',
-    color: 'Black',
-    price: '$35',
+    name: 'Lost Girl',
+    artist: 'Jennie Li',
+    style: 'Oil on canvas',
+    price: '$500',
     href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-product-01.jpg',
-    imageAlt: 'Black machined steel pen with hexagonal grip and small white logo at top.',
-    availableColors: [
-      { name: 'Black', colorBg: '#111827' },
-      { name: 'Brass', colorBg: '#FDE68A' },
-      { name: 'Chrome', colorBg: '#E5E7EB' },
-    ],
+    imageSrc: sampleProductImage2,
+    imageAlt: 'LOST GIRL - JENNIE LI',
   },
   {
     id: 2,
-    name: 'Machined Pen',
-    color: 'Black',
-    price: '$35',
+    name: 'Dystopian Future',
+    artist: 'Markus Lawerence',
+    style: 'Digital',
+    price: '$3000',
     href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-product-01.jpg',
-    imageAlt: 'Black machined steel pen with hexagonal grip and small white logo at top.',
-    availableColors: [
-      { name: 'Black', colorBg: '#111827' },
-      { name: 'Brass', colorBg: '#FDE68A' },
-      { name: 'Chrome', colorBg: '#E5E7EB' },
-    ],
+    imageSrc: sampleLargeProductImage,
+    imageAlt: 'DYSTOPIAN FUTURE - MARKUS LAWERENCE',
+  },
+  {
+    id: 3,
+    name: 'Fox-Masked Boy',
+    artist: 'Natalie Hall',
+    style: 'Watercolor on paper',
+    price: '$50',
+    href: '#',
+    imageSrc: sampleProfilePicture1,
+    imageAlt: 'FOX MASKED BOY - NATALIE HALL',
+  },
+  {
+    id: 4,
+    name: 'Panda',
+    artist: 'Panda Man',
+    style: 'Sculpture',
+    price: '$900',
+    href: '#',
+    imageSrc: samplePanda,
+    imageAlt: 'PANDA - PANDA MAN',
   },
 ]
 
 const collections = [
   {
-    name: 'Desk and Office',
-    description: 'Work from home accessories',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg',
-    imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
+    name: 'Best Landscapes of 2023',
+    description: 'The very best.',
+    imageSrc: previewArt,
+    imageAlt: 'BEST LANDSCAPES OF 2023',
     href: '#',
   },
   {
-    name: 'Self-Improvement',
-    description: 'Journals and note-taking',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg',
-    imageAlt: 'Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.',
+    name: 'The Lonely Collection',
+    description: 'All things lonely and dark.',
+    imageSrc: sampleProductImage2,
+    imageAlt: 'LONELY COLLECTION',
     href: '#',
   },
   {
-    name: 'Travel',
-    description: 'Daily commute essentials',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg',
-    imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
+    name: 'Futuristic Collection',
+    description: '2070 is calling!',
+    imageSrc: sampleLargeProductImage,
+    imageAlt: 'FUTURE COLLECTION',
     href: '#',
   },
 ]
 
 function HomePage() {
   return (
+    
+    // Header Navigation Bar
     <div className="bg-darkestGrey h-screen" >
       <div className="">
         <HeaderNavBar />
       </div>
 
-      {/* For large hero banner */}
+
+      {/* Large hero banner */}
       <div className="relative bg-gray-900">
-        {/* Decorative image and overlay */}
         <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
           <img
             src={previewArt}
@@ -80,7 +101,6 @@ function HomePage() {
           />
         </div>
         <div aria-hidden="true" className="absolute inset-0 bg-gray-900 opacity-50" />
-
         <div className="relative max-w-3xl mx-auto py-32 px-6 flex flex-col items-center text-center sm:py-64 lg:px-0">
           <h1 className="text-4xl font-extrabold tracking-tight text-white lg:text-6xl">New arrivals are here</h1>
           <p className="mt-4 text-xl text-white">
@@ -96,6 +116,7 @@ function HomePage() {
         </div>
       </div>
 
+
       {/* For sectioned middle width banner
       <div className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-16 py-16">
         <div className="max-w-7xl mx-auto">{<LargeStoryCard />}</div>
@@ -104,7 +125,7 @@ function HomePage() {
 
       {/* Featured artworks */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Featured artworks" productsList={trendingArtworks} />
+        <ProductsRow categoryTitle="Featured artworks" productsList={artworks} />
       </section>
 
       {/* Collections */}
@@ -127,7 +148,7 @@ function HomePage() {
 
       {/* Newly added */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Newly Added Products" productsList={trendingArtworks} />
+        <ProductsRow categoryTitle="Newly Added Products" productsList={artworks} />
       </section>
 
 
@@ -143,7 +164,7 @@ function HomePage() {
 
       {/* Thematic products */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Thematic Products" productsList={trendingArtworks} />
+        <ProductsRow categoryTitle="Thematic Products" productsList={artworks} />
       </section>
 
       {/* Footer */}

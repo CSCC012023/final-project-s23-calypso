@@ -11,13 +11,13 @@ export default function CollectionCard(props: any) {
                     className="w-full h-full object-center object-cover"
                 />
             </div>
-            <h3 className="mt-6 text-sm text-white font-bold">
+            <h3 className="mt-6 text-lg text-white font-bold">
                 <a href={collectionProp.href}>
                     <span className="absolute inset-0" />
                     {collectionProp.name}
                 </a>
             </h3>
-            <p className="text-base font-semibold text-blue-300">{collectionProp.description}</p>
+            <p className="text-sm font-semibold text-blue-300">{collectionProp.description}</p>
         </div>
     );
 };   

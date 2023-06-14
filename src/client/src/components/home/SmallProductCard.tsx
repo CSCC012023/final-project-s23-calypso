@@ -14,14 +14,15 @@ export default function SmallProductCard(props:any){
             </div>
 
             {/* Description and Pricing */}
-            <div className="mt-6">
-                <p className="text-sm text-gray-500">{productProp.color}</p>
-                <h3 className="mt-1 font-semibold text-gray-900">
+            <div className="mt-4 text-left">
+                <h3 className="mt-1 font-semibold text-black text-lg">
                     <a href={productProp.href}>
                         <span className="absolute inset-0" />
                         {productProp.name}
                     </a>
                 </h3>
+                <p className="text-base text-gray-600">{productProp.artist}</p>
+                <p className="text-sm text-gray-600 italic">{productProp.style}</p>
                 <p className="mt-1 text-gray-900">{productProp.price}</p>
             </div>
         </div>
