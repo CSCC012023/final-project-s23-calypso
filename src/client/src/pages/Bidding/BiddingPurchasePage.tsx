@@ -1,17 +1,17 @@
 import React from 'react'
-import Menu from '../../components/Menu'
+import Menu from '../components/Menu'
 
 type Props = {}
 
 function BiddingPage({}: Props) {
 
   const previewArtPanel = {
-    img: require("../../assets/previewArt.jpg"),
+    img: require("../assets/previewArt.jpg"),
     name: 'Preview Art',
   }
 
   const creatorPanel = {
-    img: require("../../assets/sampleProfilePicture1.png"),
+    img: require("../assets/sampleProfilePicture1.png"),
   }
 
   const descriptionPanel = {
@@ -21,12 +21,12 @@ function BiddingPage({}: Props) {
   
 
   return (
-    <div className="flex bg-darkestGrey text-white overflow-clip">
+    <div className="flex bg-darkestGrey text-white h-screen overflow-clip">
       <Menu />
+      <div className="bg-darkestGrey text-white h-screen w-full px-10 mx-auto py-10 space-y-5 overflow-scroll">
       <div>
-        <button className="bg-darkGrey text-white text-center ml-8 mt-8 font rounded-lg text-2xl p-5 space-y-5">{"<"}</button>
+        <button className="bg-darkGrey text-white text-center font rounded-lg text-2xl px-5 py-3 space-y-5">{"<"}</button>
       </div>
-      <div className="bg-darkestGrey text-white h-screen w-3/4 mx-auto my-20 space-y-5">
         <h1 className="text-4xl font-semibold">Art Name</h1>
         <div className="flex items-center">
           <img className="h-1/12 w-1/12 rounded-full" src={creatorPanel.img}/>
@@ -39,10 +39,10 @@ function BiddingPage({}: Props) {
           <p className="text-xl font-semibold">{descriptionPanel.price}</p>
         </div>
         <div className="rounded-lg p-5 space-y-5">
-          <div className="flex justify-between space-x-16 ml-20 mr-40">
-            <button className="bg-white text-black text-center rounded-sm p-5 space-y-5">Purchase for myself</button>
+          <p className="text-xl font-semibold"> Bid Amount</p>
+          <div className="flex justify-between">
+            <input className="text-black rounded-lg p-5 space-y-5" type="text" placeholder="Enter Bid Amount" pattern="[0-9]+"/>
             <button className="bg-white text-black text-center rounded-sm p-5 space-y-5">Place Bid</button>
-            <button className="bg-white text-black text-center rounded-sm p-5 space-y-5">Purchase as a gift</button>
           </div>
         </div>
       </div>
