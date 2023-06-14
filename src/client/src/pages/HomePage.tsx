@@ -5,6 +5,7 @@ import SmallProductCard from '../components/home/SmallProductCard'
 import CollectionCard from '../components/home/CollectionCard'
 import previewArt from '../assets/previewArt.jpg'
 import ProductsRow from '../components/home/ProductsRow'
+import Footer from '../components/common/Footer'
 
 const trendingArtworks = [
   {
@@ -39,25 +40,25 @@ const trendingArtworks = [
 
 const collections = [
   {
-      name: 'Desk and Office',
-      description: 'Work from home accessories',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg',
-      imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
-      href: '#',
+    name: 'Desk and Office',
+    description: 'Work from home accessories',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg',
+    imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
+    href: '#',
   },
   {
-      name: 'Self-Improvement',
-      description: 'Journals and note-taking',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg',
-      imageAlt: 'Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.',
-      href: '#',
+    name: 'Self-Improvement',
+    description: 'Journals and note-taking',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg',
+    imageAlt: 'Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.',
+    href: '#',
   },
   {
-      name: 'Travel',
-      description: 'Daily commute essentials',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg',
-      imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
-      href: '#',
+    name: 'Travel',
+    description: 'Daily commute essentials',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg',
+    imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
+    href: '#',
   },
 ]
 
@@ -101,16 +102,15 @@ function HomePage() {
       </div> */}
 
 
-
       {/* Featured artworks */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow productsList={trendingArtworks}/>
+        <ProductsRow categoryTitle="Featured artworks" productsList={trendingArtworks} />
       </section>
 
       {/* Collections */}
       <section aria-labelledby="collections-heading" className="bg-darkGrey">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto py-24 sm:py-16 lg:py-24 lg:max-w-none">
+          <div className="max-w-2xl mx-auto py-32 sm:py-24 lg:py-32 lg:max-w-none">
             <h2 id="collections-heading" className="text-2xl font-extrabold text-white">
               Collections
             </h2>
@@ -124,11 +124,26 @@ function HomePage() {
         </div>
       </section>
 
+
       {/* Newly added */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow productsList={trendingArtworks}/>
+        <ProductsRow categoryTitle="Newly Added Products" productsList={trendingArtworks} />
       </section>
-      
+
+
+      {/* Featured artists carousel */}          
+      <div className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-16 py-32 bg-menu">
+        <div className="max-w-7xl mx-auto">{<LargeStoryCard />}</div>
+      </div>
+
+
+      {/* Thematic products */}
+      <section aria-labelledby="trending-heading" className="bg-gray-200">
+        <ProductsRow categoryTitle="Thematic Products" productsList={trendingArtworks} />
+      </section>
+
+      {/* Footer */}
+      <Footer />
 
     </div>
   );

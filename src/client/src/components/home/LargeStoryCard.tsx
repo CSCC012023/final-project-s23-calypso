@@ -4,7 +4,7 @@ import previewArt from '../../assets/previewArt.jpg'
 
 export default function LargeStoryCard() {
   return (
-    <div className="relative bg-gray-800">
+    <div className="relative bg-gray-600">
       <div className="h-56 bg-indigo-600 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
         <img
           className="w-full h-full object-cover"

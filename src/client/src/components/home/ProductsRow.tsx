@@ -4,11 +4,12 @@ import SmallProductCard from "./SmallProductCard";
 
 export default function ProductsRow(props: any) {
     const productsProp = props.productsList;
+    const categoryTitle = props.categoryTitle;
     return (
         <div className="py-24 lg:max-w-7xl lg:mx-auto sm:py-8 lg:py-24 lg:px-8">
             <div className="px-4 flex items-center justify-between sm:px-6 lg:px-0">
                 <h2 id="trending-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
-                    Newly Added Products
+                    {categoryTitle}
                 </h2>
                 <a href="#" className="hidden sm:block text-sm font-semibold text-sky-600 hover:text-sky-500">
                     See more<span aria-hidden="true"> &rarr;</span>
