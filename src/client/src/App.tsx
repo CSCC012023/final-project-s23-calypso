@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import './App.css';
 import HomePage from './pages/HomePage';
-import BiddingPage from './pages/BiddingPage';
+import BiddingPage from './pages//Bidding/BiddingPage';
 import DiscoverPage from './pages/DiscoverPage';
 import LandingPage from './pages/LandingPage';
 import ProfilePage from './pages/ProfilePage';
