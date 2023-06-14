@@ -21,12 +21,12 @@ function BiddingPage({}: Props) {
   
 
   return (
-    <div className="flex bg-darkestGrey text-white overflow-clip">
+    <div className="flex bg-darkestGrey text-white h-screen overflow-clip">
       <Menu />
+      <div className="bg-darkestGrey text-white h-screen w-full px-10 mx-auto py-10 space-y-5 overflow-scroll">
       <div>
-        <button className="bg-darkGrey text-white text-center ml-8 mt-8 font rounded-lg text-2xl p-5 space-y-5">{"<"}</button>
+        <button className="bg-darkGrey text-white text-center font rounded-lg text-2xl px-5 py-3 space-y-5">{"<"}</button>
       </div>
-      <div className="bg-darkestGrey text-white h-screen w-3/4 mx-auto my-20 space-y-5">
         <h1 className="text-4xl font-semibold">Art Name</h1>
         <div className="flex items-center">
           <img className="h-1/12 w-1/12 rounded-full" src={creatorPanel.img}/>
