@@ -38,7 +38,7 @@ function UserCard({name, description, profilePic, banner, handleEditClick}: User
         </div>
       </div>
       <div className="flex flex-col justify-end p-8 z-10">
-        <button className="w-40 h-12 rounded-3xl border-2 border-gray-300 hover:border-white bg-violet-600 hover:bg-violet-700 active:bg-violet-800 text-lg font-mono text-gray-300 hover:font-semibold hover:text-white focus:outline-none focus:ring focus:ring-violet-300 transition-all duration-300" onClick={handleEditClick}>
+        <button className="w-40 h-12 rounded-3xl border-2 border-gray-300 hover:border-white bg-violet-600 hover:bg-violet-700 active:bg-violet-800 text-lg font-mono text-gray-300 hover:font-semibold hover:text-white focus:outline-none focus:ring focus:ring-violet-300" onClick={handleEditClick}>
           Edit Profile
         </button> 
       </div>
@@ -63,6 +63,8 @@ function ProductCard({image, title, price}: ProductCardProps) {
 function EditProfilePopup({name, description, handleApplyClick, handleCancelClick}: EditProfilePopupProps) {
   const [nameError, setNameError] = useState("");
   const [desError, setDesError] = useState("");
+  const [picError, setPicError] = useState("");
+  const [bannerError, setBannerError] = useState("");
   const inputName = useRef(null);
   const inputDes = useRef(null);
   const inputProfilePic = useRef(null);
@@ -88,6 +90,19 @@ function EditProfilePopup({name, description, handleApplyClick, handleCancelClic
     }
   }
 
+  function checkUrlValidity(e: React.ChangeEvent<HTMLInputElement>, setState: React.Dispatch<any>) {
+    const url = e.target.value;
+
+    if (url.length == 0) {
+      setPicError("");
+    } else {
+      const img = new Image();
+      img.src = url;
+      img.onerror = () => setState("Please enter a valid image URL");
+      img.onload = () => setState("");
+    }
+  }
+
   function doNothing() {
 
   }
@@ -97,7 +112,7 @@ function EditProfilePopup({name, description, handleApplyClick, handleCancelClic
       <div className="bg-white shadow-lg flex flex-col items-center rounded-3xl flex-shrink-0 flex-grow-0">
         <div className="flex flex-row justify-between items-center p-4 w-full">
           <label className="font-mono font-semibold text-xl text-black">Edit Profile</label>
-          <button className="h-8 w-8 rounded-full p-1 bg-gray-300 hover:bg-gray-400 transition-colors duration-300" onClick={handleCancelClick}>
+          <button className="h-8 w-8 rounded-full p-1 bg-gray-300 hover:bg-gray-400" onClick={handleCancelClick}>
             <XIcon color="#314555"/>
           </button>
         </div>
@@ -106,29 +121,35 @@ function EditProfilePopup({name, description, handleApplyClick, handleCancelClic
           <div className="flex flex-col justify-center items-end">
             <div className="space-x-5">
               <label className="text-black text-lg font-mono">Name:</label>
-              <input className="bg-grey-50 border border-grey-300 text-black rounded-lg p-1" ref={inputName} defaultValue={name} onChange={e => checkNameValidity(e)}/>
+              <input className="bg-grey-50 border border-grey-300 text-black rounded-lg p-1" ref={inputName} defaultValue={name} onBlur={e => checkNameValidity(e)} onChange={e => setNameError("")}/>
             </div>
             {nameError != "" ? (<p className="font-mono text-black">{nameError}</p>): null}
           </div>
           <div className="flex flex-col justify-center items-end">
             <div className="space-x-5">
               <label className="text-black text-lg font-mono">Description:</label>
-              <input className="bg-grey-50 border border-grey-300 text-black rounded-lg p-1" ref={inputDes} defaultValue={description} onChange={e => checkDescValidity(e)}/>
+              <input className="bg-grey-50 border border-grey-300 text-black rounded-lg p-1" ref={inputDes} defaultValue={description} onBlur={e => checkDescValidity(e)} onChange={e => setDesError("")}/>
             </div>
             {desError != "" ? (<p className="font-mono text-black">{desError}</p>): null}
           </div>
-          <div className="space-x-5">
-            <label className="text-black text-lg font-mono">Profile Pic:</label>
-            <input className="bg-grey-50 border border-grey-300 text-black rounded-lg p-1" ref={inputProfilePic} placeholder="URL"/>
+          <div className="flex flex-col justify-center items-end">
+            <div className="space-x-5">
+              <label className="text-black text-lg font-mono">Profile Pic:</label>
+              <input className="bg-grey-50 border border-grey-300 text-black rounded-lg p-1" type="url" ref={inputProfilePic} placeholder="URL" onBlur={e => checkUrlValidity(e, setPicError)} onChange={e => setPicError("")}/>
+            </div>
+            {picError != ""? (<p className="font-mono text-black">{picError}</p>) : null}
           </div>
-          <div className="space-x-5">
-            <label className="text-black text-lg font-mono">Banner:</label>
-            <input className="bg-grey-50 border border-grey-300 text-black rounded-lg p-1" ref={inputBanner} placeholder="URL"/>
+          <div className="flex flex-col justify-center items-end">
+            <div className="space-x-5">
+              <label className="text-black text-lg font-mono">Banner:</label>
+              <input className="bg-grey-50 border border-grey-300 text-black rounded-lg p-1" type="url" ref={inputBanner} placeholder="URL" onBlur={e => checkUrlValidity(e, setBannerError)} onChange={e => setBannerError("")}/>
+            </div>
+            {bannerError != ""? (<p className="font-mono text-black">{bannerError}</p>) : null}
           </div>
         </div>
         <div className="flex flex-row justify-center space-x-5 w-full pb-8 px-8 pt-2">
-          <button className="w-full h-14 border-2 border-black rounded-3xl text-black hover:bg-gray-300 active:bg-gray-400 transition-colors duration-300"
-            onClick={(nameError == "" && desError == "") ? (() => handleApplyClick(inputName, inputDes, inputProfilePic, inputBanner)): doNothing}>
+          <button className="w-full h-14 border-2 border-black rounded-3xl text-black hover:bg-gray-300 active:bg-gray-400"
+            onClick={(nameError == "" && desError == "" && picError == "" && bannerError == "") ? (() => handleApplyClick(inputName, inputDes, inputProfilePic, inputBanner)): doNothing}>
             <label className="text-lg font-mono font-semibold">Apply Changes</label>
           </button>
         </div>
@@ -140,8 +161,8 @@ function EditProfilePopup({name, description, handleApplyClick, handleCancelClic
 
 function ProfilePage({}: Props) {
   const user1 = {
-    name: "Tasif Hussain",   // need to limit this to 30 characters
-    description: "Description", // also need to limit to some number of chars
+    name: "Tasif Hussain",   // need to limit this to 25 characters
+    description: "Description", // need to limit this to 300 characters
     profilePic: require('../assets/panda.png'),
     banner: require('../assets/sampleUserBanner.jpg')
   }
@@ -174,32 +195,17 @@ function ProfilePage({}: Props) {
   const [editIsOpen, setEditIsOpen] = useState(false);
 
   function handleApplyClick(inputName: React.MutableRefObject<any>, inputDes: React.MutableRefObject<any>, inputProfilePic: React.MutableRefObject<any>, inputBanner: React.MutableRefObject<any>) {
-    let name = inputName.current.value;
-    let des = inputDes.current.value;
-    let pic = inputProfilePic.current.value;
-    let banner = inputBanner.current.value;
+    const name = inputName.current.value;
+    const des = inputDes.current.value;
+    const pic = inputProfilePic.current.value;
+    const banner = inputBanner.current.value;
   
-    setUser(prevUser => {    
-      const isValidUrl = (urlString: string) => {
-        var inputElement = document.createElement('input');
-        inputElement.type = 'url';
-        inputElement.value = urlString;
-  
-        return(inputElement.checkValidity());
-      };
-
-      if (!isValidUrl(pic) || pic.length == 0) {
-        pic = prevUser.profilePic;
-      }
-      if (!isValidUrl(banner) || banner.length == 0) {
-        banner = prevUser.banner;
-      }
-
+    setUser(prevUser => {  
       const user = {
         name: name,
         description: des,
-        profilePic: pic,
-        banner: banner
+        profilePic: (pic.length == 0) ? (prevUser.profilePic) : (pic),
+        banner: (banner.length == 0) ? (prevUser.banner) : (banner)
       };
 
       return user;
