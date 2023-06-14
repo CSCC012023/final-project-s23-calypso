@@ -6,9 +6,11 @@ const navigation = {
       { name: 'About Us', href: '#' },
       { name: 'FAQ', href: '#' },
       { name: 'Community', href: '#' },
-      { name: 'Landing', href: '#' },
-      { name: 'Auction House', href: '#' },
+      { name: 'Landing', href: 'landing' },
+      { name: 'Auction House', href: 'bidding' },
       { name: 'Contact Us', href: '#' },
+      { name: 'Login (temporary)', href: 'login' },
+      { name: 'Register (temporary)', href: 'register' },
     ],
     social: [
       {
@@ -48,7 +50,7 @@ const navigation = {
       },
       {
         name: 'GitHub',
-        href: '#',
+        href: 'https://github.com/CSCC012023/final-project-s23-calypso',
         icon: (props:any) => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
             <path
@@ -69,7 +71,7 @@ const navigation = {
           <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
             {navigation.main.map((item) => (
               <div key={item.name} className="px-5 py-2">
-                <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
+                <a href={item.href} className="text-base text-gray-500 hover:text-gray-200">
                   {item.name}
                 </a>
               </div>

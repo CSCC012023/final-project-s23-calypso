@@ -21,7 +21,7 @@ const artworks = [
     artist: 'Jennie Li',
     style: 'Oil on canvas',
     price: '$500',
-    href: '#',
+    href: 'product',
     imageSrc: sampleProductImage2,
     imageAlt: 'LOST GIRL - JENNIE LI',
   },
@@ -59,25 +59,25 @@ const artworks = [
 
 const collections = [
   {
-    name: 'Best Landscapes of 2023',
+    name: 'Best Sceneries of 2023',
     description: 'The very best.',
     imageSrc: previewArt,
-    imageAlt: 'BEST LANDSCAPES OF 2023',
-    href: '#',
+    imageAlt: 'BEST SCENERIES OF 2023',
+    href: 'scenery',
   },
   {
-    name: 'The Lonely Collection',
+    name: 'The Lonely Classical Collection',
     description: 'All things lonely and dark.',
     imageSrc: sampleProductImage2,
     imageAlt: 'LONELY COLLECTION',
-    href: '#',
+    href: 'classical',
   },
   {
-    name: 'Futuristic Collection',
+    name: 'Futuristic Digital Collection',
     description: '2070 is calling!',
     imageSrc: sampleLargeProductImage,
     imageAlt: 'FUTURE COLLECTION',
-    href: '#',
+    href: 'digital',
   },
 ]
 
@@ -108,7 +108,7 @@ function HomePage() {
             while they're still in stock.
           </p>
           <a
-            href="#"
+            href="new"
             className="mt-8 inline-block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100"
           >
             Shop New Arrivals
@@ -158,7 +158,9 @@ function HomePage() {
         smallTitleText="Spotlighted Seller" 
         titleText="Buy Austin Bartolome’s newly released music" 
         bodyText="Find out why Austin is becoming one of the fastest growing sellers on Calypso.  Buy his new music now!"
-        buttonText="Discover Now"/>}</div>
+        buttonText="Discover Now"
+        href="trending"/>}
+        </div>
       </div>
 
 

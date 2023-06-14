@@ -18,10 +18,10 @@ const navigation = [
   { name: 'Auctions', href: '#', current: false },
   { name: 'Cinematography', href: '#', current: false },
   { name: 'Top Sellers', href: '#', current: false },
-  { name: 'Recommended for You', href: '#', current: false },
+  { name: 'Recommended for You', href: 'deals', current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
+  { name: 'Your Profile', href: 'profile' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
