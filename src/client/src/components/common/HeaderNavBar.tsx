@@ -5,9 +5,10 @@ import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import profilePicture from '../../assets/sampleProfilePicture1.png'
 
+
 const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
+  name: 'William Slicer',
+  email: 'william@example.com',
   imageUrl: profilePicture,
 }
 const navigation = [
@@ -17,10 +18,10 @@ const navigation = [
   { name: 'Auctions', href: '#', current: false },
   { name: 'Cinematography', href: '#', current: false },
   { name: 'Top Sellers', href: '#', current: false },
-  { name: 'Recommended for You', href: '#', current: false },
+  { name: 'Recommended for You', href: 'deals', current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
+  { name: 'Your Profile', href: 'profile' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
@@ -29,7 +30,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ExampleNavBar() {
+export default function HeaderNavBar() {
   return (
     <Disclosure as="header" className="bg-menu">
       {({ open }) => (
