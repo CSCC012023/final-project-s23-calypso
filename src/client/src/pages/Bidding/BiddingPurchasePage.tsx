@@ -6,12 +6,12 @@ type Props = {}
 function BiddingPage({}: Props) {
 
   const previewArtPanel = {
-    img: require("../assets/previewArt.jpg"),
+    img: require("../../assets/previewArt.jpg"),
     name: 'Preview Art',
   }
 
   const creatorPanel = {
-    img: require("../assets/sampleProfilePicture1.png"),
+    img: require("../../assets/sampleProfilePicture1.png"),
   }
 
   const descriptionPanel = {
