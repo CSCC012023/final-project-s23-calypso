@@ -1,5 +1,6 @@
 import React from 'react'
 import HeaderNavBar from '../components/common/HeaderNavBar'
+import LargeHeroBanner from '../components/home/LargeHeroBanner'
 import LargeStoryCard from '../components/home/LargeStoryCard'
 import SmallProductCard from '../components/home/SmallProductCard'
 import CollectionCard from '../components/home/CollectionCard'
@@ -83,7 +84,7 @@ const collections = [
 
 function HomePage() {
   return (
-    
+
     // Header Navigation Bar
     <div className="bg-darkestGrey h-screen" >
       <div className="">
@@ -92,28 +93,14 @@ function HomePage() {
 
 
       {/* Large hero banner */}
-      <div className="relative bg-gray-900">
-        <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-          <img
-            src={previewArt}
-            alt=""
-            className="w-full h-full object-center object-cover"
-          />
-        </div>
-        <div aria-hidden="true" className="absolute inset-0 bg-gray-900 opacity-50" />
-        <div className="relative max-w-3xl mx-auto py-32 px-6 flex flex-col items-center text-center sm:py-64 lg:px-0">
-          <h1 className="text-4xl font-extrabold tracking-tight text-white lg:text-6xl">New arrivals are here</h1>
-          <p className="mt-4 text-xl text-white">
-            New music, new artworks, new artists, new everything.  Check out the new arrivals on Calypso now!
-          </p>
-          <a
-            href="new"
-            className="mt-8 inline-block bg-white border border-transparent rounded-md py-3 px-8 text-lg font-medium text-gray-900 hover:bg-gray-200"
-          >
-            Shop New Arrivals
-          </a>
-        </div>
-      </div>
+      <LargeHeroBanner
+        titleText='New arrivals are here'
+        bodyText='New music, new artworks, new artists, new everything.  Check out the new arrivals on Calypso now!'
+        buttonText='Shop New Arrivals'
+        imageSrc={previewArt}
+        imageAlt='NEW_ARRIVALS1'
+        href='new' 
+      />
 
 
       {/* For sectioned middle width banner
@@ -153,12 +140,12 @@ function HomePage() {
 
       {/* Featured artists carousel */}
       <div className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-16 py-32 bg-menu">
-        <div className="max-w-7xl mx-auto">{<LargeStoryCard 
-        smallTitleText="Spotlighted Seller" 
-        titleText="Buy Austin Bartolome’s newly released music" 
-        bodyText="Find out why Austin is becoming one of the fastest growing sellers on Calypso.  Buy his new music now!"
-        buttonText="Discover Now"
-        href="discover/trending"/>}
+        <div className="max-w-7xl mx-auto">{<LargeStoryCard
+          smallTitleText="Spotlighted Seller"
+          titleText="Buy Austin Bartolome’s newly released music"
+          bodyText="Find out why Austin is becoming one of the fastest growing sellers on Calypso.  Buy his new music now!"
+          buttonText="Discover Now"
+          href="discover/trending" />}
         </div>
       </div>
 

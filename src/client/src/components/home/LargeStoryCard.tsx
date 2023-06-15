@@ -10,7 +10,7 @@ interface Props{
   href: string,
 }
 
-export default function LargeStoryCard( {titleText, bodyText, buttonText, smallTitleText, href}: Props) {
+export default function LargeStoryCard( {titleText, bodyText, buttonText, smallTitleText, href}: Props ) {
   return (
     <div className="relative bg-white rounded-md">
       <div className="h-56 bg-gray-600 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">

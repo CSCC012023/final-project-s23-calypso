@@ -11,7 +11,7 @@ interface Props {
     }
 }
 
-export default function CollectionCard( {collectionProp}:Props ) {
+export default function CollectionCard( {collectionProp}: Props ) {
     return (
         <div key={collectionProp.name} className="group relative">
             <div className="relative w-full h-80 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
