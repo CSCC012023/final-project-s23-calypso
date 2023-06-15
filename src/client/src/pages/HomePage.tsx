@@ -63,21 +63,21 @@ const collections = [
     description: 'The very best.',
     imageSrc: previewArt,
     imageAlt: 'BEST SCENERIES OF 2023',
-    href: 'scenery',
+    href: 'discover/scenery',
   },
   {
     name: 'The Lonely Classical Collection',
     description: 'All things lonely and dark.',
     imageSrc: sampleProductImage2,
     imageAlt: 'LONELY COLLECTION',
-    href: 'classical',
+    href: 'discover/classical',
   },
   {
     name: 'Futuristic Digital Collection',
     description: '2070 is calling!',
     imageSrc: sampleLargeProductImage,
     imageAlt: 'FUTURE COLLECTION',
-    href: 'digital',
+    href: 'discover/digital',
   },
 ]
 
@@ -158,7 +158,7 @@ function HomePage() {
         titleText="Buy Austin Bartolome’s newly released music" 
         bodyText="Find out why Austin is becoming one of the fastest growing sellers on Calypso.  Buy his new music now!"
         buttonText="Discover Now"
-        href="trending"/>}
+        href="discover/trending"/>}
         </div>
       </div>
 
