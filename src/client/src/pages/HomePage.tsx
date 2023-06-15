@@ -12,6 +12,7 @@ import samplePanda from '../assets/panda.png'
 import sampleProductImage from '../assets/sampleProductImage.png'
 import sampleProductImage2 from '../assets/sampleProductImage2.jpg'
 import sampleLargeProductImage from '../assets/sampleLargeProductImage.jpg'
+import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 
 
@@ -82,6 +83,13 @@ const collections = [
   },
 ]
 
+const heroSlideshow = [
+  previewArt,
+  sampleLargeProductImage,
+  sampleLargeProductImage2
+]
+
+
 function HomePage() {
   return (
 
@@ -97,9 +105,9 @@ function HomePage() {
         titleText='New arrivals are here'
         bodyText='New music, new artworks, new artists, new everything.  Check out the new arrivals on Calypso now!'
         buttonText='Shop New Arrivals'
-        imageSrc={previewArt}
+        images={heroSlideshow}
         imageAlt='NEW_ARRIVALS1'
-        href='new' 
+        href='new'
       />
 
 
