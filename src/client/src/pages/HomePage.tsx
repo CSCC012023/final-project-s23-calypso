@@ -104,7 +104,7 @@ function HomePage() {
         <div className="relative max-w-3xl mx-auto py-32 px-6 flex flex-col items-center text-center sm:py-64 lg:px-0">
           <h1 className="text-4xl font-extrabold tracking-tight text-white lg:text-6xl">New arrivals are here</h1>
           <p className="mt-4 text-xl text-white">
-            New music, new artworks, new artist, new everything.  Check out the new arrivals on Calypso now!
+            New music, new artworks, new artists, new everything.  Check out the new arrivals on Calypso now!
           </p>
           <a
             href="new"
