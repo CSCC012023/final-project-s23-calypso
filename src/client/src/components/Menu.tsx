@@ -36,7 +36,7 @@ export default function Menu() {
                 Discovery
               </div>
             </a>
-            <a>
+            <a href="/bidding">
               <div className="flex p-5 py-3 hover:bg-menuSelected hover:text-white hover:font-semibold">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

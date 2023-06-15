@@ -41,7 +41,7 @@ function BiddingPage({}: Props) {
         <div className="rounded-lg p-5 space-y-5">
           <div className="flex justify-between space-x-16 ml-20 mr-40">
             <button className="bg-white text-black text-center rounded-sm p-5 space-y-5">Purchase for myself</button>
-            <button className="bg-white text-black text-center rounded-sm p-5 space-y-5">Place Bid</button>
+            <a href="/bidding/purchase" className="bg-white text-black text-center rounded-sm p-5 space-y-5">Place Bid</a>
             <button className="bg-white text-black text-center rounded-sm p-5 space-y-5">Purchase as a gift</button>
           </div>
         </div>
