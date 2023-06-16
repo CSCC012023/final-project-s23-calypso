@@ -1,7 +1,19 @@
 import React from "react";
 
-export default function SmallProductCard(props:any){
-    const productProp = props.productProp;
+interface Props {
+    productProp: {
+        id: number,
+        name: string,
+        artist: string,
+        style: string,
+        price: string,
+        href: string,
+        imageSrc: string,
+        imageAlt: string,
+    }
+}
+
+export default function SmallProductCard( { productProp }: Props ){
     return (
         <div className="group relative">
             {/* Product Image */}

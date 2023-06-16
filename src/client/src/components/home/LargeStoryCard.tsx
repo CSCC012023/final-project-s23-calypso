@@ -1,11 +1,16 @@
 import React from 'react'
 import previewArt from '../../assets/previewArt.jpg'
 
-export default function LargeStoryCard(props: any) {
-  const titleText = props.titleText;
-  const bodyText = props.bodyText;
-  const buttonText = props.buttonText;
-  const smallTitleText = props.smallTitleText;
+
+interface Props{
+  titleText: string,
+  bodyText: string,
+  buttonText: string,
+  smallTitleText: string,
+  href: string,
+}
+
+export default function LargeStoryCard( {titleText, bodyText, buttonText, smallTitleText, href}: Props ) {
   return (
     <div className="relative bg-white rounded-md">
       <div className="h-56 bg-gray-600 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
@@ -25,7 +30,7 @@ export default function LargeStoryCard(props: any) {
           <div className="mt-8">
             <div className="inline-flex rounded-md shadow">
               <a
-                href="#"
+                href={href}
                 className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-black hover:bg-gray-700"
               >
                 {buttonText}

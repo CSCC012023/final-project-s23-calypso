@@ -2,9 +2,12 @@ import React from "react";
 import SmallProductCard from "./SmallProductCard";
 
 
-export default function ProductsRow(props: any) {
-    const productsProp = props.productsList;
-    const categoryTitle = props.categoryTitle;
+interface Props {
+    categoryTitle: string,
+    productsList: any,
+}
+
+export default function ProductsRow( {productsList, categoryTitle}: Props ) {
     return (
         <div className="py-24 lg:max-w-7xl lg:mx-auto sm:py-8 lg:py-24 lg:px-8">
             <div className="px-4 flex items-center justify-between sm:px-6 lg:px-0">
@@ -23,7 +26,7 @@ export default function ProductsRow(props: any) {
                         className="mx-4 inline-flex space-x-8 sm:mx-6 lg:mx-0 lg:space-x-0 lg:grid lg:grid-cols-4 lg:gap-x-8"
                     >
                         {/* Product */}
-                        {productsProp.map((product:any) => (
+                        {productsList.map((product:any) => (
                             <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto">
                                 <SmallProductCard productProp={product} />
                             </li>
