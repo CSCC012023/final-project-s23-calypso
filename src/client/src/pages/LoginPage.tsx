@@ -16,16 +16,19 @@ function LoginPage() {
         </div>
 
         <div className='flex flex-col items-center justify-center px-6 py-8  md:h-screen lg:py-0'>
-          <img className="h-20" src={logo.img} />
+          <a href='/landing'>
+            <img className="h-20" src={logo.img} />
+          </a>
+
           <form className='text-white w-full max-w-[500px] rounded-xl mx-auto p-8 px-8 space-y-5'>
             <div className='space-y-4'>
               <div>
                 <label className="block mb-2 text-2xl font-medium text-white ">Email</label>
-                <input type="email" name="email" id="email" className="bg-black border-black text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full h-[3rem] p-2.5 " placeholder="name@email.com"/>
+                <input type="email" name="email" id="email" className="bg-black border-black text-white text-lg sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full h-[3rem] p-2.5 " placeholder="name@email.com"/>
               </div>
               <div>
                 <label className="block mb-2 text-2xl font-medium text-white">Password</label>
-                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-black border border-black text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full h-[3rem] p-2.5"/>
+                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-black border border-black text-white text-lg sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full h-[3rem] p-2.5"/>
               </div>
               
               <div className="space-y-3 md:space-y-6">
@@ -33,8 +36,14 @@ function LoginPage() {
               </div>
             </div>
 
-            <div>
-              <a type="submit" href="/" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center">Sign in</a>
+            <div className='flex flex-col items-center justify-center space-y-4'>
+              {/* <a type="submit" href="/" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center">Sign in</a> */}
+              <form action="http://localhost:3000/" method="get">
+                <button className="text-black bg-[#ffffff] hover:bg-[#7f7f7f] focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-bold px-20 py-2.5 text-center mb-2 ">
+                  Sign In
+                </button>
+              </form>
+
               <div className="flex justify-center items-center space-x-1 font-light text-gray-500">
                 <p className='text-base'>
                   Don't have an account yet? 
