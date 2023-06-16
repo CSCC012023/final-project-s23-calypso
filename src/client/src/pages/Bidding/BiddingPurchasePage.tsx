@@ -25,7 +25,7 @@ function BiddingPage({}: Props) {
       <Menu />
       <div className="bg-darkestGrey text-white h-screen w-full px-10 mx-auto py-10 space-y-5 overflow-scroll">
       <div>
-        <button className="bg-darkGrey text-white text-center font rounded-lg text-2xl px-5 py-3 space-y-5">{"<"}</button>
+        <a href="/bidding" className="bg-darkGrey text-white text-center font rounded-lg text-2xl px-5 py-3 space-y-5">{"<"}</a>
       </div>
         <h1 className="text-4xl font-semibold">Art Name</h1>
         <div className="flex items-center">
