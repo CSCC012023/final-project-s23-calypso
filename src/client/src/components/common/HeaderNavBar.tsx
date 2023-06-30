@@ -18,7 +18,7 @@ const navigation = [
   { name: 'Auctions', href: '#', current: false },
   { name: 'Cinematography', href: '#', current: false },
   { name: 'Top Sellers', href: '#', current: false },
-  { name: 'Recommended for You', href: 'deals', current: false },
+  { name: 'Recommended for You', href: 'discover/deals', current: false },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: 'profile' },
