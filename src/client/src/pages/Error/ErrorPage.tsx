@@ -13,7 +13,7 @@ function ErrorPage() {
   return (
     <div className="relative">
         {/* Will keep this here for now, and can replace later on */}
-        <HeaderNavBar /> 
+        {/* <HeaderNavBar />  */}
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-700">
             <div className="flex flex-col items-center justify-center">
                 <h1 className="text-4xl font-bold tracking-tight text-white lg:text-6xl text-center">404 Error</h1>
