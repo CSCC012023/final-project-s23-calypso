@@ -1,11 +1,12 @@
 import React from 'react'
 import HeaderNavBar from '../components/common/HeaderNavBar'
+import Footer from '../components/common/Footer'
+
 import LargeHeroBanner from '../components/home/LargeHeroBanner'
 import LargeStoryCard from '../components/home/LargeStoryCard'
 import SmallProductCard from '../components/home/SmallProductCard'
 import CollectionCard from '../components/home/CollectionCard'
 import ProductsRow from '../components/home/ProductsRow'
-import Footer from '../components/common/Footer'
 
 import previewArt from '../assets/previewArt.jpg'
 import samplePanda from '../assets/panda.png'
@@ -148,7 +149,8 @@ function HomePage() {
 
       {/* Featured artists carousel */}
       <div className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-16 py-32 bg-menu">
-        <div className="max-w-7xl mx-auto">{<LargeStoryCard
+        <div className="max-w-7xl mx-auto">
+          {<LargeStoryCard
           smallTitleText="Spotlighted Seller"
           titleText="Buy Austin Bartolome’s newly released music"
           bodyText="Find out why Austin is becoming one of the fastest growing sellers on Calypso.  Buy his new music now!"

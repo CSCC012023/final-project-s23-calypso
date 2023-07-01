@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import './App.css';
 import HomePage from './pages/HomePage';
+import ArtworksPage from './pages/ArtworksPage';
 import BiddingPage from './pages//Bidding/BiddingPage';
 import DiscoverPage from './pages/DiscoverPage';
 import LandingPage from './pages/LandingPage';
@@ -35,11 +36,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/artworks" element={<ArtworksPage />} />
+
         <Route path="/bidding" element={<BiddingPage />} />
         <Route path="/bidding/purchase" element={<BiddingPurchasePage />} />
 
         <Route path="/discover" element={<DiscoverPage />} />
-
         <Route path="/discover/trending" element={<TrendingPage />} />
         <Route path="/discover/deals" element={<DealsPage />} />
         <Route path="/discover/beats" element={<BeatsPage />} />
