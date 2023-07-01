@@ -13,11 +13,11 @@ interface Props {
     }
 }
 
-export default function LargeProductCard( { productProp }: Props ){
+export default function SmallProductCard2( { productProp }: Props ){
     return (
         <div className="group relative">
             {/* Product Image */}
-            <div className="w-full bg-gray-200 rounded-md overflow-hidden max-h-96">
+            <div className="w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1">
                 <img
                     src={productProp.imageSrc}
                     alt={productProp.imageAlt}
@@ -26,14 +26,14 @@ export default function LargeProductCard( { productProp }: Props ){
             </div>
 
             {/* Description and Pricing */}
-            <div className="mt-4 text-center group-hover:opacity-75">
-                <h3 className=" mt-1 font-semibold text-white text-lg">
+            <div className="mt-4 text-left">
+                <h3 className="mt-1 font-semibold text-white text-lg">
                     <a href={productProp.href}>
                         <span className="absolute inset-0" />
                         {productProp.name}
                     </a>
                 </h3>
-                <p className="text-base text-gray-200">{productProp.artist}</p>
+                <p className="text-base text-gray-600">{productProp.artist}</p>
                 <p className="text-sm text-gray-600 italic">{productProp.style}</p>
                 <p className="mt-1 text-gray-900">{productProp.price}</p>
             </div>

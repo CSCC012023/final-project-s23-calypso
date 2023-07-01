@@ -8,6 +8,7 @@ import sampleLargeProductImage from '../assets/sampleLargeProductImage.jpg'
 import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 import ProductsColumn from '../components/home/ProductsColumn';
+import ProductsRow2 from '../components/home/ProductsRow2';
 type Props = {};
 
 const artworks = [
@@ -21,35 +22,29 @@ const artworks = [
     imageSrc: sampleProductImage2,
     imageAlt: 'LOST GIRL - JENNIE LI',
   },
+]
+
+const collections = [
   {
-    id: 2,
-    name: 'Dystopian Future',
-    artist: 'Markus Lawerence',
-    style: 'Digital',
-    price: '$3000',
-    href: '#',
+    name: 'Best Sceneries of 2023',
+    description: 'The very best.',
+    imageSrc: previewArt,
+    imageAlt: 'BEST SCENERIES OF 2023',
+    href: 'discover/scenery',
+  },
+  {
+    name: 'The Lonely Classical Collection',
+    description: 'All things lonely and dark.',
+    imageSrc: sampleProductImage2,
+    imageAlt: 'LONELY COLLECTION',
+    href: 'discover/classical',
+  },
+  {
+    name: 'Futuristic Digital Collection',
+    description: '2070 is calling!',
     imageSrc: sampleLargeProductImage,
-    imageAlt: 'DYSTOPIAN FUTURE - MARKUS LAWERENCE',
-  },
-  {
-    id: 3,
-    name: 'Fox-Masked Boy',
-    artist: 'Natalie Hall',
-    style: 'Watercolor on paper',
-    price: '$50',
-    href: '#',
-    imageSrc: sampleProfilePicture1,
-    imageAlt: 'FOX MASKED BOY - NATALIE HALL',
-  },
-  {
-    id: 4,
-    name: 'Panda',
-    artist: 'Panda Man',
-    style: 'Sculpture',
-    price: '$900',
-    href: '#',
-    imageSrc: samplePanda,
-    imageAlt: 'PANDA - PANDA MAN',
+    imageAlt: 'FUTURE COLLECTION',
+    href: 'discover/digital',
   },
 ]
 
@@ -63,7 +58,10 @@ function ProductPage({}: Props) {
     <div className="flex flex-col bg-darkestGrey min-h-screen">
       <ExampleNavBar />
       <div className="flex justify-center items-center">
-        <ProductsColumn productsList={artworks} categoryTitle="Available Products" />
+        <ProductsColumn productsList={artworks} categoryTitle="A Maaneth De Silva Original" />
+      </div>
+      <div className="flex justify-center items-center">
+        <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />
       </div>
       {/* <div className="flex flex-col items-center">
         <div className = "justify-center"

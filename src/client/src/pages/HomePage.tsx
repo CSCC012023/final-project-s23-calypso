@@ -95,7 +95,7 @@ function HomePage() {
 
     // Header Navigation Bar
     <div className="bg-darkestGrey h-screen" >
-      <div className="">
+      <div>
         <HeaderNavBar />
       </div>
 
