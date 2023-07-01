@@ -17,7 +17,7 @@ import NewPage from './pages/Discover/NewPage';
 import ClassicalPage from './pages/Discover/ClassicalPage';
 import PortraitPage from './pages/Discover/PortraitPage';
 import BiddingPurchasePage from './pages/Bidding/BiddingPurchasePage';
-import ErrorPage from './pages//Error/ErrorPage';
+import ErrorPage from './pages/Error/ErrorPage';
 
 import TestingPage from './pages/TestingPage';
 import TestingPage2 from './pages/TestingPage2'
@@ -58,7 +58,7 @@ function App() {
         <Route path="/testing" element={<TestingPage />} />
         <Route path="/testing2" element={<TestingPage2 />} />
 
-        <Route path="/ErrorPage" element={<ErrorPage />} />
+        <Route path="/error" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
     </div>
