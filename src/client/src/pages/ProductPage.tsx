@@ -7,8 +7,8 @@ import sampleProductImage2 from '../assets/sampleProductImage2.jpg'
 import sampleLargeProductImage from '../assets/sampleLargeProductImage.jpg'
 import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
-import ProductsColumn from '../components/home/ProductsColumn';
-import ProductsRow2 from '../components/home/ProductsRow2';
+import ProductsColumn from '../components/product/ProductsColumn';
+import ProductsRow2 from '../components/product/ProductsRow2';
 type Props = {};
 
 const artworks = [
@@ -63,37 +63,6 @@ function ProductPage({}: Props) {
       <div className="flex justify-center items-center">
         <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />
       </div>
-      {/* <div className="flex flex-col items-center">
-        <div className = "justify-center"
-          style={{
-            width: '900px',
-            height: '500px',
-            position: 'absolute',
-            top: '250px',
-            //left: '250px',
-            overflow: 'auto',
-          }}
-        >
-          <img
-            src={previewArtPanel.img}
-            alt="Image"
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-          <div className="text-white text-center mt-auto bottom-0 left-0 w-full">
-            {previewArtPanel.name}
-          </div>
-        </div>
-
-        <div
-          className="flex justify-center mt-4"
-          style={{ width: '900px', backgroundColor: 'gray' }}
-        >
-          <div className="bg-lightGrey p-4">
-            <p className="text-black">A Maaneth De Silva Original piece !</p>
-          </div>
-        </div>
-
-      </div> */}
     </div>
   );
 }

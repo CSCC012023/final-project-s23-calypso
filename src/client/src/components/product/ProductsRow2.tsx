@@ -1,5 +1,5 @@
 import React from "react";
-import SmallProductCard2 from "./SmallProductCard2";
+import SmallProductCard2 from "../home/SmallProductCard2";
 
 
 interface Props {

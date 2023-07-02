@@ -1,6 +1,6 @@
 import React from "react";
-import SmallProductCard from "./SmallProductCard";
-import LargeProductCard from "./LargeProductCard";
+import SmallProductCard from "../home/SmallProductCard";
+import LargeProductCard from "../home/LargeProductCard";
 
 
 interface Props {
