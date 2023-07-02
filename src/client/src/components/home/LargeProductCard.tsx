@@ -17,7 +17,7 @@ export default function LargeProductCard( { productProp }: Props ){
     return (
         <div className="group relative">
             {/* Product Image */}
-            <div className="w-full bg-gray-200 rounded-md overflow-hidden max-h-96">
+            <div className="w-full bg-gray-200 rounded-md overflow-hidden max-h-full">
                 <img
                     src={productProp.imageSrc}
                     alt={productProp.imageAlt}
