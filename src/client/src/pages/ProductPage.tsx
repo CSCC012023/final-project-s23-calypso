@@ -46,6 +46,13 @@ const collections = [
     imageAlt: 'FUTURE COLLECTION',
     href: 'discover/digital',
   },
+  {
+    name: 'Semi-Futuristic Super Collection',
+    description: '2045 is calling!',
+    imageSrc: sampleLargeProductImage,
+    imageAlt: 'FUTURE COLLECTION',
+    href: 'product',
+  },
 ]
 
 function ProductPage({}: Props) {
@@ -57,7 +64,7 @@ function ProductPage({}: Props) {
   return (
     <div className="flex flex-col bg-darkestGrey min-h-screen">
       <ExampleNavBar />
-      <div className="flex justify-center items-center">
+      <div className="">
         <ProductsColumn productsList={artworks} categoryTitle="A Maaneth De Silva Original" />
       </div>
       <div className="flex justify-center items-center">
