@@ -11,7 +11,7 @@ interface Props {
 export default function ProductsColumn( {productsList, categoryTitle}: Props ) {
     return (
         <div className="flex space-x-12">
-            <div className="pt-8 lg:max-w-7xl sm:py-8 lg:py-8 lg:pl-52 lg:pr-16">
+            <div className="pt-8 lg:max-w-7xl sm:py-8 lg:py-8 lg:pl-44 lg:pr-16">
                 <div className="mt-8 flex justify-center group-hover:opacity-75">
                     <div className="w-full max-w-screen-lg">
                     {productsList.map((product: any) => (
@@ -23,9 +23,24 @@ export default function ProductsColumn( {productsList, categoryTitle}: Props ) {
                 </div>
             </div>
             <div className="pt-24 space-y-8 relative">
-                <h2 id="trending-heading" className="text-center text-5xl font-extrabold tracking-tight text-gray-100 lg:pb-24">
+                <h2 id="trending-heading" className="text-center text-5xl font-extrabold tracking-tight text-gray-100 lg:pb-8">
                     {categoryTitle}
                 </h2>
+                <p>
+                    {productsList.map((product2: any) => (
+                        <div key={product2.id} className="">
+                            <h3 className=" mt-1 font-bold text-white text-4xl">
+                                <a href={product2.href}>
+                                    <span className="absolute inset-0" />
+                                    {product2.name}
+                                </a>
+                            </h3>
+                            <p className="text-base text-gray-200">{product2.artist}</p>
+                            <p className="text-sm text-gray-400 italic">{product2.style}</p>
+                            <p className="mt-1 text-gray-100">{product2.price}</p>
+                        </div>
+                    ))}
+                </p>
                 
                 <div className="pt-4 sm:pb-80 lg:pb-96 bg-gray-700 opacity-75 rounded-xl text-white">
                     <p>Description</p>

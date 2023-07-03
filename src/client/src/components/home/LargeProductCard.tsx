@@ -26,7 +26,7 @@ export default function LargeProductCard( { productProp }: Props ){
             </div>
 
             {/* Description and Pricing */}
-            <div className="mt-4 text-center">
+            {/* <div className="mt-4 text-center">
                 <h3 className=" mt-1 font-semibold text-white text-lg">
                     <a href={productProp.href}>
                         <span className="absolute inset-0" />
@@ -36,7 +36,7 @@ export default function LargeProductCard( { productProp }: Props ){
                 <p className="text-base text-gray-200">{productProp.artist}</p>
                 <p className="text-sm text-gray-400 italic">{productProp.style}</p>
                 <p className="mt-1 text-gray-100">{productProp.price}</p>
-            </div>
+            </div> */}
         </div>
     );
 };

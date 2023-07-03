@@ -24,6 +24,8 @@ const artworks = [
   },
 ]
 
+
+
 const collections = [
   {
     name: 'Best Sceneries of 2023',
