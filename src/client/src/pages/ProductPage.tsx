@@ -66,7 +66,7 @@ function ProductPage({}: Props) {
   return (
     <div className="flex-col bg-darkestGrey min-h-screen">
       <ExampleNavBar />
-      <div className="min-w-full w-full">
+      <div className="min-w-full w-full sm:pb-16">
         {/* TO DO: Need to make it so width is constant */}
         <ProductsColumn productsList={artworks} categoryTitle="A Maaneth De Silva Original" />
       </div>
