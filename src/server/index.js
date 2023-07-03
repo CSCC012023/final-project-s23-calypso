@@ -1,13 +1,20 @@
-//Establish connection to MongoDB Database
-const mongoose = require('mongoose');
-// mongoose.connect('mongodb+srv://calypso_cscc01:Summer2023!@cluster0.nxm9mq7.mongodb.net/', {
-mongoose.connect('mongodb+srv://calypso_cscc01:Summer2023!@cluster0.nxm9mq7.mongodb.net/TestingDatabase?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => console.log("DB CONNECTED"))
-.catch((err) => console.log("DB CONNECTION ERROR", err));
+// //Establish connection to MongoDB Database
+// const mongoose = require('mongoose');
 
+// // mongoose.connect('mongodb+srv://calypso_cscc01:Summer2023!@cluster0.nxm9mq7.mongodb.net/', {
+// mongoose.connect('mongodb+srv://calypso_cscc01:Summer2023!@cluster0.nxm9mq7.mongodb.net/TestingDatabase?retryWrites=true&w=majority', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// })
+// .then(() => console.log("DB CONNECTED"))
+// .catch((err) => console.log("DB CONNECTION ERROR", err));
+
+//Load environment variables from .env file
+require('dotenv').config();
+
+//Connect to MongoDB
+const connection = require("./mongodb");
+connection();
 
 //Initialize the express server
 const express = require('express');
