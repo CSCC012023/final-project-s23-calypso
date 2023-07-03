@@ -12,20 +12,20 @@ export default function ProductsColumn( {productsList, categoryTitle}: Props ) {
     return (
         <div className="flex space-x-12 min-w-full mr-16 items-center justify-center px-16">
             <div className="lg:max-w-7xl lg:py-8 lg:pl-24 lg:pr-16">
-                <div className="mt-8 flex group-hover:opacity-75">
+                <div className="mt-8 flex">
                     <div className="w-full max-w-screen-lg">
                     {productsList.map((product: any) => (
                         <div key={product.id} className="my-4">
-                                <h2 id="trending-heading" className="text-center text-5xl font-extrabold tracking-tight text-gray-100 lg:pb-8 min-w-full">
-                                    {categoryTitle}
-                                </h2>
+                            <h2 id="trending-heading" className="text-center text-3xl font-extrabold tracking-tight text-gray-100 lg:pb-8 min-w-full">
+                                {categoryTitle}
+                            </h2>
                             <LargeProductCard productProp={product} />
                         </div>
                     ))}
                     </div>
                 </div>
             </div>
-            <div className="pt-24 sm:mt-24 lg:mt-24 space-y-8 lg:pr-16 container">
+            <div className="pt-4 sm:mt-4 lg:mt-24 space-y-8 lg:pr-16 container">
                 <p>
                     {productsList.map((product2: any) => (
                         <div key={product2.id} className="">
@@ -46,7 +46,7 @@ export default function ProductsColumn( {productsList, categoryTitle}: Props ) {
                 </div>
                 
                 <div className="flex mt-4 mb-4 space-x-60 justify-center container">
-                    <button className="bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+                    <button className="bg-gray-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mr-2">
                         Add to cart
                     </button>
                     <button className="bg-gray-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded ml-2">

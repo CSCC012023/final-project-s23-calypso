@@ -68,7 +68,7 @@ function ProductPage({}: Props) {
       <ExampleNavBar />
       <div className="min-w-full w-full sm:pb-16">
         {/* TO DO: Need to make it so width is constant */}
-        <ProductsColumn productsList={artworks} categoryTitle="A Maaneth De Silva Original" />
+        <ProductsColumn productsList={artworks} categoryTitle="A Maaneth De Silva Original!" />
       </div>
       <div className="flex justify-center items-center">
         <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />
