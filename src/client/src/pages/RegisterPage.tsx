@@ -1,9 +1,49 @@
-import React from 'react'
+import React, { FormEvent } from 'react'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
   const logo = {
     img: require("../assets/logo.jpg"),
   }
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Send a POST request to the server with the entered text
+    const request = new Request('http://localhost:8080/api/users/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        firstName,
+        lastName, 
+        email, 
+        password
+      }),
+    });
+
+    fetch(request).then((response) => {
+      if (response.ok) {
+        // If the response is ok (server returns 200), update the texts state
+        console.log('Response worked!');
+      }
+      else{
+        console.log('Response failed!');
+      }
+    });
+    
+    navigate("/login")
+  }
+
 
   return (
     <div className='grid bg-[#212121] text-white h-screen w-full overflow-scroll lg:overflow-clip grid-cols-1 sm:grid-cols-2'>
@@ -18,43 +58,38 @@ function RegisterPage() {
         <a href='/landing'>
           <img className="h-20" src={logo.img} />
         </a>
-        <form className='text-white w-full max-w-[500px] rounded-xl mx-auto p-8 px-8 space-y-8'>
+        <form onSubmit={handleSubmit} className='text-white w-full max-w-[500px] rounded-xl mx-auto p-8 px-8 space-y-8'>
           <h1 className="flex justify-center items-center text-2xl font-bold leading-tight tracking-tight text-white ">
             Create new account
           </h1>
 
           <div className='space-y-4'>
             <div>
-                <label className="block mb-2 text-2xl font-medium text-white ">Name</label>
-                <input type="email" name="email" id="email" className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="John Doe"/>
+                <label className="block mb-2 text-2xl font-medium text-white ">First Name</label>
+                <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="John"/>
+            </div>
+            <div>
+                <label className="block mb-2 text-2xl font-medium text-white ">Last Name</label>
+                <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="Doe"/>
             </div>
             <div>
                 <label className="block mb-2 text-2xl font-medium text-white ">Email</label>
-                <input type="email" name="email" id="email" className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="name@email.com"/>
+                <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="name@email.com"/>
             </div>
             <div>
               <label className="block mb-2 text-2xl font-medium text-white">Password</label>
-              <input type="password" name="password" id="password" placeholder="••••••••" className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5"/>
-            </div>
-            <div>
-              <label className="block mb-2 text-2xl font-medium text-white">Re-enter Password</label>
-              <input type="password" name="password" id="password" placeholder="••••••••" className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5"/>
+              <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="••••••••" className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5"/>
             </div>
           </div>
           <div className='flex flex-col items-center justify-center space-y-4'>
-            <form action="http://localhost:3000/login" method="get">
-              <button className="text-black bg-[#ffffff] hover:bg-[#7f7f7f] focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-bold px-20 py-2.5 text-center mb-2 ">
+              <button type='submit' className="text-black bg-[#ffffff] hover:bg-[#7f7f7f] focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-bold px-20 py-2.5 text-center mb-2 ">
                 Register
               </button>
-            </form>
-
-            {/* <button type="button" className="text-black bg-[#00dac5] hover:bg-[#04b4a3] focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-full text-bold px-5 py-2.5 text-center mb-2 ">Register</button> */}
-            
-            <div className="flex justify-center items-center space-x-1 font-light text-gray-500">
-              <p className='text-base'>
-                Already have an account? 
-              </p>
-              <a href="/login" className="font-medium text-primary-600 text-base hover:underline">Sign In</a>
+              <div className="flex justify-center items-center space-x-1 font-light text-gray-500">
+                <p className='text-base'>
+                  Already have an account? 
+                </p>
+                <a href="/login" className="font-medium text-primary-600 text-base hover:underline">Sign In</a>
             </div>
           </div>
         </form>

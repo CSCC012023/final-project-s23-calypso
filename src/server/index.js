@@ -24,6 +24,7 @@ console.log("App listen at port 8080");
 app.use(express.json());
 app.use(cors());
 app.use('/api/texts/', require('./routes/text'));
+app.use('/api/users/', require('./routes/user'));
 
 
 //Define port and start the server
