@@ -28,6 +28,7 @@ app.use(cors());
 app.use('/api/texts/', require('./routes/text'));
 app.use('/api/users/', require('./routes/user'));
 
+app.use('/api/v0/users/', require('./routes/neo4j/user'));
 
 app.get("/api/chat", (req, res) => {
     res.send(chats);
