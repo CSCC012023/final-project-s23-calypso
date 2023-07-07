@@ -5,9 +5,10 @@ import EditProfilePopup from './EditProfilePopup'
 
 interface Props {
   user: {
-    name: string,
+    id: string,
+    username: string,
     description: string,
-    profilePic: string,
+    pic: string,
     banner: string
   },
   updateUser: Function
@@ -18,9 +19,10 @@ function UserCard({ user, updateUser }: Props) {
 
   function handleApplyClick(name: string, des: string, pic: string, banner: string) {
     const user1 = {
-      name: name,
+      id: user.id,
+      username: name,
       description: des,
-      profilePic: (pic.length === 0 ? user.profilePic : pic),
+      pic: (pic.length === 0 ? user.pic : pic),
       banner: (banner.length === 0 ? user.banner : banner)
     }
     updateUser(user1);
@@ -31,9 +33,9 @@ function UserCard({ user, updateUser }: Props) {
     <div className="flex flex-row h-64 rounded-3xl overflow-hidden justify-between relative shadow-lg">
       <img className="h-full w-full object-cover absolute z-0" src={user.banner} alt="User Banner" />
       <div className="flex flex-row items-center overflow-hidden z-10">
-        <img className="flex-shrink-0 w-32 h-32 mx-10 rounded-full border-2" src={user.profilePic} alt="Profile Picture" />
+        <img className="flex-shrink-0 w-32 h-32 mx-10 rounded-full border-2" src={user.pic} alt="Profile Picture" />
         <div className="h-full mt-40">
-          <p className="font-mono text-7xl font-bold text-white">{user.name}</p>
+          <p className="font-mono text-7xl font-bold text-white">{user.username}</p>
           <p className="font-sans text-xl break-words text-white">{user.description}</p>
         </div>
       </div>
@@ -48,7 +50,7 @@ function UserCard({ user, updateUser }: Props) {
           </div>
         </button>
       </div>
-      {profileEditIsOpen ? <EditProfilePopup name={user.name} description={user.description} handleApplyClick={handleApplyClick} handleCancelClick={() => setProfileEditIsOpen(false)} /> : null}
+      {profileEditIsOpen ? <EditProfilePopup name={user.username} description={user.description} handleApplyClick={handleApplyClick} handleCancelClick={() => setProfileEditIsOpen(false)} /> : null}
     </div>
   );
 }
