@@ -1,10 +1,5 @@
 import React from 'react'
 import HeaderNavBar from '../../components/common/HeaderNavBar'
-import LargeHeroBanner from '../../components/home/LargeHeroBanner'
-import LargeStoryCard from '../../components/home/LargeStoryCard'
-import SmallProductCard from '../../components/home/SmallProductCard'
-import CollectionCard from '../../components/home/CollectionCard'
-import ProductsRow from '../../components/home/ProductsRow'
 import Footer from '../../components/common/Footer'
 
 
