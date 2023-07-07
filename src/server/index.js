@@ -25,6 +25,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/api/texts/', require('./routes/text'));
 
+app.use('/api/v0/users/', require('./routes/neo4j/user'));
 
 //Define port and start the server
 const port = 8080;
