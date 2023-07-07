@@ -1,6 +1,8 @@
 // //Establish connection to MongoDB Database
 // const mongoose = require('mongoose');
 
+const { chats } = require("./data");
+
 // // mongoose.connect('mongodb+srv://calypso_cscc01:Summer2023!@cluster0.nxm9mq7.mongodb.net/', {
 // mongoose.connect('mongodb+srv://calypso_cscc01:Summer2023!@cluster0.nxm9mq7.mongodb.net/TestingDatabase?retryWrites=true&w=majority', {
 //     useNewUrlParser: true,
@@ -24,7 +26,18 @@ console.log("App listen at port 8080");
 app.use(express.json());
 app.use(cors());
 app.use('/api/texts/', require('./routes/text'));
+app.use('/api/users/', require('./routes/user'));
 
+app.use('/api/v0/users/', require('./routes/neo4j/user'));
+
+app.get("/api/chat", (req, res) => {
+    res.send(chats);
+});
+
+app.get("/api/chat/:id", (req, res) => {
+    const singleChat = chats.find(c => c._id === req.params.id);
+    res.send(singleChat);
+});
 
 //Define port and start the server
 const port = 8080;
