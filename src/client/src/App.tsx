@@ -17,6 +17,7 @@ import NewPage from './pages/Discover/NewPage';
 import ClassicalPage from './pages/Discover/ClassicalPage';
 import PortraitPage from './pages/Discover/PortraitPage';
 import BiddingPurchasePage from './pages/Bidding/BiddingPurchasePage';
+import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
 
 import TestingPage from './pages/TestingPage';
@@ -57,7 +58,9 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/testing" element={<TestingPage />} />
         <Route path="/testing2" element={<TestingPage2 />} />
+        <Route path="/error" element={<ErrorPage />} />
         <Route path="/message" element={<MessagePage />} />
+
       </Routes>
     </BrowserRouter>
     </div>
