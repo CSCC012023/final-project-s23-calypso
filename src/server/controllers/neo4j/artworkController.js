@@ -1,7 +1,7 @@
 //NOTE: THIS FILE IS ONLY FOR TESTING.  PLEASE REMOVE BEFORE RELEASE
 //The Controller file that defines all the endpoints for the text submission/retrieval
 
-const driver = require('../index');
+const driver = require('../../index');
 
 const artworkController = {
 
