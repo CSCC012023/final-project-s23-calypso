@@ -107,7 +107,7 @@ function HomePage() {
         buttonText='Shop New Arrivals'
         images={heroSlideshow}
         imageAlt='NEW_ARRIVALS1'
-        href='new'
+        href='discover/new'
       />
 
 
