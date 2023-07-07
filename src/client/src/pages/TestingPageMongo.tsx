@@ -3,7 +3,7 @@ import '../App.css';
 
 
 
-function HomePage() {
+function TestingPageMongo() {
   const [text, setText] = useState('');
   const [texts, setTexts] = useState([]);
 
@@ -76,4 +76,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default TestingPageMongo;
