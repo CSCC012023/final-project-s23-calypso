@@ -4,7 +4,7 @@
   "private": true,
   "options": {
     "allowedHosts": ["localhost", ".localhost"],
-    "proxy": "https://localhost:8080/"
+    "proxy": "http://localhost:8080/"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",

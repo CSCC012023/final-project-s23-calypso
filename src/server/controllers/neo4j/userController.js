@@ -39,7 +39,7 @@ const createUser = async (req, res) => {
   try {
     const id = req.body.id;
     if (!id) throw { message: "Invalid ID", status: 400 };
-    const result = await userModel.createUser(dbUtils.getSession(req), req.body);
+    const result = await userModel.createUser(dbUtils.getSession(req), req.body.user);
     res.json(result);
   }
   catch {
@@ -51,7 +51,7 @@ const updateUser = async (req, res) => {
   try {
     const id = req.params.id;
     if (!id) throw { message: "Invalid ID", status: 400 };
-    const result = await userModel.updateUser(dbUtils.getSession(req), id, req.body);
+    const result = await userModel.updateUser(dbUtils.getSession(req), id, req.body.user);
     console.log(req.body);
     res.json(result);
   }

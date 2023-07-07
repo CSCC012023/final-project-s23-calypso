@@ -5,7 +5,7 @@ import ProductCard from './ProductCard'
 import AddProductPopup from './AddProductPopup'
 
 interface Props {
-  products: Array<{
+  products: {
     id: number,
     name: string,
     artist: string,
@@ -14,7 +14,7 @@ interface Props {
     href: string,
     imageSrc: string,
     imageAlt: string,
-  }>,
+  }[],
   updateProducts: Function
 }
 
@@ -23,7 +23,7 @@ function ProductsList({ products, updateProducts }: Props) {
   const [addProductIsOpen, setAddProductIsOpen] = useState(false);
 
   function handleProductDelete(id: number) {
-    const newProducts = products.filter((product: any) => product.id != id);
+    const newProducts = products.filter((product: any) => product.id !== id);
     updateProducts(newProducts);
   }
 
@@ -62,7 +62,7 @@ function ProductsList({ products, updateProducts }: Props) {
         </button>
       ) : null}
       {products.map((product) => (
-        <ProductCard product={product} handleDeleteClick={() => handleProductDelete(product.id)} onEditMode={productEditMode} />
+        <ProductCard key={product.id} product={product} handleDeleteClick={() => handleProductDelete(product.id)} onEditMode={productEditMode} />
       ))}
     </div>
   );

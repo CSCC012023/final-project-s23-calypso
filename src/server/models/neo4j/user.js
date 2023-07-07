@@ -12,6 +12,15 @@ const findByID = async (session, id) => {
   return result.records[0].get('n').properties;
 }
 
+const findByUsername = async (session, username) => {
+  const query = [
+    `MATCH (n: User {username: '${username}'})`,
+    'RETURN n'
+  ].join('\n');
+  const result = await session.run(query);
+  return result.records[0].get('n').properties;
+}
+
 const createUser = async (session, user) => {
   const query = [
     `CREATE (n: User {id: '${user.id}', username: '${user.username}', description: '${user.description}', pic: '${user.pic}', banner: '${user.banner}'})`,
@@ -37,7 +46,7 @@ const deleteUser = async (session, id) => {
     `MATCH (n: User {id: '${id}'})`,
     'DETACH DELETE n',
     'RETURN n'
-  ]
+  ].join('\n');
   await session.run(query);
   return await findAll(session);
 }
@@ -45,6 +54,7 @@ const deleteUser = async (session, id) => {
 module.exports = {
   findAll: findAll,
   findByID: findByID,
+  findByUsername: findByUsername,
   createUser: createUser,
   updateUser: updateUser,
   deleteUser: deleteUser
