@@ -18,6 +18,7 @@ import ClassicalPage from './pages/Discover/ClassicalPage';
 import PortraitPage from './pages/Discover/PortraitPage';
 import BiddingPurchasePage from './pages/Bidding/BiddingPurchasePage';
 import TransactionPage from './pages/Transaction/TransactionPage';
+import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransactionPage';
 
 import TestingPage from './pages/TestingPage';
 import TestingPage2 from './pages/TestingPage2'
@@ -55,6 +56,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/transaction" element={<TransactionPage />} />
+        <Route path="/transaction/success" element = {<SuccessfulTransactionPage/>} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/testing" element={<TestingPage />} />
         <Route path="/testing2" element={<TestingPage2 />} />

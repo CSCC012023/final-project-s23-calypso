@@ -33,8 +33,14 @@
   display: flex;
 }
 
-.section {
+.section-left {
+  /* flex: 1; */
+  /* background-color: blueviolet; */
+}
+.section-right {
   flex: 1;
+  /* background-color:cornflowerblue; */
+  
 }
 
 .content-container {
@@ -48,6 +54,7 @@
   color: white;
   margin-bottom: 1rem;
   margin-top: 1rem;
+  margin-left: 20px;
 }
 
 .image-container {
@@ -62,10 +69,22 @@
 }
 
 .input-container > * {
+  margin-top: 20px;
   margin-right: 10px;
   margin-bottom: 10px;
+  margin-left: 20px;
 }
 
+.buy-button {
+
+  margin-top: 10px;
+  margin-left: 20px;
+  background-color: #9893da;
+
+  width: 150px; /* Set the desired width of the button */
+  height: 40px; /* Set the desired height of the button */
+  font-size: 16px; /* Set the desired font size of the button */
+}
 
 @keyframes App-logo-spin {
   from {
@@ -75,3 +94,5 @@
     transform: rotate(360deg);
   }
 }
+
+

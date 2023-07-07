@@ -1,6 +1,10 @@
 import React from 'react';
 import ExampleNavBar from '../../components/common/HeaderNavBar';
 import '../../App.css';
+import { isWhiteSpaceLike } from 'typescript';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import SuccessfulTransactionPage from './SuccessfulTransactionPage';
+
 
 type Props = {};
 
@@ -10,6 +14,8 @@ interface TextInputProps {
 
 const TextInput: React.FC<TextInputProps> = ({ placeholder }) => {
   const [text, setText] = React.useState('');
+  const placeholderLength = placeholder.length;
+  const inputWidth = placeholderLength * 10; // Adjust the multiplier as needed
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
@@ -21,6 +27,7 @@ const TextInput: React.FC<TextInputProps> = ({ placeholder }) => {
       value={text}
       onChange={handleChange}
       placeholder={placeholder}
+      style={{ width: `${inputWidth}px` }}
     />
   );
 
@@ -36,7 +43,7 @@ const TransacationPage: React.FC<Props> = () => {
     <div className="flex flex-col bg-darkestGrey h-screen w-screen">
       <ExampleNavBar />
       <div className="container">
-        <div className="section">
+        <div className="section-left">
           <div className="content-container">
             <h1 className="section-heading">Shopping Cart</h1>
             <div className="image-container">
@@ -49,7 +56,7 @@ const TransacationPage: React.FC<Props> = () => {
             <h2 className="section-heading">Total: $4999.99</h2>
           </div>
         </div>
-        <div className="section">
+        <div className="section-right">
           <h1 className="section-heading">Enter Payment Details</h1>
           <div className = "input-container">
             <TextInput placeholder="Name as it appears on card"/>
@@ -57,15 +64,20 @@ const TransacationPage: React.FC<Props> = () => {
           </div>
           <div className = "input-container">
             <TextInput placeholder="Credit Card Number"/>
-            <TextInput placeholder="Expiry Date MMYY"/>
-            <TextInput placeholder="CVV"/>
+            <TextInput placeholder="MM/YY    "/>
+            <TextInput placeholder="CVV    "/>
           </div>
           <div className = "input-container">
-            <TextInput placeholder="Address"/>
-            <TextInput placeholder="Expiry Date MMYY"/>
-            <TextInput placeholder="CVV"/>
+            <TextInput placeholder="Billing Address                 "/>
+            <TextInput placeholder="City    "/>
+            <TextInput placeholder="Province / State     "/>
+            <TextInput placeholder="Postal Code / ZIP"/>
           </div>
-
+          <Link to="/transaction/success">
+            <button className="buy-button">Buy</button>
+          </Link>
+            
+          
 
         </div>
       </div>
