@@ -13,7 +13,7 @@ export default function ProductList( {productsList}: Props ) {
                 <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
 
                     {/* Product */}
-                    {productsList.map((product: any) => (
+                    {productsList?.map((product: any) => (
                         <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto">
                             <SmallProductCard productProp={product} />
                         </li>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderNavBar from '../components/common/HeaderNavBar'
 import Footer from '../components/common/Footer'
 
@@ -15,7 +15,7 @@ import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 import HeroBanner from "../components/allproducts/HeroBanner";
 
 
-const artworks = [
+const artworks2 = [
     {
         id: 1,
         name: 'Lost Girl',
@@ -99,7 +99,31 @@ const artworks = [
 ]
 
 
+
 function ArtworksPage() {
+    const [artworks, setArtworks] = useState([]);
+
+    const getArtworks = async () => {
+        const response = await fetch('http://localhost:8080/api/v0/artworks/all');
+        const data = await response.json();
+        console.log(data);
+        //const artworks = data.artwork?.map((item: { artwork: any; }) => item.artwork);
+        setArtworks(data);
+    
+        if (response.ok){
+          console.log('Response worked!');
+        }
+        else{
+          console.log('Response failed!');
+        }
+      };
+    
+      
+      useEffect(() => {
+        // Get the initial texts when the component mounts
+        getArtworks();
+      });
+
     return (
         <div className="bg-darkestGrey h-screen" >
             {/* Header Navigation bar */}

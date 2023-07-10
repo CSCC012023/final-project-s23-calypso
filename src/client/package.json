@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "options": {
-    "allowedHosts": ["localhost", ".localhost"],
+    "allowedHosts": [
+      "localhost",
+      ".localhost"
+    ],
     "proxy": "http://localhost:8080/"
   },
   "dependencies": {
@@ -18,7 +21,7 @@
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.44.3",
+    "react-hook-form": "^7.45.1",
     "react-router-dom": "^6.12.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",

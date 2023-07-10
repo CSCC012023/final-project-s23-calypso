@@ -1,20 +1,11 @@
-//NOTE: THIS FILE IS ONLY FOR TESTING.  PLEASE REMOVE BEFORE RELEASE
-//The Model file that defines the schema for text submission/retrieval
+//Model file for Artwork related queries
+
+const findAll = async (session) => {
+    const result = await session.run('MATCH (n: Artwork) RETURN n');
+    return result.records.map(i => i.get('n').properties);
+}
 
 
-const mongoose = require('mongoose');
-
-const textSchema = new mongoose.Schema({
-    text: {
-        type: String,
-        required: true
-    },
-    timestamp: {
-        type: Date,
-        default: Date.now()
-    }
-});
-
-const Text = mongoose.model('Text', textSchema);
-
-module.exports = Artwork;
+module.exports = {
+    findAll: findAll,
+}
