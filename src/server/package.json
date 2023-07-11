@@ -17,6 +17,7 @@
     "lodash": "^4.17.21",
     "mongodb": "^5.5.0",
     "mongoose": "^7.2.1",
+    "neo4j": "^2.0.0-RC2",
     "neo4j-driver": "^5.10.0",
     "nodemon": "^2.0.22"
   }

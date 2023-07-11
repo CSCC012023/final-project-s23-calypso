@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import './App.css';
 import HomePage from './pages/HomePage';
+import ArtworksPage from './pages/ArtworksPage';
 import BiddingPage from './pages//Bidding/BiddingPage';
 import DiscoverPage from './pages/DiscoverPage';
 import LandingPage from './pages/LandingPage';
@@ -22,8 +23,8 @@ import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransaction
 import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
 
-import TestingPage from './pages/TestingPage';
-import TestingPage2 from './pages/TestingPage2'
+import TestingPage from './pages/TestingPageMongo';
+import TestingPageNeo from './pages/TestingPageNeo'
 
 import {
   BrowserRouter,
@@ -39,11 +40,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/artworks" element={<ArtworksPage />} />
+
         <Route path="/bidding" element={<BiddingPage />} />
         <Route path="/bidding/purchase" element={<BiddingPurchasePage />} />
 
         <Route path="/discover" element={<DiscoverPage />} />
-
         <Route path="/discover/trending" element={<TrendingPage />} />
         <Route path="/discover/deals" element={<DealsPage />} />
         <Route path="/discover/beats" element={<BeatsPage />} />
@@ -61,10 +63,10 @@ function App() {
         <Route path="/transaction/success" element = {<SuccessfulTransactionPage/>} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/testing" element={<TestingPage />} />
-        <Route path="/testing2" element={<TestingPage2 />} />
+        <Route path="/testing2" element={<TestingPageNeo />} />
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/message" element={<MessagePage />} />
-
+        
       </Routes>
     </BrowserRouter>
     </div>

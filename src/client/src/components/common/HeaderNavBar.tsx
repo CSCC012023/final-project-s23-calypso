@@ -13,7 +13,7 @@ const user = {
 }
 const navigation = [
   { name: 'Artists', href: '#', current: true },
-  { name: 'Artworks', href: '#', current: false },
+  { name: 'Artworks', href: 'artworks', current: false },
   { name: 'Music', href: '#', current: false },
   { name: 'Auctions', href: '#', current: false },
   { name: 'Cinematography', href: '#', current: false },
