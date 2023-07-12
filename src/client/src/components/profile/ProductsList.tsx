@@ -15,10 +15,11 @@ interface Props {
     imageSrc: string,
     imageAlt: string,
   }[],
-  updateProducts: Function
+  updateProducts: Function,
+  isLoggedIn: boolean
 }
 
-function ProductsList({ products, updateProducts }: Props) {
+function ProductsList({ products, updateProducts, isLoggedIn }: Props) {
   const [productEditMode, setProductEditMode] = useState(false);
   const [addProductIsOpen, setAddProductIsOpen] = useState(false);
 
@@ -47,10 +48,12 @@ function ProductsList({ products, updateProducts }: Props) {
       {addProductIsOpen ? <AddProductPopup handleAddClick={handleAddClick} handleCancelClick={() => setAddProductIsOpen(false)} /> : null}
       <div className="flex flex-row justify-between">
         <p className="font-sans text-2xl font-bold text-white">Products For Sale</p>
-        <button className="flex h-10 w-[7.5rem] text-gray-300 hover:text-white bg-gray-800 hover:bg-gray-700 active:bg-gray-800 rounded-full justify-center items-center font-semibold text-lg"
+        {isLoggedIn ? (
+          <button className="flex h-10 w-[7.5rem] text-gray-300 hover:text-white bg-gray-800 hover:bg-gray-700 active:bg-gray-800 rounded-full justify-center items-center font-semibold text-lg"
           onClick={() => setProductEditMode(!productEditMode)}>
           {productEditMode ? "Done" : "Edit"}
         </button>
+        ) : null}
       </div>
       {productEditMode ? (
         <button className="flex h-32 w-full border-2 border-dashed border-green-500 text-green-500 rounded-lg items-center justify-center space-x-3 hover:bg-gray-800 hover:border-green-400 hover:text-green-400 active:bg-gray-900"

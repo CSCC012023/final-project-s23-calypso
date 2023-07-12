@@ -2,13 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "options": {
-    "allowedHosts": [
-      "localhost",
-      ".localhost"
-    ],
-    "proxy": "http://localhost:8080/"
-  },
+  "proxy": "http://localhost:8080/",
   "dependencies": {
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^1.0.6",

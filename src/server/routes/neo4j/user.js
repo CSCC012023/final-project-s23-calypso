@@ -7,6 +7,8 @@ user.get('/', userController.findAll);
 
 user.get('/:id', userController.findByID);
 
+user.get('/user/:username', userController.findByUsername);
+
 user.post('/create', userController.createUser);
 
 user.put('/:id', userController.updateUser);
