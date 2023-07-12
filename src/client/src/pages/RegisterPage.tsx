@@ -33,15 +33,17 @@ function RegisterPage() {
 
     fetch(request).then((response) => {
       if (response.ok) {
-        // If the response is ok (server returns 200), update the texts state
+        // If the response is ok (server returns 200), update the user data
+        // and navigate to login page
         console.log('Response worked!');
+        navigate("/login")
       }
       else{
         console.log('Response failed!');
       }
     });
     
-    navigate("/login")
+    // navigate("/login")
   }
 
 
