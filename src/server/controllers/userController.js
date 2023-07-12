@@ -51,7 +51,11 @@ const userController = {
                 const newUser = new User({ firstName, lastName, email, password });
                 newUser.save();
                 res.status(200).json({ message: "User submitted successfully!" });
+                // bcrypt.compare('arielle', hash, function(err, result) {
+                //     console.log(result);
+                // });
             });
+
         }
         catch (error) {
             console.error(error);
