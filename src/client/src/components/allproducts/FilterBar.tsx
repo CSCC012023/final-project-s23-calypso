@@ -8,10 +8,10 @@ import LargeHeroBanner from '../home/LargeHeroBanner'
 
 
 const sortOptions = [
-  { id: 'featured', name: 'Featured', href: '#', current: false },
-  { id: 'pricelow', name: 'Price: Low to High', href: '#', current: false },
-  { id: 'pricehigh', name: 'Price: High to Low', href: '#', current: false },
-  { id: 'newest', name: 'Newest Arrivals', href: '#', current: false },
+  { id: 'featured', name: 'Featured' },
+  { id: 'pricelow', name: 'Price: Low to High' },
+  { id: 'pricehigh', name: 'Price: High to Low' },
+  { id: 'newest', name: 'Newest Arrivals' },
 ];
 
 const filters = [
@@ -184,7 +184,6 @@ export default function FilterBar() {
                       <Menu.Item key={option.id}>
                         {({ active }) => (
                           <a
-                            href={option.href}
                             className={classNames(                   
                               option.id === currentSortOption ? 'font-medium text-gray-900' : 'text-gray-500',
                               active ? 'bg-gray-100' : '',
