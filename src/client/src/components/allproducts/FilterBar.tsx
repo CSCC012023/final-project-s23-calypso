@@ -51,23 +51,14 @@ function classNames(...classes:any) {
 
 export default function FilterBar() {
   const [open, setOpen] = useState(false)
-  const [currentSortOption, setCurrentSortOption] = useState(sortOptions[0].name)
+  const [currentSortOption, setCurrentSortOption] = useState('')
 
   const handleSortOptionClick = (sortOption: string) => {
-    sortOptions.map((option) => (option.current = false))
-    //If sortOption name is in sortOptions array, set current to true
-    if (sortOptions.find((option) => option.name === sortOption)) {
-      sortOptions.find((option) => option.name === sortOption)!.current = true
-    }
-    setCurrentSortOption(sortOption)
-  }
-
-  const handleClick = () => {
     let currentUrlParams = new URLSearchParams(window.location.search);
-    currentUrlParams.set('sort', 'newSort');
+    currentUrlParams.set('sort', sortOption);
     window.history.pushState({}, '', window.location.pathname + "?" + currentUrlParams.toString());
-  };
-
+    setCurrentSortOption(sortOption);
+  }
 
   return (
     <div className="bg-white">
@@ -178,8 +169,6 @@ export default function FilterBar() {
                 </Menu.Button>               
               </div>
 
-              <button type="button" onClick={handleClick}>Test</button>
-
               <Transition
                 as={Fragment}
                 enter="transition ease-out duration-100"
@@ -192,16 +181,16 @@ export default function FilterBar() {
                 <Menu.Items className="origin-top-left absolute left-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
                     {sortOptions.map((option) => (
-                      <Menu.Item key={option.name}>
+                      <Menu.Item key={option.id}>
                         {({ active }) => (
                           <a
                             href={option.href}
-                            className={classNames(
-                              option.current ? 'font-medium text-gray-900' : 'text-gray-500',
+                            className={classNames(                   
+                              option.id === currentSortOption ? 'font-medium text-gray-900' : 'text-gray-500',
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm'
                             )}
-                            onClick={() => handleSortOptionClick(option.name)}
+                            onClick={() => handleSortOptionClick(option.id)}
                           >
                             {option.name}
                           </a>
