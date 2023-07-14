@@ -8,10 +8,12 @@ import LargeHeroBanner from '../home/LargeHeroBanner'
 
 
 const sortOptions = [
-  { name: 'Most Popular', href: '#', current: true },
-  { name: 'Best Rating', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
-]
+  { id: 'featured', name: 'Featured' },
+  { id: 'pricelow', name: 'Price: Low to High' },
+  { id: 'pricehigh', name: 'Price: High to Low' },
+  { id: 'newest', name: 'Newest Arrivals' },
+];
+
 const filters = [
   {
     id: 'category',
@@ -49,6 +51,14 @@ function classNames(...classes:any) {
 
 export default function FilterBar() {
   const [open, setOpen] = useState(false)
+  const [currentSortOption, setCurrentSortOption] = useState('')
+
+  const handleSortOptionClick = (sortOption: string) => {
+    let currentUrlParams = new URLSearchParams(window.location.search);
+    currentUrlParams.set('sort', sortOption);
+    window.history.pushState({}, '', window.location.pathname + "?" + currentUrlParams.toString());
+    setCurrentSortOption(sortOption);
+  }
 
   return (
     <div className="bg-white">
@@ -139,12 +149,13 @@ export default function FilterBar() {
       </Transition.Root>
       
 
-      {/* Filters */}
+      
       <section aria-labelledby="filter-heading">
         <h2 id="filter-heading" className="sr-only">
           Filters
         </h2>
 
+        {/* Sort Options */}                      
         <div className="relative pt-4 z-10 bg-gray-100 border-b border-gray-200 pb-4">
           <div className="max-w-7xl mx-auto px-4 flex items-center justify-between sm:px-6 lg:px-8">
             <Menu as="div" className="relative inline-block text-left">
@@ -155,7 +166,7 @@ export default function FilterBar() {
                     className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                     aria-hidden="true"
                   />
-                </Menu.Button>
+                </Menu.Button>               
               </div>
 
               <Transition
@@ -170,15 +181,15 @@ export default function FilterBar() {
                 <Menu.Items className="origin-top-left absolute left-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
                     {sortOptions.map((option) => (
-                      <Menu.Item key={option.name}>
+                      <Menu.Item key={option.id}>
                         {({ active }) => (
                           <a
-                            href={option.href}
-                            className={classNames(
-                              option.current ? 'font-medium text-gray-900' : 'text-gray-500',
+                            className={classNames(                   
+                              option.id === currentSortOption ? 'font-medium text-gray-900' : 'text-gray-500',
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm'
                             )}
+                            onClick={() => handleSortOptionClick(option.id)}
                           >
                             {option.name}
                           </a>
@@ -190,6 +201,8 @@ export default function FilterBar() {
               </Transition>
             </Menu>
 
+
+
             <button
               type="button"
               className="inline-block text-sm font-medium text-gray-700 hover:text-gray-900 sm:hidden"
@@ -197,7 +210,7 @@ export default function FilterBar() {
             >
               Filters
             </button>
-
+            
             <div className="hidden sm:block">
               <div className="flow-root">
                 <Popover.Group className="-mx-4 flex items-center divide-x divide-gray-200">
