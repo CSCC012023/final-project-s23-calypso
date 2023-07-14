@@ -1,8 +1,45 @@
-import React from 'react'
+import React, { FormEvent } from 'react'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 function LoginPage() {
   const logo = {
     img: require("../assets/logo.jpg"),
+  }
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Send a POST request to the server with the entered text
+    const request = new Request('http://localhost:8080/api/users/retrieve', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        email, 
+        password,
+      }),
+    });
+
+    fetch(request).then((response) => {
+      if (response.ok) {
+        // If the response is ok (server returns 200), update the user data
+        // and navigate to home page
+        console.log('Response worked!');
+        navigate("/")
+      }
+      else{
+        console.log('Response failed!');
+      }
+    });
+    
   }
 
   return (
@@ -20,16 +57,16 @@ function LoginPage() {
             <img className="h-20" src={logo.img} />
           </a>
 
-          <form className='text-white w-full max-w-[500px] rounded-xl mx-auto p-8 px-8 space-y-5'>
+          <form onSubmit={handleSubmit} className='text-white w-full max-w-[500px] rounded-xl mx-auto p-8 px-8 space-y-5'>
             <div className='space-y-4'>
               <div>
                 <label className="block mb-2 text-2xl font-medium text-white ">Email</label>
-                <input type="email" name="email" id="email" className="bg-black border-black text-white text-lg sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full h-[3rem] p-2.5 " placeholder="name@email.com"/>
-              </div>
-              <div>
-                <label className="block mb-2 text-2xl font-medium text-white">Password</label>
-                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-black border border-black text-white text-lg sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full h-[3rem] p-2.5"/>
-              </div>
+                <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="name@email.com"/>
+            </div>
+            <div>
+              <label className="block mb-2 text-2xl font-medium text-white">Password</label>
+              <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="••••••••" className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5"/>
+            </div>
               
               <div className="space-y-3 md:space-y-6">
                 <div className="text-medium font-medium text-primary-600 hover:underline">Forgot password?</div>
@@ -37,20 +74,16 @@ function LoginPage() {
             </div>
 
             <div className='flex flex-col items-center justify-center space-y-4'>
-              {/* <a type="submit" href="/" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center">Sign in</a> */}
-              <form action="http://localhost:3000/" method="get">
-                <button className="text-black bg-[#ffffff] hover:bg-[#7f7f7f] focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-bold px-20 py-2.5 text-center mb-2 ">
-                  Sign In
-                </button>
-              </form>
-
+              <button type='submit' className="text-black bg-[#ffffff] hover:bg-[#7f7f7f] focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-bold px-20 py-2.5 text-center mb-2 ">
+                Login
+              </button>
               <div className="flex justify-center items-center space-x-1 font-light text-gray-500">
                 <p className='text-base'>
-                  Don't have an account yet? 
+                  Don't have an account? 
                 </p>
-                <a href="/register" className="font-medium text-primary-600 text-base hover:underline">Sign up</a>
-              </div>
+                <a href="/register" className="font-medium text-primary-600 text-base hover:underline">Sign Up</a>
             </div>
+          </div>
 
           </form>
         </div>
