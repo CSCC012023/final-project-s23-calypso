@@ -16,30 +16,38 @@ const sortOptions = [
 
 const filters = [
   {
-    id: 'category',
-    name: 'Category',
+    id: 'medium',
+    name: 'Medium',
     options: [
-      { value: 'new-arrivals', label: 'All New Arrivals', checked: false },
-      { value: 'tees', label: 'Tees', checked: false },
-      { value: 'objects', label: 'Objects', checked: true },
+      { value: 'painting', label: 'Painting', checked: false },
+      { value: 'drawing', label: 'Drawing', checked: false },
+      { value: 'sculpture', label: 'Sculpture', checked: false },
+      { value: 'digital', label: 'Digital', checked: false },
+      { value: 'photography', label: 'Photography', checked: false },
+      { value: 'prints', label: 'Prints', checked: false },
+      { value: 'other', label: 'Other', checked: false },
     ],
   },
   {
-    id: 'color',
-    name: 'Color',
+    id: 'material',
+    name: 'Material',
     options: [
-      { value: 'white', label: 'White', checked: false },
-      { value: 'beige', label: 'Beige', checked: false },
-      { value: 'blue', label: 'Blue', checked: false },
+      { value: 'acrylic', label: 'Acrylic', checked: false },
+      { value: 'artpaper', label: 'Art Paper', checked: false },
+      { value: 'canvas', label: 'Canvas', checked: false },
+      { value: 'digital', label: 'Digital', checked: false },
+      { value: 'oil', label: 'Oil', checked: false },
+      { value: 'mixedmedia', label: 'Mixed Media', checked: false },
+      { value: 'other', label: 'Other', checked: false },
     ],
   },
   {
-    id: 'sizes',
-    name: 'Sizes',
+    id: 'rarity',
+    name: 'Rarity',
     options: [
-      { value: 's', label: 'S', checked: false },
-      { value: 'm', label: 'M', checked: false },
-      { value: 'l', label: 'L', checked: false },
+      { value: 'unique', label: 'Unique', checked: false },
+      { value: 'limited', label: 'Limited Edition', checked: false },
+      { value: 'open', label: 'Open Edition', checked: false },
     ],
   },
 ]
