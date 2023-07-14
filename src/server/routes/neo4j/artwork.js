@@ -5,7 +5,7 @@ const artwork = express.Router();
 
 const artworkController = require('../../controllers/neo4j/artworkController');
 
-artwork.get('/all', artworkController.findAll);
+artwork.get('/all', artworkController.getArtworks);
 
 
 module.exports = artwork;

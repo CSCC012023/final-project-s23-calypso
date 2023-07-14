@@ -62,6 +62,7 @@ const artworks = [
 
 const collections = [
   {
+    id: 1,
     name: 'Best Sceneries of 2023',
     description: 'The very best.',
     imageSrc: previewArt,
@@ -69,6 +70,7 @@ const collections = [
     href: 'discover/scenery',
   },
   {
+    id: 2,
     name: 'The Lonely Classical Collection',
     description: 'All things lonely and dark.',
     imageSrc: sampleProductImage2,
@@ -76,6 +78,7 @@ const collections = [
     href: 'discover/classical',
   },
   {
+    id: 3,
     name: 'Futuristic Digital Collection',
     description: '2070 is calling!',
     imageSrc: sampleLargeProductImage,

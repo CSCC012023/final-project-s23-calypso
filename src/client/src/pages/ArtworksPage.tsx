@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 import HeaderNavBar from '../components/common/HeaderNavBar'
 import Footer from '../components/common/Footer'
 
@@ -13,7 +15,13 @@ import sampleLargeProductImage from '../assets/sampleLargeProductImage.jpg'
 import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 import HeroBanner from "../components/allproducts/HeroBanner";
+import { Query } from "@testing-library/react";
 
+
+
+interface QueryParams {
+    [key: string]: string[];
+}
 
 const artworks2 = [
     {
@@ -103,26 +111,32 @@ const artworks2 = [
 function ArtworksPage() {
     const [artworks, setArtworks] = useState([]);
 
-    const getArtworks = async () => {
-        const response = await fetch('http://localhost:8080/api/v0/artworks/all');
-        const data = await response.json();
-        console.log(data);
-        //const artworks = data.artwork?.map((item: { artwork: any; }) => item.artwork);
-        setArtworks(data);
-    
-        if (response.ok){
-          console.log('Response worked!');
-        }
-        else{
-          console.log('Response failed!');
-        }
-      };
-    
-      
-      useEffect(() => {
-        // Get the initial texts when the component mounts
-        getArtworks();
-      });
+    const getArtworks = async (queryParams: QueryParams) => {
+        axios.get('http://localhost:8080/api/v0/artworks/all', {
+            params: queryParams
+        })
+            .then(response => {
+                const data = response.data;
+                setArtworks(data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    };
+
+
+    useEffect(() => {
+        const queryParams: QueryParams = {};
+        const params = new URLSearchParams(window.location.search);
+        params.forEach((value, key) => {
+            if (queryParams[key]) {
+                queryParams[key].push(value);
+            } else {
+                queryParams[key] = [value];
+            }
+        });
+        getArtworks(queryParams);
+    });
 
     return (
         <div className="bg-darkestGrey h-screen" >
@@ -133,13 +147,13 @@ function ArtworksPage() {
 
             {/* Hero Banner */}
             <div className=" ">
-                <HeroBanner 
-                titleText='All Artworks'
-                bodyText='Our thoughtfully designed workspace objects are crafted in limited runs. Improve your productivity and
+                <HeroBanner
+                    titleText='All Artworks'
+                    bodyText='Our thoughtfully designed workspace objects are crafted in limited runs. Improve your productivity and
                 organization with these sale items before we run out.'
-                imageSrc= {sampleLargeProductImage}
-                imageAlt='NEW_ARRIVALS1'
-                href='discover/new'
+                    imageSrc={sampleLargeProductImage}
+                    imageAlt='NEW_ARRIVALS1'
+                    href='discover/new'
                 />
             </div>
 
@@ -150,7 +164,7 @@ function ArtworksPage() {
 
             {/* Product List */}
             <div className="">
-                <ProductList productsList={artworks}/>
+                <ProductList productsList={artworks} />
             </div>
 
 
