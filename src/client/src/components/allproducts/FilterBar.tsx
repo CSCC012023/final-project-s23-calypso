@@ -101,7 +101,7 @@ export default function FilterBar() {
     let initFilters = currentUrlParams.getAll('filter');
     window.history.pushState({}, '', window.location.pathname + "?" + currentUrlParams.toString());
 
-    
+
     if (initSort !== '') {
       handleSortOptionClick(initSort);
     }
@@ -121,7 +121,6 @@ export default function FilterBar() {
       })
       setActiveFilters([...activeFilters, ...tempFilters]);
     }
-
   }, [])
 
   useEffect(() => {

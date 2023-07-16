@@ -109,8 +109,6 @@ const artworks2 = [
 
 
 function ArtworksPage() {
-    let sort = '';
-    let filters: string[] = [];
     const [artworks, setArtworks] = useState([]);
 
     const getArtworks = async (queryParams: QueryParams) => {
