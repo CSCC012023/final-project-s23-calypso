@@ -25,9 +25,10 @@ const cors = require("cors");
 console.log("App listen at port 8080");
 app.use(express.json());
 app.use(cors());
+
 app.use('/api/texts/', require('./routes/text'));
 app.use('/api/users/', require('./routes/user'));
-
+app.use('/api/music/', require('./routes/neo4j/music'));
 app.use('/api/v0/users/', require('./routes/neo4j/user'));
 
 app.use('/api/v0/artworks/', require('./routes/neo4j/artwork'));
