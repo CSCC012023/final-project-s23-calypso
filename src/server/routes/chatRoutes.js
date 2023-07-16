@@ -6,10 +6,12 @@ const chatController = require('../controllers/chatController');
 // have to add protection into it with user authentication
 
 router.post('/', chatController.accessChat);
-//router.route('/message').post(protect, accessChat);
-// router.route('/message').get(fetchChats);
-// router.route('/message/group').post(createGroupChat);
-// router.route('/message/rename').put(renameGroup);
+router.get('/', chatController.fetchChats);
+router.post('/group', chatController.createGroupChat);
+router.get('/group', chatController.getGroupChat);
+router.put('/group', chatController.renameGroup);
+router.put('/groupremove', chatController.removeFromGroup);
+router.put('/groupadd', chatController.addToGroup);
 // router.route('/message/groupremove').put(removeFromGroup);
 // router.route('/message/groupadd').put(addToGroup);
 
