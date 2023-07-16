@@ -109,6 +109,8 @@ const artworks2 = [
 
 
 function ArtworksPage() {
+    let sort = '';
+    let filters: string[] = [];
     const [artworks, setArtworks] = useState([]);
 
     const getArtworks = async (queryParams: QueryParams) => {
@@ -123,7 +125,6 @@ function ArtworksPage() {
                 console.error('Error fetching data:', error);
             });
     };
-
 
     useEffect(() => {
         const queryParams: QueryParams = {};
