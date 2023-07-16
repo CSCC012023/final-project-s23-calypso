@@ -1,11 +1,16 @@
 import React from 'react'
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Disclosure, Menu, Popover, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import LargeHeroBanner from '../home/LargeHeroBanner'
 
 
+interface ActiveFilter {
+    value: string;
+    label: string;
+    checked: boolean;
+}
 
 const sortOptions = [
   { id: 'featured', name: 'Featured' },
@@ -22,10 +27,9 @@ const filters = [
       { value: 'painting', label: 'Painting', checked: false },
       { value: 'drawing', label: 'Drawing', checked: false },
       { value: 'sculpture', label: 'Sculpture', checked: false },
-      { value: 'digital', label: 'Digital', checked: false },
+      { value: 'digitalmedium', label: 'Digital', checked: false },
       { value: 'photography', label: 'Photography', checked: false },
       { value: 'prints', label: 'Prints', checked: false },
-      { value: 'other', label: 'Other', checked: false },
     ],
   },
   {
@@ -35,10 +39,9 @@ const filters = [
       { value: 'acrylic', label: 'Acrylic', checked: false },
       { value: 'artpaper', label: 'Art Paper', checked: false },
       { value: 'canvas', label: 'Canvas', checked: false },
-      { value: 'digital', label: 'Digital', checked: false },
+      { value: 'digitalmaterial', label: 'Digital', checked: false },
       { value: 'oil', label: 'Oil', checked: false },
       { value: 'mixedmedia', label: 'Mixed Media', checked: false },
-      { value: 'other', label: 'Other', checked: false },
     ],
   },
   {
@@ -51,7 +54,7 @@ const filters = [
     ],
   },
 ]
-const activeFilters = [{ value: 'objects', label: 'Objects' }]
+
 
 function classNames(...classes:any) {
   return classes.filter(Boolean).join(' ')
@@ -60,6 +63,7 @@ function classNames(...classes:any) {
 export default function FilterBar() {
   const [open, setOpen] = useState(false)
   const [currentSortOption, setCurrentSortOption] = useState('')
+  const [activeFilters, setActiveFilters] = useState<ActiveFilter[]>([])
 
   const handleSortOptionClick = (sortOption: string) => {
     let currentUrlParams = new URLSearchParams(window.location.search);
@@ -67,6 +71,37 @@ export default function FilterBar() {
     window.history.pushState({}, '', window.location.pathname + "?" + currentUrlParams.toString());
     setCurrentSortOption(sortOption);
   }
+
+  const addFilterOption = (filter: ActiveFilter) => {
+    // Add filter to the activeFilters array
+    setActiveFilters([...activeFilters, filter]);
+  }
+
+  const removeFilterOption = (filter: ActiveFilter) => {
+    // Remove filter from the activeFilters array
+    setActiveFilters((activeFilters) => activeFilters.filter((item) => item.value !== filter.value))
+  }
+
+  const handleFilterUpdate = (checked: boolean, filter:ActiveFilter) => {
+    // If clicked and checked, call handleFilterOptionClick
+    if (!checked){
+      filter.checked = true;
+      addFilterOption(filter);
+    }
+    // If clicked and unchecked, call handleRemoveFilterOptionClick
+    else{
+      filter.checked = false;
+      removeFilterOption(filter);
+    }
+  }
+
+  useEffect(() => {
+    let currentUrlParams = new URLSearchParams(window.location.search);
+    currentUrlParams.delete('filter');
+    activeFilters.map((item) => {currentUrlParams.append('filter', item.value)});
+    window.history.pushState({}, '', window.location.pathname + "?" + currentUrlParams.toString());
+  }, [activeFilters])
+
 
   return (
     <div className="bg-white">
@@ -210,8 +245,11 @@ export default function FilterBar() {
             </Menu>
 
 
-
+                    
+            {/* Filter Options */}          
+            
             <button
+              //Opens the filter panel
               type="button"
               className="inline-block text-sm font-medium text-gray-700 hover:text-gray-900 sm:hidden"
               onClick={() => setOpen(true)}
@@ -221,22 +259,21 @@ export default function FilterBar() {
             
             <div className="hidden sm:block">
               <div className="flow-root">
-                <Popover.Group className="-mx-4 flex items-center divide-x divide-gray-200">
-                  {filters.map((section, sectionIdx) => (
-                    <Popover key={section.name} className="px-4 relative inline-block text-left">
+
+                {/* Filter Dropdown Sections */}   
+                <Popover.Group className="-mx-4 flex items-center divide-x divide-gray-200">                  
+                  {/* Goes through each filter category */}   
+                  {filters.map((section, sectionIdx) => (                   
+                    <Popover key={section.id} className="px-4 relative inline-block text-left">
                       <Popover.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                        <span>{section.name}</span>
-                        {sectionIdx === 0 ? (
-                          <span className="ml-1.5 rounded py-0.5 px-1.5 bg-gray-200 text-xs font-semibold text-gray-700 tabular-nums">
-                            1
-                          </span>
-                        ) : null}
+                        <span>{section.name}</span>                    
                         <ChevronDownIcon
                           className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                           aria-hidden="true"
                         />
                       </Popover.Button>
-
+                      
+                      {/* Transition for Open/Close Dropdown Menu */}   
                       <Transition
                         as={Fragment}
                         enter="transition ease-out duration-100"
@@ -248,6 +285,8 @@ export default function FilterBar() {
                       >
                         <Popover.Panel className="origin-top-right absolute right-0 mt-2 bg-white rounded-md shadow-2xl p-4 ring-1 ring-black ring-opacity-5 focus:outline-none">
                           <form className="space-y-4">
+
+                            {/* Checkbox for Filters */} 
                             {section.options.map((option, optionIdx) => (
                               <div key={option.value} className="flex items-center">
                                 <input
@@ -256,11 +295,13 @@ export default function FilterBar() {
                                   defaultValue={option.value}
                                   type="checkbox"
                                   defaultChecked={option.checked}
-                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 hover:bg-gray-100 focus:ring-indigo-500"
+                                  onClick={() => handleFilterUpdate(option.checked, option)}
+                                  //onClick={() => handleFilterOptionClick({ value: 'painting', label: 'Painting', checked: false })}
                                 />
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="ml-3 pr-6 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                  className="ml-3 pr-6 text-sm font-medium text-gray-900 whitespace-nowrap hover:text-gray-600"
                                 >
                                   {option.label}
                                 </label>
@@ -298,6 +339,7 @@ export default function FilterBar() {
                     <button
                       type="button"
                       className="flex-shrink-0 ml-1 h-4 w-4 p-1 rounded-full inline-flex text-gray-400 hover:bg-gray-200 hover:text-gray-500"
+                      onClick={() => handleFilterUpdate(activeFilter.checked, activeFilter)}
                     >
                       <span className="sr-only">Remove filter for {activeFilter.label}</span>
                       <svg className="h-2 w-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">
