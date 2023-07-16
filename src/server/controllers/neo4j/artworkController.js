@@ -44,12 +44,4 @@ const getArtworks = async (req, res) => {
 }
 
 
-//A test function that receives a request with search parameters and displays the results
-const test = async (req, res) => {
-  console.log('I was called!');
-  const myStr = JSON.stringify(req.query);
-  console.log(myStr);
-}
-
-
-module.exports = {getArtworks: getArtworks, test: test}
+module.exports = {getArtworks: getArtworks}
