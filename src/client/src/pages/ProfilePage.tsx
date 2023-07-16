@@ -7,6 +7,8 @@ import ProductList from "../components/profile/ProductsList"
 import HeaderNavBar from "../components/common/HeaderNavBar"
 import Footer from "../components/common/Footer"
 
+import ErrorPage from "./Error/ErrorPage"
+
 const products1 = [
   {
     id: 1,
@@ -51,7 +53,7 @@ const products1 = [
 ];
 
 const initUser = {
-  id: '0',
+  id: 0,
   username: 'username',
   description: 'description',
   pic: require('../assets/sampleProfilePicture1.png'),
@@ -61,8 +63,10 @@ const initUser = {
 function ProfilePage() {
   const [user, setUser] = useState<any>(initUser);
   const [products, setProducts] = useState<any[]>(products1);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [pageError, setPageError] = useState<boolean>(false);
 
-  function updateUser(user: { id: string, username: string, description: string, pic: any, banner: any }) {
+  function updateUser(user: { id: number, username: string, description: string, pic: string, banner: string }) {
     // update user in DB
     const request = new Request(`http://localhost:8080/api/v0/users/${user.id}`, {
       method: 'PUT',
@@ -88,32 +92,53 @@ function ProfilePage() {
     setProducts(products);
   }
 
-  function getUserByID(id: string) {
+  function getUserByID(id: number) {
     fetch(`http://localhost:8080/api/v0/users/${id}`)
       .then(async response => {
         if (response.ok) {
           const data = await response.json();
           setUser(data);
         } else {
-          window.alert('something went wrong');
+          setPageError(true);
         }
       });
   }
 
+  function getUserByUsername(username: string | undefined) {
+    fetch(`http://localhost:8080/api/v0/users/user/${username}`)
+      .then(async response => {
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data);
+        } else {
+          setPageError(true);
+        }
+      })
+  }
+
   useEffect(() => {
-    // GET user with id=1
-    getUserByID('1');
+    const url = window.location.pathname;
+    const username = url.split('/').filter(Boolean).at(-1)
+    if (username !== 'profile') {
+      getUserByUsername(username);
+    } else {
+      // change to currently logged in user
+      setIsLoggedIn(true);
+      getUserByID(1);
+    }
   }, []);
 
   return (
+    !pageError ? (
     <div className="flex flex-col bg-darkestGrey">
       <HeaderNavBar />
       <div className="w-full p-10 space-y-10">
-        <UserCard user={user} updateUser={updateUser} />
-        <ProductList products={products} updateProducts={updateProducts} />
+        <UserCard user={user} updateUser={updateUser} isLoggedIn={isLoggedIn}/>
+        <ProductList products={products} updateProducts={updateProducts} isLoggedIn={isLoggedIn}/>
       </div>
       <Footer />
     </div>
+    ) : (<ErrorPage />)
   );
 }
 

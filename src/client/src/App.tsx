@@ -57,6 +57,7 @@ function App() {
 
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/:username" element={<ProfilePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/transaction" element={<TransactionPage />} />

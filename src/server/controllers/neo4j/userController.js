@@ -52,7 +52,6 @@ const updateUser = async (req, res) => {
     const id = req.params.id;
     if (!id) throw { message: "Invalid ID", status: 400 };
     const result = await userModel.updateUser(dbUtils.getSession(req), id, req.body.user);
-    console.log(req.body);
     res.json(result);
   }
   catch {
@@ -64,7 +63,7 @@ const deleteUser = async (req, res) => {
   try {
     const id = req.params.id;
     if (!id) throw { message: "Invalid ID", status: 400 };
-    const result = await userModel.updateUser(dbUtils.getSession(req), id);
+    const result = await userModel.deleteUser(dbUtils.getSession(req), id);
     res.json(result);
   }
   catch {
