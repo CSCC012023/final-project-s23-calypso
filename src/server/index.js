@@ -33,6 +33,8 @@ app.use('/api/v0/users/', require('./routes/neo4j/user'));
 
 app.use('/api/v0/artworks/', require('./routes/neo4j/artwork'));
 
+
+app.use('/api/chat', require('./routes/chatRoutes'));
 app.get("/api/chat", (req, res) => {
     res.send(chats);
 });
