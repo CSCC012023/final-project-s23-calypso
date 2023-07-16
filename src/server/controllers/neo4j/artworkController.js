@@ -5,16 +5,15 @@ const dbUtils = require('../../neo4jdb');
 
 const getArtworks = async (req, res) => {
   try {
-    
-    //Array of params can be given by req.query
     const params = req.query;
     let sortParameter = '';
+    let filters = [];
 
-    //Check if the key 'sort' exists in the params array
+    // Check if the key 'sort' exists in the params array
     if (params.hasOwnProperty('sort')) {
       const sort  = params['sort'][0];
 
-      //Check which sort parameter was given
+      // Check which sort parameter was given
       if (sort === 'featured'){
         sortParameter = 'name DESC';
       }
@@ -29,8 +28,13 @@ const getArtworks = async (req, res) => {
       }
     }
 
+    // Check if the key 'filter' exists in the params array
+    if (params.hasOwnProperty('filter')) {
+      filters = params['filter'];
+    }
+
     const session = dbUtils.getSession(req);
-    const result = await artworkModel.getArtworks(session, sortParameter);
+    const result = await artworkModel.getArtworks(session, sortParameter, filters);
     res.json(result);
   }
   catch (error) {

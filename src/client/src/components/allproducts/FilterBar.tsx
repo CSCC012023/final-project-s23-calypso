@@ -96,13 +96,12 @@ export default function FilterBar() {
   }
 
   useEffect(() => {
-
     let currentUrlParams = new URLSearchParams(window.location.search);
     let initSort = currentUrlParams.get('sort') || '';
     let initFilters = currentUrlParams.getAll('filter');
     window.history.pushState({}, '', window.location.pathname + "?" + currentUrlParams.toString());
 
-
+    
     if (initSort !== '') {
       handleSortOptionClick(initSort);
     }
@@ -126,10 +125,13 @@ export default function FilterBar() {
   }, [])
 
   useEffect(() => {
-    let currentUrlParams = new URLSearchParams(window.location.search);
-    currentUrlParams.delete('filter');
-    activeFilters.map((item) => { currentUrlParams.append('filter', item.value) });
-    window.history.pushState({}, '', window.location.pathname + "?" + currentUrlParams.toString());
+    async function fetchArtworks() {
+      let currentUrlParams = new URLSearchParams(window.location.search);
+      await currentUrlParams.delete('filter');
+      activeFilters.map((item) => { currentUrlParams.append('filter', item.value) });
+      window.history.pushState({}, '', window.location.pathname + "?" + currentUrlParams.toString());
+    }
+    fetchArtworks();
   }, [activeFilters])
 
 
@@ -326,7 +328,7 @@ export default function FilterBar() {
                                   type="checkbox"
                                   defaultChecked={option.checked}
                                   className="h-4 w-4 border-gray-300 rounded text-indigo-600 hover:bg-gray-100 focus:ring-indigo-500"
-                                  onClick={() => handleFilterUpdate(option.checked, option)}                              
+                                  onClick={() => handleFilterUpdate(option.checked, option)}
                                 />
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
