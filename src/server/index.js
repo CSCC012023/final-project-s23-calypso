@@ -12,6 +12,10 @@
 //Load environment variables from .env file
 require('dotenv').config();
 
+
+const stripe = require("./routes/stripe");
+app.use("/api/stripe",stripe);
+
 //Connect to MongoDB
 const connection = require("./mongodb");
 connection();
