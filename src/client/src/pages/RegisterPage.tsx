@@ -50,7 +50,8 @@ function RegisterPage() {
   return (
     <div className='grid bg-[#212121] text-white h-screen w-full overflow-scroll lg:overflow-clip grid-cols-1 sm:grid-cols-2'>
       <div className='hidden sm:block'>
-        <img 
+        <img
+          alt=""
           className='object-cover w-full h-full'
           src='https://images.unsplash.com/photo-1535385793343-27dff1413c5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=715&q=80'
         />
@@ -58,7 +59,7 @@ function RegisterPage() {
 
       <div className='flex flex-col items-center justify-center px-6 py-8  md:h-screen lg:py-0'>
         <a href='/landing'>
-          <img className="h-20" src={logo.img} />
+          <img alt="" className="h-20" src={logo.img} />
         </a>
         <form onSubmit={handleSubmit} className='text-white w-full max-w-[500px] rounded-xl mx-auto p-8 px-8 space-y-8'>
           <h1 className="flex justify-center items-center text-2xl font-bold leading-tight tracking-tight text-white ">

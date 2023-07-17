@@ -54,7 +54,7 @@ function LoginPage() {
 
         <div className='flex flex-col items-center justify-center px-6 py-8  md:h-screen lg:py-0'>
           <a href='/landing'>
-            <img className="h-20" src={logo.img} />
+            <img alt="" className="h-20" src={logo.img} />
           </a>
 
           <form onSubmit={handleSubmit} className='text-white w-full max-w-[500px] rounded-xl mx-auto p-8 px-8 space-y-5'>
