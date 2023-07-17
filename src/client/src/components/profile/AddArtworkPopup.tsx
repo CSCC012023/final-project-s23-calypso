@@ -9,7 +9,7 @@ interface Props {
   handleCancelClick: any
 }
 
-function AddProductPopup({ handleAddClick, handleCancelClick }: Props) {
+function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
   const [imageUrl, setImageUrl] = useState("");
 
   const {
@@ -23,6 +23,9 @@ function AddProductPopup({ handleAddClick, handleCancelClick }: Props) {
       style: "",
       price: 0,
       image: "",
+      material: "",
+      medium: "",
+      rarity: "",
     }
   });
 
@@ -39,7 +42,7 @@ function AddProductPopup({ handleAddClick, handleCancelClick }: Props) {
     <div className="fixed inset-0 flex flex-col items-center z-[100] p-[60px] bg-white bg-opacity-50">
       <div className="bg-darkGrey shadow-lg flex flex-col items-center rounded-xl overflow-hidden">
         <div className="flex flex-row justify-between items-center p-4 w-full">
-          <label className="font-mono font-semibold text-xl text-white">Add Product</label>
+          <label className="font-mono font-semibold text-xl text-white">Add Artwork</label>
           <button className="h-8 w-8 rounded-full p-1 bg-gray-300 hover:bg-gray-400 active:bg-gray-600" onClick={handleCancelClick}>
             <XIcon color="#314555" />
           </button>
@@ -53,7 +56,7 @@ function AddProductPopup({ handleAddClick, handleCancelClick }: Props) {
           </div>
           <form className="flex flex-col space-y-6"
             onSubmit={handleSubmit((data) => {
-              handleAddClick(data.name, data.artist, data.style, data.price, data.image);
+              handleAddClick(data.name, data.artist, data.style, data.material, data.medium, data.rarity, data.image, data.price);
             })}
           >
             <div className="space-y-2">
@@ -72,19 +75,35 @@ function AddProductPopup({ handleAddClick, handleCancelClick }: Props) {
               {errors.style && <p className="text-[#FF0000] font-bold">{errors.style.message}</p>}
             </div>
             <div className="space-y-2">
+              <label className="leading-2 text-left block text-white">Material</label>
+              <input id="mateiral" className="block w-full border border-white rounded-md p-2 text-base" {...register("material", { required: "Material cannot be empty" })} type="text" />
+              {errors.material && <p className="text-[#FF0000] font-bold">{errors.material.message}</p>}
+            </div>
+            <div className="space-y-2">
+              <label className="leading-2 text-left block text-white">Medium</label>
+              <input id="medium" className="block w-full border border-white rounded-md p-2 text-base" {...register("medium", { required: "Medium cannot be empty" })} type="text" />
+              {errors.medium && <p className="text-[#FF0000] font-bold">{errors.medium.message}</p>}
+            </div>
+            <div className="space-y-2">
+              <label className="leading-2 text-left block text-white">Rarity</label>
+              <input id="rarity" className="block w-full border border-white rounded-md p-2 text-base" {...register("rarity", { required: "Rarity cannot be empty" })} type="text" />
+              {errors.rarity && <p className="text-[#FF0000] font-bold">{errors.rarity.message}</p>}
+            </div>
+            <div className="space-y-2">
               <label className="leading-2 text-left block text-white">Image</label>
-              <input id="image" className="block w-full border border-white rounded-md p-2 text-base" {...register("image", { validate: { checkUrl: async (url) => await isImgUrl(url) || "Please enter a valid image URL" } })} placeholder="URL" type="url" />
+              <input id="image" className="block w-full border border-white rounded-md p-2 text-base" {...register("image", { validate: { checkUrl: async (url) => await isImgUrl(url) || "Please enter a valid image URL" } })} placeholder="URL" type="url" 
+                onChange={(e) => isImgUrl(e.target.value)} />
               {errors.image && <p className="text-[#FF0000] font-bold">{errors.image.message}</p>}
             </div>
             <div className="space-y-2">
-              <label className="leading-2 text-left block text-white">{"Product (WIP)"}</label>
-              <input id="product" className="block w-full border border-white rounded-md p-2 text-base text-white" type="file" />
+              <label className="leading-2 text-left block text-white">{"Artwork (WIP)"}</label>
+              <input id="artwork" className="block w-full border border-white rounded-md p-2 text-base text-white" type="file" />
             </div>
             <div className="space-y-2">
               <label className="leading-2 text-left block text-white">Price</label>
               <div className="flex flex-row items-center space-x-3">
                 <p className="text-white">$</p>
-                <input id="profilePic" className="w-full border border-white rounded-md p-2 text-base" {...register("price")} type="number" defaultValue={0.00} />
+                <input id="profilePic" className="w-full border border-white rounded-md p-2 text-base" {...register("price")} type="number" defaultValue={0.00} step="0.01" />
               </div>
               {errors.price && <p className="text-[#FF0000] font-bold">{errors.price.message}</p>}
             </div>
@@ -98,4 +117,4 @@ function AddProductPopup({ handleAddClick, handleCancelClick }: Props) {
   );
 }
 
-export default AddProductPopup;
+export default AddArtworkPopup;

@@ -9,7 +9,7 @@ user.get('/:id', userController.findByID);
 
 user.get('/user/:username', userController.findByUsername);
 
-user.post('/create', userController.createUser);
+user.post('/register', userController.createUser);
 
 user.put('/:id', userController.updateUser);
 
