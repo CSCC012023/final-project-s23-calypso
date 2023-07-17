@@ -124,7 +124,6 @@ function ArtworksPage() {
             });
     };
 
-
     useEffect(() => {
         const queryParams: QueryParams = {};
         const params = new URLSearchParams(window.location.search);

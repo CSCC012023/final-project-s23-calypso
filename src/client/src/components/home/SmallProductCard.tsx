@@ -10,6 +10,10 @@ interface Props {
         href: string,
         imageSrc: string,
         imageAlt: string,
+        date: number,
+        rarity: string,
+        medium: string,
+        material: string,
     }
 }
 
@@ -34,7 +38,7 @@ export default function SmallProductCard( { productProp }: Props ){
                     </a>
                 </h3>
                 <p className="text-base text-gray-600">{productProp.artist}</p>
-                <p className="text-sm text-gray-600 italic">{productProp.style}</p>
+                <p className="text-sm text-gray-600 italic">{productProp.style}, {productProp.date.toString()}</p>
                 <p className="mt-1 text-gray-900">${productProp.price.toString()}</p>
             </div>
         </div>
