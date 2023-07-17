@@ -15,7 +15,7 @@ const getArtworks = async (req, res) => {
 
       // Check which sort parameter was given
       if (sort === 'featured'){
-        sortParameter = 'name DESC';
+        sortParameter = 'name ASC';
       }
       else if (sort === 'pricelow'){
         sortParameter = 'price ASC';
@@ -24,7 +24,7 @@ const getArtworks = async (req, res) => {
         sortParameter = 'price DESC';
       }
       else if (sort === 'newest'){
-        sortParameter = 'name ASC';
+        sortParameter = 'date DESC';
       }
     }
 
