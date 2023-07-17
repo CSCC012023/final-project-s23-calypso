@@ -31,17 +31,17 @@ const userController = {
           const token = jwt.sign({}, JWT_SECRET);
 
           if (res.status(200)){
-            res.json({ status: "ok", data: token})
+            return res.json({ status: "ok", data: token})
           } else {
-            res.status(403).json({ message: "Error Occurred"})
+            return res.status(403).json({ message: "Error Occurred"})
           }
         }
-        res.status(403).json({ message: "Invalid Password"})
+        return res.status(403).json({ message: "Invalid Password"})
 
       }
       catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Encountered a server error!" });
+        return res.status(500).json({ message: "Encountered a server error!" });
       }
     },
 
@@ -54,7 +54,7 @@ const userController = {
         const check = await User.findOne({ email })
   
         if (check){
-          res.status(403).json({ message: "User Exists!" })
+          return res.status(403).json({ message: "User Exists!" })
           return
         }
 
@@ -65,7 +65,7 @@ const userController = {
           const newUser = new User({ firstName, lastName, email, password });
           
           newUser.save();
-          res.status(200).json({ message: "User submitted successfully!" });
+          return res.status(200).json({ message: "User submitted successfully!" });
           // bcrypt.compare('arielle', hash, function(err, result) {
           //     console.log(result);
           // });
@@ -73,7 +73,7 @@ const userController = {
       }
       catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Encountered a server error!" });
+        return res.status(500).json({ message: "Encountered a server error!" });
       }
   }
 };
