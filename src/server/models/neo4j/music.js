@@ -36,7 +36,7 @@ const createMusic = async (session, music, userid) => {
       name: '${music.name}',
       artist: '${music.artist}',
       description: '${music.description}',
-      genres: [],
+      genres: ${JSON.stringify(music.genres)},
       pic: '${music.pic}',
       duration: '${music.duration}',
       price: '${music.price}'

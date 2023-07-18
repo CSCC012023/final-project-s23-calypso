@@ -183,7 +183,6 @@ function ProfilePage() {
 
   function addMusic(music: { name: string, artist: string, description: string, duration: string, genres: string[], pic: string, price: number }) {
     // update musics in DB
-    console.log(music);
     axios.post(`http://localhost:8080/api/music/create/userid/${user.id}`, { music }, {
       headers: {
         'Content-Type': 'application/json'

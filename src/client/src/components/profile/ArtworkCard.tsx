@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+import ConfirmDeletePopup from './ConfirmDeletePopup'
 
 interface Props {
   artwork: {
@@ -19,11 +21,16 @@ interface Props {
 }
 
 function ArtworkCard({ artwork, handleDeleteClick, onEditMode }: Props) {
+  const [delPopup, setDelPopup] = useState(false);
+
   return (
     <div className="group relative w-full">
+      {delPopup ? (
+          <ConfirmDeletePopup name={artwork.name} artist={artwork.artist} handleDeleteClick={() => {handleDeleteClick(artwork.id); setDelPopup(false)}} handleCancelClick={() => setDelPopup(false)} />
+        ): null}
       {onEditMode ? (
           <button className="flex w-16 h-10 absolute z-10 bg-black rounded-lg overflow-hidden border-white border-2 justify-center items-center hover:bg-gray-600 active:bg-gray-800"
-            onClick={() => handleDeleteClick(artwork.id)}>
+            onClick={() => setDelPopup(true)}>
             <svg color="#FF0000" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>

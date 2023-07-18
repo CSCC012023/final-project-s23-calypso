@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+import ConfirmDeletePopup from './ConfirmDeletePopup'
 
 interface Props {
   music: {
@@ -17,11 +19,16 @@ interface Props {
 const defaultImage = "https://t3.ftcdn.net/jpg/03/03/48/34/360_F_303483463_zbI02LCzq9O4IHQ6tJccIVG75dLv2bSs.jpg"
 
 function MusicCard({ music, handleDeleteClick, onEditMode }: Props) {
+  const [delPopup, setDelPopup] = useState(false);
+
   return (
     <div className="group relative w-full">
+      {delPopup ? (
+          <ConfirmDeletePopup name={music.name} artist={music.artist} handleDeleteClick={() => {handleDeleteClick(music.name, music.artist); setDelPopup(false)}} handleCancelClick={() => setDelPopup(false)} />
+        ): null}
       {onEditMode ? (
           <button className="flex w-16 h-10 absolute z-10 bg-black rounded-lg overflow-hidden border-white border-2 justify-center items-center hover:bg-gray-600 active:bg-gray-800"
-            onClick={() => handleDeleteClick(music.name, music.artist)}>
+            onClick={() => setDelPopup(true)}>
             <svg color="#FF0000" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>

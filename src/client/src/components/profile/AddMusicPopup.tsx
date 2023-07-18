@@ -57,8 +57,8 @@ function AddMusicPopup({ handleAddClick, handleCancelClick }: Props) {
           </div>
           <form className="flex flex-col space-y-6"
             onSubmit={handleSubmit((data: any) => {
-              handleAddClick(data.name, data.artist, data.description, data.duration, data.genres.split(','), data.pic, data.price);
-              }
+              handleAddClick(data.name, data.artist, data.description, data.duration, data.genres, data.pic, data.price);
+            }
             )}
           >
             <div className="space-y-2">
@@ -104,6 +104,7 @@ function AddMusicPopup({ handleAddClick, handleCancelClick }: Props) {
               <input className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
                 placeholder="URL" type="url"
                 {...register("pic", { required: false, validate: { checkUrl: async (url) => await isImgUrl(url) || "Please enter a valid image URL" } })}
+                onChange={(e) => isImgUrl(e.target.value)}
               />
               {errors.pic && <p className="text-red-500">{errors.pic.message}</p>}
             </div>
