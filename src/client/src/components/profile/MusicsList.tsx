@@ -1,4 +1,4 @@
-  import React, { useState } from 'react'
+import React, { useState } from 'react'
 
 import MusicCard from './MusicCard'
 import AddMusicPopup from './AddMusicPopup'
@@ -26,18 +26,28 @@ function MusicsList({ musics, addMusic, removeMusic, isLoggedIn }: Props) {
     removeMusic(name, artist);
   }
 
-  function handleAddClick(name: string, artist: string, description: string, duration: string, genres: string, pic: string, price: number) {
-    const newMusic = {
-      name: name,
-      artist: artist,
-      description: description,
-      duration: duration,
-      genres: genres.split(",").map((genre: string) => genre.trim()),
-      pic: pic,
-      price: price
-    };
-    addMusic(newMusic);
-    setAddMusicIsOpen(false);
+  async function checkNameAndArtist(name: string, artist: string) {
+    const response = await fetch(`http://localhost:8080/api/music/find/${name}/${artist}`);
+    const data = await response.json();
+    return !data;
+  }
+
+  async function handleAddClick(name: string, artist: string, description: string, duration: string, genres: string, pic: string, price: number) {
+    if (await checkNameAndArtist(name, artist)) {
+      const newMusic = {
+        name: name,
+        artist: artist,
+        description: description,
+        duration: duration,
+        genres: genres.split(",").map((genre: string) => genre.trim()),
+        pic: pic,
+        price: price
+      };
+      addMusic(newMusic);
+      setAddMusicIsOpen(false);
+    } else {
+      window.alert("Music with this name and artist already exists");
+    }
   }
 
   return (

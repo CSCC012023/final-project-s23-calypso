@@ -17,6 +17,8 @@ user.put('/update', userController.updateMusic);
 
 user.delete('/delete/:name/:artist', userController.deleteMusic);
 
+user.get('/find/:name/:artist', userController.findSongByNameAndArtist);
+
 user.get('/userid/:id', userController.findByUserID);
 
 user.get('/username/:username', userController.findByUsername);

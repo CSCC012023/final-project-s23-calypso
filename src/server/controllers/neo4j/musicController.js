@@ -135,6 +135,24 @@ const findByUsername = async (req, res) => {
   }
 }
 
+const findSongByNameAndArtist = async (req, res) => {
+  try {
+    const name = req.params.name;
+    const artist = req.params.artist;
+    if (!name) throw { message: "No music name provided", status: 400 };
+    if (!artist) throw { message: "No artist provided", status: 400 };
+    const result = await musicModel.findSongByNameAndArtist(dbUtils.getSession(req), name, artist);
+    res.json(result);
+  }
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+}
+
 module.exports = {
   findAll: findAll,
   findByNameAndArtist: findByNameAndArtist,
@@ -145,5 +163,6 @@ module.exports = {
   updateMusic: updateMusic,
   deleteMusic: deleteMusic,
   findByUserID: findByUserID,
-  findByUsername: findByUsername
+  findByUsername: findByUsername,
+  findSongByNameAndArtist: findSongByNameAndArtist
 }

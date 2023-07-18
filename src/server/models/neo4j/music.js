@@ -59,7 +59,8 @@ const createMusic = async (session, music, userid) => {
     'RETURN n'
   ].join('\n');
   const result = await session.run(query);
-  return result.records.map(i=>i._fields[0].properties)
+  if (result.records.length === 0) return null;
+  return result.records[0].get('n').properties;
 }
 
 const updateMusic = async (session, music) => {
@@ -100,6 +101,16 @@ const findByUsername = async (session, username) => {
   return result.records.map(i => i.get('m').properties);
 }
 
+const findSongByNameAndArtist = async (session, name, artist) => {
+  const query = [
+    `MATCH (m: Music {name: '${name}', artist: '${artist}'})`,
+    'RETURN m'
+  ].join('\n');
+  const result = await session.run(query);
+  if (result.records.length === 0) return null;
+  return result.records[0].get('m').properties;
+}
+
 module.exports = {
   findAll: findAll,
   findByNameAndArtist: findByNameAndArtist,
@@ -110,5 +121,6 @@ module.exports = {
   updateMusic: updateMusic,
   deleteMusic: deleteMusic,
   findByUserID: findByUserID,
-  findByUsername: findByUsername
+  findByUsername: findByUsername,
+  findSongByNameAndArtist: findSongByNameAndArtist
 }
