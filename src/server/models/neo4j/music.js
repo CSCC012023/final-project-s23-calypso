@@ -9,7 +9,7 @@ const findByNameAndArtist = async (session, props) => {
     'RETURN n LIMIT 1'
   ].join('\n');
   const result = await session.run(query);
-  return result.records[0].get('n').properties;
+  return result.records.map(i=>i._fields[0].properties)
 }
 
 const getSongsByArtist = async (session, artist) => {
@@ -18,7 +18,19 @@ const getSongsByArtist = async (session, artist) => {
     'RETURN n LIMIT 1'
   ].join('\n');
   const result = await session.run(query);
-  return result.records[0].get('n').properties;
+  return result.records.map(i=>i._fields[0].properties)
+}
+
+const getRecommendedSongs = async (session, username) => {
+  const query = [
+    `MATCH (n: User)-[r:OWNS]->(sharedProduct:Music)<-[:OWNS]-(c: User)`,
+    `WHERE n.username = '${username}'`,
+    `MATCH (c)-[:OWNS]->(newProduct:Music)`,
+    `WHERE newProduct.name <> sharedProduct.name`,
+    `RETURN DISTINCT newProduct`,
+  ].join('\n');
+  const result = await session.run(query);
+  return result.records.map(i=>i._fields[0].properties)
 }
 
 const searchByName = async (session, name) => {
@@ -27,7 +39,7 @@ const searchByName = async (session, name) => {
     'RETURN n'
   ].join('\n');
   const result = await session.run(query);
-  return result.records[0].get('n').properties;
+  return result.records.map(i=>i._fields[0].properties)
 }
 
 const createMusic = async (session, music, userid) => {
@@ -47,8 +59,7 @@ const createMusic = async (session, music, userid) => {
     'RETURN n'
   ].join('\n');
   const result = await session.run(query);
-  if (result.records.length === 0) return null;
-  return result.records[0].get('n').properties;
+  return result.records.map(i=>i._fields[0].properties)
 }
 
 const updateMusic = async (session, music) => {
@@ -59,7 +70,7 @@ const updateMusic = async (session, music) => {
   ].join('\n');
   const result = await session.run(query);
   console.log(user)
-  return result.records[0].get('n').properties;
+  return result.records.map(i=>i._fields[0].properties)
 }
 
 const deleteMusic = async (session, name, artist) => {
@@ -92,6 +103,7 @@ const findByUsername = async (session, username) => {
 module.exports = {
   findAll: findAll,
   findByNameAndArtist: findByNameAndArtist,
+  getRecommendedSongs: getRecommendedSongs,
   getSongsByArtist: getSongsByArtist,
   searchByName: searchByName,
   createMusic: createMusic,
