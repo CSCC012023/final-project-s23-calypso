@@ -60,6 +60,24 @@ const deleteMusic = async (session, music) => {
   return await findAll(session);
 }
 
+const findByUserID = async (session, id) => {
+  const query = [
+    `MATCH (n: User {id: '${id}'})-[:OWNS]->(m: Music)`,
+    'RETURN m'
+  ].join('\n');
+  const result = await session.run(query);
+  return result.records.map(i => i.get('m').properties);
+}
+
+const findByUsername = async (session, username) => {
+  const query = [
+    `MATCH (n: User {username: '${username}'})-[:OWNS]->(m: Music)`,
+    'RETURN m'
+  ].join('\n');
+  const result = await session.run(query);
+  return result.records.map(i => i.get('m').properties);
+}
+
 module.exports = {
   findAll: findAll,
   findByNameAndArtist: findByNameAndArtist,
@@ -67,5 +85,7 @@ module.exports = {
   searchByName: searchByName,
   createMusic: createMusic,
   updateMusic: updateMusic,
-  deleteMusic: deleteMusic
+  deleteMusic: deleteMusic,
+  findByUserID: findByUserID,
+  findByUsername: findByUsername
 }

@@ -33,10 +33,11 @@ function UserCard({ user, updateUser, isLoggedIn }: Props) {
   return (
     <div className="flex flex-row h-64 rounded-3xl overflow-hidden justify-between relative shadow-lg">
       <img className="h-full w-full object-cover absolute z-0" src={user.banner} alt="User Banner" />
-      <div className="flex flex-row items-center overflow-hidden z-10">
-        <img className="flex-shrink-0 w-32 h-32 mx-10 rounded-full border-2" src={user.pic} alt="Profile Picture" />
-        <div className="h-full mt-40">
-          <p className="font-mono text-7xl font-bold text-white">{user.username}</p>
+      <div className="flex flex-row overflow-hidden md:items-center z-10 p-6 space-x-5 lg:p-10 lg:space-x-10">
+        <img className="border-2 object-cover flex items-center justify-center w-14 h-14 my-4 md:h-20 md:w-20 lg:h-32 lg:w-32 rounded-full"
+          src={user.pic} alt="Profile Picture" />
+        <div className="">
+          <p className="font-mono text-7xl font-bold text-white text-ellipsis overflow-hidden whitespace-nowrap">{user.username}</p>
           <p className="font-sans text-xl break-words text-white">{user.description}</p>
         </div>
       </div>

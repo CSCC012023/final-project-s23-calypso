@@ -99,7 +99,6 @@ const postArtwork = async (req, res) => {
   try {
     const id = req.params.id;
     const artwork = req.body.artwork;
-    console.log(artwork);
     if (!id) throw { message: "No user id provided", status: 400 }
     if (!artwork) throw { message: "No artwork provided", status: 400 }
     const result = await artworkModel.postArtwork(dbUtils.getSession(req), id, artwork);

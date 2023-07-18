@@ -15,4 +15,8 @@ user.put('/update', userController.updateMusic);
 
 user.delete('/delete', userController.deleteMusic);
 
+user.get('/userid/:id', userController.findByUserID);
+
+user.get('/username/:username', userController.findByUsername);
+
 module.exports = user;

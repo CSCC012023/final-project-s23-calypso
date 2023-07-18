@@ -84,6 +84,38 @@ const deleteMusic = async (req, res) => {
   }
 }
 
+const findByUserID = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!id) throw { message: "No user id provided", status: 400 };
+    const result = await musicModel.findByUserID(dbUtils.getSession(req), id);
+    res.json(result);
+  }
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+}
+
+const findByUsername = async (req, res) => {
+  try {
+    const username = req.params.username;
+    if (!username) throw { message: "No username provided", status: 400 };
+    const result = await musicModel.findByUsername(dbUtils.getSession(req), username);
+    res.json(result);
+  }
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+}
+
 module.exports = {
   findAll: findAll,
   findByNameAndArtist: findByNameAndArtist,
@@ -91,5 +123,7 @@ module.exports = {
   searchByName: searchByName,
   createMusic: createMusic,
   updateMusic: updateMusic,
-  deleteMusic: deleteMusic
+  deleteMusic: deleteMusic,
+  findByUserID: findByUserID,
+  findByUsername: findByUsername
 }
