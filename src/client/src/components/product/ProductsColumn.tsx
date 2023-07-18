@@ -25,7 +25,7 @@ export default function ProductsColumn( {productsList, categoryTitle}: Props ) {
                     </div>
                 </div>
             </div>
-            <div className="pt-4 sm:mt-4 lg:mt-24 space-y-8 lg:pr-16 container">
+            <div className="pt-4 sm:mt-4 lg:mt-24 space-y-8 lg:pr-16 xl:container">
                 <p>
                     {productsList.map((product2: any) => (
                         <div key={product2.id} className="">
@@ -45,7 +45,7 @@ export default function ProductsColumn( {productsList, categoryTitle}: Props ) {
                     <p>Description</p>
                 </div>
                 
-                <div className="flex mt-4 mb-4 space-x-60 justify-center container">
+                <div className="flex mt-4 mb-4 space-x-60 justify-center container z-10">
                     <button className="bg-gray-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mr-2">
                         Add to cart
                     </button>
