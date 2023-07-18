@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Menu from '../components/Menu'
+import MusicList from "../components/MusicList";
 
 export default function DiscoverPage() {
+
+    const username = 'cassy'  //for testing api
 
     const discoverPanel = {
         img: require("../assets/panda.png"),
@@ -9,7 +12,7 @@ export default function DiscoverPage() {
         streams: 5123123,
         price: 4.99
     }
-    
+
     const categories = [
         {
             name: 'Trending',
@@ -90,6 +93,20 @@ export default function DiscoverPage() {
         'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7d6cdfc4-1e12-4ae2-a45d-1c50c7186b1a/dfvx8sv-ee1f8040-c0c2-4bf4-94b1-60db8f761112.png/v1/fill/w_1081,h_739,q_70,strp/fantasy_landscape_2_by_aigfantasy_dfvx8sv-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODc1IiwicGF0aCI6IlwvZlwvN2Q2Y2RmYzQtMWUxMi00YWUyLWE0NWQtMWM1MGM3MTg2YjFhXC9kZnZ4OHN2LWVlMWY4MDQwLWMwYzItNGJmNC05NGIxLTYwZGI4Zjc2MTExMi5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.7Jc9Pm5PnplloDv6Op2ywFu9XzPyxQ-uSFJn5FMR2-Q'
     ]
 
+    const [recommendedSongs, setRecommendedSongs] = useState([])
+
+    useEffect(() => {
+      fetch(`http://localhost:8080/api/music/recommended/${username}`)
+      .then(async response => {
+        if (response.ok) {
+          const data = await response.json();
+          setRecommendedSongs(data)
+        } else {
+          window.alert('something went wrong');
+        }
+      });
+    }, [])
+
   return (
     <>
       <div className="flex bg-darkestGrey text-white h-screen overflow-clip">
@@ -141,6 +158,8 @@ export default function DiscoverPage() {
               )
             })}
           </div>
+          <p className="text-2xl font-semibold">Songs you may like</p>
+          <MusicList musicList={recommendedSongs} />
           <p className="text-2xl font-semibold">Popular Sceneric Art</p>
           <div className="flex space-x-5">
             <img

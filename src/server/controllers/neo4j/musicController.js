@@ -13,7 +13,7 @@ const findAll = async (req, res) => {
 
 const findByNameAndArtist = async (req, res) => {
   try {
-    const id = req.params.props;
+    const props = req.body.props;
     if (!props) throw { message: "Invalid ID", status: 400 };
     const result = await musicModel.findByNameAndArtist(dbUtils.getSession(req), props);
     res.json(result);
@@ -28,6 +28,18 @@ const getSongsByArtist = async (req, res) => {
     const artist = req.params.artist;
     if (!artist) throw { message: "Invalid Username", status: 400 };
     const result = await musicModel.getSongsByArtist(dbUtils.getSession(req), artist);
+    res.json(result);
+  }
+  catch {
+    res.status(500).json({ message: "Encountered server error" });
+  }
+}
+
+const getRecommendedSongs = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!id) throw { message: "Invalid Username", status: 400 };
+    const result = await musicModel.getRecommendedSongs(dbUtils.getSession(req), id);
     res.json(result);
   }
   catch {
@@ -88,6 +100,7 @@ module.exports = {
   findAll: findAll,
   findByNameAndArtist: findByNameAndArtist,
   getSongsByArtist: getSongsByArtist,
+  getRecommendedSongs: getRecommendedSongs,
   searchByName: searchByName,
   createMusic: createMusic,
   updateMusic: updateMusic,
