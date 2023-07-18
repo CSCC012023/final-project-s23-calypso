@@ -30,12 +30,24 @@ const searchByName = async (session, name) => {
   return result.records[0].get('n').properties;
 }
 
-const createMusic = async (session, music) => {
+const createMusic = async (session, music, userid) => {
   const query = [
-    `CREATE (n: Music {name: '${music.name}', artist: '${music.artist}', description: '${music.description}', genres: [], pic: '${music.pic}', duration: '${music.duration}', price: '${music.price}'})`,
+    `CREATE (n: Music {
+      name: '${music.name}',
+      artist: '${music.artist}',
+      description: '${music.description}',
+      genres: [],
+      pic: '${music.pic}',
+      duration: '${music.duration}',
+      price: '${music.price}'
+    })`,
+    `WITH n`,
+    `MATCH (u: User {id: '${userid}'})`,
+    `CREATE (u)-[:OWNS]->(n)`,
     'RETURN n'
   ].join('\n');
   const result = await session.run(query);
+  if (result.records.length === 0) return null;
   return result.records[0].get('n').properties;
 }
 
@@ -50,14 +62,13 @@ const updateMusic = async (session, music) => {
   return result.records[0].get('n').properties;
 }
 
-const deleteMusic = async (session, music) => {
+const deleteMusic = async (session, name, artist) => {
   const query = [
-    `MATCH (n: Music {name: '${music.name}', artist: '${music.artist}'})`,
+    `MATCH (n: Music {name: '${name}', artist: '${artist}'})`,
     'DETACH DELETE n',
     'RETURN n'
   ].join('\n');
   await session.run(query);
-  return await findAll(session);
 }
 
 const findByUserID = async (session, id) => {

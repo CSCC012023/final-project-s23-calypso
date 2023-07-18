@@ -9,11 +9,11 @@ user.get('/find', userController.findByNameAndArtist);
 
 user.get('/name', userController.searchByName);
 
-user.post('/create', userController.createMusic);
+user.post('/create/userid/:id', userController.createMusic);
 
 user.put('/update', userController.updateMusic);
 
-user.delete('/delete', userController.deleteMusic);
+user.delete('/delete/:name/:artist', userController.deleteMusic);
 
 user.get('/userid/:id', userController.findByUserID);
 

@@ -56,7 +56,7 @@ function AddMusicPopup({ handleAddClick, handleCancelClick }: Props) {
             </div>
           </div>
           <form className="flex flex-col space-y-6"
-            onSubmit={handleSubmit((data) => {
+            onSubmit={handleSubmit((data: any) => {
               handleAddClick(data.name, data.artist, data.description, data.duration, data.genres.split(','), data.pic, data.price);
               }
             )}

@@ -127,7 +127,6 @@ const deleteArtwork = async (req, res) => {
 
 module.exports = {
   getArtworks: getArtworks,
-  test: test,
   findByID: findByID,
   findByUserID: findByUserID,
   findByUsername: findByUsername,

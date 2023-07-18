@@ -133,7 +133,8 @@ function ProfilePage() {
         } else {
           window.alert('something went wrong');
         }
-      });
+      })
+      .catch(err => window.alert('something went wrong'));
   }
 
   function removeArtwork(id: string) {
@@ -145,7 +146,8 @@ function ProfilePage() {
         } else {
           window.alert('something went wrong');
         }
-      });
+      })
+      .catch(err => window.alert('something went wrong'));
   }
 
   function addArtwork(artwork: { id: string, name: string, artist: string, style: string, price: number, href: string, material: string, medium: string, rarity: string, imageSrc: string, imageAlt: string }) {
@@ -162,17 +164,40 @@ function ProfilePage() {
         } else {
           window.alert('something went wrong');
         }
-      });
+      })
+      .catch(err => window.alert('something went wrong'));
   }
 
   function removeMusic(name: string, artist: string) {
     // update musics in DB
-    setMusics(prev => prev.filter(music => music.name !== name || music.artist !== artist));
+    axios.delete(`http://localhost:8080/api/music/delete/${name}/${artist}`)
+      .then(response => {
+        if (response.status === 200) {
+          setMusics(prev => prev.filter(music => music.name !== name || music.artist !== artist));
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => window.alert('something went wrong'));
   }
 
   function addMusic(music: { name: string, artist: string, description: string, duration: string, genres: string[], pic: string, price: number }) {
     // update musics in DB
-    setMusics(prev => [music, ...prev]);
+    console.log(music);
+    axios.post(`http://localhost:8080/api/music/create/userid/${user.id}`, { music }, {
+      headers: {
+        'Content-Type': 'application/json'
+        }
+        })
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setMusics(prev => [data, ...prev]);
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => window.alert('something went wrong'));
   }
 
   function getUserByID(id: string) {
@@ -184,7 +209,8 @@ function ProfilePage() {
         } else {
           setPageError(true);
         }
-      });
+      })
+      .catch(err => setPageError(true));
   }
 
   function getArtworksByUserID(id: string) {
@@ -196,7 +222,8 @@ function ProfilePage() {
         } else {
           window.alert('something went wrong');
         }
-      });
+      })
+      .catch(err => window.alert('something went wrong'));
   }
 
   function getMusicByUserID(id: string) {
@@ -208,7 +235,8 @@ function ProfilePage() {
         } else {
           window.alert('something went wrong');
         }
-      });
+      })
+      .catch(err => window.alert('something went wrong'));
   }
 
   function getUserByUsername(username: string | undefined) {
@@ -252,8 +280,8 @@ function ProfilePage() {
     const url = window.location.pathname;
     if (url === "/profile" || url === "/profile/") {
       // change to currently logged in user
-      setIsLoggedIn(true);
       const id = '1';
+      setIsLoggedIn(true);
       getUserByID(id);
       getArtworksByUserID(id);
       getMusicByUserID(id);
