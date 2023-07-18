@@ -5,18 +5,17 @@ const dbUtils = require('../../neo4jdb');
 
 const getArtworks = async (req, res) => {
   try {
-    
-    //Array of params can be given by req.query
     const params = req.query;
     let sortParameter = '';
+    let filters = [];
 
-    //Check if the key 'sort' exists in the params array
+    // Check if the key 'sort' exists in the params array
     if (params.hasOwnProperty('sort')) {
       const sort  = params['sort'][0];
 
-      //Check which sort parameter was given
+      // Check which sort parameter was given
       if (sort === 'featured'){
-        sortParameter = 'name DESC';
+        sortParameter = 'name ASC';
       }
       else if (sort === 'pricelow'){
         sortParameter = 'price ASC';
@@ -25,26 +24,23 @@ const getArtworks = async (req, res) => {
         sortParameter = 'price DESC';
       }
       else if (sort === 'newest'){
-        sortParameter = 'name ASC';
+        sortParameter = 'date DESC';
       }
     }
 
+    // Check if the key 'filter' exists in the params array
+    if (params.hasOwnProperty('filter')) {
+      filters = params['filter'];
+    }
+
     const session = dbUtils.getSession(req);
-    const result = await artworkModel.getArtworks(session, sortParameter);
+    const result = await artworkModel.getArtworks(session, sortParameter, filters);
     res.json(result);
   }
   catch (error) {
     console.log(error);
     res.status(500).json({ message: "Encountered server error" });
   }
-}
-
-
-//A test function that receives a request with search parameters and displays the results
-const test = async (req, res) => {
-  console.log('I was called!');
-  const myStr = JSON.stringify(req.query);
-  console.log(myStr);
 }
 
 const findByID = async (req, res) => {

@@ -17,7 +17,7 @@ export default function MusicList(props: any) {
                 <p className="my-auto font-semibold">{i + 1}</p>
                 <img
                   className=" w-14 h-14 object-cover rounded-lg"
-                  src={s.img}
+                  src={s.pic}
                 />
                 <p className="my-auto">{s.name}</p>
               </div>
