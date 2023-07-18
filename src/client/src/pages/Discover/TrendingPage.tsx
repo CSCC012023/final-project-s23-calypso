@@ -4,6 +4,8 @@ import MusicList from '../../components/MusicList'
 //import Menu from '../components/Menu'
 
 export default function TrendingPage() {
+  const username = 'cassy'  // Change later for api call purposes
+
   const categories = [
     {
       name: 'Trending',
@@ -105,3 +107,28 @@ export default function TrendingPage() {
 //   }),
 //   (:Music { pic: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f305fd5d-9181-411b-bf23-2daea267b63d/dfw8w0p-b440a95d-466d-4bf4-986b-5f04700148d6.png/v1/fill/w_894,h_894,q_70,strp/grim_adoptable__limited_edition_ultra_rare__by_ceroticart_dfw8w0p-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcL2YzMDVmZDVkLTkxODEtNDExYi1iZjIzLTJkYWVhMjY3YjYzZFwvZGZ3OHcwcC1iNDQwYTk1ZC00NjZkLTRiZjQtOTg2Yi01ZjA0NzAwMTQ4ZDYucG5nIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.cTWvB_ay92dr7YVy73fI_gAWQjJNvAXSigPKXcK8itI', genres: ['beats'], artist: 'prodaye', description: 'beats song',  name: 'Beat 8', price: 3.99, duration: '2:34'
 //   })
+
+  // To use to find specific songs
+  
+  // function findByName(props: any) {
+  //   // update user in DB
+  //   const request = new Request(`http://localhost:8080/api/music/find`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({ props })
+  //   });
+  //   console.log('body', JSON.stringify({ props }))
+
+  //   fetch(request)
+  //     .then(async response => {
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         console.log(data)
+  //       } else {
+  //         console.error('something went wrong');
+  //       }
+  //     });
+  // }
+  // findByName({name: "Beat 1", artist: "prodaye"})

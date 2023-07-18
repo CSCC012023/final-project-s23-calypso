@@ -5,9 +5,11 @@ const userController = require('../../controllers/neo4j/musicController');
 
 user.get('/', userController.findAll);
 
-user.get('/find', userController.findByNameAndArtist);
+user.post('/find', userController.findByNameAndArtist);
 
-user.get('/name', userController.searchByName);
+user.get('/recommended/:id', userController.getRecommendedSongs);
+
+user.post('/name', userController.searchByName);
 
 user.post('/create', userController.createMusic);
 
