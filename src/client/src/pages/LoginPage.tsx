@@ -11,6 +11,8 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [error, setError] = useState('');
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -28,18 +30,23 @@ function LoginPage() {
       }),
     });
 
-    fetch(request).then((response) => {
-      if (response.ok) {
+    await fetch(request).then((response) => {
+      if (response.status == 200) {
         // If the response is ok (server returns 200), update the user data
         // and navigate to home page
         console.log('Response worked!');
         navigate("/")
       }
-      else{
+      else if (response.status == 403){
         console.log('Response failed!');
+        setError("Invalid Email or Password")
+      }
+      else {
+        console.log('Response failed!');
+        setError("Internal Server Error")
       }
     });
-    
+
   }
 
   return (
@@ -72,7 +79,12 @@ function LoginPage() {
                 <div className="text-medium font-medium text-primary-600 hover:underline">Forgot password?</div>
               </div>
             </div>
-
+            {error && 
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong className="font-bold">Error!</strong>
+                <span className="block sm:inline">{error}</span>
+              </div>
+            }
             <div className='flex flex-col items-center justify-center space-y-4'>
               <button type='submit' className="text-black bg-[#ffffff] hover:bg-[#7f7f7f] focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-bold px-20 py-2.5 text-center mb-2 ">
                 Login
