@@ -2,7 +2,6 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080/",
   "dependencies": {
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^1.0.6",
@@ -13,6 +12,7 @@
     "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",
     "axios": "^1.4.0",
+    "http-proxy-middleware": "^2.0.6",
     "lodash": "^4.17.21",
     "nanoid": "^4.0.2",
     "react": "^18.2.0",
