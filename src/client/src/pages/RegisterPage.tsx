@@ -12,6 +12,8 @@ function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [error, setError] = useState('');
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -31,15 +33,20 @@ function RegisterPage() {
       }),
     });
 
-    fetch(request).then((response) => {
-      if (response.ok) {
+    await fetch(request).then((response) => {
+      if (response.status == 200) {
         // If the response is ok (server returns 200), update the user data
         // and navigate to login page
         console.log('Response worked!');
         navigate("/login")
       }
-      else{
+      else if (response.status == 403){
         console.log('Response failed!');
+        setError("User Already Exists")
+      }
+      else {
+        console.log('Response failed!');
+        setError("Internal Server Error")
       }
     });
     
@@ -84,15 +91,21 @@ function RegisterPage() {
               <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="••••••••" className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5"/>
             </div>
           </div>
+          {error && 
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+              <strong className="font-bold">Error!</strong>
+              <span className="block sm:inline">{error}</span>
+            </div>
+          }
           <div className='flex flex-col items-center justify-center space-y-4'>
-              <button type='submit' className="text-black bg-[#ffffff] hover:bg-[#7f7f7f] focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-bold px-20 py-2.5 text-center mb-2 ">
-                Register
-              </button>
-              <div className="flex justify-center items-center space-x-1 font-light text-gray-500">
-                <p className='text-base'>
-                  Already have an account? 
-                </p>
-                <a href="/login" className="font-medium text-primary-600 text-base hover:underline">Sign In</a>
+            <button type='submit' className="text-black bg-[#ffffff] hover:bg-[#7f7f7f] focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-bold px-20 py-2.5 text-center mb-2 ">
+              Register
+            </button>
+            <div className="flex justify-center items-center space-x-1 font-light text-gray-500">
+              <p className='text-base'>
+                Already have an account? 
+              </p>
+              <a href="/login" className="font-medium text-primary-600 text-base hover:underline">Sign In</a>
             </div>
           </div>
         </form>
