@@ -1,5 +1,7 @@
 import { useState, useContext, createContext, ReactNode } from 'react';
 import React from 'react';
+import { ShoppingCart } from '../components/common/ShoppingCart';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 // Define the type for the props of the ShoppingCartProvider component
 type ShoppingCartProviderProps = {
@@ -22,7 +24,7 @@ type ShoppingCartContext = {
 }
 
 // Create a new context for the shopping cart data
-const ShoppingCartContext = createContext<ShoppingCartContext | null>(null);
+const ShoppingCartContext = createContext({} as ShoppingCartContext)
 
 // Custom hook to access the shopping cart data from the context
 export function useShoppingCart() {
@@ -35,7 +37,7 @@ export function useShoppingCart() {
 
 // ShoppingCartProvider component responsible for providing the shopping cart data to its children
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
-    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [cartItems, setCartItems] = useLocalStorage<CartItem[]>('shopping-cart', []);
     const [isOpen, setIsOpen] = useState(false);
     const cartQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0)
     const openCart = () => setIsOpen(true);
@@ -78,6 +80,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         // Provide the shopping cart data through the context
         <ShoppingCartContext.Provider value={{ getQuantity, addItem, removeItem, openCart, closeCart, cartItems, cartQuantity }}>
             {children}
+            <ShoppingCart isOpen={isOpen}/>
         </ShoppingCartContext.Provider>
     );
 }
