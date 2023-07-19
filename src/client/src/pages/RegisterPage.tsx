@@ -19,6 +19,10 @@ function RegisterPage() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!firstName || !lastName || !email || !password) {
+      setError('Please fill in all empty fields');
+      return;
+    }
     // Send a POST request to the server with the entered text
     const request = new Request('http://localhost:8080/api/users/submit', {
       method: 'POST',
@@ -38,7 +42,7 @@ function RegisterPage() {
         // If the response is ok (server returns 200), update the user data
         // and navigate to login page
         console.log('Response worked!');
-        navigate("/login")
+        navigate("/successful")
       }
       else if (response.status == 403){
         console.log('Response failed!');
@@ -50,7 +54,6 @@ function RegisterPage() {
       }
     });
     
-    // navigate("/login")
   }
 
 
@@ -93,7 +96,7 @@ function RegisterPage() {
           </div>
           {error && 
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-              <strong className="font-bold">Error!</strong>
+              <strong className="font-bold">Error! </strong>
               <span className="block sm:inline">{error}</span>
             </div>
           }
