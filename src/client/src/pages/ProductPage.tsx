@@ -11,6 +11,13 @@ import ProductsColumn from '../components/product/ProductsColumn';
 import ProductsRow2 from '../components/product/ProductsRow2';
 type Props = {};
 
+type ProductProps = {
+  id: number;
+  name: string;
+  price: number;
+  imgUrl: string;
+}
+
 const artworks = [
   {
     id: 1,
@@ -68,7 +75,7 @@ function ProductPage({}: Props) {
       <ExampleNavBar />
       <div className="min-w-full w-full sm:pb-16">
         {/* TO DO: Need to make it so width is constant */}
-        <ProductsColumn productsList={artworks} categoryTitle="A Maaneth De Silva Original!" />
+        <ProductsColumn productsList={artworks} categoryTitle="A Maaneth De Silva Original!" id={3} name="testname" price={24.99} imgUrl=""/>
       </div>
       <div className="flex justify-center items-center">
         <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />

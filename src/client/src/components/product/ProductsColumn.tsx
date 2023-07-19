@@ -2,13 +2,21 @@ import React from "react";
 import SmallProductCard from "../home/SmallProductCard";
 import LargeProductCard from "../home/LargeProductCard";
 
+import { useShoppingCart } from "../../context/ShoppingCartContext";
+
 
 interface Props {
     categoryTitle: string,
     productsList: any,
+    id: number
+    name: string
+    price: number
+    imgUrl: string
 }
 
-export default function ProductsColumn( {productsList, categoryTitle}: Props ) {
+export default function ProductsColumn( {productsList, categoryTitle, id, name, price, imgUrl}: Props ) {
+    const { getQuantity, addItem, removeItem } = useShoppingCart()
+    const quantity = getQuantity(id);
     return (
         <div className="flex space-x-12 min-w-full mr-16 items-center justify-center px-16">
             <div className="lg:max-w-7xl lg:py-8 lg:pl-24 lg:pr-16">
@@ -46,9 +54,16 @@ export default function ProductsColumn( {productsList, categoryTitle}: Props ) {
                 </div>
                 
                 <div className="flex mt-4 mb-4 space-x-60 justify-center container z-10">
-                    <button className="bg-gray-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mr-2">
-                        Add to cart
-                    </button>
+                    {quantity === 0 ? (
+                        
+                    <button className="bg-gray-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => addItem(id)}>
+                        + Add to cart
+                    </button> 
+                    ) : (
+                    <button className="bg-gray-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => removeItem(id)}>
+                        Remove from cart
+                    </button> 
+                    )}
                     <button className="bg-gray-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded ml-2">
                         Place a bid
                     </button>

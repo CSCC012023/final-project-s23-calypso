@@ -3,7 +3,9 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { ShoppingCartIcon } from '@heroicons/react/outline'
 import profilePicture from '../../assets/sampleProfilePicture1.png'
+import { useShoppingCart } from '../../context/ShoppingCartContext'
 
 
 const user = {
@@ -31,6 +33,7 @@ function classNames(...classes: string[]) {
 }
 
 export default function HeaderNavBar() {
+  const { openCart, cartQuantity } = useShoppingCart()
   return (
     <div>
       <Disclosure as="header" className="bg-menu fixed w-full top-0 left-0 z-50">
@@ -80,14 +83,29 @@ export default function HeaderNavBar() {
                     )}
                   </Disclosure.Button>
                 </div>
-                <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-                  <button
-                    type="button"
-                    className="bg-gray-800 flex-shrink-0 rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+                <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center space-x-2">
+                  {/* Shopping cart sidebar */}
+                  {cartQuantity > 0 && ( 
+                    <button
+                      type="button"
+                      className="relative ml-auto flex-shrink-0 bg-gray-800 rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      onClick={openCart}
+                    >
+                      <span className="sr-only">View shopping cart</span>
+                      <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+
+                      <div className="rounded-full text-sm bg-red-600 flex justify-center items-center text-white w-5 h-5 absolute -bottom-1 -right-1 translate-x-1/4 translate-y-1/4">
+                        {cartQuantity}
+                      </div>
+                    </button>
+                  )}
+                    <button
+                      type="button"
+                      className="bg-gray-800 flex-shrink-0 rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    >
+                      <span className="sr-only">View notifications</span>
+                      <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
 
                   {/* Profile dropdown */}
                   <Menu as="div" className="flex-shrink-0 relative ml-4">
