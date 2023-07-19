@@ -109,6 +109,8 @@ const artworks2 = [
 
 
 function ArtworksPage() {
+
+
     const [artworks, setArtworks] = useState([]);
 
     const getArtworks = async (queryParams: QueryParams) => {
@@ -137,6 +139,11 @@ function ArtworksPage() {
         getArtworks(queryParams);
     });
 
+    const handleArtworkClick = (artworkId: string) => {
+        console.log(`Clicked artwork ID: ${artworkId}`);
+        // Perform further actions with the artwork ID if needed
+    };
+
     return (
         <div className="bg-darkestGrey h-screen" >
             {/* Header Navigation bar */}
@@ -163,7 +170,7 @@ function ArtworksPage() {
 
             {/* Product List */}
             <div className="">
-                <ProductList productsList={artworks} />
+                <ProductList productsList={artworks} onArtworkClick={handleArtworkClick}/>
             </div>
 
 
