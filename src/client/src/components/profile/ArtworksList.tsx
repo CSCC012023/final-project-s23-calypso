@@ -11,13 +11,14 @@ interface Props {
     name: string,
     artist: string,
     style: string,
-    price: string,
+    price: number,
     href: string,
     material: string,
     medium: string,
     rarity: string,
     imageSrc: string,
     imageAlt: string,
+    date: number,
   }[],
   addArtwork: Function,
   removeArtwork: Function,
@@ -43,7 +44,7 @@ function ArtworksList({ artworks, addArtwork, removeArtwork, isLoggedIn }: Props
     removeArtwork(id);
   }
 
-  async function handleAddClick(name: string, artist: string, style: string, material: string, medium: string, rarity: string, image: string, price: string) {
+  async function handleAddClick(name: string, artist: string, style: string, material: string, medium: string, rarity: string, image: string, date: number, price: number) {
     const newArtwork = {
       id: await getNewID(),
       name: name,
@@ -55,7 +56,8 @@ function ArtworksList({ artworks, addArtwork, removeArtwork, isLoggedIn }: Props
       medium: medium,
       rarity: rarity,
       imageSrc: image,
-      imageAlt: name.toUpperCase() + " - " + artist.toUpperCase()
+      imageAlt: name.toUpperCase() + " - " + artist.toUpperCase(),
+      date: date,
     };
     addArtwork(newArtwork);
     setAddArtworkIsOpen(false);

@@ -8,13 +8,14 @@ interface Props {
     name: string,
     artist: string,
     style: string,
-    price: string,
+    price: number,
     href: string,
     material: string,
     medium: string,
     rarity: string,
     imageSrc: string,
     imageAlt: string,
+    date: number,
   },
   handleDeleteClick: any,
   onEditMode: boolean
@@ -52,7 +53,7 @@ function ArtworkCard({ artwork, handleDeleteClick, onEditMode }: Props) {
             </a>
           </h3>
           <p className="mt-1 text-sm text-gray-300 text-ellipsis overflow-hidden whitespace-nowrap">{artwork.artist}</p>
-          <p className="mt-1 text-sm text-gray-300 italic text-ellipsis overflow-hidden whitespace-nowrap">{artwork.style}</p>
+          <p className="mt-1 text-sm text-gray-300 italic text-ellipsis overflow-hidden whitespace-nowrap">{artwork.style + ', ' + artwork.date}</p>
         </div>
         <p className="text-lg font-medium text-white flex-shrink-0">$ {artwork.price}</p>
       </div>

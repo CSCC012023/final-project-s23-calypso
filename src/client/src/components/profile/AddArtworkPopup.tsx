@@ -26,6 +26,7 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
       material: "",
       medium: "",
       rarity: "",
+      date: new Date().getFullYear(),
     }
   });
 
@@ -33,8 +34,8 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
     const img = new Image();
     img.src = url;
     return new Promise((resolve) => {
-      img.onload = () => {setImageUrl(url); resolve(true);}
-      img.onerror = () => {setImageUrl(""); resolve(false);}
+      img.onload = () => { setImageUrl(url); resolve(true); }
+      img.onerror = () => { setImageUrl(""); resolve(false); }
     });
   }
 
@@ -51,12 +52,12 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
         <div className="flex flex-row overflow-y-auto p-6 space-x-6">
           <div className="flex">
             <div className="flex w-96 h-96 border-2 border-dashed border-gray-600 items-center justify-center object-contain rounded-lg text-white">
-              {imageUrl !== "" ? (<img className="text-white" src={imageUrl} alt="Image"/>) : "Image"}
+              {imageUrl !== "" ? (<img className="text-white" src={imageUrl} alt="Image" />) : "Image"}
             </div>
           </div>
           <form className="flex flex-col space-y-6"
             onSubmit={handleSubmit((data) => {
-              handleAddClick(data.name, data.artist, data.style, data.material, data.medium, data.rarity, data.image, data.price);
+              handleAddClick(data.name, data.artist, data.style, data.material, data.medium, data.rarity, data.image, data.date, data.price);
             })}
           >
             <div className="space-y-2">
@@ -85,13 +86,22 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
               {errors.medium && <p className="text-[#FF0000] font-bold">{errors.medium.message}</p>}
             </div>
             <div className="space-y-2">
+              <label className="leading-2 text-left block text-white">Date</label>
+              <input id="date" className="block w-full border border-white rounded-md p-2 text-base" {...register("date", { required: "Date cannot be empty", min: { value: 1, message: "Year must be at least 1" } })} type="number"/>
+              {errors.date && <p className="text-[#FF0000] font-bold">{errors.date.message}</p>}
+            </div>
+            <div className="space-y-2">
               <label className="leading-2 text-left block text-white">Rarity</label>
-              <input id="rarity" className="block w-full border border-white rounded-md p-2 text-base" {...register("rarity", { required: "Rarity cannot be empty" })} type="text" />
+              <select id="Rarity" className="block w-full border border-white rounded-md p-2 text-base" {...register("rarity", { required: "Rarity cannot be empty" })}>
+                <option value="open">open</option>
+                <option value="limited">limited</option>
+                <option value="unique">unique</option>
+              </select>
               {errors.rarity && <p className="text-[#FF0000] font-bold">{errors.rarity.message}</p>}
             </div>
             <div className="space-y-2">
               <label className="leading-2 text-left block text-white">Image</label>
-              <input id="image" className="block w-full border border-white rounded-md p-2 text-base" {...register("image", { validate: { checkUrl: async (url) => await isImgUrl(url) || "Please enter a valid image URL" } })} placeholder="URL" type="url" 
+              <input id="image" className="block w-full border border-white rounded-md p-2 text-base" {...register("image", { validate: { checkUrl: async (url) => await isImgUrl(url) || "Please enter a valid image URL" } })} placeholder="URL" type="url"
                 onChange={(e) => isImgUrl(e.target.value)} />
               {errors.image && <p className="text-[#FF0000] font-bold">{errors.image.message}</p>}
             </div>

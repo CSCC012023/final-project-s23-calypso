@@ -79,6 +79,7 @@ const postArtwork = async (session, userid, artwork) => {
             medium: "${artwork.medium}",
             rarity: "${artwork.rarity}",
             price: ${artwork.price},
+            date: ${artwork.date},
             href: "${artwork.href}",
             imageSrc: "${artwork.imageSrc}",
             imageAlt: "${artwork.imageAlt}"
