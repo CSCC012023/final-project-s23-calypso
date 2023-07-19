@@ -22,10 +22,11 @@ import TransactionPage from './pages/Transaction/TransactionPage';
 import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransactionPage';
 import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
-import { useShoppingCart, ShoppingCartProvider } from './context/ShoppingCartContext';
 
 import TestingPage from './pages/TestingPageMongo';
 import TestingPageNeo from './pages/TestingPageNeo'
+
+import { ShoppingCartProvider } from './context/ShoppingCartContext';
 
 import {
   BrowserRouter,
