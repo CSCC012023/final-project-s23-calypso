@@ -27,7 +27,7 @@ type ShoppingCartProps = {
   export function ShoppingCart({ isOpen }: ShoppingCartProps) {
     const { closeCart, cartItems } = useShoppingCart()
     return (
-      <Offcanvas show={isOpen} onHide={closeCart} placement="end">
+      <Offcanvas scroll={true} show={isOpen} onHide={closeCart} placement="end" className="w-300" >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Cart</Offcanvas.Title>
         </Offcanvas.Header>
@@ -36,7 +36,7 @@ type ShoppingCartProps = {
             {cartItems.map(item => (
               <CartItem key={item.id} {...item} />
             ))}
-            <div className="ms-auto fw-bold fs-5">
+            <div className="ml-auto font-bold text-xl">
               Total{" "}
               {formatCurrency(
                 cartItems.reduce((total, cartItem) => {
