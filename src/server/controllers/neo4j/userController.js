@@ -36,7 +36,6 @@ const findByUsername = async (req, res) => {
     const username = req.params.username;
     if (!username) throw { message: "Invalid Username", status: 400 };
     const result = await userModel.findByUsername(dbUtils.getSession(req), username);
-    if (!result) throw { message: "User not found", status: 404 };
     res.json(result);
   }
   catch (err) {

@@ -10,100 +10,6 @@ import Footer from "../components/common/Footer"
 
 import ErrorPage from "./Error/ErrorPage"
 
-const artworks1 = [
-  {
-    id: 1,
-    name: 'Lost Girl',
-    artist: 'Jennie Li',
-    style: 'Oil on canvas',
-    price: 500,
-    href: 'artwork',
-    material: 'canvas',
-    medium: 'oil',
-    rarity: 'open',
-    imageSrc: require('../assets/sampleProductImage2.jpg'),
-    imageAlt: 'LOST GIRL - JENNIE LI'
-  },
-  {
-    id: 2,
-    name: 'Dystopian Future',
-    artist: 'Markus Lawerence',
-    style: 'Digital',
-    price: 3000,
-    href: 'artwork',
-    material: 'digital',
-    medium: 'digital',
-    rarity: 'limited',
-    imageSrc: require('../assets/sampleLargeProductImage2.jpg'),
-    imageAlt: 'DYSTOPIAN FUTURE - MARKUS LAWERENCE'
-  },
-  {
-    id: 3,
-    name: 'Fox-Masked Boy Fox-Masked Boy Fox-Masked Boy',
-    artist: 'Natalie Hall',
-    style: 'Watercolor on paper',
-    price: 50,
-    href: 'artwork',
-    material: 'paper',
-    medium: 'watercolor',
-    rarity: 'open',
-    imageSrc: require('../assets/sampleProfilePicture1.png'),
-    imageAlt: 'FOX MASKED BOY - NATALIE HALL'
-  },
-  {
-    id: 4,
-    name: 'Panda',
-    artist: 'Panda Man',
-    style: 'Sculpture',
-    price: 900,
-    href: 'artwork',
-    material: 'clay',
-    medium: 'sculpture',
-    rarity: 'unique',
-    imageSrc: require('../assets/panda.png'),
-    imageAlt: 'PANDA - PANDA MAN'
-  }
-];
-
-const musics1 = [
-  {
-    name: 'song1',
-    artist: 'prodeye',
-    description: 'beats song',
-    price: 3.92,
-    pic: require('../assets/sampleProductImage2.jpg'),
-    duration: '3:23',
-    genres: ['beats', 'afrobeats']
-  },
-  {
-    name: 'song2',
-    artist: 'prodeye',
-    description: 'beats song',
-    price: 3.92,
-    pic: require('../assets/sampleLargeProductImage2.jpg'),
-    duration: '3:23',
-    genres: ['beats', 'afrobeats']
-  },
-  {
-    name: 'song3',
-    artist: 'prodeye',
-    description: 'beats song',
-    price: 3.92,
-    pic: require('../assets/sampleProfilePicture1.png'),
-    duration: '3:23',
-    genres: ['beats', 'afrobeats']
-  },
-  {
-    name: 'song4',
-    artist: 'prodeye',
-    description: 'beats song',
-    price: 3.92,
-    pic: require('../assets/panda.png'),
-    duration: '3:23',
-    genres: ['beats', 'afrobeats']
-  }
-]
-
 const initUser = {
   id: 0,
   username: 'username',
@@ -114,8 +20,8 @@ const initUser = {
 
 function ProfilePage() {
   const [user, setUser] = useState<any>(initUser);
-  const [artworks, setArtworks] = useState<any[]>(artworks1);
-  const [musics, setMusics] = useState<any[]>(musics1);
+  const [artworks, setArtworks] = useState<any[]>([]);
+  const [musics, setMusics] = useState<any[]>([]);
   const [pageError, setPageError] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
@@ -279,13 +185,14 @@ function ProfilePage() {
     const url = window.location.pathname;
     if (url === "/profile" || url === "/profile/") {
       // change to currently logged in user
-      const id = '1';
+      const id = '64af094859d41e67a34c8bd1';
       setIsLoggedIn(true);
       getUserByID(id);
       getArtworksByUserID(id);
       getMusicByUserID(id);
     } else {
       const username = url.split('/').filter(Boolean).at(-1)
+      setIsLoggedIn(false);
       getUserByUsername(username);
       getArtworksByUsername(username);
       getMusicByUsername(username);
