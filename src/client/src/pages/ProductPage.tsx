@@ -9,6 +9,7 @@ import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 import ProductsColumn from '../components/product/ProductsColumn';
 import ProductsRow2 from '../components/product/ProductsRow2';
+import { useParams } from 'react-router-dom';
 type Props = {};
 
 const artworks = [
@@ -58,6 +59,10 @@ const collections = [
 ]
 
 function ProductPage({}: Props) {
+
+  const { id } = useParams();
+  const descriptionText = 'Artwork ID:' + id;
+
   const previewArtPanel = {
     img: require('../assets/previewArt.jpg'),
     name: 'Preview Art',
@@ -69,6 +74,9 @@ function ProductPage({}: Props) {
       <div className="min-w-full w-full sm:pb-16">
         {/* TO DO: Need to make it so width is constant */}
         <ProductsColumn productsList={artworks} categoryTitle="A Maaneth De Silva Original!" />
+        <h1 color='white'>{descriptionText}</h1>
+        
+        {/* <ProductsColumn productsList={artworks} categoryTitle= {descriptionText} /> */}
       </div>
       <div className="flex justify-center items-center">
         <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />

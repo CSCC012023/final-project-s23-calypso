@@ -16,6 +16,8 @@ import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 import HeroBanner from "../components/allproducts/HeroBanner";
 import { Query } from "@testing-library/react";
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -30,7 +32,7 @@ const artworks2 = [
         artist: 'Jennie Li',
         style: 'Oil on canvas',
         price: '$500',
-        href: 'product',
+        href: 'product/1',
         imageSrc: sampleProductImage2,
         imageAlt: 'LOST GIRL - JENNIE LI',
     },
@@ -110,6 +112,7 @@ const artworks2 = [
 
 function ArtworksPage() {
 
+    const navigate = useNavigate();
 
     const [artworks, setArtworks] = useState([]);
 
@@ -140,8 +143,9 @@ function ArtworksPage() {
     });
 
     const handleArtworkClick = (artworkId: string) => {
-        console.log(`Clicked artwork ID: ${artworkId}`);
-        // Perform further actions with the artwork ID if needed
+        console.log('Clicked artwork ID:' + artworkId);
+       
+        navigate('/product/' + artworkId);
     };
 
     return (
