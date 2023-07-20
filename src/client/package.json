@@ -2,7 +2,13 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080/",
+  "options": {
+    "allowedHosts": [
+      "localhost",
+      ".localhost"
+    ]
+  },
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^1.0.6",
@@ -13,9 +19,12 @@
     "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",
     "axios": "^1.4.0",
+    "http-proxy-middleware": "^2.0.6",
+    "lodash": "^4.17.21",
+    "nanoid": "^4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.45.1",
+    "react-hook-form": "^7.45.2",
     "react-router-dom": "^6.12.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",

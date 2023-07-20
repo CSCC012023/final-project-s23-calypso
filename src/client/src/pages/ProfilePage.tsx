@@ -1,56 +1,16 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 import UserCard from "../components/profile/UserCard"
-import ProductList from "../components/profile/ProductsList"
+import ArtworkList from "../components/profile/ArtworksList"
+import MusicsList from '../components/profile/MusicsList'
 
 import HeaderNavBar from "../components/common/HeaderNavBar"
 import Footer from "../components/common/Footer"
 
 import ErrorPage from "./Error/ErrorPage"
-
-const products1 = [
-  {
-    id: 1,
-    name: 'Lost Girl',
-    artist: 'Jennie Li',
-    style: 'Oil on canvas',
-    price: 500,
-    href: 'product',
-    imageSrc: require('../assets/sampleProductImage2.jpg'),
-    imageAlt: 'LOST GIRL - JENNIE LI',
-  },
-  {
-    id: 2,
-    name: 'Dystopian Future',
-    artist: 'Markus Lawerence',
-    style: 'Digital',
-    price: 3000,
-    href: 'product',
-    imageSrc: require('../assets/sampleLargeProductImage2.jpg'),
-    imageAlt: 'DYSTOPIAN FUTURE - MARKUS LAWERENCE',
-  },
-  {
-    id: 3,
-    name: 'Fox-Masked Boy',
-    artist: 'Natalie Hall',
-    style: 'Watercolor on paper',
-    price: 50,
-    href: 'product',
-    imageSrc: require('../assets/sampleProfilePicture1.png'),
-    imageAlt: 'FOX MASKED BOY - NATALIE HALL',
-  },
-  {
-    id: 4,
-    name: 'Panda',
-    artist: 'Panda Man',
-    style: 'Sculpture',
-    price: 900,
-    href: 'product',
-    imageSrc: require('../assets/panda.png'),
-    imageAlt: 'PANDA - PANDA MAN',
-  }
-];
+import { set } from 'react-hook-form'
+import { get } from 'http'
 
 const initUser = {
   id: 0,
@@ -62,82 +22,245 @@ const initUser = {
 
 function ProfilePage() {
   const [user, setUser] = useState<any>(initUser);
-  const [products, setProducts] = useState<any[]>(products1);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [artworks, setArtworks] = useState<any[]>([]);
+  const [musics, setMusics] = useState<any[]>([]);
   const [pageError, setPageError] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  function updateUser(user: { id: number, username: string, description: string, pic: string, banner: string }) {
+  function updateUser(user1: { id: number, username: string, description: string, pic: any, banner: any }) {
+    if (user.username !== user1.username) {
+      // update artworks in DB
+      artworks.forEach(artwork => {
+        artwork.artist = user1.username;
+        artwork.imageAlt = artwork.name.toUpperCase() + '-' + artwork.artist.toUpperCase();
+        axios.put(`http://localhost:8080/api/v0/artworks/update/${artwork.id}`, { artwork }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(response => {
+            if (response.status === 200) {
+              const data = response.data;
+            } else {
+              window.alert('something went wrong');
+            }
+          })
+          .catch(err => console.log(err));
+      });
+
+      // update musics in DB
+      musics.forEach(music => {
+        music.artist = user1.username;
+        axios.put(`http://localhost:8080/api/music/update/${music.name}/${user.username}`, { music }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(response => {
+            if (response.status === 200) {
+              const data = response.data;
+            } else {
+              window.alert('something went wrong');
+            }
+          })
+          .catch(err => console.log(err));
+      });
+    }
+
     // update user in DB
-    const request = new Request(`http://localhost:8080/api/v0/users/${user.id}`, {
-      method: 'PUT',
+    axios.put(`http://localhost:8080/api/v0/users/${user.id}`, { user: user1 }, {
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ user })
-    });
-
-    fetch(request)
-      .then(async response => {
-        if (response.ok) {
-          const data = await response.json();
+      }
+    })
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
           setUser(data);
+          console.log("worked");
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  function removeArtwork(id: string) {
+    // delete artwork in DB
+    axios.delete(`http://localhost:8080/api/v0/artworks/delete/${id}`)
+      .then(response => {
+        if (response.status === 200) {
+          setArtworks(prev => prev.filter(artwork => artwork.id !== id));
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  function addArtwork(artwork: { id: string, name: string, artist: string, style: string, price: number, href: string, material: string, medium: string, rarity: string, imageSrc: string, imageAlt: string }) {
+    // add artwork in DB
+    artwork.artist = user.username;
+    artwork.imageAlt = artwork.name.toUpperCase() + '-' + artwork.artist.toUpperCase();
+    axios.post(`http://localhost:8080/api/v0/artworks/post/`, { artwork }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setArtworks(prev => [data, ...prev]);
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  function removeMusic(name: string, artist: string) {
+    // update musics in DB
+    axios.delete(`http://localhost:8080/api/music/delete/${name}/${artist}`)
+      .then(response => {
+        if (response.status === 200) {
+          setMusics(prev => prev.filter(music => music.name !== name || music.artist !== artist));
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  function addMusic(music: { name: string, artist: string, description: string, duration: string, genres: string[], pic: string, price: number }) {
+    // update musics in DB
+    music.artist = user.username;
+    axios.post(`http://localhost:8080/api/music/post`, { music }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setMusics(prev => [data, ...prev]);
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  function getUserByID(id: string) {
+    axios.get(`http://localhost:8080/api/v0/users/${id}`)
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setUser(data);
+          getArtworksByUserID(data.id);
+          getMusicByUserID(data.id);
+        } else {
+          setPageError(true);
+        }
+      })
+      .catch(err => setPageError(true));
+  }
+
+  function getArtworksByUserID(id: string) {
+    axios.get(`http://localhost:8080/api/v0/artworks/userid/${id}`)
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setArtworks(data);
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  function getMusicByUserID(id: string) {
+    axios.get(`http://localhost:8080/api/music/userid/${id}`)
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setMusics(data);
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  function getUserByUsername(username: string | undefined) {
+    axios.get(`http://localhost:8080/api/v0/users/user/${username}`)
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setUser(data);
+          getArtworksByUsername(data.username);
+          getMusicByUsername(data.username);
+        } else {
+          setPageError(true);
+        }
+      })
+      .catch(err => setPageError(true));
+  }
+
+  function getArtworksByUsername(username: string | undefined) {
+    axios.get(`http://localhost:8080/api/v0/artworks/username/${username}`)
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setArtworks(data);
         } else {
           window.alert('something went wrong');
         }
       });
   }
 
-  function updateProducts(products: { id: number, name: string, artist: string, style: string, price: number, href: string, imageSrc: any, imageAlt: string }[]) {
-    // update products in DB
-    setProducts(products);
-  }
-
-  function getUserByID(id: number) {
-    fetch(`http://localhost:8080/api/v0/users/${id}`)
-      .then(async response => {
-        if (response.ok) {
-          const data = await response.json();
-          setUser(data);
+  function getMusicByUsername(username: string | undefined) {
+    axios.get(`http://localhost:8080/api/music/username/${username}`)
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setMusics(data);
         } else {
-          setPageError(true);
+          window.alert('something went wrong');
         }
       });
   }
 
-  function getUserByUsername(username: string | undefined) {
-    fetch(`http://localhost:8080/api/v0/users/user/${username}`)
-      .then(async response => {
-        if (response.ok) {
-          const data = await response.json();
-          setUser(data);
-        } else {
-          setPageError(true);
-        }
-      })
-  }
-
   useEffect(() => {
     const url = window.location.pathname;
-    const username = url.split('/').filter(Boolean).at(-1)
-    if (username !== 'profile') {
-      getUserByUsername(username);
-    } else {
+    if (url === "/profile" || url === "/profile/") {
       // change to currently logged in user
+      const id = '64af094859d41e67a34c8bd1';
       setIsLoggedIn(true);
-      getUserByID(1);
+      getUserByID(id);
+    } else {
+      const username = url.split('/').filter(Boolean).at(-1)
+      setIsLoggedIn(false);
+      getUserByUsername(username);
     }
-  }, []);
+  }, [user]);
 
   return (
     !pageError ? (
-    <div className="flex flex-col bg-darkestGrey">
-      <HeaderNavBar />
-      <div className="w-full p-10 space-y-10">
-        <UserCard user={user} updateUser={updateUser} isLoggedIn={isLoggedIn}/>
-        <ProductList products={products} updateProducts={updateProducts} isLoggedIn={isLoggedIn}/>
+      <div className="flex flex-col bg-darkestGrey">
+        <HeaderNavBar />
+        <div className="w-full min-h-screen">
+          <div className="w-full px-4 py-10 sm:px-6 lg:px-10">
+            <UserCard user={user} updateUser={updateUser} isLoggedIn={isLoggedIn} />
+          </div>
+          <div className="w-full mx-auto px-4 py-16 sm:px-6 sm:py-10 lg:px-10">
+            <ArtworkList artworks={artworks} addArtwork={addArtwork} removeArtwork={removeArtwork} isLoggedIn={isLoggedIn} />
+          </div>
+          <div className="w-full mx-auto px-4 py-16 sm:px-6 sm:py-10 lg:px-10">
+            <MusicsList musics={musics} addMusic={addMusic} removeMusic={removeMusic} isLoggedIn={isLoggedIn} />
+          </div>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
     ) : (<ErrorPage />)
   );
 }

@@ -11,10 +11,16 @@ user.get('/recommended/:id', userController.getRecommendedSongs);
 
 user.post('/name', userController.searchByName);
 
-user.post('/create', userController.createMusic);
+user.post('/post', userController.createMusic);
 
-user.put('/update', userController.updateMusic);
+user.put('/update/:name/:artist', userController.updateMusic);
 
-user.delete('/delete', userController.deleteMusic);
+user.delete('/delete/:name/:artist', userController.deleteMusic);
+
+user.get('/find/:name/:artist', userController.findSongByNameAndArtist);
+
+user.get('/userid/:id', userController.findByUserID);
+
+user.get('/username/:username', userController.findByUsername);
 
 module.exports = user;
