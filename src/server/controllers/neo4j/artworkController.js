@@ -93,11 +93,27 @@ const findByUsername = async (req, res) => {
 
 const postArtwork = async (req, res) => {
   try {
-    const id = req.params.id;
     const artwork = req.body.artwork;
-    if (!id) throw { message: "No user id provided", status: 400 }
     if (!artwork) throw { message: "No artwork provided", status: 400 }
-    const result = await artworkModel.postArtwork(dbUtils.getSession(req), id, artwork);
+    const result = await artworkModel.postArtwork(dbUtils.getSession(req), artwork);
+    res.json(result);
+  }
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+}
+
+const updateArtwork = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!id) throw { message: "No artwork id provided", status: 400 }
+    const artwork = req.body.artwork;
+    if (!artwork) throw { message: "No artwork provided", status: 400 }
+    const result = await artworkModel.updateArtwork(dbUtils.getSession(req), id, artwork);
     res.json(result);
   }
   catch (err) {
@@ -131,5 +147,6 @@ module.exports = {
   findByUserID: findByUserID,
   findByUsername: findByUsername,
   postArtwork: postArtwork,
+  updateArtwork: updateArtwork,
   deleteArtwork: deleteArtwork,
 }

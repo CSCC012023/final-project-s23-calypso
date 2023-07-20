@@ -9,6 +9,8 @@ import HeaderNavBar from "../components/common/HeaderNavBar"
 import Footer from "../components/common/Footer"
 
 import ErrorPage from "./Error/ErrorPage"
+import { set } from 'react-hook-form'
+import { get } from 'http'
 
 const initUser = {
   id: 0,
@@ -25,9 +27,48 @@ function ProfilePage() {
   const [pageError, setPageError] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  function updateUser(user: { id: number, username: string, description: string, pic: any, banner: any }) {
+  function updateUser(user1: { id: number, username: string, description: string, pic: any, banner: any }) {
+    if (user.username !== user1.username) {
+      // update artworks in DB
+      artworks.forEach(artwork => {
+        artwork.artist = user1.username;
+        artwork.imageAlt = artwork.name.toUpperCase() + '-' + artwork.artist.toUpperCase();
+        axios.put(`http://localhost:8080/api/v0/artworks/update/${artwork.id}`, { artwork }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(response => {
+            if (response.status === 200) {
+              const data = response.data;
+            } else {
+              window.alert('something went wrong');
+            }
+          })
+          .catch(err => console.log(err));
+      });
+
+      // update musics in DB
+      musics.forEach(music => {
+        music.artist = user1.username;
+        axios.put(`http://localhost:8080/api/music/update/${music.name}/${user.username}`, { music }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(response => {
+            if (response.status === 200) {
+              const data = response.data;
+            } else {
+              window.alert('something went wrong');
+            }
+          })
+          .catch(err => console.log(err));
+      });
+    }
+
     // update user in DB
-    axios.put(`http://localhost:8080/api/v0/users/${user.id}`, { user }, {
+    axios.put(`http://localhost:8080/api/v0/users/${user.id}`, { user: user1 }, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -36,11 +77,12 @@ function ProfilePage() {
         if (response.status === 200) {
           const data = response.data;
           setUser(data);
+          console.log("worked");
         } else {
           window.alert('something went wrong');
         }
       })
-      .catch(err => window.alert('something went wrong'));
+      .catch(err => console.log(err));
   }
 
   function removeArtwork(id: string) {
@@ -53,12 +95,14 @@ function ProfilePage() {
           window.alert('something went wrong');
         }
       })
-      .catch(err => window.alert('something went wrong'));
+      .catch(err => console.log(err));
   }
 
   function addArtwork(artwork: { id: string, name: string, artist: string, style: string, price: number, href: string, material: string, medium: string, rarity: string, imageSrc: string, imageAlt: string }) {
     // add artwork in DB
-    axios.post(`http://localhost:8080/api/v0/artworks/post/userid/${user.id}`, { artwork }, {
+    artwork.artist = user.username;
+    artwork.imageAlt = artwork.name.toUpperCase() + '-' + artwork.artist.toUpperCase();
+    axios.post(`http://localhost:8080/api/v0/artworks/post/`, { artwork }, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -71,7 +115,7 @@ function ProfilePage() {
           window.alert('something went wrong');
         }
       })
-      .catch(err => window.alert('something went wrong'));
+      .catch(err => console.log(err));
   }
 
   function removeMusic(name: string, artist: string) {
@@ -84,16 +128,17 @@ function ProfilePage() {
           window.alert('something went wrong');
         }
       })
-      .catch(err => window.alert('something went wrong'));
+      .catch(err => console.log(err));
   }
 
   function addMusic(music: { name: string, artist: string, description: string, duration: string, genres: string[], pic: string, price: number }) {
     // update musics in DB
-    axios.post(`http://localhost:8080/api/music/create/userid/${user.id}`, { music }, {
+    music.artist = user.username;
+    axios.post(`http://localhost:8080/api/music/post`, { music }, {
       headers: {
         'Content-Type': 'application/json'
-        }
-        })
+      }
+    })
       .then(response => {
         if (response.status === 200) {
           const data = response.data;
@@ -102,7 +147,7 @@ function ProfilePage() {
           window.alert('something went wrong');
         }
       })
-      .catch(err => window.alert('something went wrong'));
+      .catch(err => console.log(err));
   }
 
   function getUserByID(id: string) {
@@ -111,6 +156,8 @@ function ProfilePage() {
         if (response.status === 200) {
           const data = response.data;
           setUser(data);
+          getArtworksByUserID(data.id);
+          getMusicByUserID(data.id);
         } else {
           setPageError(true);
         }
@@ -128,7 +175,7 @@ function ProfilePage() {
           window.alert('something went wrong');
         }
       })
-      .catch(err => window.alert('something went wrong'));
+      .catch(err => console.log(err));
   }
 
   function getMusicByUserID(id: string) {
@@ -141,7 +188,7 @@ function ProfilePage() {
           window.alert('something went wrong');
         }
       })
-      .catch(err => window.alert('something went wrong'));
+      .catch(err => console.log(err));
   }
 
   function getUserByUsername(username: string | undefined) {
@@ -150,6 +197,8 @@ function ProfilePage() {
         if (response.status === 200) {
           const data = response.data;
           setUser(data);
+          getArtworksByUsername(data.username);
+          getMusicByUsername(data.username);
         } else {
           setPageError(true);
         }
@@ -188,16 +237,12 @@ function ProfilePage() {
       const id = '64af094859d41e67a34c8bd1';
       setIsLoggedIn(true);
       getUserByID(id);
-      getArtworksByUserID(id);
-      getMusicByUserID(id);
     } else {
       const username = url.split('/').filter(Boolean).at(-1)
       setIsLoggedIn(false);
       getUserByUsername(username);
-      getArtworksByUsername(username);
-      getMusicByUsername(username);
     }
-  }, []);
+  }, [user]);
 
   return (
     !pageError ? (

@@ -11,9 +11,9 @@ user.get('/recommended/:id', userController.getRecommendedSongs);
 
 user.post('/name', userController.searchByName);
 
-user.post('/create/userid/:id', userController.createMusic);
+user.post('/post', userController.createMusic);
 
-user.put('/update', userController.updateMusic);
+user.put('/update/:name/:artist', userController.updateMusic);
 
 user.delete('/delete/:name/:artist', userController.deleteMusic);
 

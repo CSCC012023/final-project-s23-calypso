@@ -52,7 +52,9 @@ const findByID = async (session, id) => {
 
 const findByUserID = async (session, id) => {
     const query = [
-        `MATCH (u: User {id: '${id}'})-[:OWNS]->(a: Artwork)`,
+        `MATCH (u: User {id: '${id}'})`,
+        `WITH u`,
+        `MATCH (a: Artwork {artist: u.username})`,
         `RETURN a`
     ].join('\n');
     const result = await session.run(query);
@@ -61,14 +63,14 @@ const findByUserID = async (session, id) => {
 
 const findByUsername = async (session, username) => {
     const query = [
-        `MATCH (u: User {username: "${username}"})-[:OWNS]->(a: Artwork)`,
+        `MATCH (a: Artwork {artist: '${username}'})`,
         `RETURN a`
     ].join('\n');
     const result = await session.run(query);
     return result.records.map(i => i.get('a').properties);
 }
 
-const postArtwork = async (session, userid, artwork) => {
+const postArtwork = async (session, artwork) => {
     const query = [
         `CREATE (a: Artwork {
             id: "${artwork.id}",
@@ -84,9 +86,28 @@ const postArtwork = async (session, userid, artwork) => {
             imageSrc: "${artwork.imageSrc}",
             imageAlt: "${artwork.imageAlt}"
         })`,
-        `WITH a`,
-        `MATCH (u: User {id: '${userid}'})`,
-        `CREATE (u)-[:OWNS]->(a)`,
+        `RETURN a`
+    ].join('\n');
+    const result = await session.run(query);
+    if (result.records.length === 0) return null;
+    return result.records[0].get('a').properties;
+}
+
+const updateArtwork = async (session, id, artwork) => {
+    const query = [
+        `MATCH (a: Artwork {id: '${id}'})`,
+        `SET 
+            a.name = '${artwork.name}',
+            a.artist = '${artwork.artist}',
+            a.style = '${artwork.style}',
+            a.material = '${artwork.material}',
+            a.medium = '${artwork.medium}',
+            a.rarity = '${artwork.rarity}',
+            a.price = ${artwork.price},
+            a.date = ${artwork.date},
+            a.href = '${artwork.href}',
+            a.imageSrc = '${artwork.imageSrc}',
+            a.imageAlt = '${artwork.imageAlt}'`,
         `RETURN a`
     ].join('\n');
     const result = await session.run(query);
@@ -110,5 +131,6 @@ module.exports = {
     findByUserID: findByUserID,
     findByUsername: findByUsername,
     postArtwork: postArtwork,
+    updateArtwork: updateArtwork,
     deleteArtwork: deleteArtwork,
 }

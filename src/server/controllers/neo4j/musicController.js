@@ -61,11 +61,9 @@ const searchByName = async (req, res) => {
 
 const createMusic = async (req, res) => {
   try {
-    const id = req.params.id;
     const music = req.body.music;
-    if (!id) throw { message: "No user id provided", status: 400 };
     if (!music) throw { message: "No music provided in body", status: 400 };
-    const result = await musicModel.createMusic(dbUtils.getSession(req), music, id);
+    const result = await musicModel.createMusic(dbUtils.getSession(req), music);
     res.json(result);
   }
   catch (err) {
@@ -79,9 +77,13 @@ const createMusic = async (req, res) => {
 
 const updateMusic = async (req, res) => {
   try {
-    const music = req.params.music;
-    if (!music) throw { message: "Invalid ID", status: 400 };
-    const result = await musicModel.updateMusic(dbUtils.getSession(req), music);
+    const name = req.params.name;
+    const artist = req.params.artist;
+    const music = req.body.music;
+    if (!name) throw { message: "No music name provided", status: 400 };
+    if (!artist) throw { message: "No artist provided", status: 400 };
+    if (!music) throw { message: "No music provided in body", status: 400 };
+    const result = await musicModel.updateMusic(dbUtils.getSession(req), name, artist, music);
     res.json(result);
   }
   catch {

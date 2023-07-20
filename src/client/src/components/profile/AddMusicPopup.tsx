@@ -18,7 +18,6 @@ function AddMusicPopup({ handleAddClick, handleCancelClick }: Props) {
   } = useForm({
     defaultValues: {
       name: "",
-      artist: "",
       description: "",
       duration: "",
       genres: "",
@@ -57,7 +56,7 @@ function AddMusicPopup({ handleAddClick, handleCancelClick }: Props) {
           </div>
           <form className="flex flex-col space-y-6"
             onSubmit={handleSubmit((data: any) => {
-              handleAddClick(data.name, data.artist, data.description, data.duration, data.genres, data.pic, data.price);
+              handleAddClick(data.name, data.description, data.duration, data.genres, data.pic, data.price);
             }
             )}
           >
@@ -68,14 +67,6 @@ function AddMusicPopup({ handleAddClick, handleCancelClick }: Props) {
                 {...register("name", { required: "name cannot be empty" })}
               />
               {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-            </div>
-            <div className="space-y-2">
-              <label className="leading-2 text-left block text-white">Artist</label>
-              <input className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                type="text"
-                {...register("artist", { required: "artist cannot be empty" })}
-              />
-              {errors.artist && <p className="text-red-500">{errors.artist.message}</p>}
             </div>
             <div className="space-y-2">
               <label className="leading-2 text-left block text-white">Description</label>

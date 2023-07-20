@@ -26,17 +26,18 @@ function MusicsList({ musics, addMusic, removeMusic, isLoggedIn }: Props) {
     removeMusic(name, artist);
   }
 
-  async function checkNameAndArtist(name: string, artist: string) {
-    const response = await fetch(`http://localhost:8080/api/music/find/${name}/${artist}`);
-    const data = await response.json();
-    return !data;
+  async function checkNameAndArtist(name: string) {
+    if (musics.find(music => music.name === name)) {
+      return false;
+    }
+    return true;
   }
 
-  async function handleAddClick(name: string, artist: string, description: string, duration: string, genres: string, pic: string, price: number) {
-    if (await checkNameAndArtist(name, artist)) {
+  async function handleAddClick(name: string, description: string, duration: string, genres: string, pic: string, price: number) {
+    if (await checkNameAndArtist(name)) {
       const newMusic = {
         name: name,
-        artist: artist,
+        artist: "",
         description: description,
         duration: duration,
         genres: genres.split(",").map((genre: string) => genre.trim()),

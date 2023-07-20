@@ -19,7 +19,6 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
   } = useForm({
     defaultValues: {
       name: "",
-      artist: "",
       style: "",
       price: 0,
       image: "",
@@ -57,18 +56,13 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
           </div>
           <form className="flex flex-col space-y-6"
             onSubmit={handleSubmit((data) => {
-              handleAddClick(data.name, data.artist, data.style, data.material, data.medium, data.rarity, data.image, data.date, data.price);
+              handleAddClick(data.name, data.style, data.material, data.medium, data.rarity, data.image, data.date, data.price);
             })}
           >
             <div className="space-y-2">
               <label className="leading-2 text-left block text-white">Name</label>
               <input id="name" className="block w-full border border-white rounded-md p-2 text-base" {...register("name", { required: "Name cannot be empty" })} type="text" />
               {errors.name && <p className="text-[#FF0000] font-bold">{errors.name.message}</p>}
-            </div>
-            <div className="space-y-2">
-              <label className="leading-2 text-left block text-white">Artist</label>
-              <input id="artist" className="block w-full border border-white rounded-md p-2 text-base" {...register("artist", { required: "Artist cannot be empty" })} type="text" />
-              {errors.artist && <p className="text-[#FF0000] font-bold">{errors.artist.message}</p>}
             </div>
             <div className="space-y-2">
               <label className="leading-2 text-left block text-white">Style</label>
