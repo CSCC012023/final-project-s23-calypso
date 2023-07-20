@@ -30,23 +30,62 @@ function LoginPage() {
       }),
     });
 
-    await fetch(request).then((response) => {
-      if (response.status == 200) {
-        // If the response is ok (server returns 200), update the user data
-        // and navigate to home page
-        console.log('Response worked!');
-        navigate("/")
-      }
-      else if (response.status == 403){
-        console.log('Response failed!');
-        setError("Invalid Email or Password")
-      }
-      else {
-        console.log('Response failed!');
-        setError("Internal Server Error")
-      }
-    });
+    // await fetch(request).then((response) => {
+    //   if (response.status == 200) {
+    //     // If the response is ok (server returns 200), update the user data
+    //     // and navigate to home page
+    //     // console.log('Response worked!');
+    //     return response.json(); 
+    //     // navigate("/")
+    //     // alert("login successful")
+    //     // window.localStorage("token", response.data)
+    //   }
+    //   else if (response.status == 403){
+    //     console.log('Response failed!');
+    //     setError("Invalid Email or Password")
+    //   }
+    //   else {
+    //     console.log('Response failed!');
+    //     setError("Internal Server Error")
+    //   }
+    // }).then((data) => {
+    //   console.log(data)
+    //   alert("login successful")
+    //   window.localStorage.setItem("token", data)
+    //   window.location.href = "./UserData";
+    // });
+    
+    let loginSuccessful = false;
 
+    await fetch(request)
+      .then((response) => {
+        if (response.status === 200) {
+          // If the response is ok (server returns 200), update the user data
+          // and navigate to the home page
+          loginSuccessful = true; // Set the flag to true for successful login
+          return response.json();
+        } else if (response.status === 403) {
+          console.log('Response failed!');
+          setError("Invalid Email or Password");
+          throw new Error("Invalid Email or Password"); // Trigger catch block for custom handling
+        } else {
+          console.log('Response failed!');
+          setError("Internal Server Error");
+          throw new Error("Internal Server Error"); // Trigger catch block for custom handling
+        }
+      })
+      .then((data) => {
+        if (loginSuccessful) {
+          console.log(data); // This will only log if the response status is 200
+          //alert("login successful");
+          window.localStorage.setItem("token", data.data);
+          navigate("/testuserdata", { state: { token: data.data } });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle errors if the request fails or the response is not JSON
+      });
   }
 
   return (

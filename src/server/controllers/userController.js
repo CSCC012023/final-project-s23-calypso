@@ -28,7 +28,7 @@ const userController = {
 
         if (await bcrypt.compare(password, user.password)){
           // create a token if user login successful
-          const token = jwt.sign({}, JWT_SECRET);
+          const token = jwt.sign({email: user.email}, JWT_SECRET);
 
           if (res.status(200)){
             return res.json({ status: "ok", data: token})
@@ -75,7 +75,27 @@ const userController = {
         console.error(error);
         return res.status(500).json({ message: "Encountered a server error!" });
       }
-  }
+    },
+
+     retrieveUserData: async (req, res) => {
+      try{
+        // Retrieve all user submissions from the database
+        const { token } = req.body
+      
+        // If this user exists, find them via email
+        const user = jwt.verify(token, JWT_SECRET)
+        const email = user.email 
+        User.findOne({ email: email }).then((data) => {
+          return res.status(200).json({ message: "User data found!", data: data}); 
+        }).catch((error) =>{
+          return res.status(403).json({ message: "User data not found!", data: error});
+        })
+      }
+      catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Encountered a server error!" });
+      }
+    },
 };
 
 module.exports = userController;
