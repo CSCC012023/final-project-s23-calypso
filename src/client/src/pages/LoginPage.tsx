@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useCookies } from 'react-cookie';
 
 function LoginPage() {
   const logo = {
@@ -10,6 +10,7 @@ function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
   const [error, setError] = useState('');
 
@@ -30,11 +31,13 @@ function LoginPage() {
       }),
     });
 
-    await fetch(request).then((response) => {
+    await fetch(request).then(async (response) => {
       if (response.status == 200) {
         // If the response is ok (server returns 200), update the user data
         // and navigate to home page
         console.log('Response worked!');
+        const data = await response.json();
+        setCookie('token', data.token , { path: '/' })
         navigate("/")
       }
       else if (response.status == 403){

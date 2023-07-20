@@ -1,4 +1,4 @@
-const userModel = require('../../models/neo4j/User');
+const userModel = require('../../models/neo4j/user');
 const dbUtils = require('../../neo4jdb');
 
 const findAll = async (req, res) => {
@@ -49,7 +49,7 @@ const findByUsername = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const id = req.body.id;
+    const id = req.body.user.id;
     if (!id) throw { message: "Invalid ID", status: 400 };
     const result = await userModel.createUser(dbUtils.getSession(req), req.body.user);
     res.json(result);
