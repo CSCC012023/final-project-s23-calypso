@@ -4,19 +4,14 @@ import { useShoppingCart } from '../../context/ShoppingCartContext';
 import { formatCurrency } from '../../utils/formatCurrency';
 import React from 'react';
 import { CartItem } from './CartItem';
+import sampleProductImage2 from '../../assets/sampleProductImage2.jpg'
 
 const storeItems = [
     {
         id: 1,
-        name: 'test',
-        price: 1,
-        imgUrl: 'test',
-    },
-    {
-        id: 2,
-        name: 'test',
-        price: 1,
-        imgUrl: 'test',
+        name: 'Lost Girl',
+        price: 24.99,
+        imgUrl: sampleProductImage2,
     },
 ]
 
@@ -27,9 +22,9 @@ type ShoppingCartProps = {
   export function ShoppingCart({ isOpen }: ShoppingCartProps) {
     const { closeCart, cartItems } = useShoppingCart()
     return (
-      <Offcanvas scroll={true} show={isOpen} onHide={closeCart} placement="end" className="w-300" >
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Cart</Offcanvas.Title>
+      <Offcanvas keyboard={true} scroll={true} show={isOpen} onHide={closeCart} placement="end">
+        <Offcanvas.Header closeButton={true}>
+          <Offcanvas.Title>Your Cart</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Stack gap={3}>

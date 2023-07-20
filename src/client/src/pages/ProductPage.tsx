@@ -9,27 +9,26 @@ import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 import ProductsColumn from '../components/product/ProductsColumn';
 import ProductsRow2 from '../components/product/ProductsRow2';
-type Props = {};
+import { ShoppingCartProvider } from '../context/ShoppingCartContext';
+import { formatCurrency } from '../utils/formatCurrency';
 
-type ProductProps = {
+type Props = {
   id: number;
   name: string;
   price: number;
   imgUrl: string;
 }
 
-const artworks = [
-  {
-    id: 1,
-    name: 'Lost Girl',
-    artist: 'Jennie Li',
-    style: 'Oil on canvas',
-    price: '$500',
-    href: 'product',
-    imageSrc: sampleProductImage2,
-    imageAlt: 'LOST GIRL - JENNIE LI',
-  },
-]
+const artworks = {
+  id: 1,
+  name: 'Lost Girl',
+  artist: 'Jennie Li',
+  style: 'Oil on canvas',
+  price: 500,
+  href: 'product',
+  imageSrc: sampleProductImage2,
+  imageAlt: 'LOST GIRL - JENNIE LI',
+}
 
 
 
@@ -64,23 +63,23 @@ const collections = [
   },
 ]
 
-function ProductPage({}: Props) {
+function ProductPage({}: any) {
   const previewArtPanel = {
     img: require('../assets/previewArt.jpg'),
     name: 'Preview Art',
   };
 
   return (
-    <div className="flex-col bg-darkestGrey min-h-screen">
-      <ExampleNavBar />
-      <div className="min-w-full w-full sm:pb-16">
-        {/* TO DO: Need to make it so width is constant */}
-        <ProductsColumn productsList={artworks} categoryTitle="A Maaneth De Silva Original!" id={3} name="testname" price={24.99} imgUrl=""/>
+      <div className="flex-col bg-darkestGrey min-h-screen">
+        <ExampleNavBar />
+        <div className="min-w-full w-full sm:pb-16">
+          {/* TO DO: Need to make it so width is constant */}
+          <ProductsColumn categoryTitle="A Maaneth De Silva Original!" id={artworks.id} name={artworks.name} price={24.99} imgUrl={artworks.imageSrc} artist={artworks.artist} style={artworks.style}/>
+        </div>
+        <div className="flex justify-center items-center">
+          <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />
+        </div>
       </div>
-      <div className="flex justify-center items-center">
-        <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />
-      </div>
-    </div>
   );
 }
 

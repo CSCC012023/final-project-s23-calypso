@@ -85,7 +85,7 @@ export default function HeaderNavBar() {
                 </div>
                 <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center space-x-2">
                   {/* Shopping cart sidebar */}
-                  {cartQuantity > 0 && ( 
+                  
                     <button
                       type="button"
                       className="relative ml-auto flex-shrink-0 bg-gray-800 rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
@@ -93,12 +93,13 @@ export default function HeaderNavBar() {
                     >
                       <span className="sr-only">View shopping cart</span>
                       <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-
+                      {cartQuantity > 0 && ( 
                       <div className="rounded-full text-sm bg-red-600 flex justify-center items-center text-white w-5 h-5 absolute -bottom-1 -right-1 translate-x-1/4 translate-y-1/4">
                         {cartQuantity}
                       </div>
+                      )}
                     </button>
-                  )}
+                 
                     <button
                       type="button"
                       className="bg-gray-800 flex-shrink-0 rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
