@@ -144,7 +144,9 @@ function ArtworksPage() {
 
     const handleArtworkClick = (artworkId: string) => {
         console.log('Clicked artwork ID:' + artworkId);
-       
+        artworks.forEach(element => {
+            
+        });
         navigate('/product/' + artworkId);
     };
 
