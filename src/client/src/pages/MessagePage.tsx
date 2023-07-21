@@ -4,7 +4,7 @@ function MessagePage (){
     const [chats, setChats] = useState<any[]>([])
     const fetchChats = async () => {
         const {data} = await axios.get("../api/chat");
-        setChats(data);
+        setChats(data.chat);
     };
 
     useEffect(() => {

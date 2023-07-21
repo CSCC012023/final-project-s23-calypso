@@ -23,6 +23,7 @@ import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransaction
 import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import UserCreatedPage from './pages/UserCreatedPage';
 
 import TestingPage from './pages/TestingPageMongo';
 import TestingPageNeo from './pages/TestingPageNeo'
@@ -63,7 +64,7 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/profile/:username" element={<ProfilePage />} />
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/product" element={<ProductPage />} />
+              <Route path="/product/:id" element={<ProductPage/>} />
               <Route path="/transaction" element={<TransactionPage />} />
               <Route path="/transaction/success" element = {<SuccessfulTransactionPage/>} />
               <Route path="/register" element={<RegisterPage />} />
@@ -71,7 +72,7 @@ function App() {
               <Route path="/testing2" element={<TestingPageNeo />} />
               <Route path="/error" element={<ErrorPage />} />
               <Route path="/message" element={<MessagePage />} />
-              
+              <Route path="/successful" element={<UserCreatedPage />} />
             </Routes>
           </BrowserRouter>
         </ShoppingCartProvider>

@@ -2,30 +2,31 @@ import React from "react";
 import SmallProductCard from "../home/SmallProductCard";
 import LargeProductCard from "../home/LargeProductCard";
 import { formatCurrency } from "../../utils/formatCurrency";
+import {useEffect, useState}  from "react";
 
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 
 
-interface Props {
-    product: {
-        id: number
-        name: string,
-        artist: string,
-        style: string,
-        price: number,
-        href: string,
-        imageSrc: string,
-        imageAlt: string,
-        date: number,
-        rarity: string,
-        medium: string,
-        material: string,
-    },
-    categoryTitle: string
+// interface Props {
+//     product: {
+//         id: number
+//         name: string,
+//         artist: string,
+//         style: string,
+//         price: number,
+//         href: string,
+//         imageSrc: string,
+//         imageAlt: string,
+//         date: number,
+//         rarity: string,
+//         medium: string,
+//         material: string,
+//     },
+//     categoryTitle: string
 
-}
+// }
 
-export default function ProductsColumn( {categoryTitle, product}: Props ) {
+export default function ProductsColumn( {categoryTitle, product}: any ) {
     const { getQuantity, addItem, removeItem } = useShoppingCart()
     const quantity = getQuantity(product.id);
     return (
@@ -33,14 +34,12 @@ export default function ProductsColumn( {categoryTitle, product}: Props ) {
             <div className="lg:max-w-7xl lg:py-8 lg:pl-24 lg:pr-16">
                 <div className="mt-8 flex">
                     <div className="w-full max-w-screen-lg">
-
-                        <div key={product.id} className="my-4">
-                            <h2 id="trending-heading" className="text-center text-3xl font-extrabold tracking-tight text-gray-100 lg:pb-8 min-w-full">
-                                {categoryTitle}
-                            </h2>
-                            <LargeProductCard imgUrl={product.imageSrc} />
-                        </div>
-
+                    <div key={product.id} className="my-4">
+                        <h2 id="trending-heading" className="text-center text-3xl font-extrabold tracking-tight text-gray-100 lg:pb-8 min-w-full">
+                            {categoryTitle}
+                        </h2>
+                        <LargeProductCard imgUrl={product.imageSrc} />
+                    </div>
                     </div>
                 </div>
             </div>

@@ -18,25 +18,41 @@ interface Props {
 function UserCard({ user, updateUser, isLoggedIn }: Props) {
   const [profileEditIsOpen, setProfileEditIsOpen] = useState(false);
 
-  function handleApplyClick(name: string, des: string, pic: string, banner: string) {
-    const user1 = {
-      id: user.id,
-      username: name,
-      description: des,
-      pic: (pic.length === 0 ? user.pic : pic),
-      banner: (banner.length === 0 ? user.banner : banner)
+  async function checkName(name: string): Promise<boolean> {
+    const response = await fetch(`http://localhost:8080/api/v0/users/user/${name}`);
+    const data = await response.json();
+    return !data;
+  }
+
+  async function handleApplyClick(name: string, des: string, pic: string, banner: string) {
+    if (name.toLowerCase() === user.username) {
+      setProfileEditIsOpen(false);
+      return;
     }
-    updateUser(user1);
-    setProfileEditIsOpen(false);
+
+    if (await checkName(name.toLowerCase())) {
+      const user1 = {
+        id: user.id,
+        username: name.toLowerCase(),
+        description: des,
+        pic: (pic.length === 0 ? user.pic : pic),
+        banner: (banner.length === 0 ? user.banner : banner)
+      }
+      updateUser(user1);
+      setProfileEditIsOpen(false);
+    } else {
+      window.alert('Username already exists!');
+    }
   }
 
   return (
     <div className="flex flex-row h-64 rounded-3xl overflow-hidden justify-between relative shadow-lg">
       <img className="h-full w-full object-cover absolute z-0" src={user.banner} alt="User Banner" />
-      <div className="flex flex-row items-center overflow-hidden z-10">
-        <img className="flex-shrink-0 w-32 h-32 mx-10 rounded-full border-2" src={user.pic} alt="Profile Picture" />
-        <div className="h-full mt-40">
-          <p className="font-mono text-7xl font-bold text-white">{user.username}</p>
+      <div className="flex flex-row overflow-hidden md:items-center z-10 p-6 space-x-5 lg:p-10 lg:space-x-10">
+        <img className="border-2 object-cover flex items-center justify-center w-14 h-14 my-4 md:h-20 md:w-20 lg:h-32 lg:w-32 rounded-full"
+          src={user.pic} alt="Profile Picture" />
+        <div className="">
+          <p className="font-mono text-7xl font-bold text-white text-ellipsis overflow-hidden whitespace-nowrap">{user.username}</p>
           <p className="font-sans text-xl break-words text-white">{user.description}</p>
         </div>
       </div>
