@@ -32,6 +32,11 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   
   const { closeCart, cartItems } = useShoppingCart();
   const [storeItems, setItems] = useLocalStorage<CartItem[]>('shopping-cart', []);
+    // Calculate the total price using cartItems directly
+    const totalPrice = cartItems.reduce((total, cartItem) => {
+      const item = cartItems.find((i) => i.id === cartItem.id);
+      return total + (item?.price || 0) * cartItem.quantity;
+    }, 0);
   return (
     <Offcanvas
       keyboard={true}
@@ -50,11 +55,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
           ))}
           <div className="ml-auto font-bold text-xl">
             Total{" "}
-            {formatCurrency(
-              cartItems.reduce((total, cartItem) => {
-                const item = storeItems.find(i => i.id === cartItem.id);
-                return total + (item?.price || 0) * cartItem.quantity;
-              }, 0)
+            {formatCurrency(totalPrice
             )}
           </div>
         </Stack>
