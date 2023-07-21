@@ -5,10 +5,11 @@ const findAll = async (session) => {
 
 const findByID = async (session, id) => {
   const query = [
-    `MATCH (n: User {id: ${id}})`,
+    `MATCH (n: User {id: '${id}'})`,
     'RETURN n LIMIT 1'
   ].join('\n');
   const result = await session.run(query);
+  if (result.records.length === 0) return null;
   return result.records[0].get('n').properties;
 }
 
@@ -18,13 +19,14 @@ const findByUsername = async (session, username) => {
     'RETURN n'
   ].join('\n');
   const result = await session.run(query);
+  if (result.records.length === 0) return null;
   return result.records[0].get('n').properties;
 }
 
 const createUser = async (session, user) => {
   const query = [
     `CREATE (n: User {
-      id: ${user.id}, 
+      id: "${user.id}", 
       username: '${user.username}', 
       description: '${user.description}',
       pic: '${user.pic}', 
@@ -33,22 +35,24 @@ const createUser = async (session, user) => {
     'RETURN n'
   ].join('\n');
   const result = await session.run(query);
+  if (result.records.length === 0) return null;
   return result.records[0].get('n').properties;
 }
 
 const updateUser = async (session, id, user) => {
   const query = [
-    `MATCH (n: User {id: ${id}})`,
+    `MATCH (n: User {id: '${id}'})`,
     `SET n.username = '${user.username}', n.description = '${user.description}', n.pic = '${user.pic}', n.banner = '${user.banner}'`,
     'RETURN n'
   ].join('\n');
   const result = await session.run(query);
+  if (result.records.length === 0) return null;
   return result.records[0].get('n').properties;
 }
 
 const deleteUser = async (session, id) => {
   const query = [
-    `MATCH (n: User {id: ${id}})`,
+    `MATCH (n: User {id: '${id}'})`,
     'DETACH DELETE n',
     'RETURN n'
   ].join('\n');

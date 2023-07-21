@@ -3,10 +3,11 @@ import SmallProductCard from "../home/SmallProductCard"
 
 
 interface Props {
-    productsList: any,
+    productsList: any[];
+    onArtworkClick: (artworkId: string) => void;
 }
 
-export default function ProductList( {productsList}: Props ) {
+export default function ProductList( {productsList, onArtworkClick}: Props ) {
     return (
         <div className="bg-white">
             <div className="max-w-7xl mx-auto py-16 px-4 overflow-hidden sm:py-24 sm:px-6 lg:px-8">
@@ -14,7 +15,7 @@ export default function ProductList( {productsList}: Props ) {
 
                     {/* Product */}
                     {productsList?.map((product: any) => (
-                        <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto">
+                        <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto" onClick={ () => onArtworkClick(product.id)}>
                             <SmallProductCard productProp={product} />
                         </li>
                     ))}

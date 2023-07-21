@@ -16,6 +16,8 @@ import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 import HeroBanner from "../components/allproducts/HeroBanner";
 import { Query } from "@testing-library/react";
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -30,7 +32,7 @@ const artworks2 = [
         artist: 'Jennie Li',
         style: 'Oil on canvas',
         price: '$500',
-        href: 'product',
+        href: 'product/1',
         imageSrc: sampleProductImage2,
         imageAlt: 'LOST GIRL - JENNIE LI',
     },
@@ -109,6 +111,9 @@ const artworks2 = [
 
 
 function ArtworksPage() {
+
+    const navigate = useNavigate();
+
     const [artworks, setArtworks] = useState([]);
 
     const getArtworks = async (queryParams: QueryParams) => {
@@ -124,7 +129,6 @@ function ArtworksPage() {
             });
     };
 
-
     useEffect(() => {
         const queryParams: QueryParams = {};
         const params = new URLSearchParams(window.location.search);
@@ -137,6 +141,14 @@ function ArtworksPage() {
         });
         getArtworks(queryParams);
     });
+
+    const handleArtworkClick = (artworkId: string) => {
+        console.log('Clicked artwork ID:' + artworkId);
+        artworks.forEach(element => {
+            
+        });
+        navigate('/product/' + artworkId);
+    };
 
     return (
         <div className="bg-darkestGrey h-screen" >
@@ -164,7 +176,7 @@ function ArtworksPage() {
 
             {/* Product List */}
             <div className="">
-                <ProductList productsList={artworks} />
+                <ProductList productsList={artworks} onArtworkClick={handleArtworkClick}/>
             </div>
 
 

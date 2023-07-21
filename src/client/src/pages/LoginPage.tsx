@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useCookies } from 'react-cookie';
 
 function LoginPage() {
   const logo = {
@@ -10,6 +10,9 @@ function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -28,18 +31,25 @@ function LoginPage() {
       }),
     });
 
-    fetch(request).then((response) => {
-      if (response.ok) {
+    await fetch(request).then(async (response) => {
+      if (response.status == 200) {
         // If the response is ok (server returns 200), update the user data
         // and navigate to home page
         console.log('Response worked!');
+        const data = await response.json();
+        setCookie('token', data.token , { path: '/' })
         navigate("/")
       }
-      else{
+      else if (response.status == 403){
         console.log('Response failed!');
+        setError("Invalid Email or Password")
+      }
+      else {
+        console.log('Response failed!');
+        setError("Internal Server Error")
       }
     });
-    
+
   }
 
   return (
@@ -54,7 +64,7 @@ function LoginPage() {
 
         <div className='flex flex-col items-center justify-center px-6 py-8  md:h-screen lg:py-0'>
           <a href='/landing'>
-            <img className="h-20" src={logo.img} />
+            <img alt="" className="h-20" src={logo.img} />
           </a>
 
           <form onSubmit={handleSubmit} className='text-white w-full max-w-[500px] rounded-xl mx-auto p-8 px-8 space-y-5'>
@@ -72,7 +82,12 @@ function LoginPage() {
                 <div className="text-medium font-medium text-primary-600 hover:underline">Forgot password?</div>
               </div>
             </div>
-
+            {error && 
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong className="font-bold">Error! </strong>
+                <span className="block sm:inline">{error}</span>
+              </div>
+            }
             <div className='flex flex-col items-center justify-center space-y-4'>
               <button type='submit' className="text-black bg-[#ffffff] hover:bg-[#7f7f7f] focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-bold px-20 py-2.5 text-center mb-2 ">
                 Login

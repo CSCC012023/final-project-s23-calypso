@@ -27,6 +27,10 @@ const artworks = [
     href: 'product',
     imageSrc: sampleProductImage2,
     imageAlt: 'LOST GIRL - JENNIE LI',
+    date: 2023,
+    rarity: 'unique',
+    medium: 'painting',
+    material: 'canvas',
   },
   {
     id: 2,
@@ -37,6 +41,10 @@ const artworks = [
     href: '#',
     imageSrc: sampleLargeProductImage,
     imageAlt: 'DYSTOPIAN FUTURE - MARKUS LAWERENCE',
+    date: 2022,
+    rarity: 'limited',
+    medium: 'digital',
+    material: 'digital',
   },
   {
     id: 3,
@@ -47,6 +55,10 @@ const artworks = [
     href: '#',
     imageSrc: sampleProfilePicture1,
     imageAlt: 'FOX MASKED BOY - NATALIE HALL',
+    date: 1995,
+    rarity: 'open',
+    medium: 'drawing',
+    material: 'artpaper',
   },
   {
     id: 4,
@@ -57,6 +69,10 @@ const artworks = [
     href: '#',
     imageSrc: samplePanda,
     imageAlt: 'PANDA - PANDA MAN',
+    date: 2006,
+    rarity: 'unique',
+    medium: 'sculpture',
+    material: 'clay',
   },
 ]
 
@@ -99,7 +115,7 @@ function HomePage() {
 
     // Header Navigation Bar
     <div className="bg-darkestGrey h-screen" >
-      <div className="">
+      <div>
         <HeaderNavBar />
       </div>
 
