@@ -14,7 +14,6 @@ import { formatCurrency } from '../utils/formatCurrency';
 
 type Props = {
   id: number;
-  quantity: number;
   name: string,
   artist: string,
   style: string,
@@ -33,10 +32,14 @@ const artworks = {
   name: 'Lost Girl',
   artist: 'Jennie Li',
   style: 'Oil on canvas',
-  price: 500,
+  price: 5000,
   href: 'product',
   imageSrc: sampleProductImage2,
   imageAlt: 'LOST GIRL - JENNIE LI',
+  date: 2021,
+  rarity: 'Rare',
+  medium: 'Oil',
+  material: 'Canvas',
 }
 
 
@@ -83,7 +86,7 @@ function ProductPage({}: any) {
         <ExampleNavBar />
         <div className="min-w-full w-full sm:pb-16">
           {/* TO DO: Need to make it so width is constant */}
-          <ProductsColumn categoryTitle="A Maaneth De Silva Original!" id={artworks.id} name={artworks.name} price={24.99} imgUrl={artworks.imageSrc} artist={artworks.artist} style={artworks.style}/>
+          <ProductsColumn categoryTitle="A Maaneth De Silva Original!" product={artworks}/>
         </div>
         <div className="flex justify-center items-center">
           <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />

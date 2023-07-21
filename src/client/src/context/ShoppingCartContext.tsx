@@ -11,7 +11,18 @@ type ShoppingCartProviderProps = {
 type CartItem = {
     id: number;
     quantity: number;
-}
+    name: string,
+    artist: string,
+    style: string,
+    price: number,
+    href: string,
+    imageSrc: string,
+    imageAlt: string,
+    date: number,
+    rarity: string,
+    medium: string,
+    material: string,
+  }
 
 type ProductItem = {
     id: number;
@@ -31,7 +42,7 @@ type ProductItem = {
 
 type ShoppingCartContext = {
     getQuantity: (id: number) => number;
-    addItem: (id: number) => void;
+    addItem: (id: number, name: string, artist: string, style: string, price: number, href: string, imageSrc: string, imageAlt: string, date: number, rarity: string, medium: string, material: string) => void;
     removeItem: (id: number) => void;
     openCart: () => void;
     closeCart: () => void;
@@ -63,12 +74,12 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         return cartItems.find((item) => item.id === id)?.quantity || 0;
     }
 
-    function addItem(id: number) {
+    function addItem(id: number, name: string, artist: string, style: string, price: number, href: string, imageSrc: string, imageAlt: string, date: number, rarity: string, medium: string, material: string) {
         setCartItems(prev => {
             if (prev.find(item => item.id === id)) {
                 return prev; // Item already exists in the cart, do not add it again
             } else {
-                return [...prev, { id, quantity: 1 }];
+                return [...prev, { id, quantity: 1, name, artist, style, price, href, imageSrc, imageAlt, date, rarity, medium, material }];
             }
         });
     }

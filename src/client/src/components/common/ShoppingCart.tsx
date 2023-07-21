@@ -5,15 +5,8 @@ import { formatCurrency } from '../../utils/formatCurrency';
 import React from 'react';
 import { CartItem } from './CartItem';
 import sampleProductImage2 from '../../assets/sampleProductImage2.jpg';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
-const storeItems = [
-  {
-    id: 1,
-    name: 'Lost Girl',
-    price: 24.99,
-    imgUrl: sampleProductImage2,
-  },
-];
 
 type CartItem = {
   id: number;
@@ -36,7 +29,9 @@ type ShoppingCartProps = {
 };
 
 export function ShoppingCart({ isOpen }: ShoppingCartProps) {
+  
   const { closeCart, cartItems } = useShoppingCart();
+  const [storeItems, setItems] = useLocalStorage<CartItem[]>('shopping-cart', []);
   return (
     <Offcanvas
       keyboard={true}

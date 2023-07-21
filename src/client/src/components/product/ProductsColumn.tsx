@@ -7,29 +7,38 @@ import { useShoppingCart } from "../../context/ShoppingCartContext";
 
 
 interface Props {
-    categoryTitle: string,
-    id: number
-    name: string
-    price: number
-    artist: string
-    style: string
-    imgUrl: string
+    product: {
+        id: number
+        name: string,
+        artist: string,
+        style: string,
+        price: number,
+        href: string,
+        imageSrc: string,
+        imageAlt: string,
+        date: number,
+        rarity: string,
+        medium: string,
+        material: string,
+    },
+    categoryTitle: string
+
 }
 
-export default function ProductsColumn( {categoryTitle, id, name, price, imgUrl, artist, style}: Props ) {
+export default function ProductsColumn( {categoryTitle, product}: Props ) {
     const { getQuantity, addItem, removeItem } = useShoppingCart()
-    const quantity = getQuantity(id);
+    const quantity = getQuantity(product.id);
     return (
         <div className="flex space-x-12 min-w-full mr-16 items-center justify-center px-16">
             <div className="lg:max-w-7xl lg:py-8 lg:pl-24 lg:pr-16">
                 <div className="mt-8 flex">
                     <div className="w-full max-w-screen-lg">
 
-                        <div key={id} className="my-4">
+                        <div key={product.id} className="my-4">
                             <h2 id="trending-heading" className="text-center text-3xl font-extrabold tracking-tight text-gray-100 lg:pb-8 min-w-full">
                                 {categoryTitle}
                             </h2>
-                            <LargeProductCard imgUrl={imgUrl} />
+                            <LargeProductCard imgUrl={product.imageSrc} />
                         </div>
 
                     </div>
@@ -37,17 +46,17 @@ export default function ProductsColumn( {categoryTitle, id, name, price, imgUrl,
             </div>
             <div className="pt-4 sm:mt-4 lg:mt-24 space-y-8 lg:pr-16 xl:container">
                 <p>
-                    <div key={id} className="">
+                    <div key={product.id} className="">
                         <h3 className=" mt-1 font-bold text-white text-4xl">
                             <p>
                                 <span className="absolute inset-0" />
-                                {name}
+                                {product.name}
                             </p>
                         </h3>
-                        <p className="text-base text-gray-200">{artist}</p>
-                        <p className="text-sm text-gray-400 italic">{style}</p>
+                        <p className="text-base text-gray-200">{product.artist}</p>
+                        <p className="text-sm text-gray-400 italic">{product.style}</p>
                         <p className="mt-1 text-gray-100">
-                            {formatCurrency(price)}
+                            {formatCurrency(product.price)}
                         </p>
                     </div>
                 </p>
@@ -58,11 +67,11 @@ export default function ProductsColumn( {categoryTitle, id, name, price, imgUrl,
                 <div className="flex mt-4 mb-4 space-x-60 justify-center container z-10">
                     {quantity === 0 ? (
                         
-                    <button className="bg-gray-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => addItem(id)}>
+                    <button className="bg-gray-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => addItem(product.id, product.name, product.artist, product.style, product.price, product.href, product.imageSrc, product.imageAlt, product.date, product.rarity, product.medium, product.material)}>
                         + Add to cart
                     </button> 
                     ) : (
-                    <button className="bg-gray-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => removeItem(id)}>
+                    <button className="bg-gray-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => removeItem(product.id)}>
                         - Remove from cart
                     </button> 
                     )}
