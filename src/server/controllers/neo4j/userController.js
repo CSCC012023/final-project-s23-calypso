@@ -1,4 +1,4 @@
-const userModel = require('../../models/neo4j/user');
+const userModel = require('../../models/neo4j/User');
 const dbUtils = require('../../neo4jdb');
 
 const findAll = async (req, res) => {
@@ -6,8 +6,12 @@ const findAll = async (req, res) => {
     const result = await userModel.findAll(dbUtils.getSession(req));
     res.json(result);
   }
-  catch {
-    res.status(500).json({ message: "Encountered server error" });
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 }
 
@@ -18,8 +22,12 @@ const findByID = async (req, res) => {
     const result = await userModel.findByID(dbUtils.getSession(req), id);
     res.json(result);
   }
-  catch {
-    res.status(500).json({ message: "Encountered server error" });
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 }
 
@@ -30,8 +38,12 @@ const findByUsername = async (req, res) => {
     const result = await userModel.findByUsername(dbUtils.getSession(req), username);
     res.json(result);
   }
-  catch {
-    res.status(500).json({ message: "Encountered server error" });
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 }
 
@@ -42,8 +54,12 @@ const createUser = async (req, res) => {
     const result = await userModel.createUser(dbUtils.getSession(req), req.body.user);
     res.json(result);
   }
-  catch {
-    res.status(500).json({ message: "Encountered server error" });
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 }
 
@@ -54,8 +70,12 @@ const updateUser = async (req, res) => {
     const result = await userModel.updateUser(dbUtils.getSession(req), id, req.body.user);
     res.json(result);
   }
-  catch {
-    res.status(500).json({ message: "Encountered server error" });
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 }
 
@@ -66,8 +86,12 @@ const deleteUser = async (req, res) => {
     const result = await userModel.deleteUser(dbUtils.getSession(req), id);
     res.json(result);
   }
-  catch {
-    res.status(500).json({ message: "Encountered server error" });
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 }
 

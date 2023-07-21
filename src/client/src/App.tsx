@@ -22,6 +22,7 @@ import TransactionPage from './pages/Transaction/TransactionPage';
 import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransactionPage';
 import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
+import UserCreatedPage from './pages/UserCreatedPage';
 
 import TestingPage from './pages/TestingPageMongo';
 import TestingPageNeo from './pages/TestingPageNeo'
@@ -67,7 +68,8 @@ function App() {
         <Route path="/testing2" element={<TestingPageNeo />} />
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/message" element={<MessagePage />} />
-        
+        <Route path="/successful" element={<UserCreatedPage />} />
+
       </Routes>
     </BrowserRouter>
     </div>
