@@ -90,7 +90,7 @@ function ProductPage({}: any) {
   const [product, setProduct] = useState([]);
 
   const getArtworkById = async (queryParams: QueryParams) => {
-    axios.get(`http://localhost:8080/api/v0/artworks/${id}`, {
+    axios.get(`http://localhost:8080/api/v0/artworks/id/${id}`, {
         params: queryParams
     })
         .then(response => {
