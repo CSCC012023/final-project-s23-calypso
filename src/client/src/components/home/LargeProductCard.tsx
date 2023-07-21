@@ -1,26 +1,22 @@
 import React from "react";
 
 interface Props {
-    productProp: {
-        id: number,
-        name: string,
-        artist: string,
-        style: string,
-        price: string,
-        href: string,
-        imageSrc: string,
-        imageAlt: string,
-    }
+    categoryTitle: string,
+    product: any,
+    id: number
+    name: string
+    price: number
+    artist: string
+    imgUrl: string
 }
 
-export default function LargeProductCard( { productProp }: Props ){
+export default function LargeProductCard( { imgUrl }: any ){
     return (
         <div className="group relative">
             {/* Product Image */}
             <div className="w-full bg-gray-200 rounded-md overflow-hidden max-h-full">
                 <img
-                    src={productProp.imageSrc}
-                    alt={productProp.imageAlt}
+                    src={imgUrl}
                     className="w-full h-full object-center object-cover"
                 />
             </div>

@@ -9,13 +9,16 @@ import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 import ProductsColumn from '../components/product/ProductsColumn';
 import ProductsRow2 from '../components/product/ProductsRow2';
+import { ShoppingCartProvider } from '../context/ShoppingCartContext';
+import { formatCurrency } from '../utils/formatCurrency';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 
 
+
 type Props = {
-  product : {
-    pid: string,
+  product: {
+    id: number
     name: string,
     artist: string,
     style: string,
@@ -28,20 +31,22 @@ type Props = {
     medium: string,
     material: string,
   }
-};
+}
 
-const artworks = [
-  {
-    id: 1,
-    name: 'Lost Girl',
-    artist: 'Jennie Li',
-    style: 'Oil on canvas',
-    price: '$500',
-    href: 'product',
-    imageSrc: sampleProductImage2,
-    imageAlt: 'LOST GIRL - JENNIE LI',
-  },
-]
+const artworks = {
+  id: 1,
+  name: 'Lost Girl',
+  artist: 'Jennie Li',
+  style: 'Oil on canvas',
+  price: 5000,
+  href: 'product',
+  imageSrc: sampleProductImage2,
+  imageAlt: 'LOST GIRL - JENNIE LI',
+  date: 2021,
+  rarity: 'Rare',
+  medium: 'Oil',
+  material: 'Canvas',
+}
 
 interface QueryParams {
   [key: string]: string[];
@@ -116,18 +121,16 @@ function ProductPage({}: any) {
   }
 
   return (
-    <div className="flex-col bg-darkestGrey min-h-screen">
-      <ExampleNavBar />
-      <div className="min-w-full w-full sm:pb-16">
-        {/* TO DO: Need to make it so width is constant */}
-        <ProductsColumn product={product} categoryTitle="" />
-        
-        {/* <ProductsColumn productsList={artworks} categoryTitle= {descriptionText} /> */}
+      <div className="flex-col bg-darkestGrey min-h-screen">
+        <ExampleNavBar />
+        <div className="min-w-full w-full sm:pb-16">
+          {/* TO DO: Need to make it so width is constant */}
+          <ProductsColumn product={product} categoryTitle="" />
+        </div>
+        <div className="flex justify-center items-center">
+          <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />
+        </div>
       </div>
-      <div className="flex justify-center items-center">
-        <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />
-      </div>
-    </div>
   );
 }
 
