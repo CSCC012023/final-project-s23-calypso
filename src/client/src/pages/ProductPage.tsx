@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import ExampleNavBar from '../components/common/HeaderNavBar';
 import previewArt from '../assets/previewArt.jpg'
 import samplePanda from '../assets/panda.png'
@@ -9,22 +9,48 @@ import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 import ProductsColumn from '../components/product/ProductsColumn';
 import ProductsRow2 from '../components/product/ProductsRow2';
-type Props = {};
-
-const artworks = [
-  {
-    id: 1,
-    name: 'Lost Girl',
-    artist: 'Jennie Li',
-    style: 'Oil on canvas',
-    price: '$500',
-    href: 'product',
-    imageSrc: sampleProductImage2,
-    imageAlt: 'LOST GIRL - JENNIE LI',
-  },
-]
+import { ShoppingCartProvider } from '../context/ShoppingCartContext';
+import { formatCurrency } from '../utils/formatCurrency';
+import { useParams } from 'react-router-dom';
+import axios from "axios";
 
 
+
+type Props = {
+  product: {
+    id: number
+    name: string,
+    artist: string,
+    style: string,
+    price: number,
+    href: string,
+    imageSrc: string,
+    imageAlt: string,
+    date: number,
+    rarity: string,
+    medium: string,
+    material: string,
+  }
+}
+
+const artworks = {
+  id: 1,
+  name: 'Lost Girl',
+  artist: 'Jennie Li',
+  style: 'Oil on canvas',
+  price: 5000,
+  href: 'product',
+  imageSrc: sampleProductImage2,
+  imageAlt: 'LOST GIRL - JENNIE LI',
+  date: 2021,
+  rarity: 'Rare',
+  medium: 'Oil',
+  material: 'Canvas',
+}
+
+interface QueryParams {
+  [key: string]: string[];
+}
 
 const collections = [
   {
@@ -57,23 +83,54 @@ const collections = [
   },
 ]
 
-function ProductPage({}: Props) {
+function ProductPage({}: any) {
+
+  const { id } = useParams();
+  // const descriptionText = 'Artwork ID:' + id;
+
   const previewArtPanel = {
     img: require('../assets/previewArt.jpg'),
     name: 'Preview Art',
   };
+  const [product, setProduct] = useState([]);
+
+  const getArtworkById = async (queryParams: QueryParams) => {
+    axios.get(`http://localhost:8080/api/v0/artworks/id/${id}`, {
+        params: queryParams
+    })
+        .then(response => {
+            const data = response.data;
+            setProduct(data);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+        console.log(product);
+  };
+
+  // Fetch artwork details when the component mounts
+  useEffect(() => {
+    const queryParams: QueryParams = {};
+    // Add any query parameters if needed
+    getArtworkById(queryParams);
+  }, []);
+
+  // Render loading state or error state if product is still loading or not found
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="flex-col bg-darkestGrey min-h-screen">
-      <ExampleNavBar />
-      <div className="min-w-full w-full sm:pb-16">
-        {/* TO DO: Need to make it so width is constant */}
-        <ProductsColumn productsList={artworks} categoryTitle="A Maaneth De Silva Original!" />
+      <div className="flex-col bg-darkestGrey min-h-screen">
+        <ExampleNavBar />
+        <div className="min-w-full w-full sm:pb-16">
+          {/* TO DO: Need to make it so width is constant */}
+          <ProductsColumn product={product} categoryTitle="" />
+        </div>
+        <div className="flex justify-center items-center">
+          <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />
+        </div>
       </div>
-      <div className="flex justify-center items-center">
-        <ProductsRow2 productsList={collections} categoryTitle="Similar Products" />
-      </div>
-    </div>
   );
 }
 

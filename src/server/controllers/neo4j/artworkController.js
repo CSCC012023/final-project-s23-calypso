@@ -2,6 +2,22 @@
 const artworkModel = require('../../models/neo4j/Artwork');
 const dbUtils = require('../../neo4jdb');
 
+const getArtworkById = async (req, res) => {
+  try {
+    const artworkId = req.params.id;
+    const session = dbUtils.getSession(req);
+    const artwork = await artworkModel.getArtworkById(session, artworkId);
+
+    if (!artwork) {
+      return res.status(404).json({ message: 'Artwork not found' });
+    }
+
+    res.json(artwork);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Encountered server error' });
+  }
+};
 
 const getArtworks = async (req, res) => {
   try {
@@ -143,6 +159,7 @@ const deleteArtwork = async (req, res) => {
 
 module.exports = {
   getArtworks: getArtworks,
+  getArtworkById:getArtworkById,
   findByID: findByID,
   findByUserID: findByUserID,
   findByUsername: findByUsername,
