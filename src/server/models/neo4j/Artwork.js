@@ -40,7 +40,19 @@ const getArtworks = async (session, sortParam, filtersParam) => {
     return artworks;
 }
 
+const getRecommendedArtworks = async (session, username) => {
+    const query = [
+      `MATCH (n: User)-[r:OWNS]->(sharedProduct:Artwork)<-[:OWNS]-(c: User)`,
+      `WHERE n.username = '${username}'`,
+      `MATCH (c)-[:OWNS]->(newProduct:Artwork)`,
+      `WHERE newProduct.name <> sharedProduct.name`,
+      `RETURN DISTINCT newProduct`,
+    ].join('\n');
+    const result = await session.run(query);
+    return result.records.map(i=>i._fields[0].properties)
+}
 
 module.exports = {
     getArtworks: getArtworks,
+    getRecommendedArtworks: getRecommendedArtworks
 }

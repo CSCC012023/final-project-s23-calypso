@@ -94,6 +94,7 @@ export default function DiscoverPage() {
     ]
 
     const [recommendedSongs, setRecommendedSongs] = useState([])
+    const [recommendedArt, setRecommendedArt] = useState([])
 
     useEffect(() => {
       fetch(`http://localhost:8080/api/music/recommended/${username}`)
@@ -106,6 +107,18 @@ export default function DiscoverPage() {
         }
       });
     }, [])
+
+    // useEffect(() => {
+    //   fetch(`http://localhost:8080/api/music/recommended/${username}`)
+    //   .then(async response => {
+    //     if (response.ok) {
+    //       const data = await response.json();
+    //       setRecommendedSongs(data)
+    //     } else {
+    //       window.alert('something went wrong');
+    //     }
+    //   });
+    // }, [])
 
   return (
     <>
@@ -159,6 +172,8 @@ export default function DiscoverPage() {
             })}
           </div>
           <p className="text-2xl font-semibold">Songs you may like</p>
+          <MusicList musicList={recommendedSongs} />
+          <p className="text-2xl font-semibold">Art you may like</p>
           <MusicList musicList={recommendedSongs} />
           <p className="text-2xl font-semibold">Popular Sceneric Art</p>
           <div className="flex space-x-5">
