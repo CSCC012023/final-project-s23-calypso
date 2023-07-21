@@ -12,7 +12,8 @@ router.get('/group', chatController.getGroupChat);
 router.put('/group', chatController.renameGroup);
 router.put('/groupremove', chatController.removeFromGroup);
 router.put('/groupadd', chatController.addToGroup);
-// router.route('/message/groupremove').put(removeFromGroup);
-// router.route('/message/groupadd').put(addToGroup);
+
+router.get('/user', chatController.getUser);
+router.get('/users', chatController.getUser);
 
 module.exports = router;

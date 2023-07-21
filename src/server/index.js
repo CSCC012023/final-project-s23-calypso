@@ -35,14 +35,15 @@ app.use('/api/v0/artworks/', require('./routes/neo4j/artwork'));
 
 
 app.use('/api/chat', require('./routes/chatRoutes'));
-app.get("/api/chat", (req, res) => {
-    res.send(chats);
-});
+app.use('/api/message', require('./routes/messageRoutes'));
+// app.get("/api/chat", (req, res) => {
+//     res.send(chats);
+// });
 
-app.get("/api/chat/:id", (req, res) => {
-    const singleChat = chats.find(c => c._id === req.params.id);
-    res.send(singleChat);
-});
+// app.get("/api/chat/:id", (req, res) => {
+//     const singleChat = chats.find(c => c._id === req.params.id);
+//     res.send(singleChat);
+// });
 
 //Define port and start the server
 const port = 8080;
