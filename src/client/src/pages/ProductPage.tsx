@@ -14,9 +14,18 @@ import { formatCurrency } from '../utils/formatCurrency';
 
 type Props = {
   id: number;
-  name: string;
-  price: number;
-  imgUrl: string;
+  quantity: number;
+  name: string,
+  artist: string,
+  style: string,
+  price: number,
+  href: string,
+  imageSrc: string,
+  imageAlt: string,
+  date: number,
+  rarity: string,
+  medium: string,
+  material: string,
 }
 
 const artworks = {

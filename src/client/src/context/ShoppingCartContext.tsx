@@ -13,6 +13,22 @@ type CartItem = {
     quantity: number;
 }
 
+type ProductItem = {
+    id: number;
+    quantity: number;
+    name: string,
+    artist: string,
+    style: string,
+    price: number,
+    href: string,
+    imageSrc: string,
+    imageAlt: string,
+    date: number,
+    rarity: string,
+    medium: string,
+    material: string,
+  }
+
 type ShoppingCartContext = {
     getQuantity: (id: number) => number;
     addItem: (id: number) => void;

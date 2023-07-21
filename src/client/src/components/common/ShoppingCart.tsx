@@ -15,6 +15,22 @@ const storeItems = [
   },
 ];
 
+type CartItem = {
+  id: number;
+  quantity: number;
+  name: string,
+  artist: string,
+  style: string,
+  price: number,
+  href: string,
+  imageSrc: string,
+  imageAlt: string,
+  date: number,
+  rarity: string,
+  medium: string,
+  material: string,
+}
+
 type ShoppingCartProps = {
   isOpen: boolean;
 };
