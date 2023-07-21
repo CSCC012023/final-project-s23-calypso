@@ -60,7 +60,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/:username" element={<ProfilePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/product" element={<ProductPage />} />
+        <Route path="/product/:id" element={<ProductPage/>} />
         <Route path="/transaction" element={<TransactionPage />} />
         <Route path="/transaction/success" element = {<SuccessfulTransactionPage/>} />
         <Route path="/register" element={<RegisterPage />} />

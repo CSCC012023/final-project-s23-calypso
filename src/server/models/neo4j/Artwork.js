@@ -7,6 +7,17 @@ const filters = {
 };
 
 
+const getArtworkById = async (session, artworkId) => {
+    let query = `MATCH (n: Artwork {id: $artworkId}) RETURN n`;
+    const result = await session.run(query, { artworkId: artworkId });
+  
+    if (result.records.length === 0) {
+      return null; // Artwork not found
+    }
+  
+    const artwork = result.records[0].get('n').properties;
+    return artwork;
+  };
 
 const getArtworks = async (session, sortParam, filtersParam) => {
     let query = 'MATCH (n: Artwork) ';
@@ -127,6 +138,7 @@ const deleteArtwork = async (session, id) => {
 
 module.exports = {
     getArtworks: getArtworks,
+    getArtworkById: getArtworkById,
     findByID: findByID,
     findByUserID: findByUserID,
     findByUsername: findByUsername,
