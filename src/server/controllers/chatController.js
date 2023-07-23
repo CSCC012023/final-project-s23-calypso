@@ -1,12 +1,12 @@
 const asyncHandler = require("express-async-handler");
 const Chat = require("../models/ChatModel");
-
-// NEED TO ADD USER MODEL
 const User = require("../models/User");
-const { forEach } = require("lodash");
 
-// #NOTE: THIS MAY CHANGE DEPENDING ON HOW USER ID IS HANDLED
-
+// Header: POST {URL}/
+// Params:
+//      email: string
+// Function: If a chat exists between the user and the sent user, then it returns that
+// else, it creates a new chat between them.
 const chatController = {
     accessChat: async (req, res) => {
         const { email } = req.body;
@@ -22,6 +22,12 @@ const chatController = {
                     { users: otheruser[0]},
                 ],
             })
+            // other user is null
+            if (!otheruser[0]) {
+                res.status(404).json({message: "User not found!"});
+            }
+        
+    // add this when login functionality is implemented
         // .populate("users", "-password")
         // .populate("users", "-password")
         // .populate("latestMessage");
@@ -30,6 +36,7 @@ const chatController = {
         //     path: "latestMessage.sender",
         //     select: "email firstName lastName",
         // });
+    
         // the chat between the logged in user and the use exists, so return that
             if (chat.length > 0) {
                 res.status(200).json({ chat });
@@ -37,7 +44,7 @@ const chatController = {
             } else {
                 const newChat = new Chat(
                     { 
-                        chatName: "New Chat",
+                        chatName: "Message and " + otheruser[0].firstName,
                         isGroupChat: false,
                         users: [currentuser[0], otheruser[0]]
                     });
@@ -55,19 +62,46 @@ const chatController = {
             res.status(500).json({ message: "Encountered a server error!" });
         }
     },
+    // Header: GET {URL}/user
+    // Params:
+    //      email: String
+    // Function: get a user by a specific email
+    getUser: async (req, res) => {
+        const user = await User.find({email: "message@gmail.com"})
+        try {
+            res.status(200).json(user);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
+    // Header: GET {URL}/users
+    // Params:
+    // Function: get all users
     getUser: async (req, res) => {
         try{
-            const { email } = req.body;
-            const user = await User.find({email: email})
-            res.status(200).json({ user });
+            //Retrieve all text submissions from the database
+            const users = await User.find();   
+            res.status(200).json({ users });
         }
         catch (error) {
             console.error(error);
             res.status(500).json({ message: "Encountered a server error!" });
         }
     },
-    // show all of the logged in user's chats
-    // modify to show latest message first
+    // getUser: async (req, res) => {
+    //     try{
+    //         const { email } = req.body;
+    //         const user = await User.find({email: email})
+    //         res.status(200).json({ user });
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //         res.status(500).json({ message: "Encountered a server error!" });
+    //     }
+    // },
+    // Header: GET {URL}/
+    // Params: None
+    // Function: Gets all chats that the logged in user is in
     fetchChats: async (req, res) => {
         try{
             //const { email } = req.body;
@@ -82,8 +116,13 @@ const chatController = {
             res.status(500).json({ message: "Encountered a server error!" });
         }
     },
-    // given a group chat name and an array of the emails of users that one wishes to
-    // add a group chat is created.
+    // Header: POST {URL}/group
+    // Params: 
+    //      users: array of strings
+    //      name: string
+    // Function: given a group chat name and an array of the emails of users that one 
+    // wishes to add a group chat is created.
+    // only works if the group chat doesn't already exist
     createGroupChat: async (req, res) => {
         if(!req.body.users || !req.body.name) {
             return res.status(400).send({ message: "Please Fill all the feilds" });
@@ -106,6 +145,7 @@ const chatController = {
                 isGroupChat: true,
                 chatName: req.body.name
             })
+            // if group chat already exists, return that
             if (chat.length > 0) {
                 res.status(200).json({ chat });
             } else {
@@ -114,7 +154,6 @@ const chatController = {
                         chatName: req.body.name,
                         users: users,
                         isGroupChat: true,
-                        groupAdmin: currentuser[0]
                 });
                 try {
                     await groupChat.save();
@@ -130,6 +169,11 @@ const chatController = {
             res.status(500).json({ message: "Encountered a server error!" });
         }
     },
+    // Header: PUT {URL}/group
+    // Params:
+    //      chatId: string
+    //      chatName: string
+    // Function: given a chatId, rename that chat to chatName.
     renameGroup: async (req, res) => {
         const { chatId, chatName } = req.body;
         const updatedChat = await Chat.findByIdAndUpdate(chatId,
@@ -150,6 +194,12 @@ const chatController = {
             res.json(chat);
         }
     },
+    // Header: PUT {URL}/groupremove
+    // Params:
+    //      chatId: string
+    //      email: string
+    // Function: given a chatId, if the chat exists and the email exists in the chat
+    // then remove the user from the chat.
     removeFromGroup: async (req, res) => {
         const { chatId, email } = req.body;
         const currentuser = await User.find({email: email});
@@ -162,6 +212,12 @@ const chatController = {
             res.json(removed);
         }
     },
+    // Header: PUT {URL}/groupadd
+    // Params:
+    //      chatId: string
+    //      email: string
+    // Function: given a chatId, if the chat exists and the email DNE in the chat
+    // then add the user to the chat.
     addToGroup: async (req, res) => {
         const { chatId, email } = req.body;
         const currentuser = await User.find({email: email});

@@ -22,6 +22,11 @@ import TransactionPage from './pages/Transaction/TransactionPage';
 import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransactionPage';
 import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
+
+
+import MessageSearch from './pages/MessageSearch';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import UserCreatedPage from './pages/UserCreatedPage';
 import '@coreui/coreui/dist/css/coreui.min.css'
 import './tailwind.css'
@@ -74,6 +79,7 @@ function App() {
               <Route path="/testing2" element={<TestingPageNeo />} />
               <Route path="/error" element={<ErrorPage />} />
               <Route path="/message" element={<MessagePage />} />
+              <Route path="/message/search" element={<MessageSearch />} />
               <Route path="/successful" element={<UserCreatedPage />} />
             </Routes>
           </BrowserRouter>

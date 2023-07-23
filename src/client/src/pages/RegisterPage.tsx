@@ -1,6 +1,7 @@
 import React, { FormEvent } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function RegisterPage() {
   const logo = {
@@ -29,22 +30,45 @@ function RegisterPage() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         firstName,
-        lastName, 
-        email, 
+        lastName,
+        email,
         password
       }),
     });
 
-    await fetch(request).then((response) => {
+    await fetch(request).then(async (response) => {
       if (response.status == 200) {
         // If the response is ok (server returns 200), update the user data
         // and navigate to login page
         console.log('Response worked!');
-        navigate("/successful")
+        const data = await response.json();
+        const user = {
+          id: data.id,
+          username: data.email,
+          description: '',
+          pic: 'https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg',
+          banner: 'https://www.gravitasgroup.com.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBKzBiQVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--a75c21e39787f4cd3f6f664b4bc568012b4e691c/__banner-default.jpg',
+        }
+
+        axios.post(`http://localhost:8080/api/v0/users/register`, { user }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }})
+          .then(response => {
+            if (response.status === 200) {
+              console.log("worked neo4j");
+              navigate("/successful");
+            } else {
+              window.alert('something went wrong');
+            }
+          })
+          .catch(err => console.log(err));
+              
+
       }
-      else if (response.status == 403){
+      else if (response.status == 403) {
         console.log('Response failed!');
         setError("User Already Exists")
       }
@@ -53,7 +77,7 @@ function RegisterPage() {
         setError("Internal Server Error")
       }
     });
-    
+
   }
 
 
@@ -78,23 +102,23 @@ function RegisterPage() {
 
           <div className='space-y-4'>
             <div>
-                <label className="block mb-2 text-2xl font-medium text-white ">First Name</label>
-                <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="John"/>
+              <label className="block mb-2 text-2xl font-medium text-white ">First Name</label>
+              <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="John" />
             </div>
             <div>
-                <label className="block mb-2 text-2xl font-medium text-white ">Last Name</label>
-                <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="Doe"/>
+              <label className="block mb-2 text-2xl font-medium text-white ">Last Name</label>
+              <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="Doe" />
             </div>
             <div>
-                <label className="block mb-2 text-2xl font-medium text-white ">Email</label>
-                <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="name@email.com"/>
+              <label className="block mb-2 text-2xl font-medium text-white ">Email</label>
+              <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5 " placeholder="name@email.com" />
             </div>
             <div>
               <label className="block mb-2 text-2xl font-medium text-white">Password</label>
-              <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="••••••••" className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5"/>
+              <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="••••••••" className="bg-black border-black text-white sm:text-sm rounded-lg focus:ring-white focus:border-white block w-full h-[3rem] p-2.5" />
             </div>
           </div>
-          {error && 
+          {error &&
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
               <strong className="font-bold">Error! </strong>
               <span className="block sm:inline">{error}</span>
@@ -106,7 +130,7 @@ function RegisterPage() {
             </button>
             <div className="flex justify-center items-center space-x-1 font-light text-gray-500">
               <p className='text-base'>
-                Already have an account? 
+                Already have an account?
               </p>
               <a href="/login" className="font-medium text-primary-600 text-base hover:underline">Sign In</a>
             </div>
