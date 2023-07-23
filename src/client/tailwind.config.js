@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './src/**/*.{js,jsx,ts,tsx}',
-  ],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       backgroundColor: {
@@ -17,5 +15,12 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
   ],
-}
+
+  // Define a new layer for CoreUI styles
+  coreui: {
+    // Import CoreUI styles
+    '@import': '@coreui/coreui/dist/css/coreui.min.css',
+  },
+};
+
 

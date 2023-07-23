@@ -1,9 +1,6 @@
 import { useShoppingCart } from '../../context/ShoppingCartContext';
 import { formatCurrency } from '../../utils/formatCurrency';
-import sampleProductImage2 from '../../assets/sampleProductImage2.jpg'
-import Button from 'react-bootstrap/Button';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-
+import { CButton } from '@coreui/react';
 
 type CartItemProps = {
   id: number;
@@ -27,10 +24,12 @@ type CartItem = {
 }
 
 export function CartItem({ id, quantity }: CartItemProps) {
-  const { removeItem } = useShoppingCart();
-  const [storeItems, setCartItems] = useLocalStorage<CartItem[]>('shopping-cart', []);
-  const item = storeItems.find((i) => i.id === id);
-  if (item == null) return null;
+  const { removeItem, cartItems } = useShoppingCart();
+  const item = cartItems.find((i) => i.id === id);
+
+  if (!item) {
+    return null;
+  }
 
   return (
     <div className="flex items-center space-x-2">
@@ -51,13 +50,14 @@ export function CartItem({ id, quantity }: CartItemProps) {
         </div>
       </div>
       <div> {formatCurrency(item.price * quantity)}</div>
-      <Button
-        variant="outline-danger"
+      <CButton
+        color="danger"
         size="sm"
         onClick={() => removeItem(item.id)}
+        variant="outline"
       >
         &times;
-      </Button>
+      </CButton>
     </div>
   );
 }

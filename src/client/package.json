@@ -10,6 +10,8 @@
   },
   "proxy": "http://localhost:8080",
   "dependencies": {
+    "@coreui/coreui": "^5.0.0-alpha.1",
+    "@coreui/react": "^5.0.0-alpha.0",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^1.0.6",
     "@testing-library/jest-dom": "^5.16.5",
