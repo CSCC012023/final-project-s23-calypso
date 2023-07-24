@@ -32,7 +32,9 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
     >
       <COffcanvasHeader>
         <COffcanvasTitle>Your Cart</COffcanvasTitle>
-        <CCloseButton onClick={closeCart} /> {/* Apply custom style for CloseButton */}
+        <button onClick={closeCart} className="text-xs text-black bg-gray-200 rounded-lg border border-black px-3 py-2 hover:bg-red-500 hover:text-gray-200 font-bold">
+          X
+        </button>
       </COffcanvasHeader>
       <COffcanvasBody>
         <CContainer className="h-full flex flex-col"> {/* Use flex to make the container full height and display items in a column */}
