@@ -1,24 +1,72 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
+const initUser = {
+  id: 0,
+  username: 'username',
+  description: 'description',
+  pic: require('../assets/sampleProfilePicture1.png'),
+  banner: require('../assets/sampleLargeProductImage2.jpg')
+}
 
 const MessageSearch = () => {
     const myUser = "64b451c1804386e1e8f81a35";
+    const [user, setUser] = useState<any>(null);
+    const [otherUserProfile, setOtherUserProfile] = useState<typeof initUser[]>([initUser]);
     const [allUsers, setAllUsers] = useState<any[]>([]);
     const [chatName, setChatName] = useState('');
     const [chatUsers, setChatUsers] = useState<any[]>([]);
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const navigate = useNavigate();
+
+    async function getUserByID(id: string) {
+        const res = await axios.get("../api/chat/user/"+id);
+        setUser(res.data);
+    }
+
+    async function getOtherUserProfileByID(id: string) {
+        await axios.get(`http://localhost:8080/api/v0/users/${id}`)
+        .then(response => {
+            if (response.status === 200) {
+            const data = response.data;
+            setOtherUserProfile(data);
+            } else {
+            console.log("Failed to get user profile");
+            }
+        });
+    }
+
+    const verify = async () => {
+        if (!cookies.token) {
+            alert("Please login");
+            navigate("/login");
+        }
+
+        const {data} = await axios.post('/api/users/verify', {});
+        const {status, id} = data;
+        if (status){
+            getUserByID(id);
+        } else {
+            removeCookie('token');
+            alert("Please login");
+            navigate('/login');
+        }
+    }
+    verify();
 
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const res = await axios.get("../api/chat/users");
-                setAllUsers(res.data.users.filter((user: { _id: string; }) => user._id !== myUser));
+                const res = await axios.get("../api/chat/allusers");
+                setAllUsers(res.data.users.filter((id: { _id: any; }) => user._id !== id));
             } catch (error){
                 console.log(error);
             }
         }
         getUsers();
-    }, []);
+    }, [user]);
     const [checked, setChecked] = useState(new Array(allUsers.length).fill(false));
     const handleChange = (index: number, email: string) => {
         const firstItem = allUsers.filter((user: { email: string; }) => user.email === email);
@@ -37,7 +85,10 @@ const MessageSearch = () => {
         try {
             if (chatUsers.length == 1){
                 try{
-                    const res = await axios.post("../api/chat/", {email: chatUsers[0].email});
+                    const { data } = await axios.get(`http://localhost:8080/api/v0/users/${chatUsers[0]._id}`);
+                    alert(chatUsers[0].email)
+                    const res = await axios.post("../api/chat/", {email: chatUsers[0].email, id: user._id, pic: data.pic});
+                    alert(res);
                     alert("chat created successfully")
                 }catch(error){
                     alert("Failed to create chat")

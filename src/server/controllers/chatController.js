@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Chat = require("../models/ChatModel");
 const User = require("../models/User");
+const UserProfile = require("../models/neo4j/user");
 
 // Header: POST {URL}/
 // Params:
@@ -9,16 +10,17 @@ const User = require("../models/User");
 // else, it creates a new chat between them.
 const chatController = {
     accessChat: async (req, res) => {
-        const { email } = req.body;
-        const currentuser = await User.find({email: "message@gmail.com"})
+        const { email, id, pic } = req.body;
+        const currentuser = await User.findById(id)
         const otheruser = await User.find({email: email})
         try{
             //Retrieve or create a singular chat between the logged in user and a user they specify
             const chat =await Chat.find({
+                pic: pic,
                 isGroupChat: false,
                 $and: [
                     // Change this later //
-                    { users: currentuser[0]},
+                    { users: currentuser},
                     { users: otheruser[0]},
                 ],
             })
@@ -44,9 +46,10 @@ const chatController = {
             } else {
                 const newChat = new Chat(
                     { 
-                        chatName: "Message and " + otheruser[0].firstName,
+                        chatName: otheruser[0].firstName,
+                        pic: otheruser[0].pic,
                         isGroupChat: false,
-                        users: [currentuser[0], otheruser[0]]
+                        users: [currentuser, otheruser[0]]
                     });
                 try {
                     await newChat.save();
@@ -67,7 +70,7 @@ const chatController = {
     //      email: String
     // Function: get a user by a specific email
     getUser: async (req, res) => {
-        const user = await User.find({email: "message@gmail.com"})
+        const user = await User.findById(req.params.user);
         try {
             res.status(200).json(user);
         } catch (error) {
@@ -77,10 +80,10 @@ const chatController = {
     // Header: GET {URL}/users
     // Params:
     // Function: get all users
-    getUser: async (req, res) => {
+    getUsers: async (req, res) => {
         try{
-            //Retrieve all text submissions from the database
-            const users = await User.find();   
+            //Retrieve all users from the database
+            const users = await User.find();
             res.status(200).json({ users });
         }
         catch (error) {
@@ -99,14 +102,13 @@ const chatController = {
     //         res.status(500).json({ message: "Encountered a server error!" });
     //     }
     // },
-    // Header: GET {URL}/
-    // Params: None
+    // Header: GET {URL}/chat
+    // Params: current user id
     // Function: Gets all chats that the logged in user is in
     fetchChats: async (req, res) => {
         try{
-            //const { email } = req.body;
-            const currentuser = await User.find({email: "message@gmail.com"})
-            const chat = await Chat.find({ users: currentuser[0] })
+            const currentuser = await User.findById(req.params.user)
+            const chat = await Chat.find({ users: currentuser })
             // .populate("latestMessage")
             // .sort({updatedAt: -1})
             res.status(200).json({ chat });
@@ -129,8 +131,8 @@ const chatController = {
         }
         // add given emails to the user list
         const users = [];
-        const currentuser = await User.find({email: "message@gmail.com"});
-        users.push(currentuser[0]);
+        const currentuser = await User.find(req.body.id);
+        users.push(currentuser);
         for (let i = 0; i < req.body.users.length; i++){
             const otheruser = await User.find({email: req.body.users[i]});
             users.push(otheruser[0]);
@@ -204,7 +206,7 @@ const chatController = {
         const { chatId, email } = req.body;
         const currentuser = await User.find({email: email});
         const removed = await Chat.findByIdAndUpdate(chatId, {
-            $pull: { users: currentuser[0]}, }
+            $pull: { users: currentuser}, }
         )
         if (!removed) {
             res.status(404).json({ message: "Chat or User was not found" });
@@ -222,7 +224,7 @@ const chatController = {
         const { chatId, email } = req.body;
         const currentuser = await User.find({email: email});
         const added = await Chat.findByIdAndUpdate(chatId, {
-            $push: { users: currentuser[0]}, }, {new: true}
+            $push: { users: currentuser}, }, {new: true}
         )
         if (!added) {
             res.status(404).json({ message: "Chat or User was not found" });
