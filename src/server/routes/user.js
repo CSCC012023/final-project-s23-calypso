@@ -8,5 +8,7 @@ router.post('/retrieve', userController.retrieveUser);
 //Endpoint for submitting text
 router.post('/submit', userController.submitUser);
 
+//Endpoint for verifying Token
+router.post('/verify', userController.verifyToken)
 
 module.exports = router;

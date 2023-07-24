@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
 
 import UserCard from "../components/profile/UserCard"
 import ArtworkList from "../components/profile/ArtworksList"
@@ -9,8 +11,7 @@ import HeaderNavBar from "../components/common/HeaderNavBar"
 import Footer from "../components/common/Footer"
 
 import ErrorPage from "./Error/ErrorPage"
-import { set } from 'react-hook-form'
-import { get } from 'http'
+
 
 const initUser = {
   id: 0,
@@ -26,6 +27,8 @@ function ProfilePage() {
   const [musics, setMusics] = useState<any[]>([]);
   const [pageError, setPageError] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+  const navigate = useNavigate();
 
   function updateUser(user1: { id: number, username: string, description: string, pic: any, banner: any }) {
     if (user.username !== user1.username) {
@@ -76,6 +79,7 @@ function ProfilePage() {
       .then(response => {
         if (response.status === 200) {
           const data = response.data;
+          console.log(data);
           setUser(data);
           console.log("worked");
         } else {
@@ -234,15 +238,31 @@ function ProfilePage() {
     const url = window.location.pathname;
     if (url === "/profile" || url === "/profile/") {
       // change to currently logged in user
-      const id = '64af094859d41e67a34c8bd1';
-      setIsLoggedIn(true);
-      getUserByID(id);
+      const verify = async () => {
+        if (!cookies.token) {
+          navigate("/login");
+        }
+
+        const { data } = await axios.post(
+          '/api/users/verify', {}
+        );
+
+        const { status, id } = data;
+        if (status) {
+          setIsLoggedIn(true);
+          getUserByID(id);
+        } else {
+          removeCookie('token');
+          navigate("/login");
+        }
+      }
+      verify();
     } else {
       const username = url.split('/').filter(Boolean).at(-1)
       setIsLoggedIn(false);
       getUserByUsername(username);
     }
-  }, [user]);
+  }, [navigate, removeCookie]);
 
   return (
     !pageError ? (
