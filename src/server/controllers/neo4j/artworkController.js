@@ -157,6 +157,18 @@ const deleteArtwork = async (req, res) => {
   }
 }
 
+const getRecommendedArtworks = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!id) throw { message: "Invalid Username", status: 400 };
+    const result = await artworkModel.getRecommendedArtworks(dbUtils.getSession(req), id);
+    res.json(result);
+  }
+  catch {
+    res.status(500).json({ message: "Encountered server error" });
+  }
+}
+
 module.exports = {
   getArtworks: getArtworks,
   getArtworkById:getArtworkById,
@@ -166,4 +178,5 @@ module.exports = {
   postArtwork: postArtwork,
   updateArtwork: updateArtwork,
   deleteArtwork: deleteArtwork,
+  getRecommendedArtworks: getRecommendedArtworks
 }
