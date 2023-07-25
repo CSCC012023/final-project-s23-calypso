@@ -7,6 +7,7 @@ const artworkController = require('../../controllers/neo4j/artworkController');
 
 artwork.get('/all', artworkController.getArtworks);
 //artwork.get('/:id',artworkController.getArtworkById);
+artwork.get('/recommended/:id', artworkController.getRecommendedArtworks);
 
 artwork.get('/id/:id', artworkController.findByID);
 
