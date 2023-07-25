@@ -117,6 +117,18 @@ const findSongByNameAndArtist = async (session, name, artist) => {
   return result.records[0].get('m').properties;
 }
 
+const getByCategory = async (session, category) => {
+    
+  const query = [
+      `MATCH (m: Music)`,
+      `WHERE "${category}" IN m.genres`,
+      `RETURN m`
+  ].join('\n');
+  console.log(query)
+  const result = await session.run(query);
+  return result.records.map(i=>i._fields[0].properties)
+}
+
 module.exports = {
   findAll: findAll,
   findByNameAndArtist: findByNameAndArtist,
@@ -128,5 +140,6 @@ module.exports = {
   deleteMusic: deleteMusic,
   findByUserID: findByUserID,
   findByUsername: findByUsername,
-  findSongByNameAndArtist: findSongByNameAndArtist
+  findSongByNameAndArtist: findSongByNameAndArtist,
+  getByCategory: getByCategory
 }
