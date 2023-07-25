@@ -139,7 +139,7 @@ function HomePage() {
 
       {/* Featured artworks */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Featured artworks" productsList={artworks} />
+        <ProductsRow categoryTitle="Featured artworks" productsList={artworks} categoryLink='featured'/>
       </section>
 
       {/* Collections */}
@@ -162,7 +162,7 @@ function HomePage() {
 
       {/* Newly added */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Newly Added Products" productsList={artworks} />
+        <ProductsRow categoryTitle="Newly Added Products" productsList={artworks} categoryLink='newest'/>
       </section>
 
 
@@ -179,9 +179,9 @@ function HomePage() {
       </div>
 
 
-      {/* Thematic products */}
+      {/* Cheapest Finds */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Thematic Products" productsList={artworks} />
+        <ProductsRow categoryTitle="Cheapest Finds" productsList={artworks} categoryLink='pricelow'/>
       </section>
 
       {/* Footer */}
