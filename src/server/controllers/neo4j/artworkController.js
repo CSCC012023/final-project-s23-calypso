@@ -170,7 +170,7 @@ const getByCategory = async (req, res) => {
     } else {
       res.status(500).json({ message: "Internal Server Error" });
     }
- }
+ }}
 
 const getRecommendedArtworks = async (req, res) => {
   try {
