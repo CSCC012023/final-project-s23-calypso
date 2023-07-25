@@ -155,6 +155,22 @@ const findSongByNameAndArtist = async (req, res) => {
   }
 }
 
+const getByCategory = async (req, res) => {
+  try {
+    const category = req.params.category;
+    if (!category) throw { message: "No category provided", status: 400 }
+    const result = await musicModel.getByCategory(dbUtils.getSession(req), category);
+    res.json(result);
+  }
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+}
+
 module.exports = {
   findAll: findAll,
   findByNameAndArtist: findByNameAndArtist,
@@ -166,5 +182,6 @@ module.exports = {
   deleteMusic: deleteMusic,
   findByUserID: findByUserID,
   findByUsername: findByUsername,
-  findSongByNameAndArtist: findSongByNameAndArtist
+  findSongByNameAndArtist: findSongByNameAndArtist,
+  getByCategory: getByCategory
 }

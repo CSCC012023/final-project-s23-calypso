@@ -136,6 +136,17 @@ const deleteArtwork = async (session, id) => {
     //return {};
 }
 
+const getByCategory = async (session, category) => {
+    
+    const query = [
+        `MATCH (a: Artwork)`,
+        `WHERE toLower(a.style) CONTAINS "${category}"`,
+        `RETURN a`
+    ].join('\n');
+    const result = await session.run(query);
+    return result.records.map(i=>i._fields[0].properties)
+}
+
 module.exports = {
     getArtworks: getArtworks,
     getArtworkById: getArtworkById,
@@ -145,4 +156,5 @@ module.exports = {
     postArtwork: postArtwork,
     updateArtwork: updateArtwork,
     deleteArtwork: deleteArtwork,
+    getByCategory: getByCategory
 }

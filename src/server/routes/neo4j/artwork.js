@@ -14,6 +14,8 @@ artwork.get('/userid/:id', artworkController.findByUserID);
 
 artwork.get('/username/:username', artworkController.findByUsername);
 
+artwork.get('/category/:category', artworkController.getByCategory);
+
 artwork.post('/post', artworkController.postArtwork);
 
 artwork.put('/update/:id', artworkController.updateArtwork);
