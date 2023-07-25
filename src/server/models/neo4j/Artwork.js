@@ -137,11 +137,24 @@ const deleteArtwork = async (session, id) => {
 }
 
 const getByCategory = async (session, category) => {
-    
+
+  const query = [
+      `MATCH (m: Music)`,
+      `WHERE "${category}" IN m.genres`,
+      `RETURN m`
+  ].join('\n');
+  console.log(query)
+  const result = await session.run(query);
+  return result.records.map(i=>i._fields[0].properties)
+}
+
+const getRecommendedArtworks = async (session, username) => {
     const query = [
-        `MATCH (a: Artwork)`,
-        `WHERE toLower(a.style) CONTAINS "${category}"`,
-        `RETURN a`
+      `MATCH (n: User)-[r:OWNS]->(sharedProduct:Artwork)<-[:OWNS]-(c: User)`,
+      `WHERE n.username = '${username}'`,
+      `MATCH (c)-[:OWNS]->(newProduct:Artwork)`,
+      `WHERE newProduct.name <> sharedProduct.name`,
+      `RETURN DISTINCT newProduct`,
     ].join('\n');
     const result = await session.run(query);
     return result.records.map(i=>i._fields[0].properties)
@@ -156,5 +169,6 @@ module.exports = {
     postArtwork: postArtwork,
     updateArtwork: updateArtwork,
     deleteArtwork: deleteArtwork,
-    getByCategory: getByCategory
+    getByCategory: getByCategory,
+    getRecommendedArtworks: getRecommendedArtworks
 }
