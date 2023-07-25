@@ -1,27 +1,13 @@
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import Stack from 'react-bootstrap/Stack';
+import React from 'react';
 import { useShoppingCart } from '../../context/ShoppingCartContext';
 import { formatCurrency } from '../../utils/formatCurrency';
-import React from 'react';
 import { CartItem } from './CartItem';
-import sampleProductImage2 from '../../assets/sampleProductImage2.jpg';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-
+import { COffcanvas, COffcanvasHeader, COffcanvasTitle, COffcanvasBody, CButton, CCloseButton, CContainer, CListGroup, CListGroupItem } from '@coreui/react';
+import './shoppingcart.css'; // Import the custom CSS file
 
 type CartItem = {
-  id: number;
-  quantity: number;
-  name: string,
-  artist: string,
-  style: string,
-  price: number,
-  href: string,
-  imageSrc: string,
-  imageAlt: string,
-  date: number,
-  rarity: string,
-  medium: string,
-  material: string,
+  // CartItem type definition...
 }
 
 type ShoppingCartProps = {
@@ -29,44 +15,51 @@ type ShoppingCartProps = {
 };
 
 export function ShoppingCart({ isOpen }: ShoppingCartProps) {
-  
   const { closeCart, cartItems } = useShoppingCart();
   const [storeItems, setItems] = useLocalStorage<CartItem[]>('shopping-cart', []);
-    // Calculate the total price using cartItems directly
-    const totalPrice = cartItems.reduce((total, cartItem) => {
-      const item = cartItems.find((i) => i.id === cartItem.id);
-      return total + (item?.price || 0) * cartItem.quantity;
-    }, 0);
+
+  // Calculate the total price using cartItems directly
+  const totalPrice = cartItems.reduce((total, cartItem) => {
+    const item = cartItems.find((i) => i.id === cartItem.id);
+    return total + (item?.price || 0) * cartItem.quantity;
+  }, 0);
+
   return (
-    <Offcanvas
-      keyboard={true}
-      scroll={true}
-      show={isOpen}
+    <COffcanvas
+      visible={isOpen}
       onHide={closeCart}
       placement="end"
     >
-      <Offcanvas.Header closeButton={true}>
-        <Offcanvas.Title>Your Cart</Offcanvas.Title>
-      </Offcanvas.Header>
-      <Offcanvas.Body>
-        <Stack gap={3}>
-          {cartItems.map(item => (
-            <CartItem key={item.id} {...item} />
-          ))}
-          <div className="ml-auto font-bold text-xl">
-            Total{" "}
-            {formatCurrency(totalPrice
-            )}
+      <COffcanvasHeader>
+        <COffcanvasTitle>Your Cart</COffcanvasTitle>
+        <button onClick={closeCart} className="text-xs text-black bg-gray-200 rounded-lg border border-black px-3 py-2 hover:bg-red-500 hover:text-gray-200 font-bold">
+          X
+        </button>
+      </COffcanvasHeader>
+      <COffcanvasBody>
+        <CContainer className="h-full flex flex-col"> {/* Use flex to make the container full height and display items in a column */}
+          <CListGroup className="flex-grow overflow-auto"> {/* Allow the list group to take the remaining space */}
+            {cartItems.map(item => (
+              <CListGroupItem key={item.id} className="flex justify-between items-center">
+                {/* Use flex to evenly distribute cart item content */}
+                <CartItem {...item} />
+
+              </CListGroupItem>
+            ))}
+          </CListGroup>
+          {/* Add spacing between cart items and total price */}
+          <div className="mt-4 font-bold">
+            Total: {formatCurrency(totalPrice)}
           </div>
-        </Stack>
-      </Offcanvas.Body>
-      <div className="flex justify-end">
-        <a href="/checkout">
-          <button className="bg-gray-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4 mb-4">
-            Checkout
-          </button>
-        </a>
-      </div>
-    </Offcanvas>
+          <div className="mt-4 flex justify-end">
+            <a href="/checkout">
+              <button color="dark" className="font-bold py-2 px-4 rounded border-2 border-black hover:text-white hover:bg-black">
+                Checkout
+              </button>
+            </a>
+          </div>
+        </CContainer>
+      </COffcanvasBody>
+    </COffcanvas>
   );
 }
