@@ -87,6 +87,7 @@ const postArtwork = async (session, artwork) => {
             id: "${artwork.id}",
             name: "${artwork.name}",
             artist: "${artwork.artist}",
+            artistName: "${artwork.artistName}",
             style: "${artwork.style}",
             material: "${artwork.material}",
             medium: "${artwork.medium}",
@@ -110,6 +111,7 @@ const updateArtwork = async (session, id, artwork) => {
         `SET 
             a.name = '${artwork.name}',
             a.artist = '${artwork.artist}',
+            a.artistName = '${artwork.artistName}',
             a.style = '${artwork.style}',
             a.material = '${artwork.material}',
             a.medium = '${artwork.medium}',
