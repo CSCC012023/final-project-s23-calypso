@@ -7,6 +7,7 @@ import DiscoverPage from './pages/DiscoverPage';
 import LandingPage from './pages/LandingPage';
 import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/LoginPage';
+import LoginPageUpdate from './pages/Login2';
 import ProductPage from './pages/ProductPage';
 import RegisterPage from './pages/RegisterPage';
 import TrendingPage from './pages/Discover/TrendingPage';
@@ -70,7 +71,7 @@ function App() {
               <Route path="/landing" element={<LandingPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/profile/:username" element={<ProfilePage />} />
-              <Route path="/login" element={<LoginPage />} />
+              <Route path="/login2" element={<LoginPage />} />
               <Route path="/product/:id" element={<ProductPage/>} />
               <Route path="/transaction" element={<TransactionPage />} />
               <Route path="/transaction/success" element = {<SuccessfulTransactionPage/>} />
@@ -81,6 +82,7 @@ function App() {
               <Route path="/message" element={<MessagePage />} />
               <Route path="/message/search" element={<MessageSearch />} />
               <Route path="/successful" element={<UserCreatedPage />} />
+              <Route path="/login" element={<LoginPageUpdate />} />
             </Routes>
           </BrowserRouter>
         </ShoppingCartProvider>
