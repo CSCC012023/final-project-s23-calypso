@@ -7,7 +7,7 @@ import DiscoverPage from './pages/DiscoverPage';
 import LandingPage from './pages/LandingPage';
 import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/LoginPage';
-import LoginPageUpdate from './pages/Login2';
+import LoginPageUpdate from './pages/LoginPage2';
 import ProductPage from './pages/ProductPage';
 import RegisterPage from './pages/RegisterPage';
 import TrendingPage from './pages/Discover/TrendingPage';
