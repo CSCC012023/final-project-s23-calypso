@@ -59,7 +59,7 @@ const MessageSearch = () => {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const res = await axios.get("../api/chat/allusers");
+                const res = await axios.get("http://localhost:8080/api/chat/allusers");
                 setAllUsers(res.data.users.filter((id: { _id: any; }) => user._id !== id));
             } catch (error){
                 console.log(error);
@@ -86,9 +86,7 @@ const MessageSearch = () => {
             if (chatUsers.length == 1){
                 try{
                     const { data } = await axios.get(`http://localhost:8080/api/v0/users/${chatUsers[0]._id}`);
-                    alert(chatUsers[0].email)
-                    const res = await axios.post("../api/chat/", {email: chatUsers[0].email, id: user._id, pic: data.pic});
-                    alert(res);
+                    const res = await axios.post("http://localhost:8080/api/chat/", {email: chatUsers[0].email, id: user._id, pic: data.pic});
                     alert("chat created successfully")
                 }catch(error){
                     alert("Failed to create chat")

@@ -28,17 +28,7 @@ const chatController = {
             if (!otheruser[0]) {
                 res.status(404).json({message: "User not found!"});
             }
-        
-    // add this when login functionality is implemented
-        // .populate("users", "-password")
-        // .populate("users", "-password")
-        // .populate("latestMessage");
 
-        // chat = await User.populate(chat, {
-        //     path: "latestMessage.sender",
-        //     select: "email firstName lastName",
-        // });
-    
         // the chat between the logged in user and the use exists, so return that
             if (chat.length > 0) {
                 res.status(200).json({ chat });
@@ -47,7 +37,7 @@ const chatController = {
                 const newChat = new Chat(
                     { 
                         chatName: otheruser[0].firstName,
-                        pic: otheruser[0].pic,
+                        pic: pic,
                         isGroupChat: false,
                         users: [currentuser, otheruser[0]]
                     });

@@ -9,16 +9,12 @@ const initUser = {
   id: 0,
   username: 'username',
   description: 'description',
-  pic: require('../assets/sampleProfilePicture1.png'),
+  pic: "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png",
   banner: require('../assets/sampleLargeProductImage2.jpg')
 }
 
 function MessagePage (){
     
-    // CHANGE THIS WHEN USER IS ABLE TO LOG IN
-    //const user = "64b451c1804386e1e8f81a35";
-    const id = '64b451c1804386e1e8f81a35';
-    const bool = false;
     const [userProfile, setUserProfile] = useState(initUser);
     const [user, setUser] = useState<any>(null);
     const [otherUserProfile, setOtherUserProfile] = useState(initUser);
@@ -27,6 +23,7 @@ function MessagePage (){
     const [messages, setMessages] = useState<any[]>([]);
     const [newMessage, setNewMessage] = useState("");
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const [otherUserProfilePic, setOtherUserProfilePic] = useState("https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png");
     const navigate = useNavigate();
     //const scrollRef = useRef<any>();
 
@@ -58,7 +55,7 @@ function MessagePage (){
 
     // used to get the user information from their id
     async function getUserByID(id: string) {
-        const res = await axios.get("../api/chat/user/"+id);
+        const res = await axios.get("http://localhost:8080/api/chat/user/"+id);
         setUser(res.data);
     }
 
@@ -88,8 +85,7 @@ function MessagePage (){
     useEffect(() => {
         const getConversations = async () => {
             try {
-                const res = await axios.get("../api/chat/chat/"+user._id);
-                console.log(res.data.chat[0])
+                const res = await axios.get("http://localhost:8080/api/chat/chat/"+user._id);
                 //const firstItem = res.data.chat[0].user.filter((user: { email: string; }) => user.email === email);
                 getOtherUserProfileByID(res.data.chat[0].users[1]._id);
                 setConversations(res.data.chat);
@@ -105,7 +101,7 @@ function MessagePage (){
         const getMessages = async() => {
             if (currentChat != null) {
                 try {
-                    const res = await axios.get("../api/message/"+currentChat._id);
+                    const res = await axios.get("http://localhost:8080/api/message/"+currentChat._id);
                     setMessages(res.data);
                 } catch(error){
                     console.log(error);
@@ -117,6 +113,7 @@ function MessagePage (){
 
     // send message
     const handleSubmit = async (e: any) => {
+        await getOtherUserProfileByID(user._id);
         e.preventDefault();
         const message = {
             sender: user,
@@ -124,7 +121,7 @@ function MessagePage (){
             chat: currentChat._id,
         };
         try{
-            const res = await axios.post("../api/message/", message);
+            const res = await axios.post("http://localhost:8080/api/message/", message);
             setMessages([...messages, res.data])
             setNewMessage("");
         } catch (error){
@@ -132,9 +129,15 @@ function MessagePage (){
         }
     }
 
-    // useEffect(() => {
-    //     scrollRef.current?.scrollIntoView({behaviour: "smooth"});
-    // }, [messages])
+    async function getUserPicture(id: string){
+        await getOtherUserProfileByID(id);
+        if (otherUserProfile.pic === null){
+            setOtherUserProfilePic("https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png");
+        }
+        else {
+            setOtherUserProfilePic(otherUserProfile.pic);
+        }
+    }
 
     return(
         <div className="flex h-screen overflow-y-hidden">
@@ -160,14 +163,14 @@ function MessagePage (){
                 {currentChat ? (
                 <>
                 <div className="flex items-center py-2 bg-slate-900">
-                    <img className="h-12 px-5 rounded-full" src={otherUserProfile.pic}></img>
+                    <img className="h-12 px-5 rounded-full" src={currentChat.pic}></img>
                     <div className=""> {currentChat.chatName} </div>
                 </div>
                 
                 <div className="flex-grow overflow-y-auto">
                     {messages.map((m)=> (
-                        <div>
-                        <MessageBox key={m._id} content={m.content} own={m.sender === user._id} ownPic={userProfile.pic} otherPic={otherUserProfile.pic}/>
+                        <div onLoad={() => getUserPicture(m._id)}>
+                            <MessageBox key={m._id} content={m.content} own={m.sender === user._id} ownPic={userProfile.pic} otherPic={otherUserProfilePic}/>
                         </div>
                     ))}
                 </div>
@@ -208,7 +211,3 @@ function MessagePage (){
     )
 }
 export default MessagePage
-
-function async() {
-    throw new Error('Function not implemented.');
-}
