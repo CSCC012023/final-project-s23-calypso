@@ -18,7 +18,7 @@ function ErrorPage() {
                 <img src="https://i.imgur.com/qIufhof.png" alt="404 Error" className="w-auto h-56" />
             </div>
             <div className="flex items-center justify-center">
-                <a href="/" className="text-white font-semibold px-4 py-4 bg-gray-500 rounded-lg opacity-90">
+                <a href="/home" className="text-white font-semibold px-4 py-4 bg-gray-500 rounded-lg opacity-90">
                 Take Me Back!
                 </a>
             </div>

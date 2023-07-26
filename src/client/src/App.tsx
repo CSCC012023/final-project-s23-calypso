@@ -41,6 +41,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
 
 
@@ -51,7 +52,10 @@ function App() {
         <ShoppingCartProvider>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              
+              <Route path="/" element={<Navigate to="/login"/>}/>
+              <Route path="/home" element={<HomePage />} />         
+              <Route path="/login" element={<LoginPage />} />
               <Route path="/artworks" element={<ArtworksPage />} />
 
               <Route path="/bidding" element={<BiddingPage />} />
@@ -70,7 +74,7 @@ function App() {
               <Route path="/landing" element={<LandingPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/profile/:username" element={<ProfilePage />} />
-              <Route path="/login" element={<LoginPage />} />
+              
               <Route path="/product/:id" element={<ProductPage/>} />
               <Route path="/transaction" element={<TransactionPage />} />
               <Route path="/transaction/success" element = {<SuccessfulTransactionPage/>} />
