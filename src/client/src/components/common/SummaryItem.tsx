@@ -58,7 +58,7 @@ export function SummaryItem({ id, quantity }: CartItemProps) {
         variant="outline"
         className="mx-4"
       >
-        &times;
+        &times; Remove
       </CButton>
     </div>
   );
