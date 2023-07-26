@@ -83,7 +83,7 @@ const collections = [
     description: 'The very best.',
     imageSrc: previewArt,
     imageAlt: 'BEST SCENERIES OF 2023',
-    href: 'discover/scenery',
+    href: 'http://localhost:3000/discover/scenery',
   },
   {
     id: 2,
@@ -91,7 +91,7 @@ const collections = [
     description: 'All things lonely and dark.',
     imageSrc: sampleProductImage2,
     imageAlt: 'LONELY COLLECTION',
-    href: 'discover/classical',
+    href: 'http://localhost:3000/discover/classical',
   },
   {
     id: 3,
@@ -99,7 +99,7 @@ const collections = [
     description: '2070 is calling!',
     imageSrc: sampleLargeProductImage,
     imageAlt: 'FUTURE COLLECTION',
-    href: 'discover/digital',
+    href: 'http://localhost:3000/discover/digital',
   },
 ]
 
@@ -131,15 +131,9 @@ function HomePage() {
       />
 
 
-      {/* For sectioned middle width banner
-      <div className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-16 py-16">
-        <div className="max-w-7xl mx-auto">{<LargeStoryCard />}</div>
-      </div> */}
-
-
       {/* Featured artworks */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Featured artworks" productsList={artworks} />
+        <ProductsRow categoryTitle="Featured artworks" productsList={artworks} categoryLink='featured'/>
       </section>
 
       {/* Collections */}
@@ -162,7 +156,7 @@ function HomePage() {
 
       {/* Newly added */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Newly Added Products" productsList={artworks} />
+        <ProductsRow categoryTitle="Newly Added Products" productsList={artworks} categoryLink='newest'/>
       </section>
 
 
@@ -174,14 +168,14 @@ function HomePage() {
           titleText="Buy Austin Bartolome’s newly released music"
           bodyText="Find out why Austin is becoming one of the fastest growing sellers on Calypso.  Buy his new music now!"
           buttonText="Discover Now"
-          href="discover/trending" />}
+          href="http://localhost:3000/discover/trending" />}
         </div>
       </div>
 
 
-      {/* Thematic products */}
+      {/* Cheapest Finds */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Thematic Products" productsList={artworks} />
+        <ProductsRow categoryTitle="Cheapest Finds" productsList={artworks} categoryLink='pricelow'/>
       </section>
 
       {/* Footer */}
