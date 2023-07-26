@@ -98,8 +98,8 @@ function LoginPage2() {
                   Don't have an account? 
                 </p>
                 <a href="/register" className="font-medium text-[#2d2c2c] text-base hover:underline">Sign Up</a>
+              </div>
             </div>
-          </div>
         </form>   
       </div>
     </div>
