@@ -5,7 +5,7 @@ export default function Menu() {
         <div className="w-72 bg-menu text-gray-300">
           <img src={require('../assets/logo.jpg')} className="p-5 mx-auto" />
           <div className="text-md">
-            <a href="/">
+            <a href="/home">
               <div className="flex py-3 px-5 hover:bg-menuSelected hover:text-white hover:font-semibold">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

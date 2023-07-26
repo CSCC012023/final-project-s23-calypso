@@ -14,13 +14,12 @@ const user = {
   imageUrl: profilePicture,
 }
 const navigation = [
-  { name: 'Artists', href: '#', current: true },
-  { name: 'Artworks', href: 'artworks', current: false },
-  { name: 'Music', href: '#', current: false },
-  { name: 'Auctions', href: '#', current: false },
-  { name: 'Cinematography', href: '#', current: false },
-  { name: 'Top Sellers', href: '#', current: false },
-  { name: 'Recommended for You', href: 'discover/deals', current: false },
+  { name: 'Artworks', href: 'http://localhost:3000/artworks', current: false },
+  { name: 'Music', href: 'http://localhost:3000/discover/beats', current: false },
+  { name: 'Discover', href: 'http://localhost:3000/discover', current: false },
+  { name: 'Trending Products', href: 'http://localhost:3000/trending', current: false },
+  { name: 'Recommended for You', href: 'http://localhost:3000/discover/deals', current: false },
+  { name: 'Messages', href: 'http://localhost:3000/message', current: false },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: 'profile' },
@@ -43,10 +42,10 @@ export default function HeaderNavBar() {
               <div className="relative h-16 flex justify-between">
                 <div className="relative z-10 px-2 flex lg:px-0">
                   <div className="flex-shrink-0 flex items-center">
-                    <a href='/'>
+                    <a href='/home'>
                       <img
                       className="block h-16 w-auto"
-                      src={require('../../assets/logo.jpg')}
+                      src={require('../../assets/logo-withoutbg.png')}
                       alt="Calypso Logo"
                     />
                     </a>
