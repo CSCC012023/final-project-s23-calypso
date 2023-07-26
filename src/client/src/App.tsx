@@ -7,8 +7,10 @@ import DiscoverPage from './pages/DiscoverPage';
 import LandingPage from './pages/LandingPage';
 import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/LoginPage';
+import LoginPageUpdate from './pages/LoginPage2';
 import ProductPage from './pages/ProductPage';
 import RegisterPage from './pages/RegisterPage';
+import RegisterPageUpdate from './pages/RegisterPage2';
 import TrendingPage from './pages/Discover/TrendingPage';
 import DealsPage from './pages/Discover/DealsPage';
 import BeatsPage from './pages/Discover/BeatsPage';
@@ -74,17 +76,19 @@ function App() {
               <Route path="/landing" element={<LandingPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/profile/:username" element={<ProfilePage />} />
-              
+              <Route path="/login2" element={<LoginPage />} />
               <Route path="/product/:id" element={<ProductPage/>} />
               <Route path="/transaction" element={<TransactionPage />} />
               <Route path="/transaction/success" element = {<SuccessfulTransactionPage/>} />
-              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/register2" element={<RegisterPage />} />
               <Route path="/testing" element={<TestingPage />} />
               <Route path="/testing2" element={<TestingPageNeo />} />
               <Route path="/error" element={<ErrorPage />} />
               <Route path="/message" element={<MessagePage />} />
               <Route path="/message/search" element={<MessageSearch />} />
               <Route path="/successful" element={<UserCreatedPage />} />
+              <Route path="/login" element={<LoginPageUpdate />} />
+              <Route path="/register" element={<RegisterPageUpdate />} />
             </Routes>
           </BrowserRouter>
         </ShoppingCartProvider>
