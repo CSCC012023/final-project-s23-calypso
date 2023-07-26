@@ -12,9 +12,7 @@ const initUser = {
 }
 
 const MessageSearch = () => {
-    const myUser = "64b451c1804386e1e8f81a35";
     const [user, setUser] = useState<any>(null);
-    const [otherUserProfile, setOtherUserProfile] = useState<typeof initUser[]>([initUser]);
     const [allUsers, setAllUsers] = useState<any[]>([]);
     const [chatName, setChatName] = useState('');
     const [chatUsers, setChatUsers] = useState<any[]>([]);
@@ -24,18 +22,6 @@ const MessageSearch = () => {
     async function getUserByID(id: string) {
         const res = await axios.get("../api/chat/user/"+id);
         setUser(res.data);
-    }
-
-    async function getOtherUserProfileByID(id: string) {
-        await axios.get(`http://localhost:8080/api/v0/users/${id}`)
-        .then(response => {
-            if (response.status === 200) {
-            const data = response.data;
-            setOtherUserProfile(data);
-            } else {
-            console.log("Failed to get user profile");
-            }
-        });
     }
 
     const verify = async () => {
@@ -71,15 +57,6 @@ const MessageSearch = () => {
     const handleChange = (index: number, email: string) => {
         const firstItem = allUsers.filter((user: { email: string; }) => user.email === email);
         setChatUsers([firstItem[0], ...chatUsers]);
-        //const filteredItems = allUsers.filter((item) => item.email !== email);
-        //setAllUsers([firstItem[0], ...filteredItems]);
-        //const newChecked = new Array(checked.length);
-        //newChecked[0] = true;
-        //newChecked[index] = false;
-        //const filteredChecked = checked.filter((item) => item.email !== email);
-        //checked[index] = false;
-        //checked[index] = true;
-        //setChecked([checked]);
     };
     const createChat = async () => {
         try {
@@ -94,14 +71,16 @@ const MessageSearch = () => {
             }
             if (chatUsers.length > 1){
                 try{
+                    const { data } = await axios.get(`http://localhost:8080/api/v0/users/${chatUsers[0]._id}`);
                     const userEmails = new Array(chatUsers.length);
                     for (var i = 0; i < chatUsers.length; i++){
                         userEmails[i] = chatUsers[i].email;
                     }
-                    if (chatName === null){
+                    // NOT WORKING IF EMPTY, NOT SURE WHY
+                    if (chatName === ''){
                         setChatName("New Group Chat");
                     }
-                    const res = await axios.post("../api/chat/group", {users: userEmails, name: chatName});
+                    const res = await axios.post("http://localhost:8080/api/chat/group", {id: user._id, users: userEmails, name: chatName, pic: data.pic});
                     alert("chat created successfully")
                 }catch(error){
                     alert("Failed to create chat")

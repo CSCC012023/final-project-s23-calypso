@@ -14,10 +14,9 @@ const initUser = {
 }
 
 function MessagePage (){
-    
     const [userProfile, setUserProfile] = useState(initUser);
     const [user, setUser] = useState<any>(null);
-    const [otherUserProfile, setOtherUserProfile] = useState(initUser);
+    const [otherUserProfile, setOtherUserProfile] = useState<any>(initUser);
     const [conversations, setConversations] = useState<any[]>([]);
     const [currentChat, setCurrentChat] = useState<any>(null);
     const [messages, setMessages] = useState<any[]>([]);
@@ -38,6 +37,16 @@ function MessagePage (){
             console.log("Failed to get user profile");
             }
         });
+    }
+
+    // gets and sets the user profile of other users
+    async function getOtherUserProfilePic(id: string) {
+        const res = await axios.get(`http://localhost:8080/api/v0/users/${id}`)
+        try {
+            setOtherUserProfilePic(res.data.pic);
+        } catch(error) {
+            console.log(error);
+        }
     }
 
     // gets and sets the user profile of other users
@@ -87,7 +96,7 @@ function MessagePage (){
             try {
                 const res = await axios.get("http://localhost:8080/api/chat/chat/"+user._id);
                 //const firstItem = res.data.chat[0].user.filter((user: { email: string; }) => user.email === email);
-                getOtherUserProfileByID(res.data.chat[0].users[1]._id);
+                getOtherUserProfileByID(res.data.chat.filter((u: { id: any; }) => u.id !== user._id));
                 setConversations(res.data.chat);
             } catch (error){
                 console.log(error);
@@ -130,13 +139,7 @@ function MessagePage (){
     }
 
     async function getUserPicture(id: string){
-        await getOtherUserProfileByID(id);
-        if (otherUserProfile.pic === null){
-            setOtherUserProfilePic("https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png");
-        }
-        else {
-            setOtherUserProfilePic(otherUserProfile.pic);
-        }
+        await getOtherUserProfilePic(id);
     }
 
     return(
@@ -150,12 +153,18 @@ function MessagePage (){
                         </button>
                     </form>
                 </div>
-                {/* <input type="text" placeholder="Search for friends..."className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input> */}
                 <div className="h-full overflow-y-auto">
                     {conversations.map((c) => (
-                        <div onClick={() => setCurrentChat(c)}>
-                            <Conversation key={c._id} chatName={c.chatName} photoURL={c.pic} users={c.users} currentUser={user._id} />
-                        </div>
+                        (c.users.length === 2 ? (
+                            <div onClick={() => setCurrentChat(c)}>
+                                {/* CHANGE CHAT NAME TO SOMETHING LIKE THIS: chatName={(c.users.filter((item: { id: string; }) => item.id !== user._id))[0].firstName} */}
+                                <Conversation key={c._id} chatName={c.chatName} photoURL={c.pic} users={c.users} currentUser={user._id} />
+                            </div>
+                        ) : (
+                            <div onClick={() => setCurrentChat(c)}>
+                                <Conversation key={c._id} chatName={c.chatName} photoURL={c.pic} users={c.users} currentUser={user._id} />
+                            </div>
+                        ))  
                     ))}
                 </div>
             </div>
@@ -169,7 +178,7 @@ function MessagePage (){
                 
                 <div className="flex-grow overflow-y-auto">
                     {messages.map((m)=> (
-                        <div onLoad={() => getUserPicture(m._id)}>
+                        <div onLoad={() => getUserPicture(m.sender)}>
                             <MessageBox key={m._id} content={m.content} own={m.sender === user._id} ownPic={userProfile.pic} otherPic={otherUserProfilePic}/>
                         </div>
                     ))}

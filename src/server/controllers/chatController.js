@@ -36,7 +36,7 @@ const chatController = {
             } else {
                 const newChat = new Chat(
                     { 
-                        chatName: otheruser[0].firstName,
+                        chatName: currentuser.firstName + " and " +otheruser[0].firstName,
                         pic: pic,
                         isGroupChat: false,
                         users: [currentuser, otheruser[0]]
@@ -121,7 +121,7 @@ const chatController = {
         }
         // add given emails to the user list
         const users = [];
-        const currentuser = await User.find(req.body.id);
+        const currentuser = await User.findById(req.body.id);
         users.push(currentuser);
         for (let i = 0; i < req.body.users.length; i++){
             const otheruser = await User.find({email: req.body.users[i]});
