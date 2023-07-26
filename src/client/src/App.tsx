@@ -22,6 +22,7 @@ import TransactionPage from './pages/Transaction/TransactionPage';
 import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransactionPage';
 import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
+import PurchaseSummaryPage from './pages/PurchaseSummaryPage';
 
 
 import MessageSearch from './pages/MessageSearch';
@@ -81,6 +82,7 @@ function App() {
               <Route path="/message" element={<MessagePage />} />
               <Route path="/message/search" element={<MessageSearch />} />
               <Route path="/successful" element={<UserCreatedPage />} />
+              <Route path="/purchase" element={<PurchaseSummaryPage />} />
             </Routes>
           </BrowserRouter>
         </ShoppingCartProvider>
