@@ -76,7 +76,7 @@ function PurchaseSummaryPage({}: any) {
           <div className="font-bold">Your Total: {formatCurrency(totalPrice)}</div>
           <a href="/checkout" className="mx-4">
             <button className="font-bold py-2 px-4 rounded text-black bg-white border-2 border-black hover:text-white hover:bg-black hover:border-white">
-              Checkout
+              Purchase
             </button>
           </a>
 

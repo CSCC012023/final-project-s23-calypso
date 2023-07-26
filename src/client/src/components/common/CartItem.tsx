@@ -32,10 +32,10 @@ export function CartItem({ id, quantity }: CartItemProps) {
   }
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-4 py-2">
       <img
         src={item.imageSrc}
-        className="w-32 h-20 object-cover"
+        className="w-20 h-16 object-cover rounded-lg"
         alt={item.name}
       />
       <div className="flex-grow">
@@ -49,12 +49,13 @@ export function CartItem({ id, quantity }: CartItemProps) {
           {item.artist}
         </div>
       </div>
-      <div> {formatCurrency(item.price * quantity)}</div>
+      <div className="w-24 text-right"> {formatCurrency(item.price * quantity)}</div>
       <CButton
         color="danger"
         size="sm"
         onClick={() => removeItem(item.id)}
         variant="outline"
+        className="h-full"
       >
         &times;
       </CButton>

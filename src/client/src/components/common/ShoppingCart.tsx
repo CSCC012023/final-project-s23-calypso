@@ -52,7 +52,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
             Total: {formatCurrency(totalPrice)}
           </div>
           <div className="mt-4 flex justify-end">
-            <a href="/checkout">
+            <a href="/purchase">
               <button color="dark" className="font-bold py-2 px-4 rounded border-2 border-black hover:text-white hover:bg-black">
                 Checkout
               </button>
