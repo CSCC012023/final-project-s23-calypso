@@ -30,7 +30,8 @@ const postBid = async (session, bid) => {
             id: "${bid.id}",
             productId: "${bid.productId}",
             userId: "${bid.userId}",
-            amount: ${bid.amount}
+            amount: ${bid.amount},
+            startingPrice: ${bid.startingPrice}
         })`,
         `RETURN a`
     ].join('\n');
