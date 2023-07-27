@@ -52,7 +52,7 @@ export default function ProductsColumn( {categoryTitle, product}: any ) {
                                 {product.name}
                             </p>
                         </h3>
-                        <p className="text-base text-gray-200">{product.artist}</p>
+                        <p className="text-base text-gray-200">{product.artistName}</p>
                         <p className="text-sm text-gray-400 italic">{product.style}</p>
                         <p className="mt-1 text-gray-100">
                             {formatCurrency(product.price)}

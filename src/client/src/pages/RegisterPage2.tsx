@@ -47,6 +47,7 @@ function RegisterPage2() {
         const user = {
           id: data.id,
           username: data.email,
+          name: data.firstName + ' ' + data.lastName,
           description: '',
           pic: 'https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg',
           banner: 'https://www.gravitasgroup.com.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBKzBiQVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--a75c21e39787f4cd3f6f664b4bc568012b4e691c/__banner-default.jpg',

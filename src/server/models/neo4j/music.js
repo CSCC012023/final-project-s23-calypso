@@ -47,6 +47,7 @@ const createMusic = async (session, music) => {
     `CREATE (m: Music {
       name: '${music.name}',
       artist: '${music.artist}',
+      artistName: '${music.artistName}',
       description: '${music.description}',
       genres: ${JSON.stringify(music.genres)},
       pic: '${music.pic}',
@@ -66,6 +67,7 @@ const updateMusic = async (session, name, artist, music) => {
     `SET
       m.name = '${music.name}',
       m.artist = '${music.artist}',
+      m.artistName = '${music.artistName}',
       m.description = '${music.description}',
       m.genres = ${JSON.stringify(music.genres)},
       m.pic = '${music.pic}',

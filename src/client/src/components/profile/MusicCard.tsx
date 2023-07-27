@@ -6,6 +6,7 @@ interface Props {
   music: {
     name: string,
     artist: string,
+    artistName: string,
     description: string,
     duration: string,
     genres: string[],
@@ -24,7 +25,7 @@ function MusicCard({ music, handleDeleteClick, onEditMode }: Props) {
   return (
     <div className="group relative w-full">
       {delPopup ? (
-          <ConfirmDeletePopup name={music.name} artist={music.artist} handleDeleteClick={() => {handleDeleteClick(music.name, music.artist); setDelPopup(false)}} handleCancelClick={() => setDelPopup(false)} />
+          <ConfirmDeletePopup name={music.name} artist={music.artistName} handleDeleteClick={() => {handleDeleteClick(music.name, music.artist); setDelPopup(false)}} handleCancelClick={() => setDelPopup(false)} />
         ): null}
       {onEditMode ? (
           <button className="flex w-16 h-10 absolute z-10 bg-black rounded-lg overflow-hidden border-white border-2 justify-center items-center hover:bg-gray-600 active:bg-gray-800"
@@ -37,7 +38,7 @@ function MusicCard({ music, handleDeleteClick, onEditMode }: Props) {
       <div className="flex items-center justify-center w-full aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
         <img
            src={music.pic || defaultImage}
-           alt={music.name.toUpperCase() + " - " + music.artist.toUpperCase()}
+           alt={music.name.toUpperCase() + " - " + music.artistName.toUpperCase()}
            className="h-full w-full object-cover object-center lg:h-full lg:w-full"
          />
       </div>
@@ -49,7 +50,7 @@ function MusicCard({ music, handleDeleteClick, onEditMode }: Props) {
               {music.name}
             </a>
           </h3>
-          <p className="mt-1 text-sm text-gray-300 text-ellipsis overflow-hidden whitespace-nowrap">{music.artist}</p>
+          <p className="mt-1 text-sm text-gray-300 text-ellipsis overflow-hidden whitespace-nowrap">{music.artistName}</p>
           <p className="mt-1 text-sm text-gray-300 italic text-ellipsis overflow-hidden whitespace-nowrap">{music.genres.map(genre => genre + ', ')}</p>
         </div>
         <p className="text-lg font-medium text-white flex-shrink-0">$ {music.price}</p>
