@@ -24,6 +24,18 @@ const getBidByProductId = async (session, productId) => {
     return bid;
 };
 
+const getHighestBid = async (session, productId) => {
+    let query = `MATCH (n: Bid {productId: $productId}) RETURN n order by n.amount DESC LIMIT 1`;
+    const result = await session.run(query, {productId: productId});
+
+    if (result.records.length === 0) {
+        return null; // Artwork not found
+    }
+
+    const bid = result.records[0].get('n').properties;
+    return bid;
+};
+
 const postBid = async (session, bid) => {
     const query = [
         `CREATE (a: Bid {
@@ -52,7 +64,9 @@ const deleteBid = async (session, id) => {
 
 
 modeule.exports = {
-    getBid,
+    getBidById,
+    getHighestBid,
+    getBidByProductId,
     postBid,
     deleteBid
 }

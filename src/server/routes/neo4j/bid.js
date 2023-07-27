@@ -9,6 +9,8 @@ bid.get('/:id', bidController.getBidById);
 
 bid.get('/product/:id', bidController.getBidByProductId);
 
+bid.get('/highest/:id', bidController.getHighestBid);
+
 bid.post('/post', bidController.postBid);
 
 bid.delete('/delete/:id', bidController.deleteBid);

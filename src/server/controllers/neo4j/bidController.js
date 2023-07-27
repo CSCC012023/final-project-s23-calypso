@@ -31,6 +31,21 @@ const getBidByProductId = async (req, res) => {
     }
 };
 
+const getHighestBid = async (req, res) => {
+    try {
+        const bidId = req.params.id;
+        const session = dbUtils.getSession(req);
+        const bid = await bidModel.getHighestBid(session, bidId);
+        if (!bid) {
+        return res.status(404).json({ message: 'Bid not found based on product id' });
+        }
+        res.json(bid);
+        } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Encountered server error' });
+    }
+};
+
 const postBid = async (req, res) => {
     try {
       const bid = req.body.bid;
@@ -67,6 +82,7 @@ const deleteBid = async (req, res) => {
 module.exports = {
     getBidById,
     getBidByProductId,
+    getHighestBid,
     postBid,
     deleteBid
 }
