@@ -7,6 +7,7 @@ interface Props {
   user: {
     id: number,
     username: string,
+    name:string,
     description: string,
     pic: string,
     banner: string
@@ -18,22 +19,23 @@ interface Props {
 function UserCard({ user, updateUser, isLoggedIn }: Props) {
   const [profileEditIsOpen, setProfileEditIsOpen] = useState(false);
 
-  async function checkName(name: string): Promise<boolean> {
-    const response = await fetch(`http://localhost:8080/api/v0/users/user/${name}`);
+  async function checkUsername(username: string): Promise<boolean> {
+    const response = await fetch(`http://localhost:8080/api/v0/users/user/${username}`);
     const data = await response.json();
     return !data;
   }
 
-  async function handleApplyClick(name: string, des: string, pic: string, banner: string) {
-    if (name.toLowerCase() === user.username) {
-      setProfileEditIsOpen(false);
-      return;
+  async function handleApplyClick(username: string, name: string, des: string, pic: string, banner: string) {
+    var checkUser = true;
+    if (username !== user.username) {
+      checkUser = await checkUsername(username);
     }
 
-    if (await checkName(name.toLowerCase())) {
+    if (checkUser) {
       const user1 = {
         id: user.id,
-        username: name.toLowerCase(),
+        username: username,
+        name: name,
         description: des,
         pic: (pic.length === 0 ? user.pic : pic),
         banner: (banner.length === 0 ? user.banner : banner)
@@ -69,7 +71,7 @@ function UserCard({ user, updateUser, isLoggedIn }: Props) {
           </button>
         </div>
       ) : null}
-      {profileEditIsOpen ? <EditProfilePopup name={user.username} description={user.description} handleApplyClick={handleApplyClick} handleCancelClick={() => setProfileEditIsOpen(false)} /> : null}
+      {profileEditIsOpen ? <EditProfilePopup username={user.username} name={user.name} description={user.description} handleApplyClick={handleApplyClick} handleCancelClick={() => setProfileEditIsOpen(false)} /> : null}
     </div>
   );
 }

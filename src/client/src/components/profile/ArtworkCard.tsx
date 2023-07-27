@@ -7,6 +7,7 @@ interface Props {
     id: string,
     name: string,
     artist: string,
+    artistName: string,
     style: string,
     price: number,
     href: string,
@@ -27,7 +28,7 @@ function ArtworkCard({ artwork, handleDeleteClick, onEditMode }: Props) {
   return (
     <div className="group relative w-full">
       {delPopup ? (
-          <ConfirmDeletePopup name={artwork.name} artist={artwork.artist} handleDeleteClick={() => {handleDeleteClick(artwork.id); setDelPopup(false)}} handleCancelClick={() => setDelPopup(false)} />
+          <ConfirmDeletePopup name={artwork.name} artist={artwork.artistName} handleDeleteClick={() => {handleDeleteClick(artwork.id); setDelPopup(false)}} handleCancelClick={() => setDelPopup(false)} />
         ): null}
       {onEditMode ? (
           <button className="flex w-16 h-10 absolute z-10 bg-black rounded-lg overflow-hidden border-white border-2 justify-center items-center hover:bg-gray-600 active:bg-gray-800"
@@ -47,12 +48,12 @@ function ArtworkCard({ artwork, handleDeleteClick, onEditMode }: Props) {
       <div className="mt-4 mb-2 flex justify-between">
         <div className="overflow-hidden">
           <h3 className="text-lg text-white text-ellipsis overflow-hidden whitespace-nowrap">
-            <a href={"http://localhost:3000/product/" + artwork.href}>
+            <a href={"http://localhost:3000/product/" + artwork.id}>
               <span aria-hidden="true" className="absolute inset-0" />
               {artwork.name}
             </a>
           </h3>
-          <p className="mt-1 text-sm text-gray-300 text-ellipsis overflow-hidden whitespace-nowrap">{artwork.artist}</p>
+          <p className="mt-1 text-sm text-gray-300 text-ellipsis overflow-hidden whitespace-nowrap">{artwork.artistName}</p>
           <p className="mt-1 text-sm text-gray-300 italic text-ellipsis overflow-hidden whitespace-nowrap">{artwork.style + ', ' + artwork.date}</p>
         </div>
         <p className="text-lg font-medium text-white flex-shrink-0">$ {artwork.price}</p>

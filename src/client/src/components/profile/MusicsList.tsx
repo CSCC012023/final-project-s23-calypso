@@ -7,6 +7,7 @@ interface Props {
   musics: {
     name: string,
     artist: string,
+    artistName: string,
     description: string,
     duration: string,
     genres: string[],
@@ -38,6 +39,7 @@ function MusicsList({ musics, addMusic, removeMusic, isLoggedIn }: Props) {
       const newMusic = {
         name: name,
         artist: "",
+        artistName: "",
         description: description,
         duration: duration,
         genres: genres.split(",").map((genre: string) => genre.trim()),

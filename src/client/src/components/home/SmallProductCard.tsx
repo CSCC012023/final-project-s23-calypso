@@ -5,7 +5,7 @@ interface Props {
         id: string,
         name: string,
         artist: string,
-        artistName: string
+        artistName: string,
         style: string,
         price: number,
         href: string,
