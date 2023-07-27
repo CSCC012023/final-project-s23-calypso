@@ -59,8 +59,8 @@ function App() {
               <Route path="/home" element={<HomePage />} /> 
               <Route path="/artworks" element={<ArtworksPage />} />
 
-              <Route path="/bidding" element={<BiddingPage />} />
-              <Route path="/bidding/purchase" element={<BiddingPurchasePage />} />
+              <Route path="/bidding/:id" element={<BiddingPage />} />
+              <Route path="/bidding/purchase/:id" element={<BiddingPurchasePage />} />
 
               <Route path="/discover" element={<DiscoverPage />} />
               <Route path="/discover/trending" element={<TrendingPage />} />
