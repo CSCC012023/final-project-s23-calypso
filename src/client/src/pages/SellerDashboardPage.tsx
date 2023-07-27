@@ -13,7 +13,7 @@ function SellerDashboardPage() {
     const [artworks, setArtworks] = useState([]);
 
     const getArtworks = async () => {
-        axios.get('http://localhost:8080/api/v0/dashboard/seller/arielle', {
+        axios.get(`http://localhost:8080/api/v0/dashboard/seller/${userID}`, {
         })
             .then(response => {
                 const data = response.data;
@@ -21,7 +21,8 @@ function SellerDashboardPage() {
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
-            });
+            }
+        );
     };
 
     useEffect(() => {
