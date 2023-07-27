@@ -38,6 +38,9 @@ app.use('/api/v0/artworks/', require('./routes/neo4j/artwork'));
 
 app.use('/api/chat', require('./routes/chatRoutes'));
 app.use('/api/message', require('./routes/messageRoutes'));
+
+app.use('/api/v0/dashboard/', require('./routes/neo4j/dashboard'));
+
 // app.get("/api/chat", (req, res) => {
 //     res.send(chats);
 // });
