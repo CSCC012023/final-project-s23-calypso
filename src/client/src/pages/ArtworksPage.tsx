@@ -129,6 +129,23 @@ function ArtworksPage() {
             });
     };
 
+    const incrementArtworkVisits = async (artworkId: string) => {
+        axios.put(`http://localhost:8080/api/v0/artworks/increment/${artworkId}`)
+            .then(response => {
+                console.log('Successfully incremented artwork visits');
+            })
+            .catch(error => {
+                console.error('Error incrementing artwork visits:', error);
+            }
+        ); 
+    }
+
+     const handleArtworkClick = (artworkId: string) => {
+        console.log('Clicked artwork ID:' + artworkId);
+        incrementArtworkVisits(artworkId);
+        navigate('/product/' + artworkId);
+    };
+
     useEffect(() => {
         const queryParams: QueryParams = {};
         const params = new URLSearchParams(window.location.search);
@@ -142,13 +159,6 @@ function ArtworksPage() {
         getArtworks(queryParams);
     });
 
-    const handleArtworkClick = (artworkId: string) => {
-        console.log('Clicked artwork ID:' + artworkId);
-        artworks.forEach(element => {
-            
-        });
-        navigate('/product/' + artworkId);
-    };
 
     return (
         <div className="bg-darkestGrey h-screen" >

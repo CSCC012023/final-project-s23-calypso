@@ -22,9 +22,9 @@ const navigation = [
   { name: 'Messages', href: 'http://localhost:3000/message', current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: 'profile' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Your Profile', href: 'http://localhost:3000/profile' },
+  { name: 'My Dashboard', href: 'http://localhost:3000/dashboard/seller' },
+  { name: 'Sign out', href: 'http://localhost:3000/login' },
 ]
 
 function classNames(...classes: string[]) {
