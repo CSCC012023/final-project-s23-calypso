@@ -51,6 +51,13 @@ const getArtworks = async (session, sortParam, filtersParam) => {
     return artworks;
 }
 
+const getHomepageArtworks = async (session, typeParameter) => {
+    let query = `MATCH (n: Artwork) RETURN n ORDER BY n.${typeParameter} LIMIT 4`; 
+    const result = await session.run(query);
+    artworks = result.records.map(i => i.get('n').properties);
+    return artworks;
+}
+
 const findByID = async (session, id) => {
     const query = [
         `MATCH (n: Artwork {id: '${id}'})`,
@@ -180,4 +187,5 @@ module.exports = {
     getByCategory: getByCategory,
     getRecommendedArtworks: getRecommendedArtworks,
     incrementVisits: incrementVisits,
+    getHomepageArtworks: getHomepageArtworks,
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import HeaderNavBar from '../components/common/HeaderNavBar'
 import Footer from '../components/common/Footer'
 
@@ -15,66 +15,10 @@ import sampleProductImage2 from '../assets/sampleProductImage2.jpg'
 import sampleLargeProductImage from '../assets/sampleLargeProductImage.jpg'
 import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
+import { get } from 'http'
+import axios from 'axios'
 
 
-const artworks = [
-  {
-    id: 1,
-    name: 'Lost Girl',
-    artist: 'Jennie Li',
-    style: 'Oil on canvas',
-    price: '$500',
-    href: 'product',
-    imageSrc: sampleProductImage2,
-    imageAlt: 'LOST GIRL - JENNIE LI',
-    date: 2023,
-    rarity: 'unique',
-    medium: 'painting',
-    material: 'canvas',
-  },
-  {
-    id: 2,
-    name: 'Dystopian Future',
-    artist: 'Markus Lawerence',
-    style: 'Digital',
-    price: '$3000',
-    href: '#',
-    imageSrc: sampleLargeProductImage,
-    imageAlt: 'DYSTOPIAN FUTURE - MARKUS LAWERENCE',
-    date: 2022,
-    rarity: 'limited',
-    medium: 'digital',
-    material: 'digital',
-  },
-  {
-    id: 3,
-    name: 'Fox-Masked Boy',
-    artist: 'Natalie Hall',
-    style: 'Watercolor on paper',
-    price: '$50',
-    href: '#',
-    imageSrc: sampleProfilePicture1,
-    imageAlt: 'FOX MASKED BOY - NATALIE HALL',
-    date: 1995,
-    rarity: 'open',
-    medium: 'drawing',
-    material: 'artpaper',
-  },
-  {
-    id: 4,
-    name: 'Panda',
-    artist: 'Panda Man',
-    style: 'Sculpture',
-    price: '$900',
-    href: '#',
-    imageSrc: samplePanda,
-    imageAlt: 'PANDA - PANDA MAN',
-    date: 2006,
-    rarity: 'unique',
-    medium: 'sculpture',
-    material: 'clay',
-  },
-]
 
 const collections = [
   {
@@ -111,6 +55,54 @@ const heroSlideshow = [
 
 
 function HomePage() {
+
+  const [featuredArtworks, setFeaturedArtworks] = useState([]);
+  const [newestArtworks, setNewestArtworks] = useState([]);
+  const [cheapestArtworks, setCheapestArtworks] = useState([]);
+
+  const getFeaturedArtworks = async () => {
+    axios.get(`http://localhost:8080/api/v0/artworks/home/featured`, {
+    })
+      .then(response => {
+        const data = response.data;
+        setFeaturedArtworks(data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  const getNewestArtworks = async () => {
+    axios.get(`http://localhost:8080/api/v0/artworks/home/newest`, {
+    })
+      .then(response => {
+        const data = response.data;
+        setNewestArtworks(data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  const getCheapestArtworks = async () => {
+    axios.get(`http://localhost:8080/api/v0/artworks/home/pricelow`, {
+    })
+      .then(response => {
+        const data = response.data;
+        setCheapestArtworks(data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  useEffect (() => {
+    getFeaturedArtworks();
+    getNewestArtworks();
+    getCheapestArtworks();
+  });
+
+
   return (
 
     // Header Navigation Bar
@@ -133,7 +125,7 @@ function HomePage() {
 
       {/* Featured artworks */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Featured artworks" productsList={artworks} categoryLink='featured'/>
+        <ProductsRow categoryTitle="Featured artworks" productsList={featuredArtworks} categoryLink='featured' />
       </section>
 
       {/* Collections */}
@@ -156,7 +148,7 @@ function HomePage() {
 
       {/* Newly added */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Newly Added Products" productsList={artworks} categoryLink='newest'/>
+        <ProductsRow categoryTitle="Newly Added Products" productsList={newestArtworks} categoryLink='newest' />
       </section>
 
 
@@ -164,18 +156,18 @@ function HomePage() {
       <div className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-16 py-32 bg-menu">
         <div className="max-w-7xl mx-auto">
           {<LargeStoryCard
-          smallTitleText="Spotlighted Seller"
-          titleText="Buy Austin Bartolome’s newly released music"
-          bodyText="Find out why Austin is becoming one of the fastest growing sellers on Calypso.  Buy his new music now!"
-          buttonText="Discover Now"
-          href="http://localhost:3000/discover/trending" />}
+            smallTitleText="Spotlighted Seller"
+            titleText="Buy Austin Bartolome’s newly released music"
+            bodyText="Find out why Austin is becoming one of the fastest growing sellers on Calypso.  Buy his new music now!"
+            buttonText="Discover Now"
+            href="http://localhost:3000/discover/trending" />}
         </div>
       </div>
 
 
       {/* Cheapest Finds */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Cheapest Finds" productsList={artworks} categoryLink='pricelow'/>
+        <ProductsRow categoryTitle="Cheapest Finds" productsList={cheapestArtworks} categoryLink='pricelow' />
       </section>
 
       {/* Footer */}

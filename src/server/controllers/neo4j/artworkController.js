@@ -59,6 +59,31 @@ const getArtworks = async (req, res) => {
   }
 }
 
+const getHomepageArtworks = async (req, res) => {
+  try {
+    const type = req.params.type;
+    let typeParameter = '';
+
+    if (type === 'featured') {
+      typeParameter = 'name ASC';
+    }
+    else if (type === 'pricelow') {
+      typeParameter = 'price ASC';
+    }
+    else if (type === 'newest') {
+      typeParameter = 'date DESC';
+    }
+
+    const session = dbUtils.getSession(req);
+    const result = await artworkModel.getHomepageArtworks(session, typeParameter);
+    res.json(result);
+  }
+  catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Encountered server error" });
+  }
+}
+
 const findByID = async (req, res) => {
   try {
     const id = req.params.id;
@@ -210,4 +235,5 @@ module.exports = {
   getByCategory: getByCategory,
   getRecommendedArtworks: getRecommendedArtworks,
   incrementVisits: incrementVisits,
+  getHomepageArtworks: getHomepageArtworks,
 }
