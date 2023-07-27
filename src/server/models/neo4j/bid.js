@@ -37,11 +37,12 @@ const getHighestBid = async (session, productId) => {
 };
 
 const postBid = async (session, bid) => {
+    console.log("Reached bidmodel")
     const query = [
         `CREATE (a: Bid {
-            id: "${bid.id}",
-            productId: "${bid.productId}",
-            userId: "${bid.userId}",
+            id: ${bid.id},
+            productId: ${bid.productId},
+            userId: ${bid.userId},
             amount: ${bid.amount},
             startingPrice: ${bid.startingPrice}
         })`,
@@ -63,7 +64,7 @@ const deleteBid = async (session, id) => {
 }
 
 
-modeule.exports = {
+module.exports = {
     getBidById,
     getHighestBid,
     getBidByProductId,

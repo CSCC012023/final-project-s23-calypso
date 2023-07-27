@@ -47,8 +47,10 @@ const getHighestBid = async (req, res) => {
 };
 
 const postBid = async (req, res) => {
+
     try {
-      const bid = req.body.bid;
+      console.log("Reached bid controller")
+      const bid = req.body;
       if (!bid) throw { message: "No bid provided", status: 400 }
       const result = await bidModel.postBid(dbUtils.getSession(req), bid);
       res.json(result);

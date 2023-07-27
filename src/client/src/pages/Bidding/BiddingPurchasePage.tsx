@@ -19,7 +19,14 @@ type Product = {
   rarity: string,
   medium: string,
   material: string,
+}
 
+type bid = {
+  id: number
+  productId: number
+  userId: number
+  bidAmount: number
+  startingBid: number
 }
 
 interface QueryParams {
@@ -32,6 +39,8 @@ function BiddingPurchasePage({}: any) {
 
   const [product, setProduct] = useState<Product | null>(null);
   const [product2, setProduct2] = useState<Product | null>(null);
+  const [bidData, setBidData] = useState<bid | null>(null);
+  const [bidAmount, setBidAmount] = useState<string>('');
 
   const getArtworkById = async (queryParams: QueryParams) => {
     axios.get(`http://localhost:8080/api/v0/artworks/id/${id}`, {
@@ -47,19 +56,28 @@ function BiddingPurchasePage({}: any) {
         console.log(product);
   };
 
-  const postBid = async (queryParams: QueryParams) => {
-    axios.post(`http://localhost:8080/api/v0/bidding/id/${id}`, {
-        params: queryParams
-    })
+  const postBid = async () => {
+    axios.post(`http://localhost:8080/api/v0/bid/post`, 
+        bidData
+    )
         .then(response => {
             const data = response.data;
             // setProduct(data);
+            console.log(data);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
-        console.log(product);
+        console.log(bidData);
   };
+
+  const handleBid = async (id: number, productId: number, userId: number, bidAmount: number, startingBid: number) => {
+    setBidData({id: id, productId: productId, userId: userId, bidAmount: bidAmount, startingBid: startingBid});
+    console.log("The data is:");
+    console.log(bidData);
+    console.log("TEST");
+    await postBid();
+  }
 
   // Fetch artwork details when the component mounts
   useEffect(() => {
@@ -109,8 +127,15 @@ function BiddingPurchasePage({}: any) {
         <div className="rounded-lg p-5 space-y-5 text-xl">
           <p className="text-xl font-semibold">Bid Amount</p>
           <div className="flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-4">
-            <input className="text-black rounded-xl p-4" type="text" placeholder="Enter Bid Amount" pattern="[0-9]+" />
-            <button className="bg-white text-black text-center rounded-xl p-4">Place Bid</button>
+          <input
+            className="text-black rounded-xl p-4"
+            type="text"
+            placeholder="Enter Bid Amount"
+            pattern="[0-9]+"
+            value={bidAmount}
+            onChange={(e) => setBidAmount(e.target.value)}
+          />
+          <button className="bg-white text-black text-center rounded-xl p-4" onClick = {() => handleBid(1, product.id, 1, parseInt(bidAmount), 20)} >Place Bid</button>
           </div>
         </div>
       </div>
