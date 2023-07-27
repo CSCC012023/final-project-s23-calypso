@@ -36,7 +36,7 @@ function LoginPage2() {
         console.log('Response worked!');
         const data = await response.json();
         setCookie('token', data.token , { path: '/' })
-        navigate("/")
+        navigate("/home")
       }
       else if (response.status == 403){
         console.log('Response failed!');
