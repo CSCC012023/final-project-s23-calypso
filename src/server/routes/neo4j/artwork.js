@@ -23,4 +23,6 @@ artwork.put('/update/:id', artworkController.updateArtwork);
 
 artwork.delete('/delete/:id', artworkController.deleteArtwork);
 
+artwork.put('/increment/:id', artworkController.incrementVisits);
+
 module.exports = artwork;

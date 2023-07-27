@@ -160,6 +160,14 @@ const getRecommendedArtworks = async (session, username) => {
     return result.records.map(i=>i._fields[0].properties)
 }
 
+const incrementVisits = async (session, id) => {
+    let query = 'MATCH (n: Artwork) WHERE n.id = "' + id + '" SET n.visits = n.visits + 1 RETURN n';
+    const result = await session.run(query);
+    artwork = result.records[0].get('n').properties;
+    return artwork;
+}
+
+
 module.exports = {
     getArtworks: getArtworks,
     getArtworkById: getArtworkById,
@@ -170,5 +178,6 @@ module.exports = {
     updateArtwork: updateArtwork,
     deleteArtwork: deleteArtwork,
     getByCategory: getByCategory,
-    getRecommendedArtworks: getRecommendedArtworks
+    getRecommendedArtworks: getRecommendedArtworks,
+    incrementVisits: incrementVisits,
 }

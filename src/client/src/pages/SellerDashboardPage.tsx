@@ -41,7 +41,7 @@ function SellerDashboardPage() {
             <div className="flex-1 pb-32">
                 <div className="sm:px-6 lg:px-8">
                     <div className="sm:flex sm:items-center">
-                        <div className="pt-8 pl-4 sm:flex-auto font-medium text-white">Seller ID: {userID}</div>
+                        <div className="pt-8 pl-4 sm:flex-auto font-medium text-white text-xl">Seller ID: {userID}</div>
                         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                             <button
                                 type="button"

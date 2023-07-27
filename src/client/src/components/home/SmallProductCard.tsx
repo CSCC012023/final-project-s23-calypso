@@ -5,6 +5,7 @@ interface Props {
         id: string,
         name: string,
         artist: string,
+        artistName: string
         style: string,
         price: number,
         href: string,
@@ -37,7 +38,7 @@ export default function SmallProductCard( { productProp }: Props ){
                         {productProp.name}
                     </a>
                 </h3>
-                <p className="text-base text-gray-600">{productProp.artist}</p>
+                <p className="text-base text-gray-600">{productProp.artistName}</p>
                 <p className="text-sm text-gray-600 italic">{productProp.style}, {productProp.date.toString()}</p>
                 <p className="mt-1 text-gray-900">${productProp.price.toString()}</p>
             </div>

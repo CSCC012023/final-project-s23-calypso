@@ -129,6 +129,17 @@ function ArtworksPage() {
             });
     };
 
+    const incrementArtworkVisits = async (artworkId: string) => {
+        axios.put(`http://localhost:8080/api/v0/artworks/increment/${artworkId}`)
+            .then(response => {
+                console.log('Successfully incremented artwork visits');
+            })
+            .catch(error => {
+                console.error('Error incrementing artwork visits:', error);
+            }
+        ); 
+    }
+
     useEffect(() => {
         const queryParams: QueryParams = {};
         const params = new URLSearchParams(window.location.search);
@@ -144,9 +155,7 @@ function ArtworksPage() {
 
     const handleArtworkClick = (artworkId: string) => {
         console.log('Clicked artwork ID:' + artworkId);
-        artworks.forEach(element => {
-            
-        });
+        incrementArtworkVisits(artworkId);
         navigate('/product/' + artworkId);
     };
 
