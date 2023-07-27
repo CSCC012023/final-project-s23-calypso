@@ -17,6 +17,7 @@ import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
 import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 import { get } from 'http'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -55,6 +56,8 @@ const heroSlideshow = [
 
 
 function HomePage() {
+
+  const navigate = useNavigate();
 
   const [featuredArtworks, setFeaturedArtworks] = useState([]);
   const [newestArtworks, setNewestArtworks] = useState([]);
@@ -96,7 +99,24 @@ function HomePage() {
       });
   }
 
-  useEffect (() => {
+  const incrementArtworkVisits = async (artworkId: string) => {
+    axios.put(`http://localhost:8080/api/v0/artworks/increment/${artworkId}`)
+      .then(response => {
+        console.log('Successfully incremented artwork visits');
+      })
+      .catch(error => {
+        console.error('Error incrementing artwork visits:', error);
+      }
+      );
+  }
+
+  const handleArtworkClick = (artworkId: string) => {
+    console.log('Clicked artwork ID:' + artworkId);
+    incrementArtworkVisits(artworkId);
+    navigate('/product/' + artworkId);
+  };
+
+  useEffect(() => {
     getFeaturedArtworks();
     getNewestArtworks();
     getCheapestArtworks();
@@ -125,7 +145,7 @@ function HomePage() {
 
       {/* Featured artworks */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Featured artworks" productsList={featuredArtworks} categoryLink='featured' />
+        <ProductsRow categoryTitle="Featured artworks" productsList={featuredArtworks} categoryLink='featured' onArtworkClick={handleArtworkClick} />
       </section>
 
       {/* Collections */}
@@ -148,7 +168,7 @@ function HomePage() {
 
       {/* Newly added */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Newly Added Products" productsList={newestArtworks} categoryLink='newest' />
+        <ProductsRow categoryTitle="Newly Added Products" productsList={newestArtworks} categoryLink='newest' onArtworkClick={handleArtworkClick} />
       </section>
 
 
@@ -167,7 +187,7 @@ function HomePage() {
 
       {/* Cheapest Finds */}
       <section aria-labelledby="trending-heading" className="bg-gray-200">
-        <ProductsRow categoryTitle="Cheapest Finds" productsList={cheapestArtworks} categoryLink='pricelow' />
+        <ProductsRow categoryTitle="Cheapest Finds" productsList={cheapestArtworks} categoryLink='pricelow' onArtworkClick={handleArtworkClick} />
       </section>
 
       {/* Footer */}

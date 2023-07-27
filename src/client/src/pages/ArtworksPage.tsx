@@ -140,6 +140,12 @@ function ArtworksPage() {
         ); 
     }
 
+     const handleArtworkClick = (artworkId: string) => {
+        console.log('Clicked artwork ID:' + artworkId);
+        incrementArtworkVisits(artworkId);
+        navigate('/product/' + artworkId);
+    };
+
     useEffect(() => {
         const queryParams: QueryParams = {};
         const params = new URLSearchParams(window.location.search);
@@ -153,11 +159,6 @@ function ArtworksPage() {
         getArtworks(queryParams);
     });
 
-    const handleArtworkClick = (artworkId: string) => {
-        console.log('Clicked artwork ID:' + artworkId);
-        incrementArtworkVisits(artworkId);
-        navigate('/product/' + artworkId);
-    };
 
     return (
         <div className="bg-darkestGrey h-screen" >
