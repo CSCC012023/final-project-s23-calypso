@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Menu from '../components/Menu'
-import MusicList from "../components/MusicList";
 import HeaderNavBar from '../components/common/HeaderNavBar'
-import ProductList from "../components/allproducts/ProductList";
-import previewArt from '../assets/previewArt.jpg'
-import samplePanda from '../assets/panda.png'
-import sampleProductImage from '../assets/sampleProductImage.png'
-import sampleProductImage2 from '../assets/sampleProductImage2.jpg'
-import sampleLargeProductImage from '../assets/sampleLargeProductImage.jpg'
-import sampleLargeProductImage2 from '../assets/sampleLargeProductImage2.jpg'
-import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
-import HeroBanner from "../components/allproducts/HeroBanner";
-import { useNavigate } from 'react-router-dom';
-import LargeStoryCard from '../components/home/LargeStoryCard'
+import HeaderNavBar2 from '../components/LandingHeader'
 import landingimg from '../assets/landingimg1.png'
+import logo from '../assets/blacklogo.png'
 
 import axios from "axios";
 
@@ -36,19 +25,30 @@ export default function Landing2() {
     //     Hello World
     //   </div>
     // </div>
-    <section className="lg: h-[900px] py-12">
+    <section className="">
+      <div data-aos='fade-down' data-aos-delay='1200' data-aos-duration='1000' >
+        <HeaderNavBar2 />
+      </div>
+
       <div className="container mx-auto items-center flex justify-center">
         {/*Text*/}
         <div>
           <h1 className="text-[#000000] text-6xl font-bold mb-6" data-aos='fade-down' data-aos-delay='400'>Shop Art Like Never Before</h1>
-          <p className="text-[#000000] text-large font-semibold mb-6" data-aos='fade-down' data-aos-delay='500'>Discover and Collect Masterpieces at Your Fingertips!</p>
-          <button className="btn btn-primary mb-8" data-aos='fade-down' data-aos-delay='600'>Get Started</button>
+          <p className="text-[#000000] text-2xl font-semibold mb-6" data-aos='fade-down' data-aos-delay='500'>Discover and Collect Masterpieces at Your Fingertips!</p>
+          <a href="/register">
+            <button className="btn btn-primary mb-8" data-aos='fade-down' data-aos-delay='600'>
+              Get Started
+            </button>
+          </a>
         </div>
         {/*Image*/}
-        <div data-aos='fade-down' data-aos-delay='700'>
-          <img style={{width: 700, height: 550}} src={landingimg} alt=""/>
+        <div data-aos='fade-up' data-aos-delay='700'>
+          <img style={{width: 600, height: 500}} src={landingimg} alt=""/>
         </div>
       </div>
+      {/* <div>
+        <Footer />
+      </div> */}
     </section>
 
   )
