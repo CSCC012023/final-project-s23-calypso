@@ -15,12 +15,12 @@ const user = {
   imageUrl: profilePicture,
 }
 const navigation = [
-  { name: 'Artworks', href: 'http://localhost:3000/artworks', current: false, page:"artworks" },
-  { name: 'Music', href: 'http://localhost:3000/discover/beats', current: false, page:"music" },
-  { name: 'Discover', href: 'http://localhost:3000/discover', current: false, page:"discover" },
-  { name: 'Trending Products', href: 'http://localhost:3000/trending', current: false, page:"trending" },
-  { name: 'Recommended for You', href: 'http://localhost:3000/discover/deals', current: false, page:"recommended" },
-  { name: 'Messages', href: 'http://localhost:3000/message', current: false, page:"messages" },
+  { name: 'Artworks', href: 'http://localhost:3000/artworks', current: false },
+  { name: 'Music', href: 'http://localhost:3000/discover/beats', current: false},
+  { name: 'Discover', href: 'http://localhost:3000/discover', current: false },
+  { name: 'Trending Products', href: 'http://localhost:3000/trending', current: false},
+  { name: 'Recommended for You', href: 'http://localhost:3000/discover/deals', current: false },
+  { name: 'Messages', href: 'http://localhost:3000/message', current: false },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: 'http://localhost:3000/profile' },
@@ -160,7 +160,7 @@ export default function HeaderNavBar() {
               <nav className="hidden lg:py-2 lg:flex lg:space-x-8" aria-label="Global">
                 {navigation.map((item) => (
                   <a
-                    onClick={() => incrementPageVisits(item.page)}
+                    onClick={() => incrementPageVisits(item.name)}
                     key={item.name}
                     href={item.href}
                     className={classNames(
