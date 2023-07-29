@@ -1,4 +1,4 @@
-import landingimg from '../assets/landingimg1.png'
+import aboutus from '../assets/aboutus.png'
 
 export const About = () => {
 
@@ -8,7 +8,7 @@ export const About = () => {
         <div className='bg-menu/[15%] rounded-[50px] min-h-[560px] px-12 pb-0 flex flex-col xl:flex-row xl: items-center text-left gap-x-[60px]'>
           {/* Image */}
           <div className='flex-1' data-aos='zoom-in-left'>
-            <img src={ landingimg } alt="" />
+            <img src={ aboutus } alt="" />
           </div>
 
           {/* Text */}

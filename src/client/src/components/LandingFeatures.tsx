@@ -1,4 +1,3 @@
-import landingimg from '../assets/landingimg1.png'
 import feature1 from '../assets/friends.png'
 import bg1 from '../assets/background1.png'
 import bg2 from '../assets/background2.png'
@@ -12,26 +11,26 @@ const list = [
     {
         image: feature2,
         bgImg: bg1,
-        title: 'Seemless Online Payments',
-        description: 'idk bro',
+        title: 'Efficient Online Payments',
+        description: 'Our app offers a hassle-free and secure way to make online payments. With a user-friendly interface and robust encryption, it ensures smooth transactions. Say goodbye to payment worries.',
     },
     {
         image: feature3,
         bgImg: bg2,
-        title: 'Analytics',
-        description: 'idk2 bro'
+        title: 'Insightful Product Analytics',
+        description: 'Discover your product\'s success with our powerful analytics tool. Our app\'s analytics page empowers you to track and visualize real-time data on product popularity. Gain valuable insights into which products are trending.'
     },
     {
         image: feature4,
         bgImg: bg3,
-        title: 'Recommendations',
-        description: 'idk3 bro'
+        title: 'Personalized Recommendations',
+        description: 'Elevate your art and music experience with our cutting-edge recommendation algorithm. Our app analyzes your previous purchases to curate tailored suggestions that match your unique taste. Discover new and exciting art pieces and music tracks that resonate with your preferences.'
     },
     {
         image: feature1,
         bgImg: bg4,
-        title: 'Chat With Your Favourtie Artists',
-        description: 'idk4 bro'
+        title: 'Seamless Collaboration',
+        description: 'Unlock the potential of creativity with our app\'s messaging feature. Reach out to other users and talented artists for collaboration or customization requests. Our messaging platform makes it easy to spark innovation and bring artistic visions to life.'
     }
 ]
 
@@ -58,7 +57,10 @@ export const Features = () => {
                         <div style={{ position: 'relative', zIndex: 1 }}>
                             <img style={{ width: 150, height: 150 }} src={image} alt='' className='max-w-[120px] lg:max-w-[230px]'/>
                         </div>
-                        <div>{ title }</div>
+                        <div>
+                            <h3> {title} </h3>
+                            <p> {description} </p>
+                        </div>
                     </div>
                 );
             })}
