@@ -24,7 +24,7 @@ const list = [
         image: feature4,
         bgImg: bg3,
         title: 'Personalized Recommendations',
-        description: 'Elevate your art and music experience with our cutting-edge recommendation algorithm. Our app analyzes your previous purchases to curate tailored suggestions that match your unique taste. Discover new and exciting art pieces and music tracks that resonate with your preferences.'
+        description: 'Elevate your experience with our cutting-edge recommendation algorithm. Our app analyzes your previous purchases to make suggestions that match your unique taste. Discover new art that resonates with your preferences.'
     },
     {
         image: feature1,
@@ -41,8 +41,8 @@ export const Features = () => {
       <div className="mx-auto">
         {/* Text */}
         <div className='text-center'>
-            <h2 className='mb-6 xl:mb-12 text-[#222B4E]' style={{ fontFamily: 'sans-serif', fontSize: '36px' }} >Some Services We Offer</h2>
-            <p className='lead max-w-[585px] mx-auto mb-16 xl:mb-24'>With our app you can do a lot of cool fun things idk what those are yet but i will change all these texts soon!</p>
+            <h2 data-aos='fade-down' data-aos-delay='100' className='mb-6 xl:mb-12 text-[#222B4E]' style={{ fontFamily: 'sans-serif', fontSize: '36px' }} >Some Services We Offer</h2>
+            <p data-aos='fade-down' data-aos-delay='200' className='lead max-w-[585px] mx-auto mb-16 xl:mb-24'>With our app you can do a lot of cool fun things idk what those are yet but i will change all these texts soon!</p>
         </div>
         {/* Feature List */}
         <div className='grid grid-cols-1 gap-[50px] lg:grid-cols-2'>
@@ -50,16 +50,16 @@ export const Features = () => {
                 const { image, bgImg, title, description } = feature;
                 const delay = 600
                 return (
-                    <div className='w-full max-w-[530px] h-[360px] relative flex flex-col items-center justify-center xl:flex-row xl:justify-start mx-auto ' key={index}>
-                        <div className='hidden lg:flex absolute top-0 right-0'>
-                            <img style={{ width: 500, height: 320, opacity: 0.5 }} src={bgImg} alt="" />
+                    <div className='w-full max-w-[530px] h-[360px] relative flex flex-col items-center justify-center xl:flex-row xl:justify-start mx-auto ' key={index} data-aos='zoom-in' data-aos-offset='100' data-aos-delay={delay}>
+                        <div className='lg:flex absolute top-0 right-0'>
+                            <img className='rounded-2xl' style={{ width: 500, height: 320, opacity: 0.5 }} src={bgImg} alt="" />
                         </div>
                         <div style={{ position: 'relative', zIndex: 1 }}>
-                            <img style={{ width: 150, height: 150 }} src={image} alt='' className='max-w-[120px] lg:max-w-[230px]'/>
+                            <img style={{ width: 150, height: 150 }} src={image} alt='' className='max-w-[120px] lg:max-w-[230px]' data-aos='zoom-in' data-aos-offset='100' data-aos-delay={delay}/>
                         </div>
-                        <div>
-                            <h3> {title} </h3>
-                            <p> {description} </p>
+                        <div className='max-w-[320px] mx-5' style={{ position: 'relative', zIndex: 1 }}>
+                            <h3 className='mb-4 text-[#484848] font-medium' style={{ fontFamily: 'sans-serif', fontSize: '20px' }}> {title} </h3>
+                            <p className=' font-extralight italic gap-x-2 group'> {description} </p>
                         </div>
                     </div>
                 );
