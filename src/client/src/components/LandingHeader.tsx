@@ -1,33 +1,4 @@
-import React from 'react'
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { SearchIcon } from '@heroicons/react/solid'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import { ShoppingCartIcon } from '@heroicons/react/outline'
-
-
-
-const user = {
-  name: 'William Slicer',
-  email: 'william@example.com',
-}
-const navigation = [
-  { name: 'Artworks', href: 'http://localhost:3000/artworks', current: false },
-  { name: 'Music', href: 'http://localhost:3000/discover/beats', current: false },
-  { name: 'Discover', href: 'http://localhost:3000/discover', current: false },
-  { name: 'Trending Products', href: 'http://localhost:3000/trending', current: false },
-  { name: 'Recommended for You', href: 'http://localhost:3000/discover/deals', current: false },
-  { name: 'Messages', href: 'http://localhost:3000/message', current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: 'profile' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
+import { Disclosure } from '@headlessui/react'
 
 export default function HeaderNavBar() {
 
@@ -48,15 +19,19 @@ export default function HeaderNavBar() {
                     </a>
                     </div>
                     <div className="flex items-center justify-center flex-grow"> {/* Updated class here */}
-                    <div className="space-x-20 flex"> {/* Added flex to display items in a row */}
-                        <h1 className='text-[#ffffff]'>About Us</h1>
-                        <h1 className='text-[#ffffff]'>Contact Us</h1>
-                        <h1 className='text-[#ffffff]'>Trending</h1>
-                        <h1 className='text-[#ffffff]'>Testimonials</h1>
+                      <div className="space-x-20 flex"> {/* Added flex to display items in a row */}
+                          <a href="#about-section" className='text-[#ffffff]'>About Us</a>
+                          <a href="#features-section" className='text-[#ffffff]'>Features</a>
+                          <a href="#" className='text-[#ffffff]'>Testimonials</a>
+                          <a href="#" className='text-[#ffffff]'>Contact Us</a>
+                      </div>
                     </div>
-                    </div>
-                    <div className="relative z-10 px-2 flex items-center">
-                    <button className="bg-[#ffffff] px-4 py-2 rounded-md text-[#000000]">Sign Up</button>
+                    <div className="relative px-2 flex items-center">
+                      <button
+                      className="rounded border-2 border-neutral-50 px-3 pb-[8px] pt-[10px] text-sm font-medium text-neutral-50  hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200"
+                      >
+                      Register Now
+                    </button>
                     </div>
                 </div>
             </div>
