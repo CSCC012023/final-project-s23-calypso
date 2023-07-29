@@ -20,6 +20,7 @@ interface Props {
     imageSrc: string,
     imageAlt: string,
     date: number,
+    visits: number
   }[],
   addArtwork: Function,
   removeArtwork: Function,
@@ -60,6 +61,7 @@ function ArtworksList({ artworks, addArtwork, removeArtwork, isLoggedIn }: Props
       imageSrc: image,
       imageAlt: "",
       date: date,
+      visits: 0
     };
     addArtwork(newArtwork);
     setAddArtworkIsOpen(false);

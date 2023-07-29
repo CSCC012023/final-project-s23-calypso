@@ -54,7 +54,8 @@ const createMusic = async (session, music) => {
       genres: ${JSON.stringify(music.genres)},
       pic: '${music.pic}',
       duration: '${music.duration}',
-      price: ${music.price}
+      price: ${music.price},
+      visits: ${music.visits}
     })`,
     'RETURN m'
   ].join('\n');
@@ -74,7 +75,8 @@ const updateMusic = async (session, name, artist, music) => {
       m.genres = ${JSON.stringify(music.genres)},
       m.pic = '${music.pic}',
       m.duration = '${music.duration}',
-      m.price = ${music.price}`,
+      m.price = ${music.price},
+      m.visits = ${music.visits}`,
     'RETURN m'
   ].join('\n');
   const result = await session.run(query);

@@ -10,7 +10,8 @@ interface Props {
     name:string,
     description: string,
     pic: string,
-    banner: string
+    banner: string,
+    visits: number
   },
   updateUser: Function,
   isLoggedIn: boolean
@@ -38,7 +39,8 @@ function UserCard({ user, updateUser, isLoggedIn }: Props) {
         name: name,
         description: des,
         pic: (pic.length === 0 ? user.pic : pic),
-        banner: (banner.length === 0 ? user.banner : banner)
+        banner: (banner.length === 0 ? user.banner : banner),
+        visits: user.visits
       }
       updateUser(user1);
       setProfileEditIsOpen(false);

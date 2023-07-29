@@ -31,7 +31,8 @@ const createUser = async (session, user) => {
       name: '${user.name}',
       description: '${user.description}',
       pic: '${user.pic}', 
-      banner: '${user.banner}'
+      banner: '${user.banner},
+      visits: ${user.visits}'
     })`,
     'RETURN n'
   ].join('\n');
@@ -48,7 +49,8 @@ const updateUser = async (session, id, user) => {
       n.name = '${user.name}', 
       n.description = '${user.description}', 
       n.pic = '${user.pic}', 
-      n.banner = '${user.banner}'`,
+      n.banner = '${user.banner},'
+      n.visits = ${user.visits}`,
     'RETURN n'
   ].join('\n');
   const result = await session.run(query);

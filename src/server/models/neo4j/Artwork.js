@@ -103,7 +103,8 @@ const postArtwork = async (session, artwork) => {
             date: ${artwork.date},
             href: "${artwork.href}",
             imageSrc: "${artwork.imageSrc}",
-            imageAlt: "${artwork.imageAlt}"
+            imageAlt: "${artwork.imageAlt}",
+            visits: ${artwork.visits}
         })`,
         `RETURN a`
     ].join('\n');
@@ -127,7 +128,8 @@ const updateArtwork = async (session, id, artwork) => {
             a.date = ${artwork.date},
             a.href = '${artwork.href}',
             a.imageSrc = '${artwork.imageSrc}',
-            a.imageAlt = '${artwork.imageAlt}'`,
+            a.imageAlt = '${artwork.imageAlt}',
+            a.visits = ${artwork.visits}`,
         `RETURN a`
     ].join('\n');
     const result = await session.run(query);
