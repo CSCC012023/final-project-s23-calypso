@@ -1,3 +1,5 @@
+const music = require("../../routes/neo4j/music");
+
 const findAll = async (session) => {
   const result = await session.run('MATCH (n: Music) RETURN n');
   return result.records.map(i => i.get('n').properties);
@@ -129,6 +131,13 @@ const getByCategory = async (session, category) => {
   console.log(query)
   const result = await session.run(query);
   return result.records.map(i=>i._fields[0].properties)
+}
+
+const incrementVisits = async (session, id) => {
+  let query = 'MATCH (n: Music) WHERE n.id = "' + id + '" SET n.visits = n.visits + 1 RETURN n';
+  const result = await session.run(query);
+  music = result.records.map(i=>i._fields[0].properties)
+  return music
 }
 
 module.exports = {

@@ -66,11 +66,19 @@ const deleteUser = async (session, id) => {
   return await findAll(session);
 }
 
+const incrementVisits = async (session, id) => {
+  let query = 'MATCH (n: User) WHERE n.id = "' + id + '" SET n.visits = n.visits + 1 RETURN n';
+  const result = await session.run(query);
+  user = result.records.map(i=>i._fields[0].properties)
+  return user
+}
+
 module.exports = {
   findAll: findAll,
   findByID: findByID,
   findByUsername: findByUsername,
   createUser: createUser,
   updateUser: updateUser,
-  deleteUser: deleteUser
+  deleteUser: deleteUser,
+  incrementVisits: incrementVisits
 }

@@ -25,4 +25,6 @@ music.get('/category/:category', musicController.getByCategory);
 
 music.get('/username/:username', musicController.findByUsername);
 
+music.put('/increment/:id', musicController.incrementVisits);
+
 module.exports = music;
