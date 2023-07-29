@@ -15,4 +15,6 @@ user.put('/:id', userController.updateUser);
 
 user.delete('/:id', userController.deleteUser);
 
+user.put('/increment/:id', userController.incrementVisits);
+
 module.exports = user;

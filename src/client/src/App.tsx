@@ -25,7 +25,7 @@ import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransaction
 import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
 import SellerDashboardPage from './pages/SellerDashboardPage';
-
+import AdminDashboardPage from './pages/AdminDashboardPage';
 
 import MessageSearch from './pages/MessageSearch';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -89,6 +89,7 @@ function App() {
               <Route path="/successful" element={<UserCreatedPage />} />
               
               <Route path="/dashboard/seller" element={<SellerDashboardPage />} />
+              <Route path="/dashboard/admin" element={<AdminDashboardPage />} />
 
               <Route path="/login" element={<LoginPageUpdate />} />
               <Route path="/register" element={<RegisterPageUpdate />} />
