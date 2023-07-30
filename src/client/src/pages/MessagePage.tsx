@@ -4,27 +4,79 @@ import Conversation from './Message/Conversation'
 import MessageBox from './Message/MessageBox'
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import { Socket, io } from "socket.io-client"
 
-const initUser = {
+const initUserProfile = {
     id: 0,
     username: 'username',
     description: 'description',
     pic: "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png",
     banner: require('../assets/sampleLargeProductImage2.jpg')
 }
+const initUser = {
+    _id: '64b451c1804386e1e8f81a35',
+    email: 'email',
+    firstName: 'first',
+    lastName: 'last',
+}
+
+const initMessage = {
+    sender: '',
+    content: '',
+    createdAt: Date.now(),
+}
 
 function MessagePage() {
-    const [userProfile, setUserProfile] = useState(initUser);
+    const [userProfile, setUserProfile] = useState(initUserProfile);
     const [user, setUser] = useState<any>(null);
-    const [otherUserProfile, setOtherUserProfile] = useState<any>(initUser);
+    const [someUser, setSomeUser] = useState<any>(null);
+    const [otherUserProfile, setOtherUserProfile] = useState<any>(initUserProfile);
     const [conversations, setConversations] = useState<any[]>([]);
     const [currentChat, setCurrentChat] = useState<any>(null);
     const [messages, setMessages] = useState<any[]>([]);
     const [newMessage, setNewMessage] = useState("");
+    const [arrivalMessage, setArrivalMessage] = useState<any>(null);
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const [otherUserProfilePic, setOtherUserProfilePic] = useState("https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png");
     const navigate = useNavigate();
+    const socket = useRef<any>();
+    //const socket = useRef<Socket | null>(null);
+    //const [socket, setSocket] = useState<any>(null);
     //const scrollRef = useRef<any>();
+
+    async function getSomeUserByID(id: string) {
+        const res = await axios.get("http://localhost:8080/api/chat/user/" + id);
+        return res.data;
+    }
+
+    // used to get the user information from their id
+    async function getUserByID(id: string) {
+        const res = await axios.get("http://localhost:8080/api/chat/user/" + id);
+        setUser(res.data);
+        console.log(user);
+    }
+
+    // get the current user's id
+    useEffect(() => {
+        async function verify() {
+            if (!cookies.token) {
+                navigate("/login");
+            }
+
+            const { data } = await axios.post('/api/users/verify', {});
+            const { status, id } = data;
+            if (status) {
+                getUserByID(id);
+                getUserProfileByID(id);
+            } else {
+                removeCookie('token');
+                navigate('/login');
+            }
+
+        }
+        verify();
+        socket.current = io("ws://localhost:8900");
+    }, []);
 
     // gets and sets the user profile of the current user
     function getUserProfileByID(id: string) {
@@ -62,42 +114,12 @@ function MessagePage() {
             });
     }
 
-    // used to get the user information from their id
-    async function getUserByID(id: string) {
-        const res = await axios.get("http://localhost:8080/api/chat/user/" + id);
-        setUser(res.data);
-    }
-
-    // get the current user's id
-    useEffect(() => {
-        async function verify() {
-            if (!cookies.token) {
-                navigate("/login");
-                alert("Please login");
-            }
-
-            const { data } = await axios.post('/api/users/verify', {});
-            const { status, id } = data;
-            if (status) {
-                getUserByID(id);
-                getUserProfileByID(id);
-            } else {
-                removeCookie('token');
-                alert("Please login");
-                navigate('/login');
-            }
-
-        }
-        verify();
-    }, []);
-
     // get all conversations that the current user is in
     useEffect(() => {
         const getConversations = async () => {
             try {
                 const res = await axios.get("http://localhost:8080/api/chat/chat/" + user._id);
-                //const firstItem = res.data.chat[0].user.filter((user: { email: string; }) => user.email === email);
-                getOtherUserProfileByID(res.data.chat.filter((u: { id: any; }) => u.id !== user._id));
+                getOtherUserProfileByID(res.data.chat.filter((u: { _id: any; }) => u._id !== user._id));
                 setConversations(res.data.chat);
             } catch (error) {
                 console.log(error);
@@ -130,6 +152,20 @@ function MessagePage() {
             content: newMessage,
             chat: currentChat._id,
         };
+
+        const receiverId = currentChat.users.filter((u: { _id: any; }) => u._id !== user._id);
+        receiverId.forEach((element: { _id: any; }) => {
+            socket.current.emit("sendMessage", {
+                senderId: user._id,
+                receiverId: element._id,
+                text: newMessage,
+            });
+        });
+        // socket.current.emit("sendMessage", {
+        //     senderId: user._id,
+        //     receiverId: receiverId._id,
+        //     text: newMessage,
+        // });
         try {
             const res = await axios.post("http://localhost:8080/api/message/", message);
             setMessages([...messages, res.data])
@@ -142,6 +178,34 @@ function MessagePage() {
     async function getUserPicture(id: string) {
         await getOtherUserProfilePic(id);
     }
+
+    useEffect(() => {
+        socket.current.on("getMessage",  ( data: any ) => {
+            const u = getSomeUserByID(data.senderId);
+            setArrivalMessage({
+                sender: data.senderId,
+                content: data.text,
+                createdAt: Date.now(),
+            });
+        });
+    }, []);
+
+    useEffect(() => {
+        console.log(currentChat?.users.some((user: {_id: string}) => user._id === arrivalMessage?.sender))
+        console.log(user?._id)
+        console.log(arrivalMessage?.sender)
+        arrivalMessage && currentChat?.users.some((user: {_id: string}) => user._id === arrivalMessage?.sender) &&
+        setMessages((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage, currentChat]);
+
+    useEffect(() => {
+        if (user !== null){
+            socket?.current.emit("addUser", user?._id);
+        }
+        socket.current.on("getUsers", (users: any) => {
+            console.log(users)
+        });
+    }, [user]);
 
     return (
         <div className="flex h-screen overflow-y-hidden">
@@ -158,8 +222,13 @@ function MessagePage() {
                     {conversations.map((c) => (
                         (c.users.length === 2 ? (
                             <div onClick={() => setCurrentChat(c)}>
-                                {/* CHANGE CHAT NAME TO SOMETHING LIKE THIS: chatName={(c.users.filter((item: { id: string; }) => item.id !== user._id))[0].firstName} */}
-                                <Conversation key={c._id} chatName={c.users.filter((u: { _id: string }) => u._id !== user._id)[0].firstName} photoURL={c.pic} users={c.users} currentUser={user._id} />
+                                <Conversation 
+                                    key={c._id}
+                                    chatName={c.users.filter((u: { _id: string }) => u._id !== user._id)[0].firstName}
+                                    photoURL={c.pic}
+                                    users={c.users}
+                                    currentUser={user._id}
+                                />
                             </div>
                         ) : (
                             <div onClick={() => setCurrentChat(c)}>
@@ -174,14 +243,24 @@ function MessagePage() {
                     <>
                         <div className="flex items-center py-2 bg-slate-900">
                             <img className="h-12 px-5 rounded-full" src={currentChat.pic}></img>
-                            <div className=""> {currentChat.chatName} </div>
+                            {currentChat.users.length === 2 ? (
+                                <div className=""> {currentChat.users.filter((u: { _id: string }) => u._id !== user._id)[0].firstName} </div>
+                            ):(
+                                <div className=""> {currentChat.chatName} </div>
+                            )}
                         </div>
 
                         <div className="flex-grow overflow-y-auto">
                             {messages.map((m) => (
+                                (currentChat.users.length === 2 ? (
                                 <div onLoad={() => getUserPicture(m.sender)}>
                                     <MessageBox key={m._id} content={m.content} own={m.sender === user._id} ownPic={userProfile.pic} otherPic={otherUserProfilePic} />
                                 </div>
+                                ) : (
+                                <div onLoad={() => getUserPicture(m.sender)}>
+                                    <MessageBox key={m._id} content={m.content} own={m.sender === user._id} ownPic={userProfile.pic} otherPic={"https://th.bing.com/th/id/OIP.OesLvyzDO6AvU_hYUAT4IAHaHa?pid=ImgDet&rs=1"} />
+                                </div>
+                                ))
                             ))}
                         </div>
                         <div className='p-2'>
