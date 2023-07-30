@@ -78,10 +78,8 @@ export default function Landing2() {
       <section id='testimonial-section' className='my-[150px]'>
       <h2 data-aos='fade-down' data-aos-delay='100' className='mb-6 xl:mb-12 text-[#222B4E] font-bold font-3xl text-center' style={{ fontFamily: 'sans-serif', fontSize: '36px' }} >Testimonials</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
-          {/* Changed grid-cols-2 to grid-cols-3 and added justify-items-center */}
           {testimonials.map((testimonial) => (
             <div key={testimonial.id} className="bg-purple-600 bg-opacity-50 rounded-lg shadow-md p-6 flex flex-col items-center justify-center max-w-sm mx-auto" data-aos='zoom-in' data-aos-offset='100' data-aos-delay='600' >
-              {/* Added flex-col class to center image and name vertically */}
               <div className="mb-4">
                 <img
                   src={testimonial.image}
