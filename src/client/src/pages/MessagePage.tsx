@@ -252,9 +252,15 @@ function MessagePage() {
 
                         <div className="flex-grow overflow-y-auto">
                             {messages.map((m) => (
+                                (currentChat.users.length === 2 ? (
                                 <div onLoad={() => getUserPicture(m.sender)}>
                                     <MessageBox key={m._id} content={m.content} own={m.sender === user._id} ownPic={userProfile.pic} otherPic={otherUserProfilePic} />
                                 </div>
+                                ) : (
+                                <div onLoad={() => getUserPicture(m.sender)}>
+                                    <MessageBox key={m._id} content={m.content} own={m.sender === user._id} ownPic={userProfile.pic} otherPic={""} />
+                                </div>
+                                ))
                             ))}
                         </div>
                         <div className='p-2'>
