@@ -24,10 +24,9 @@ const getArtworks = async (req, res) => {
     const params = req.query;
     let sortParameter = '';
     let filters = [];
-
     // Check if the key 'sort' exists in the params array
     if (params.hasOwnProperty('sort')) {
-      const sort  = params['sort'][0];
+      const sort  = params['sort'];
 
       // Check which sort parameter was given
       if (sort === 'featured'){
@@ -41,6 +40,9 @@ const getArtworks = async (req, res) => {
       }
       else if (sort === 'newest'){
         sortParameter = 'date DESC';
+      } 
+      else if (sort === 'visits'){
+        sortParameter = 'visits DESC';
       }
     }
 

@@ -171,6 +171,19 @@ const getByCategory = async (req, res) => {
   }
 }
 
+const incrementVisits = async (req, res) => {
+  try {
+      const id = req.params.id;
+      const session = dbUtils.getSession(req);
+      const result = await musicModel.incrementVisits(session, id);
+      res.json(result);
+  }
+  catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Encountered server error" });
+  }
+}
+
 module.exports = {
   findAll: findAll,
   findByNameAndArtist: findByNameAndArtist,
@@ -183,5 +196,6 @@ module.exports = {
   findByUserID: findByUserID,
   findByUsername: findByUsername,
   findSongByNameAndArtist: findSongByNameAndArtist,
-  getByCategory: getByCategory
+  getByCategory: getByCategory,
+  incrementVisits: incrementVisits
 }
