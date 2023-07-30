@@ -20,9 +20,16 @@ const initUser = {
     lastName: 'last',
 }
 
+const initMessage = {
+    sender: '',
+    content: '',
+    createdAt: Date.now(),
+}
+
 function MessagePage() {
     const [userProfile, setUserProfile] = useState(initUserProfile);
     const [user, setUser] = useState<any>(null);
+    const [someUser, setSomeUser] = useState<any>(null);
     const [otherUserProfile, setOtherUserProfile] = useState<any>(initUserProfile);
     const [conversations, setConversations] = useState<any[]>([]);
     const [currentChat, setCurrentChat] = useState<any>(null);
@@ -32,10 +39,17 @@ function MessagePage() {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const [otherUserProfilePic, setOtherUserProfilePic] = useState("https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png");
     const navigate = useNavigate();
-    const socket = useRef<any>(null);
+    const socket = useRef<any>();
     //const socket = useRef<Socket | null>(null);
     //const [socket, setSocket] = useState<any>(null);
     //const scrollRef = useRef<any>();
+
+    async function getSomeUserByID(id: string) {
+        console.log(id);
+        const res = await axios.get("http://localhost:8080/api/chat/user/" + id);
+        console.log(res.data);
+        return res.data;
+    }
 
     // used to get the user information from their id
     async function getUserByID(id: string) {
@@ -144,7 +158,7 @@ function MessagePage() {
         socket.current.emit("sendMessage", {
             senderId: user._id,
             receiverId: receiverId._id,
-            text:newMessage,
+            text: newMessage,
         });
         try {
             const res = await axios.post("http://localhost:8080/api/message/", message);
@@ -161,19 +175,21 @@ function MessagePage() {
 
     useEffect(() => {
         socket.current = io("ws://localhost:8900");
-        socket.current.on("getMessage", ( data: any ) => {
+        socket.current.on("getMessage", async ( data: any ) => {
+            const u = await getSomeUserByID(data.senderId);
+            console.log(u);
             setArrivalMessage({
-                sender: data.senderId,
+                sender: u,
                 content: data.text,
                 createdAt: Date.now(),
             });
         });
-        console.log(arrivalMessage);
-    }, [messages]);
+    }, []);
 
     useEffect(() => {
-        arrivalMessage && currentChat?.users.includes(arrivalMessage.sender) &&
-        setMessages(prev => [...prev, arrivalMessage]);
+        console.log(arrivalMessage);
+        arrivalMessage && currentChat?.users.includes(arrivalMessage?.sender) &&
+        setMessages((prev) => [...prev, arrivalMessage]);
     }, [arrivalMessage, currentChat]);
 
     useEffect(() => {
