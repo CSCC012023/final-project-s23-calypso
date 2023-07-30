@@ -4,10 +4,6 @@ import {Features} from '../components/LandingFeatures'
 import landingimg from '../assets/landingimg1.png'
 import Footer from '../components/common/Footer'
 
-import CollectionCard from '../components/home/CollectionCard'
-import previewArt from '../assets/previewArt.jpg'
-import sampleProductImage2 from '../assets/sampleProductImage2.jpg'
-import sampleLargeProductImage from '../assets/sampleLargeProductImage.jpg'
 import person1 from '../assets/person1.png'
 import person2 from '../assets/person2.png'
 import person3 from '../assets/person3.png'
@@ -32,33 +28,6 @@ const testimonials = [
     image: person3, 
   },
 ];
-
-const collections = [
-  {
-    id: 1,
-    name: 'Best Sceneries of 2023',
-    description: 'The very best.',
-    imageSrc: previewArt,
-    imageAlt: 'BEST SCENERIES OF 2023',
-    href: '/login',
-  },
-  {
-    id: 2,
-    name: 'The Lonely Classical Collection',
-    description: 'All things lonely and dark.',
-    imageSrc: sampleProductImage2,
-    imageAlt: 'LONELY COLLECTION',
-    href: '/login',
-  },
-  {
-    id: 3,
-    name: 'Futuristic Digital Collection',
-    description: '2070 is calling!',
-    imageSrc: sampleLargeProductImage,
-    imageAlt: 'FUTURE COLLECTION',
-    href: '/login',
-  },
-]
 
 
 const buttonStyle = {
