@@ -11,20 +11,20 @@ import person3 from '../assets/person3.png'
 const testimonials = [
   {
     id: 1,
-    name: 'John Doe',
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquet tellus vitae velit condimentum, ut convallis velit sagittis.',
+    name: 'John',
+    message: '"I absolutely love Calpyso! It\'s the perfect platform for emerging artists like me to showcase our art and connect with a supportive community."',
     image: person1,
   },
   {
     id: 2,
-    name: 'Jane Smith',
-    message: 'In hac habitasse platea dictumst. Sed tincidunt, eros quis congue ultrices, lacus est volutpat purus, vitae ullamcorper arcu elit sit amet tellus.',
+    name: 'Alexi',
+    message: '"Calpyso has made selling my art a breeze! The user-friendly interface and secure payment system make managing my storefront effortless." ',
     image: person2, 
   },
   {
     id: 3,
-    name: 'Jane Smith',
-    message: 'In hac habitasse platea dictumst. Sed tincidunt, eros quis congue ultrices, lacus est volutpat purus, vitae ullamcorper arcu elit sit amet tellus.',
+    name: 'Jannet',
+    message: '"I\'ve gained exposure and recognition that I couldn\'t have imagined before. It\'s truly a platform that values and empowers artists!"',
     image: person3, 
   },
 ];
