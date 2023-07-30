@@ -11,7 +11,7 @@ RUN npm install
 #informs docker that the application listens on these 2 ports at runtime
 EXPOSE 8080 3000
 
-#copies all the code for the application into the container
+#copies all the code for the application into the docker container
 COPY . .
 
 CMD [ "node", "app.js" ]
