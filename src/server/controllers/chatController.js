@@ -12,44 +12,42 @@ const chatController = {
     accessChat: async (req, res) => {
         const { email, id, pic } = req.body;
         const currentuser = await User.findById(id)
-        const otheruser = await User.find({email: email})
-        try{
+        const otheruser = await User.find({ email: email })
+        try {
             //Retrieve or create a singular chat between the logged in user and a user they specify
-            const chat =await Chat.find({
-                pic: pic,
+            const chat = await Chat.find({
                 isGroupChat: false,
                 $and: [
-                    // Change this later //
-                    { users: currentuser},
-                    { users: otheruser[0]},
+                    { users: currentuser },
+                    { users: otheruser[0] },
                 ],
             })
             // other user is null
             if (!otheruser[0]) {
-                res.status(404).json({message: "User not found!"});
+                res.status(404).json({ message: "User not found!" });
             }
 
-        // the chat between the logged in user and the use exists, so return that
+            // the chat between the logged in user and the use exists, so return that
             if (chat.length > 0) {
                 res.status(200).json({ chat });
-        // the chat between the logged in user and the use DNE, so create it
+                // the chat between the logged in user and the use DNE, so create it
             } else {
                 const newChat = new Chat(
-                    { 
-                        chatName: currentuser.firstName + " and " +otheruser[0].firstName,
+                    {
+                        chatName: currentuser.firstName + " and " + otheruser[0].firstName,
                         pic: pic,
                         isGroupChat: false,
                         users: [currentuser, otheruser[0]]
                     });
                 try {
                     await newChat.save();
-                    res.status(200).json({message: "Chat created successfully"});
-                } catch(error){
+                    res.status(201).json({ message: "Chat created successfully" });
+                } catch (error) {
                     console.error(error);
                     res.status(500).json({ message: "Encountered a server error!" });
                 }
             }
-        // could not find the given users     
+            // could not find the given users     
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: "Encountered a server error!" });
@@ -71,7 +69,7 @@ const chatController = {
     // Params:
     // Function: get all users
     getUsers: async (req, res) => {
-        try{
+        try {
             //Retrieve all users from the database
             const users = await User.find();
             res.status(200).json({ users });
@@ -96,7 +94,7 @@ const chatController = {
     // Params: current user id
     // Function: Gets all chats that the logged in user is in
     fetchChats: async (req, res) => {
-        try{
+        try {
             const currentuser = await User.findById(req.params.user)
             const chat = await Chat.find({ users: currentuser })
             // .populate("latestMessage")
@@ -116,47 +114,35 @@ const chatController = {
     // wishes to add a group chat is created.
     // only works if the group chat doesn't already exist
     createGroupChat: async (req, res) => {
-        if(!req.body.users || !req.body.name) {
+        if (!req.body.users || !req.body.name) {
             return res.status(400).send({ message: "Please Fill all the feilds" });
         }
         // add given emails to the user list
-        const users = [];
+        const users = req.body.users;
         const currentuser = await User.findById(req.body.id);
-        users.push(currentuser);
-        for (let i = 0; i < req.body.users.length; i++){
-            const otheruser = await User.find({email: req.body.users[i]});
-            users.push(otheruser[0]);
-        }
+        users.unshift(currentuser);
         // the chat is not a group chat
         if (users.length < 2) {
             return res.status(400).json({ message: "2 or more users are required to form a group chat." });
         }
         // create the group chat
-        try{
-            const chat =await Chat.find({
-                isGroupChat: true,
-                chatName: req.body.name
-            })
-            // if group chat already exists, return that
-            if (chat.length > 0) {
-                res.status(200).json({ chat });
-            } else {
-                const groupChat = new Chat(
-                    {
-                        chatName: req.body.name,
-                        users: users,
-                        isGroupChat: true,
+        try {
+            const groupChat = new Chat(
+                {
+                    chatName: req.body.name,
+                    users: users,
+                    isGroupChat: true,
+                    pic: req.body.pic,
                 });
-                try {
-                    await groupChat.save();
-                    res.status(200).json({message: "Group Chat created successfully"});
-                } catch(error){
-                    console.error(error);
-                    res.status(500).json({ message: "Group Chat was not able to be created successfully" });
-                }
+            try {
+                await groupChat.save();
+                res.status(200).json({ message: "Group Chat created successfully" });
+            } catch (error) {
+                console.error(error);
+                res.status(500).json({ message: "Group Chat was not able to be created successfully" });
             }
-        // was not able to create the group chat :(
-        }catch(error){
+            // was not able to create the group chat :(
+        } catch (error) {
             console.error(error);
             res.status(500).json({ message: "Encountered a server error!" });
         }
@@ -174,11 +160,11 @@ const chatController = {
         if (!updatedChat) {
             res.status(404).json({ message: "Chat was not found" });
         } else {
-            res.status(200).json({message: "Chat Name was sucessfully updated"});
+            res.status(200).json({ message: "Chat Name was sucessfully updated" });
         }
     },
     getGroupChat: async (req, res) => {
-        const {chatId} = req.body;
+        const { chatId } = req.body;
         const chat = await Chat.findById(chatId)
         if (!chat) {
             res.status(404).json({ message: "Chat was not found" });
@@ -194,9 +180,10 @@ const chatController = {
     // then remove the user from the chat.
     removeFromGroup: async (req, res) => {
         const { chatId, email } = req.body;
-        const currentuser = await User.find({email: email});
+        const currentuser = await User.find({ email: email });
         const removed = await Chat.findByIdAndUpdate(chatId, {
-            $pull: { users: currentuser}, }
+            $pull: { users: currentuser },
+        }
         )
         if (!removed) {
             res.status(404).json({ message: "Chat or User was not found" });
@@ -212,9 +199,10 @@ const chatController = {
     // then add the user to the chat.
     addToGroup: async (req, res) => {
         const { chatId, email } = req.body;
-        const currentuser = await User.find({email: email});
+        const currentuser = await User.find({ email: email });
         const added = await Chat.findByIdAndUpdate(chatId, {
-            $push: { users: currentuser}, }, {new: true}
+            $push: { users: currentuser },
+        }, { new: true }
         )
         if (!added) {
             res.status(404).json({ message: "Chat or User was not found" });

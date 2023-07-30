@@ -9,6 +9,8 @@ user.get('/:id', userController.findByID);
 
 user.get('/user/:username', userController.findByUsername);
 
+user.get('/partName/:name', userController.findByPartName);
+
 user.post('/register', userController.createUser);
 
 user.put('/:id', userController.updateUser);

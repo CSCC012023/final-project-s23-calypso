@@ -31,8 +31,8 @@ function ProfilePage() {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const navigate = useNavigate();
 
-  function updateUser(user1: { id: number, username: string, name: string, description: string, pic: any, banner: any }) {
-    if (user.username !== user1.username || user.name != user1.name) {
+  function updateUser(user1: { id: number, username: string, name: string, description: string, pic: any, banner: any, visits: number }) {
+    if (user.username !== user1.username || user.name !== user1.name) {
       // update artworks in DB
       artworks.forEach(artwork => {
         artwork.artist = user1.username;
@@ -105,7 +105,7 @@ function ProfilePage() {
       .catch(err => console.log(err));
   }
 
-  function addArtwork(artwork: { id: string, name: string, artist: string, artistName: string, style: string, price: number, href: string, material: string, medium: string, rarity: string, imageSrc: string, imageAlt: string }) {
+  function addArtwork(artwork: { id: string, name: string, artist: string, artistName: string, style: string, price: number, href: string, material: string, medium: string, rarity: string, imageSrc: string, imageAlt: string, visits: number }) {
     // add artwork in DB
     artwork.artist = user.username;
     artwork.artistName = user.name;
@@ -139,7 +139,7 @@ function ProfilePage() {
       .catch(err => console.log(err));
   }
 
-  function addMusic(music: { name: string, artist: string, artistName: string, description: string, duration: string, genres: string[], pic: string, price: number }) {
+  function addMusic(music: { name: string, artist: string, artistName: string, description: string, duration: string, genres: string[], pic: string, price: number, visits: number }) {
     // update musics in DB
     music.artist = user.username;
     music.artistName = user.name;
@@ -208,6 +208,7 @@ function ProfilePage() {
           setUser(data);
           getArtworksByUsername(data.username);
           getMusicByUsername(data.username);
+          addVisit(data.id);
         } else {
           setPageError(true);
         }
@@ -237,6 +238,19 @@ function ProfilePage() {
           window.alert('something went wrong');
         }
       });
+  }
+
+  function addVisit(id: string) {
+    axios.put(`http://localhost:8080/api/v0/users/increment/${id}`)
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setUser(data);
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   useEffect(() => {

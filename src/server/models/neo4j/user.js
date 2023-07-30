@@ -31,7 +31,8 @@ const createUser = async (session, user) => {
       name: '${user.name}',
       description: '${user.description}',
       pic: '${user.pic}', 
-      banner: '${user.banner}'
+      banner: '${user.banner},
+      visits: ${user.visits}'
     })`,
     'RETURN n'
   ].join('\n');
@@ -48,7 +49,8 @@ const updateUser = async (session, id, user) => {
       n.name = '${user.name}', 
       n.description = '${user.description}', 
       n.pic = '${user.pic}', 
-      n.banner = '${user.banner}'`,
+      n.banner = '${user.banner},'
+      n.visits = ${user.visits}`,
     'RETURN n'
   ].join('\n');
   const result = await session.run(query);
@@ -73,6 +75,16 @@ const incrementVisits = async (session, id) => {
   return user
 }
 
+const findByPartName = async (session, name) => {
+  const query = [
+    `MATCH (n: User)`,
+    `WHERE n.name CONTAINS '${name}' OR n.username CONTAINS '${name}'`,
+    'RETURN DISTINCT n'
+  ].join('\n');
+  const result = await session.run(query);
+  return result.records.map(i => i.get('n').properties);
+}
+
 module.exports = {
   findAll: findAll,
   findByID: findByID,
@@ -80,5 +92,6 @@ module.exports = {
   createUser: createUser,
   updateUser: updateUser,
   deleteUser: deleteUser,
-  incrementVisits: incrementVisits
+  incrementVisits: incrementVisits,
+  findByPartName: findByPartName
 }

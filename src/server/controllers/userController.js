@@ -70,7 +70,7 @@ const userController = {
         const newUser = new User({ firstName, lastName, email, password });
 
         newUser.save();
-        return res.status(200).json({ message: "User submitted successfully!", id: newUser._id, email: newUser.email });
+        return res.status(200).json({ message: "User submitted successfully!", id: newUser._id, email: newUser.email, firstName: newUser.firstName, lastName: newUser.lastName });
         // bcrypt.compare('arielle', hash, function(err, result) {
         //     console.log(result);
         // });
