@@ -108,6 +108,22 @@ const incrementVisits = async (req, res) => {
   }
 }
 
+const findByPartName = async (req, res) => {
+  try {
+    const name = req.params.name;
+    if (!name) throw { message: "Invalid Name", status: 400 };
+    const result = await userModel.findByPartName(dbUtils.getSession(req), name);
+    res.json(result);
+  }
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+}
+
 module.exports = {
   findAll: findAll,
   findByID: findByID,
@@ -115,5 +131,6 @@ module.exports = {
   createUser: createUser,
   updateUser: updateUser,
   deleteUser: deleteUser,
-  incrementVisits: incrementVisits
+  incrementVisits: incrementVisits,
+  findByPartName: findByPartName
 }

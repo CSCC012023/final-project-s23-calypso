@@ -32,7 +32,7 @@ function ProfilePage() {
   const navigate = useNavigate();
 
   function updateUser(user1: { id: number, username: string, name: string, description: string, pic: any, banner: any, visits: number }) {
-    if (user.username !== user1.username || user.name != user1.name) {
+    if (user.username !== user1.username || user.name !== user1.name) {
       // update artworks in DB
       artworks.forEach(artwork => {
         artwork.artist = user1.username;

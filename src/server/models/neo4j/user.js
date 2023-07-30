@@ -75,6 +75,16 @@ const incrementVisits = async (session, id) => {
   return user
 }
 
+const findByPartName = async (session, name) => {
+  const query = [
+    `MATCH (n: User)`,
+    `WHERE n.name CONTAINS '${name}' OR n.username CONTAINS '${name}'`,
+    'RETURN DISTINCT n'
+  ].join('\n');
+  const result = await session.run(query);
+  return result.records.map(i => i.get('n').properties);
+}
+
 module.exports = {
   findAll: findAll,
   findByID: findByID,
@@ -82,5 +92,6 @@ module.exports = {
   createUser: createUser,
   updateUser: updateUser,
   deleteUser: deleteUser,
-  incrementVisits: incrementVisits
+  incrementVisits: incrementVisits,
+  findByPartName: findByPartName
 }
