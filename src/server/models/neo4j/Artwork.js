@@ -51,6 +51,13 @@ const getArtworks = async (session, sortParam, filtersParam) => {
     return artworks;
 }
 
+const getHomepageArtworks = async (session, typeParameter) => {
+    let query = `MATCH (n: Artwork) RETURN n ORDER BY n.${typeParameter} LIMIT 4`; 
+    const result = await session.run(query);
+    artworks = result.records.map(i => i.get('n').properties);
+    return artworks;
+}
+
 const findByID = async (session, id) => {
     const query = [
         `MATCH (n: Artwork {id: '${id}'})`,
@@ -87,6 +94,7 @@ const postArtwork = async (session, artwork) => {
             id: "${artwork.id}",
             name: "${artwork.name}",
             artist: "${artwork.artist}",
+            artistName: "${artwork.artistName}",
             style: "${artwork.style}",
             material: "${artwork.material}",
             medium: "${artwork.medium}",
@@ -110,6 +118,7 @@ const updateArtwork = async (session, id, artwork) => {
         `SET 
             a.name = '${artwork.name}',
             a.artist = '${artwork.artist}',
+            a.artistName = '${artwork.artistName}',
             a.style = '${artwork.style}',
             a.material = '${artwork.material}',
             a.medium = '${artwork.medium}',
@@ -160,6 +169,14 @@ const getRecommendedArtworks = async (session, username) => {
     return result.records.map(i=>i._fields[0].properties)
 }
 
+const incrementVisits = async (session, id) => {
+    let query = 'MATCH (n: Artwork) WHERE n.id = "' + id + '" SET n.visits = n.visits + 1 RETURN n';
+    const result = await session.run(query);
+    artwork = result.records[0].get('n').properties;
+    return artwork;
+}
+
+
 module.exports = {
     getArtworks: getArtworks,
     getArtworkById: getArtworkById,
@@ -170,5 +187,7 @@ module.exports = {
     updateArtwork: updateArtwork,
     deleteArtwork: deleteArtwork,
     getByCategory: getByCategory,
-    getRecommendedArtworks: getRecommendedArtworks
+    getRecommendedArtworks: getRecommendedArtworks,
+    incrementVisits: incrementVisits,
+    getHomepageArtworks: getHomepageArtworks,
 }

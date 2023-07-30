@@ -24,10 +24,9 @@ const getArtworks = async (req, res) => {
     const params = req.query;
     let sortParameter = '';
     let filters = [];
-
     // Check if the key 'sort' exists in the params array
     if (params.hasOwnProperty('sort')) {
-      const sort  = params['sort'][0];
+      const sort  = params['sort'];
 
       // Check which sort parameter was given
       if (sort === 'featured'){
@@ -41,6 +40,9 @@ const getArtworks = async (req, res) => {
       }
       else if (sort === 'newest'){
         sortParameter = 'date DESC';
+      } 
+      else if (sort === 'visits'){
+        sortParameter = 'visits DESC';
       }
     }
 
@@ -51,6 +53,31 @@ const getArtworks = async (req, res) => {
 
     const session = dbUtils.getSession(req);
     const result = await artworkModel.getArtworks(session, sortParameter, filters);
+    res.json(result);
+  }
+  catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Encountered server error" });
+  }
+}
+
+const getHomepageArtworks = async (req, res) => {
+  try {
+    const type = req.params.type;
+    let typeParameter = '';
+
+    if (type === 'featured') {
+      typeParameter = 'name ASC';
+    }
+    else if (type === 'pricelow') {
+      typeParameter = 'price ASC';
+    }
+    else if (type === 'newest') {
+      typeParameter = 'date DESC';
+    }
+
+    const session = dbUtils.getSession(req);
+    const result = await artworkModel.getHomepageArtworks(session, typeParameter);
     res.json(result);
   }
   catch (error) {
@@ -184,6 +211,20 @@ const getRecommendedArtworks = async (req, res) => {
   }
 }
 
+const incrementVisits = async (req, res) => {
+  try {
+      const id = req.params.id;
+      const session = dbUtils.getSession(req);
+      const result = await artworkModel.incrementVisits(session, id);
+      res.json(result);
+  }
+  catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Encountered server error" });
+  }
+}
+
+
 module.exports = {
   getArtworks: getArtworks,
   getArtworkById:getArtworkById,
@@ -194,5 +235,7 @@ module.exports = {
   updateArtwork: updateArtwork,
   deleteArtwork: deleteArtwork,
   getByCategory: getByCategory,
-  getRecommendedArtworks: getRecommendedArtworks
+  getRecommendedArtworks: getRecommendedArtworks,
+  incrementVisits: incrementVisits,
+  getHomepageArtworks: getHomepageArtworks,
 }

@@ -95,11 +95,25 @@ const deleteUser = async (req, res) => {
   }
 }
 
+const incrementVisits = async (req, res) => {
+  try {
+      const id = req.params.id;
+      const session = dbUtils.getSession(req);
+      const result = await musicModel.incrementVisits(session, id);
+      res.json(result);
+  }
+  catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Encountered server error" });
+  }
+}
+
 module.exports = {
   findAll: findAll,
   findByID: findByID,
   findByUsername: findByUsername,
   createUser: createUser,
   updateUser: updateUser,
-  deleteUser: deleteUser
+  deleteUser: deleteUser,
+  incrementVisits: incrementVisits
 }

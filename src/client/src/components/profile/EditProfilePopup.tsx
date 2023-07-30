@@ -3,19 +3,21 @@ import { useForm } from 'react-hook-form'
 import { XIcon } from '@heroicons/react/outline'
 
 interface Props {
+  username: string,
   name: string,
   description: string,
   handleApplyClick: any,
   handleCancelClick: any
 }
 
-function EditProfilePopup({ name, description, handleApplyClick, handleCancelClick }: Props) {
+function EditProfilePopup({ username, name, description, handleApplyClick, handleCancelClick }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm({
     defaultValues: {
+      username: username,
       name: name,
       description: description,
       profilePic: "",
@@ -48,12 +50,17 @@ function EditProfilePopup({ name, description, handleApplyClick, handleCancelCli
         <hr className="bg-gray-300 w-full h-1" />
         <form className="flex flex-col p-6 space-y-6 overflow-y-auto"
           onSubmit={handleSubmit((data) => {
-            handleApplyClick(data.name, data.description, data.profilePic, data.banner)
+            handleApplyClick(data.username, data.name, data.description, data.profilePic, data.banner)
           })}
         >
           <div className="space-y-2">
+            <label className="leading-2 text-left block text-white">Username</label>
+            <input id="username" className="block w-full border border-white rounded-md p-2 text-base" {...register("username", { required: "Username cannot be empty", maxLength: { value: 30, message: "Username must be 30 characters or less" }, pattern: { value: /^[a-zA-Z0-9_]*$/, message: "Username must be alphanumeric" } })} type="text" />
+            {errors.username && <p className="text-[#FF0000] font-bold">{errors.username.message}</p>}
+          </div>
+          <div className="space-y-2">
             <label className="leading-2 text-left block text-white">Name</label>
-            <input id="name" className="block w-full border border-white rounded-md p-2 text-base" {...register("name", { required: "Name cannot be empty", maxLength: { value: 30, message: "Name must be 30 characters or less" } })} type="text" />
+            <input id="name" className="block w-full border border-white rounded-md p-2 text-base" {...register("name", { required: "Name cannot be empty", pattern: { value: /^[a-zA-Z ]*$/, message: "Please enter a valid name" } })} type="text" />
             {errors.name && <p className="text-[#FF0000] font-bold">{errors.name.message}</p>}
           </div>
           <div className="space-y-2">
@@ -71,8 +78,8 @@ function EditProfilePopup({ name, description, handleApplyClick, handleCancelCli
             <input id="banner" className="block w-full border border-white rounded-md p-2 text-base" {...register("banner", { validate: { checkUrl: async (url) => await isImgUrl(url) || "Please enter a valid image URL" } })} placeholder="URL" type="url" />
             {errors.banner && <p className="text-[#FF0000] font-bold">{errors.banner.message}</p>}
           </div>
-          <div className="py-4">
-            <input id="apply" className="bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-700 hover:to-blue-700 active:from-violet-800 active:to-blue-800 text-white p-5 text-lg font-semibold tracking-widest rounded-lg w-80" type="submit" value="APPLY"/>
+          <div className="py-2">
+            <input id="apply" className="bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-700 hover:to-blue-700 active:from-violet-800 active:to-blue-800 text-white py-4 text-lg font-semibold tracking-widest rounded-lg w-80" type="submit" value="APPLY"/>
           </div>
         </form>
       </div>

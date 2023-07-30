@@ -6,7 +6,9 @@ const artwork = express.Router();
 const artworkController = require('../../controllers/neo4j/artworkController');
 
 artwork.get('/all', artworkController.getArtworks);
-//artwork.get('/:id',artworkController.getArtworkById);
+
+artwork.get('/home/:type', artworkController.getHomepageArtworks);
+
 artwork.get('/recommended/:id', artworkController.getRecommendedArtworks);
 
 artwork.get('/id/:id', artworkController.findByID);
@@ -22,5 +24,7 @@ artwork.post('/post', artworkController.postArtwork);
 artwork.put('/update/:id', artworkController.updateArtwork);
 
 artwork.delete('/delete/:id', artworkController.deleteArtwork);
+
+artwork.put('/increment/:id', artworkController.incrementVisits);
 
 module.exports = artwork;

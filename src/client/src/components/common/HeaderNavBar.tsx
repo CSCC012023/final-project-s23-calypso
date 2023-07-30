@@ -6,6 +6,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { ShoppingCartIcon } from '@heroicons/react/outline'
 import profilePicture from '../../assets/sampleProfilePicture1.png'
 import { useShoppingCart } from '../../context/ShoppingCartContext'
+import axios from 'axios'
 
 
 const user = {
@@ -15,20 +16,31 @@ const user = {
 }
 const navigation = [
   { name: 'Artworks', href: 'http://localhost:3000/artworks', current: false },
-  { name: 'Music', href: 'http://localhost:3000/discover/beats', current: false },
+  { name: 'Music', href: 'http://localhost:3000/discover/beats', current: false},
   { name: 'Discover', href: 'http://localhost:3000/discover', current: false },
-  { name: 'Trending Products', href: 'http://localhost:3000/trending', current: false },
+  { name: 'Trending Products', href: 'http://localhost:3000/discover/trending', current: false},
   { name: 'Recommended for You', href: 'http://localhost:3000/discover/deals', current: false },
   { name: 'Messages', href: 'http://localhost:3000/message', current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: 'profile' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Your Profile', href: 'http://localhost:3000/profile' },
+  { name: 'My Dashboard', href: 'http://localhost:3000/dashboard/seller' },
+  { name: 'Sign out', href: 'http://localhost:3000/login' },
 ]
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
+}
+
+const incrementPageVisits = async (page: string) => {
+  axios.put(`http://localhost:8080/api/v0/dashboard/increment/${page}`)
+    .then(response => {
+      console.log('Successfully incremented page visits');
+    })
+    .catch(error => {
+      console.error('Error incrementing page visits:', error);
+    }
+    );
 }
 
 export default function HeaderNavBar() {
@@ -148,6 +160,7 @@ export default function HeaderNavBar() {
               <nav className="hidden lg:py-2 lg:flex lg:space-x-8" aria-label="Global">
                 {navigation.map((item) => (
                   <a
+                    onClick={() => incrementPageVisits(item.name)}
                     key={item.name}
                     href={item.href}
                     className={classNames(

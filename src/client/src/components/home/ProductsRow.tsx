@@ -6,9 +6,10 @@ interface Props {
     categoryTitle: string,
     productsList: any,
     categoryLink: string,
+    onArtworkClick: (artworkId: string) => void;
 }
 
-export default function ProductsRow( {productsList, categoryTitle, categoryLink}: Props ) {
+export default function ProductsRow( {productsList, categoryTitle, categoryLink, onArtworkClick}: Props ) {
     return (
         <div className="py-24 lg:max-w-7xl lg:mx-auto sm:py-8 lg:py-24 lg:px-8">
             <div className="px-4 flex items-center justify-between sm:px-6 lg:px-0">
@@ -29,7 +30,7 @@ export default function ProductsRow( {productsList, categoryTitle, categoryLink}
                     >
                         {/* Product */}
                         {productsList.map((product:any) => (
-                            <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto">
+                            <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto" onClick={ () => onArtworkClick(product.id)}>
                                 <SmallProductCard productProp={product} />
                             </li>
                         ))}

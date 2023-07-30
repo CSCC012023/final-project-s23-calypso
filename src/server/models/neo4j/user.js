@@ -27,7 +27,8 @@ const createUser = async (session, user) => {
   const query = [
     `CREATE (n: User {
       id: "${user.id}", 
-      username: '${user.username}', 
+      username: '${user.username}',
+      name: '${user.name}',
       description: '${user.description}',
       pic: '${user.pic}', 
       banner: '${user.banner}'
@@ -42,7 +43,12 @@ const createUser = async (session, user) => {
 const updateUser = async (session, id, user) => {
   const query = [
     `MATCH (n: User {id: '${id}'})`,
-    `SET n.username = '${user.username}', n.description = '${user.description}', n.pic = '${user.pic}', n.banner = '${user.banner}'`,
+    `SET 
+      n.username = '${user.username}',
+      n.name = '${user.name}', 
+      n.description = '${user.description}', 
+      n.pic = '${user.pic}', 
+      n.banner = '${user.banner}'`,
     'RETURN n'
   ].join('\n');
   const result = await session.run(query);
@@ -60,11 +66,19 @@ const deleteUser = async (session, id) => {
   return await findAll(session);
 }
 
+const incrementVisits = async (session, id) => {
+  let query = 'MATCH (n: User) WHERE n.id = "' + id + '" SET n.visits = n.visits + 1 RETURN n';
+  const result = await session.run(query);
+  user = result.records.map(i=>i._fields[0].properties)
+  return user
+}
+
 module.exports = {
   findAll: findAll,
   findByID: findByID,
   findByUsername: findByUsername,
   createUser: createUser,
   updateUser: updateUser,
-  deleteUser: deleteUser
+  deleteUser: deleteUser,
+  incrementVisits: incrementVisits
 }
