@@ -22,7 +22,7 @@ export default function HeaderNavBar() {
                       <div className="space-x-20 flex"> {/* Added flex to display items in a row */}
                           <a href="#about-section" className='text-[#ffffff]'>About Us</a>
                           <a href="#features-section" className='text-[#ffffff]'>Features</a>
-                          <a href="#features-section" className='text-[#ffffff]'>Testimonials</a>
+                          <a href="#testimonial-section" className='text-[#ffffff]'>Testimonials</a>
                           <a href="#features-section" className='text-[#ffffff]'>Contact Us</a>
                       </div>
                     </div>
