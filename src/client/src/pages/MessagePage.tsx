@@ -258,7 +258,7 @@ function MessagePage() {
                                 </div>
                                 ) : (
                                 <div onLoad={() => getUserPicture(m.sender)}>
-                                    <MessageBox key={m._id} content={m.content} own={m.sender === user._id} ownPic={userProfile.pic} otherPic={""} />
+                                    <MessageBox key={m._id} content={m.content} own={m.sender === user._id} ownPic={userProfile.pic} otherPic={"https://th.bing.com/th/id/OIP.OesLvyzDO6AvU_hYUAT4IAHaHa?pid=ImgDet&rs=1"} />
                                 </div>
                                 ))
                             ))}
