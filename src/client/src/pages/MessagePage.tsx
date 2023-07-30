@@ -45,9 +45,7 @@ function MessagePage() {
     //const scrollRef = useRef<any>();
 
     async function getSomeUserByID(id: string) {
-        console.log(id);
         const res = await axios.get("http://localhost:8080/api/chat/user/" + id);
-        console.log(res.data);
         return res.data;
     }
 
@@ -77,6 +75,7 @@ function MessagePage() {
 
         }
         verify();
+        socket.current = io("ws://localhost:8900");
     }, []);
 
     // gets and sets the user profile of the current user
@@ -120,7 +119,7 @@ function MessagePage() {
         const getConversations = async () => {
             try {
                 const res = await axios.get("http://localhost:8080/api/chat/chat/" + user._id);
-                getOtherUserProfileByID(res.data.chat.filter((u: { id: any; }) => u.id !== user._id));
+                getOtherUserProfileByID(res.data.chat.filter((u: { _id: any; }) => u._id !== user._id));
                 setConversations(res.data.chat);
             } catch (error) {
                 console.log(error);
@@ -154,12 +153,19 @@ function MessagePage() {
             chat: currentChat._id,
         };
 
-        const receiverId = currentChat.users.find((member: any) => member !== user._id);
-        socket.current.emit("sendMessage", {
-            senderId: user._id,
-            receiverId: receiverId._id,
-            text: newMessage,
+        const receiverId = currentChat.users.filter((u: { _id: any; }) => u._id !== user._id);
+        receiverId.forEach((element: { _id: any; }) => {
+            socket.current.emit("sendMessage", {
+                senderId: user._id,
+                receiverId: element._id,
+                text: newMessage,
+            });
         });
+        // socket.current.emit("sendMessage", {
+        //     senderId: user._id,
+        //     receiverId: receiverId._id,
+        //     text: newMessage,
+        // });
         try {
             const res = await axios.post("http://localhost:8080/api/message/", message);
             setMessages([...messages, res.data])
@@ -174,12 +180,10 @@ function MessagePage() {
     }
 
     useEffect(() => {
-        socket.current = io("ws://localhost:8900");
-        socket.current.on("getMessage", async ( data: any ) => {
-            const u = await getSomeUserByID(data.senderId);
-            console.log(u);
+        socket.current.on("getMessage",  ( data: any ) => {
+            const u = getSomeUserByID(data.senderId);
             setArrivalMessage({
-                sender: u,
+                sender: data.senderId,
                 content: data.text,
                 createdAt: Date.now(),
             });
@@ -187,8 +191,10 @@ function MessagePage() {
     }, []);
 
     useEffect(() => {
-        console.log(arrivalMessage);
-        arrivalMessage && currentChat?.users.includes(arrivalMessage?.sender) &&
+        console.log(currentChat?.users.some((user: {_id: string}) => user._id === arrivalMessage?.sender))
+        console.log(user?._id)
+        console.log(arrivalMessage?.sender)
+        arrivalMessage && currentChat?.users.some((user: {_id: string}) => user._id === arrivalMessage?.sender) &&
         setMessages((prev) => [...prev, arrivalMessage]);
     }, [arrivalMessage, currentChat]);
 
