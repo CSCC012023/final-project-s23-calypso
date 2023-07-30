@@ -57,25 +57,28 @@ function BiddingPurchasePage({}: any) {
   };
 
   const postBid = async () => {
+    if (bidData == null) {
+      return;
+    }
+    console.log("The data is:");
+    console.log(bidData);
+    console.log("TEST");
     axios.post(`http://localhost:8080/api/v0/bid/post`, 
         bidData
     )
         .then(response => {
             const data = response.data;
             // setProduct(data);
-            console.log(data);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
+            console.log(bidData);
         });
-        console.log(bidData);
+        
   };
 
   const handleBid = async (id: number, productId: number, userId: number, bidAmount: number, startingBid: number) => {
     setBidData({id: id, productId: productId, userId: userId, bidAmount: bidAmount, startingBid: startingBid});
-    console.log("The data is:");
-    console.log(bidData);
-    console.log("TEST");
     await postBid();
   }
 
