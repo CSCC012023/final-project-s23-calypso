@@ -38,7 +38,7 @@ const list = [
 export const Features = () => {
 
   return (
-    <section id='features-section' className='my-[150px]'>
+    <section id='features-section' className='my-[100px]'>
       <div className="mx-auto">
         {/* Text */}
         <div className='text-center'>

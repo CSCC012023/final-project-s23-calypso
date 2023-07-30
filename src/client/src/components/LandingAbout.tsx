@@ -3,7 +3,7 @@ import aboutus2 from '../assets/aboutus2.png'
 export const About = () => {
 
   return (
-    <section id='about-section' className="my-[30px] xl:mt-[100px]" data-aos='fade-up' data-aos-offeset='350'>
+    <section id='about-section' className="my-[20px] xl:mt-[100px]" data-aos='fade-up' data-aos-offeset='350'>
       <div className="container mx-auto">
         <div className='bg-pink-50 rounded-[50px] min-h-[560px] px-12 pb-0 flex flex-col xl:flex-row xl: items-center text-left gap-x-[60px]'>
           {/* Image */}
