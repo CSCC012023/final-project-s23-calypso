@@ -10,7 +10,7 @@ export default function HeaderNavBar() {
            <div className="max-w-8xl mx-auto px-2 lg:divide-y lg:divide-gray-700 lg:px-4">
                 <div className="relative h-20 flex">
                     <div className="relative z-10 px-2 flex items-center">
-                    <a href='/home'>
+                    <a href='/landing'>
                         <img
                         className="block h-16 w-auto"
                         src={require('../assets/logo-withoutbg.png')}
