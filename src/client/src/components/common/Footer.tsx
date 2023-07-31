@@ -4,9 +4,6 @@ import React from "react";
 const navigation = {
     main: [
       { name: 'About Us', href: 'http://localhost:3000/landing' },
-      { name: 'Profile', href: 'http://localhost:3000/profile' },
-      { name: 'Auction House', href: 'http://localhost:3000/bidding' },
-      { name: 'Messaging', href: 'http://localhost:3000/' },
       { name: 'Contact Us', href: 'http://localhost:3000/landing' },
       { name: 'Register', href: 'register' },
     ],
