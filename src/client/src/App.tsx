@@ -24,6 +24,7 @@ import TransactionPage from './pages/Transaction/TransactionPage';
 import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransactionPage';
 import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
+import Landing2 from './pages/Landing2';
 import SellerDashboardPage from './pages/SellerDashboardPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 
@@ -47,16 +48,21 @@ import {
   Navigate,
 } from "react-router-dom";
 
+import Aos from "aos";
+import 'aos/dist/aos.css';
 
 function App() {
-
+  Aos.init({
+    duration: 1800,
+    offset: 0,
+  });
   return (
       <div>
         <ShoppingCartProvider>
           <BrowserRouter>
             <Routes>
               
-              <Route path="/" element={<Navigate to="/login"/>}/>
+              <Route path="/" element={<Navigate to="/landing"/>}/>
               <Route path="/home" element={<HomePage />} /> 
               <Route path="/artworks" element={<ArtworksPage />} />
 
@@ -73,7 +79,7 @@ function App() {
               <Route path="/discover/classical" element={<ClassicalPage />} />
               <Route path="/discover/portraits" element={<DealsPage />} />
 
-              <Route path="/landing" element={<LandingPage />} />
+              {/* <Route path="/landing" element={<LandingPage />} /> */}
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/profile/:username" element={<ProfilePage />} />
               <Route path="/login2" element={<LoginPage />} />
@@ -93,6 +99,7 @@ function App() {
 
               <Route path="/login" element={<LoginPageUpdate />} />
               <Route path="/register" element={<RegisterPageUpdate />} />
+              <Route path="/landing" element={<Landing2 />} />
             </Routes>
           </BrowserRouter>
         </ShoppingCartProvider>
