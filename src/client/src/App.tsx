@@ -62,7 +62,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               
-              <Route path="/" element={<Navigate to="/login"/>}/>
+              <Route path="/" element={<Navigate to="/landing"/>}/>
               <Route path="/home" element={<HomePage />} /> 
               <Route path="/artworks" element={<ArtworksPage />} />
 
