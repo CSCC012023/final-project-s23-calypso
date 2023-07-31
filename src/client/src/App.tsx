@@ -79,7 +79,7 @@ function App() {
               <Route path="/discover/classical" element={<ClassicalPage />} />
               <Route path="/discover/portraits" element={<DealsPage />} />
 
-              <Route path="/landing" element={<LandingPage />} />
+              {/* <Route path="/landing" element={<LandingPage />} /> */}
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/profile/:username" element={<ProfilePage />} />
               <Route path="/login2" element={<LoginPage />} />
@@ -99,7 +99,7 @@ function App() {
 
               <Route path="/login" element={<LoginPageUpdate />} />
               <Route path="/register" element={<RegisterPageUpdate />} />
-              <Route path="/landing2" element={<Landing2 />} />
+              <Route path="/landing" element={<Landing2 />} />
             </Routes>
           </BrowserRouter>
         </ShoppingCartProvider>
