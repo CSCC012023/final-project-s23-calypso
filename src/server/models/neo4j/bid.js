@@ -38,7 +38,6 @@ const getHighestBid = async (session, productId) => {
 
 const postBid = async (session, bid) => {
     try {
-      console.log("Reached bidmodel");
       const query = [
         `CREATE (a: Bid {
             id: ${bid.id},
@@ -52,7 +51,6 @@ const postBid = async (session, bid) => {
       const result = await session.run(query);
       if (result.records.length === 0) return null;
       let x = result.records[0].get('a').properties;
-      console.log("data:" + x);
       return result.records[0].get('a').properties;
     } catch (error) {
       // Handle any errors that occur during the database operation
@@ -90,12 +88,11 @@ const postBidProduct = async (session, bidProduct) => {
 
 const deleteBid = async (session, id) => {
     const query = [
-        `MATCH (a: Bid {id: '${id}'})`,
+        `MATCH (a: Bid {id: ${id}})`,
         `DETACH DELETE a`,
         `RETURN a`
     ].join('\n');
     await session.run(query);
-    //return {};
 }
 
 

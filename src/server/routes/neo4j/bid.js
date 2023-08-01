@@ -9,12 +9,13 @@ bid.get('/:id', bidController.getBidById);
 
 bid.get('/product/:id', bidController.getBidByProductId);
 
+// id corresponds to productId of artwork for auction
 bid.get('/highest/:id', bidController.getHighestBid);
 
 bid.post('/post', bidController.postBid);
 
-// TODO: Create a function for posting a bid by product id
-// bid.post('/post/product/:id', bidControler.postBidByProductId);
+// TODO: Create a function for posting a BidProduct
+bid.post('/post/product/:id', bidController.postBidProduct);
 
 bid.delete('/delete/:id', bidController.deleteBid);
 

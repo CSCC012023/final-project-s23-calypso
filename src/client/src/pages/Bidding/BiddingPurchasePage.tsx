@@ -36,15 +36,15 @@ interface QueryParams {
   [key: string]: string[];
 }
 
-function BiddingPurchasePage({}: any) {
+const initUser = {
+  id: 0,
+  username: 'username',
+  description: 'description',
+  pic: require('../../assets/sampleProfilePicture1.png'),
+  banner: require('../../assets/sampleLargeProductImage2.jpg')
+}
 
-  const initUser = {
-    id: 0,
-    username: 'username',
-    description: 'description',
-    pic: require('../../assets/sampleProfilePicture1.png'),
-    banner: require('../../assets/sampleLargeProductImage2.jpg')
-  }
+function BiddingPurchasePage({}: any) {
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -56,6 +56,7 @@ function BiddingPurchasePage({}: any) {
 
   const [pageError, setPageError] = useState<boolean>(false);
   const [user, setUser] = useState<any>(initUser);
+  const [artUser, setArtUser] = useState<any>(initUser);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
@@ -89,27 +90,18 @@ function BiddingPurchasePage({}: any) {
       .catch(err => setPageError(true));
   }
 
-  const postBid = async () => {
-    if (bidData == null) {
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v0/bid/post",
-        bidData ,
-        {
-          headers: {
-            "Content-Type": "application/json", // Set the Content-Type header to indicate JSON data
-          },
+  function getUserByUsername(username: string | undefined) {
+    axios.get(`http://localhost:8080/api/v0/users/user/${username}`)
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setArtUser(data);
+        } else {
+          setPageError(true);
         }
-      );
-      const data = response.data;
-      // setProduct(data);
-    } catch (error: any) {
-      console.error("Error fetching data:", error.response.data);
-    }
-  };
+      })
+      .catch(err => setPageError(true));
+  }
 
   useEffect(() => {
     const postBid = async () => {
@@ -142,6 +134,8 @@ function BiddingPurchasePage({}: any) {
 
   const handleBid = (id: number, productId: number, userId: number, bidAmount: string, startingBid: number) => {
     const parsedBidAmount = parseInt(bidAmount);
+    console.log(user);
+    console.log(product);
     if (parsedBidAmount < 20) { //TODO: Change this to the current bid amount instead of 20
       setLess(true);
       return;
@@ -170,6 +164,34 @@ function BiddingPurchasePage({}: any) {
     // Add any query parameters if needed
     getArtworkById(queryParams);
   }, []);
+
+  useEffect(() => {
+    getUserByUsername(product?.artist);
+  }, [product]);
+
+
+  // Verify user  is logged in
+  useEffect(() => {
+    const verify = async () => {
+      if (!cookies.token) {
+        navigate("/login");
+      }
+
+      const { data } = await axios.post(
+        "http://localhost:8080//api/users/verify", {}
+      );
+
+      const { status, id } = data;
+      if (status) {
+        setIsLoggedIn(true);
+        getUserByID(id);
+      } else {
+        removeCookie('token');
+        navigate("/login");
+      }
+      verify();
+    }
+  }, [removeCookie]);
 
   const previewArtPanel = {
     img: require("../../assets/previewArt.jpg"),
