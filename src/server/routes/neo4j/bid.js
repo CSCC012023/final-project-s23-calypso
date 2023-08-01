@@ -13,6 +13,9 @@ bid.get('/highest/:id', bidController.getHighestBid);
 
 bid.post('/post', bidController.postBid);
 
+// TODO: Create a function for posting a bid by product id
+// bid.post('/post/product/:id', bidControler.postBidByProductId);
+
 bid.delete('/delete/:id', bidController.deleteBid);
 
 module.exports = bid;

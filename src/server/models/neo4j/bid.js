@@ -60,6 +60,32 @@ const postBid = async (session, bid) => {
       throw { message: "Error posting bid", status: 500 };
     }
   };
+
+// The following function should give users the ability to put their product up for auction
+const postBidProduct = async (session, bidProduct) => {
+    try {
+        console.log("Reached bidmodel");
+        const query = [
+          `CREATE (a: BidProduct {
+              id: ${bidProduct.id},
+              productId: ${bidProduct.productId},
+              startingPrice: ${bidProduct.startingBid},
+              highestBid: ${bidProduct.highestBid},
+              endDate: ${bidProduct.endDate}
+          })`,
+          `RETURN a`,
+        ].join("\n");
+        const result = await session.run(query);
+        if (result.records.length === 0) return null;
+        let x = result.records[0].get('a').properties;
+        console.log("data:" + x);
+        return result.records[0].get('a').properties;
+      } catch (error) {
+        // Handle any errors that occur during the database operation
+        console.error("Error posting bid product:", error);
+        throw { message: "Error posting bid product", status: 500 };
+      }
+    };
   
 
 const deleteBid = async (session, id) => {
@@ -78,5 +104,6 @@ module.exports = {
     getHighestBid,
     getBidByProductId,
     postBid,
+    postBidProduct,
     deleteBid
 }

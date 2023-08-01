@@ -79,29 +79,31 @@ function BiddingPage({}: any) {
     <div className="flex bg-darkestGrey text-white overflow-clip">
       <Menu />
       <div>
-        <button className="bg-darkGrey text-white text-center ml-8 mt-8 font rounded-lg text-2xl p-3 space-y-5" onClick={() => navigate('/product/' + product.id)}>{"<"}</button>
+        <button className="bg-darkGrey text-white text-center ml-8 mt-8 font rounded-lg text-2xl px-3 py-2 space-y-5" onClick={() => navigate('/product/' + product.id)}>{"<"}</button>
       </div>
-      <div className="bg-darkestGrey text-white h-screen w-3/4 mx-auto my-20 space-y-5">
-        <h1 className="text-4xl font-semibold">Art Name</h1>
+      <div className="bg-darkestGrey text-white h-screen w-3/4 mx-auto my-20 space-y-5 ml-12">
+      <h1 className="text-4xl font-semibold">{product.name}</h1>
         <div className="flex items-center">
           <img className="h-1/12 w-1/12 rounded-full" src={creatorPanel.img} alt="Creator" />
-          <p className="text-2xl font-semibold mx-8">{product.artist}</p>
+          <p className="text-2xl font-semibold mx-8"> {product.artist} </p>
         </div>
-
-        <img className="h-1/3 w-full object-cover rounded-lg" src={product.imageSrc} alt="Preview Art" />
-        <div className="bg-darkGrey rounded-lg p-5 space-y-5">
-          <p className="text-xl font-semibold">
-            {descriptionPanel.description}
-          </p>
-          <p className="text-md font-semibold">
-            Product Rarity: {product.rarity} <br/>
-            Product Medium: {product.medium} <br/>
-            Product Material: {product.material}
-          </p>
-          <p className="text-xl font-semibold">{formatCurrency(product.price)}</p>
+        <div className="flex justify-center">
+          <img className="w-1/2 object-cover rounded-lg" src={product.imageSrc} alt="Preview Art" />
+          <div className="bg-darkGrey rounded-lg p-5 space-y-5">
+            <p className="text-2xl font-semibold">
+              Description:
+            </p>
+            <p className="text-md opacity">
+              Product Rarity: {product.rarity} <br/>
+              Product Medium: {product.medium} <br/>
+              Product Material: {product.material}
+            </p>
+            <p className="text-xl font-semibold">Original Price: {formatCurrency(product.price)}</p>
+            <p className="text-xl font-semibold">Starting Price: </p>
+          </div>
         </div>
         <div className="rounded-lg p-5 space-y-5 my-auto">
-          <div className="flex justify-between ml-20 mr-40 space-x-4 md:space-x-16 text-xl">
+          <div className="flex justify-between ml-20 mr-40 space-x-4 md:space-x-16 text-md">
             <button className="bg-white text-black text-center rounded-xl p-4" onClick={() => navigate('/product/' + product.id)}>Purchase for myself</button>
             <button className="bg-white text-black text-center rounded-xl p-4" onClick={ () => handleArtworkClick(product.id)}>Place Bid</button>
             <button className="bg-white text-black text-center rounded-xl p-4">Purchase as a gift</button>

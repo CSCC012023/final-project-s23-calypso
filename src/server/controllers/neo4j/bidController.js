@@ -51,8 +51,24 @@ const postBid = async (req, res) => {
     try {
       const bid = req.body;
       if (!bid) throw { message: "No bid provided", status: 400 }
-      console.log("Reached bid controller")
       const result = await bidModel.postBid(dbUtils.getSession(req), bid);
+      res.json(result);
+    }
+    catch (err) {
+      if (err.status) {
+        res.status(err.status).json({ message: err.message });
+      } else {
+        res.status(500).json({ message: "Internal Server Error" });
+      }
+    }
+  }
+
+  const postBidProduct = async (req, res) => {
+
+    try {
+      const bidProduct = req.body;
+      if (!bid) throw { message: "No bid product provided", status: 400 }
+      const result = await bidModel.postBid(dbUtils.getSession(req), bidProduct);
       res.json(result);
     }
     catch (err) {
@@ -86,5 +102,6 @@ module.exports = {
     getBidByProductId,
     getHighestBid,
     postBid,
+    postBidProduct,
     deleteBid
 }
