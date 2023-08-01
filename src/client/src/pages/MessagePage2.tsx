@@ -23,6 +23,8 @@ function MessagePage2() {
   const [messages, setMessages] = useState<any>([]);
   const [newMessage, setNewMessage] = useState<any>("");
   const [arrivalMessage, setArrivalMessage] = useState<any>(null);
+
+  const [onlineUsers, setOnlineUsers] = useState<any>([]);
   const socket = useRef<any>();
 
   const scrollRef = useRef<any>(null);
@@ -50,7 +52,7 @@ function MessagePage2() {
 
   function getIsUserOnline(id: string) {
     // Return true or false based on whether the user is online
-    return true;
+    return onlineUsers.some((u: { userId: string; }) => u.userId === id);
   }
 
   async function getChats(id: string) {
@@ -105,8 +107,11 @@ function MessagePage2() {
     getChats(id);
 
     socket.current.emit("addUser", id);
+    // socket.current.on("removeUser", (users: any) => {
+    //   setOnlineUsers(users);
+    // });
     socket.current.on("getUsers", (users: any) => {
-      console.log(users);
+      setOnlineUsers(users);
     });
 
     socket.current.on("getMessage", (data: any) => {
@@ -179,10 +184,16 @@ function MessagePage2() {
     if (user !== null) {
       socket.current.emit("addUser", user.id);
       socket.current.on("getUsers", (users: any) => {
-        console.log(users);
+        setOnlineUsers(users);
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    if (user !== null) {
+      getChats(user.id);
+    }
+  }, [user, onlineUsers]);
 
   useEffect(() => {
     async function verify() {
@@ -249,6 +260,10 @@ function MessagePage2() {
                 <div className="flex relative">
                   <img src={currentChat.pic} alt={currentChat.name} className="w-12 h-12 rounded-full" />
                   {currentChat.isOnline && <div className="absolute right-0 bottom-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>}
+                  {!currentChat.isOnline && currentChat.users.length === 2 &&
+                  <div className="flex items-center justify-center absolute right-0 bottom-0 w-3 h-3 bg-gray-600 rounded-full border-1 border-white">
+                    <div className="w-1 h-1 bg-gray-300 border-2 border-gray-300 rounded-full"></div>
+                  </div>}
                 </div>
                 <div className="flex flex-col">
                   <p className="flex font-semibold text-xl text-ellipsis overflow-hidden whitespace-nowrap justify-start">{currentChat.name}</p>

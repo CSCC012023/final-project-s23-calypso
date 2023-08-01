@@ -22,6 +22,10 @@ function ChatCard({ chat }: Props) {
       <div className="flex relative">
         <img src={chat.pic} alt={chat.name} className="w-12 h-12 rounded-full" />
         {chat.isOnline && <div className="absolute right-0 bottom-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>}
+        {!chat.isOnline && chat.users.length === 2 && 
+        <div className="flex items-center justify-center absolute right-0 bottom-0 w-3 h-3 bg-gray-600 rounded-full border-1 border-white">
+          <div className="w-1 h-1 bg-gray-300 border-2 border-gray-300 rounded-full"></div>
+        </div>}
       </div>
       <div className="flex-col hidden md:flex">
         <p className="flex font-semibold text-md text-ellipsis overflow-hidden whitespace-nowrap justify-start">{chat.name}</p>
