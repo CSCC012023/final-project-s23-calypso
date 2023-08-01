@@ -208,7 +208,7 @@ function ProfilePage() {
           setUser(data);
           getArtworksByUsername(data.username);
           getMusicByUsername(data.username);
-          addVisit(data.id);
+          //addVisit(data.id);
         } else {
           setPageError(true);
         }
