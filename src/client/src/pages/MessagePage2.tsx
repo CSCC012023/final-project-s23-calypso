@@ -113,7 +113,8 @@ function MessagePage2() {
       setArrivalMessage({
         sender: data.senderId,
         content: data.text,
-        createdAt: Date.now()
+        createdAt: Date.now(),
+        chat: data.chatId
       });
     });
   }
@@ -128,6 +129,7 @@ function MessagePage2() {
         senderId: user.id,
         receiverId: receiverID,
         text: newMessage,
+        chatId: currentChat.id
       });
     });
 
@@ -153,6 +155,9 @@ function MessagePage2() {
 
   useEffect(() => {
     if (arrivalMessage === null) return;
+    getChats(user.id);
+    if (currentChat?.id !== arrivalMessage.chat) return;
+    
     setMessages([...messages, {
       sender: {
         id: arrivalMessage.sender,
