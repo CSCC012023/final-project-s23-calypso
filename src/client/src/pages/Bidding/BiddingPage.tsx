@@ -88,7 +88,7 @@ function BiddingPage({}: any) {
           <p className="text-2xl font-semibold mx-8"> {product.artist} </p>
         </div>
         <div className="flex justify-center">
-          <img className="w-1/2 object-cover rounded-lg" src={product.imageSrc} alt="Preview Art" />
+          <img className="max-h-96 w-1/2 object-cover rounded-lg" src={product.imageSrc} alt="Preview Art" />
           <div className="bg-darkGrey rounded-lg p-5 space-y-5">
             <p className="text-2xl font-semibold">
               Description:
