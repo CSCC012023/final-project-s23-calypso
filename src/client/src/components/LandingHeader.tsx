@@ -20,23 +20,23 @@ export default function HeaderNavBar() {
                     </div>
                     <div className="flex items-center justify-center flex-grow"> 
                       <div className="space-x-20 flex"> 
-                          <a href="#about-section" className='text-[#ffffff] font-semibold text-lg'>About Us</a>
-                          <a href="#features-section" className='text-[#ffffff] font-semibold text-lg'>Features</a>
-                          <a href="#testimonial-section" className='text-[#ffffff] font-semibold text-lg'>Testimonials</a>
-                          <a href="#about-section" className='text-[#ffffff] font-semibold text-lg'>Contact Us</a>
+                          <a href="#about-section" className='font-medium text-gray-400 hover:text-gray-200 text-lg'>About Us</a>
+                          <a href="#features-section" className='font-medium text-gray-400 hover:text-gray-200 text-lg'>Features</a>
+                          <a href="#testimonial-section" className='font-medium text-gray-400 hover:text-gray-200 text-lg'>Testimonials</a>
+                          <a href="#about-section" className='font-medium text-gray-400 hover:text-gray-200 text-lg'>Contact Us</a>
                       </div>
                     </div>
                     <div className="relative px-2 flex items-center">
                       <a href="/login">
                         <button
-                          className=" px-3 pb-[8px] pt-[10px] text-sm font-bold text-neutral-50 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200"
+                          className=" px-3 pb-[8px] pt-[10px] text-sm font-medium text-neutral-50 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200"
                           >
                           Sign In
                         </button>
                       </a>
                       <a href="/register">
                         <button
-                          className="rounded border-2 border-neutral-50 px-2 pb-[5px] pt-[5px] text-sm font-bold text-neutral-50  hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200"
+                          className="rounded border-2 border-neutral-50 px-2 pb-[5px] pt-[5px] text-sm font-medium text-neutral-50  hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200"
                           >
                           Register
                         </button>
