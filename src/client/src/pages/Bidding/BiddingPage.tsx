@@ -6,7 +6,6 @@ import { formatCurrency } from '../../utils/formatCurrency';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
-
 type Product = {
   id: number
   name: string,
@@ -80,7 +79,7 @@ function BiddingPage({}: any) {
     <div className="flex bg-darkestGrey text-white overflow-clip">
       <Menu />
       <div>
-        <button className="bg-darkGrey text-white text-center ml-8 mt-8 font rounded-lg text-2xl p-3 space-y-5">{"<"}</button>
+        <button className="bg-darkGrey text-white text-center ml-8 mt-8 font rounded-lg text-2xl p-3 space-y-5" onClick={() => navigate('/product/' + product.id)}>{"<"}</button>
       </div>
       <div className="bg-darkestGrey text-white h-screen w-3/4 mx-auto my-20 space-y-5">
         <h1 className="text-4xl font-semibold">Art Name</h1>
@@ -89,14 +88,21 @@ function BiddingPage({}: any) {
           <p className="text-2xl font-semibold mx-8">{product.artist}</p>
         </div>
 
-        <img className="h-1/3 w-full object-cover" src={product.imageSrc} alt="Preview Art" />
+        <img className="h-1/3 w-full object-cover rounded-lg" src={product.imageSrc} alt="Preview Art" />
         <div className="bg-darkGrey rounded-lg p-5 space-y-5">
-          <p className="text-xl font-semibold mb-40">{descriptionPanel.description}</p>
+          <p className="text-xl font-semibold">
+            {descriptionPanel.description}
+          </p>
+          <p className="text-md font-semibold">
+            Product Rarity: {product.rarity} <br/>
+            Product Medium: {product.medium} <br/>
+            Product Material: {product.material}
+          </p>
           <p className="text-xl font-semibold">{formatCurrency(product.price)}</p>
         </div>
         <div className="rounded-lg p-5 space-y-5 my-auto">
           <div className="flex justify-between ml-20 mr-40 space-x-4 md:space-x-16 text-xl">
-            <button className="bg-white text-black text-center rounded-xl p-4">Purchase for myself</button>
+            <button className="bg-white text-black text-center rounded-xl p-4" onClick={() => navigate('/product/' + product.id)}>Purchase for myself</button>
             <button className="bg-white text-black text-center rounded-xl p-4" onClick={ () => handleArtworkClick(product.id)}>Place Bid</button>
             <button className="bg-white text-black text-center rounded-xl p-4">Purchase as a gift</button>
           </div>

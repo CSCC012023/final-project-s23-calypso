@@ -1,4 +1,4 @@
-//ROuting for the bidding endpoints
+//Routing for the bidding endpoints
 
 const express = require('express');
 const bid = express.Router();

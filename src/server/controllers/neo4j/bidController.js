@@ -52,7 +52,6 @@ const postBid = async (req, res) => {
       const bid = req.body;
       if (!bid) throw { message: "No bid provided", status: 400 }
       console.log("Reached bid controller")
-      console.log(bid);
       const result = await bidModel.postBid(dbUtils.getSession(req), bid);
       res.json(result);
     }

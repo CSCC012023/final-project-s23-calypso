@@ -37,21 +37,30 @@ const getHighestBid = async (session, productId) => {
 };
 
 const postBid = async (session, bid) => {
-    console.log("Reached bidmodel")
-    const query = [
+    try {
+      console.log("Reached bidmodel");
+      const query = [
         `CREATE (a: Bid {
             id: ${bid.id},
             productId: ${bid.productId},
             userId: ${bid.userId},
-            amount: ${bid.amount},
-            startingPrice: ${bid.startingPrice}
+            amount: ${bid.bidAmount},
+            startingPrice: ${bid.startingBid}
         })`,
-        `RETURN a`
-    ].join('\n');
-    const result = await session.run(query);
-    if (result.records.length === 0) return null;
-    return result.records[0].get('a').properties;
-}
+        `RETURN a`,
+      ].join("\n");
+      const result = await session.run(query);
+      if (result.records.length === 0) return null;
+      let x = result.records[0].get('a').properties;
+      console.log("data:" + x);
+      return result.records[0].get('a').properties;
+    } catch (error) {
+      // Handle any errors that occur during the database operation
+      console.error("Error posting bid:", error);
+      throw { message: "Error posting bid", status: 500 };
+    }
+  };
+  
 
 const deleteBid = async (session, id) => {
     const query = [

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { formatCurrency } from '../../utils/formatCurrency';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 
 type Product = {
@@ -36,11 +37,12 @@ interface QueryParams {
 function BiddingPurchasePage({}: any) {
 
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [product, setProduct] = useState<Product | null>(null);
   const [product2, setProduct2] = useState<Product | null>(null);
   const [bidData, setBidData] = useState<bid | null>(null);
   const [bidAmount, setBidAmount] = useState<string>('');
+  const [clicked, setClicked] = useState<boolean>(false);
 
   const getArtworkById = async (queryParams: QueryParams) => {
     axios.get(`http://localhost:8080/api/v0/artworks/id/${id}`, {
@@ -60,27 +62,48 @@ function BiddingPurchasePage({}: any) {
     if (bidData == null) {
       return;
     }
-    console.log("The data is:");
-    console.log(bidData);
-    console.log("TEST");
-    axios.post(`http://localhost:8080/api/v0/bid/post`, 
-        bidData
-    )
-        .then(response => {
-            const data = response.data;
-            // setProduct(data);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            console.log(bidData);
-        });
-        
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/v0/bid/post",
+        bidData ,
+        {
+          headers: {
+            "Content-Type": "application/json", // Set the Content-Type header to indicate JSON data
+          },
+        }
+      );
+      const data = response.data;
+      // setProduct(data);
+    } catch (error: any) {
+      console.error("Error fetching data:", error.response.data);
+    }
   };
 
-  const handleBid = async (id: number, productId: number, userId: number, bidAmount: number, startingBid: number) => {
-    setBidData({id: id, productId: productId, userId: userId, bidAmount: bidAmount, startingBid: startingBid});
-    await postBid();
-  }
+  useEffect(() => {
+    if (bidAmount !== "") {
+      setBidData((prevBidData) => ({
+        ...prevBidData as any,
+        bidAmount: bidAmount,
+      }));
+    }
+  }, [bidAmount]);
+
+  const handleBid = (id: number, productId: number, userId: number, bidAmount: string, startingBid: number) => {
+    if (bidAmount !== "") {
+      const updatedBidData = {
+        id: id,
+        productId: productId,
+        userId: userId,
+        bidAmount: parseInt(bidAmount),
+        startingBid: startingBid,
+      };
+      setBidData(updatedBidData); // Update state, if needed for other purposes
+      postBid();
+    } else {
+      console.error('Invalid bid amount');
+    }
+  };
 
   // Fetch artwork details when the component mounts
   useEffect(() => {
@@ -114,7 +137,7 @@ function BiddingPurchasePage({}: any) {
       <Menu />
       <div className="bg-darkestGrey text-white h-screen w-full px-10 mx-auto py-10 space-y-5 overflow-scroll">
         <div>
-          <a href="/bidding" className="bg-darkGrey text-white text-center font rounded-lg text-2xl px-2 py-2 space-y-5">{"<"}</a>
+          <button className="bg-darkGrey text-white text-center font rounded-lg text-2xl px-2 py-2 space-y-5" onClick={() => navigate('/bidding/' + product.id)}>{"<"}</button>
         </div>
         <h1 className="text-4xl font-semibold">Art Name</h1>
         <div className="flex items-center">
@@ -122,9 +145,16 @@ function BiddingPurchasePage({}: any) {
           <p className="text-2xl font-semibold mx-8"> {product.artist} </p>
         </div>
 
-        <img className="h-1/3 w-full object-cover" src={product.imageSrc} alt="Preview Art" />
+        <img className="h-1/3 w-full object-cover rounded-lg" src={product.imageSrc} alt="Preview Art" />
         <div className="bg-darkGrey rounded-lg p-5 space-y-5">
-          <p className="text-xl font-semibold mb-40">{descriptionPanel.description}</p>
+          <p className="text-xl font-semibold">
+            {descriptionPanel.description}
+          </p>
+          <p className="text-lg font-semibold">
+            Product Rarity: {product.rarity} <br/>
+            Product Medium: {product.medium} <br/>
+            Product Material: {product.material}
+          </p>
           <p className="text-xl font-semibold">{formatCurrency(product.price)}</p>
         </div>
         <div className="rounded-lg p-5 space-y-5 text-xl">
@@ -138,7 +168,7 @@ function BiddingPurchasePage({}: any) {
             value={bidAmount}
             onChange={(e) => setBidAmount(e.target.value)}
           />
-          <button className="bg-white text-black text-center rounded-xl p-4" onClick = {() => handleBid(1, product.id, 1, parseInt(bidAmount), 20)} >Place Bid</button>
+          <button className="bg-white text-black text-center rounded-xl p-4" onClick = {(e) => handleBid(1, product.id, 1, bidAmount, 20)} >Place Bid</button>
           </div>
         </div>
       </div>

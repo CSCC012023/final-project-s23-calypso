@@ -5,7 +5,7 @@ import { formatCurrency } from "../../utils/formatCurrency";
 import {useEffect, useState}  from "react";
 
 import { useShoppingCart } from "../../context/ShoppingCartContext";
-
+import { useNavigate } from 'react-router-dom';
 
 // interface Props {
 //     product: {
@@ -29,6 +29,7 @@ import { useShoppingCart } from "../../context/ShoppingCartContext";
 export default function ProductsColumn( {categoryTitle, product}: any ) {
     const { getQuantity, addItem, removeItem } = useShoppingCart()
     const quantity = getQuantity(product.id);
+    const navigate = useNavigate();
     return (
         <div className="flex space-x-12 min-w-full mr-16 items-center justify-center px-16">
             <div className="lg:max-w-7xl lg:py-8 lg:pl-24 lg:pr-16">
@@ -74,7 +75,7 @@ export default function ProductsColumn( {categoryTitle, product}: any ) {
                         - Remove from cart
                     </button> 
                     )}
-                    <button className="bg-gray-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded ml-2">
+                    <button className="bg-gray-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded ml-2" onClick={() => navigate('/bidding/' + product.id)}>
                         Place a bid
                     </button>
                 </div>
