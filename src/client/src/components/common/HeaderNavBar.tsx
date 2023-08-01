@@ -123,7 +123,7 @@ export default function HeaderNavBar() {
                   </Disclosure.Button>
                 </div>
                 {user ? (
-                  <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center space-x-2">
+                  <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:mr-2 lg:flex lg:items-center space-x-3">
                     {/* Shopping cart sidebar */}
 
                     <button
