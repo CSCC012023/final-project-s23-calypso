@@ -24,11 +24,12 @@ import TransactionPage from './pages/Transaction/TransactionPage';
 import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransactionPage';
 import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
+import MessageSearch from './pages/MessageSearch';
+import UpdatedMessagePage from './pages/MessagePage2'
 import Landing2 from './pages/Landing2';
 import SellerDashboardPage from './pages/SellerDashboardPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 
-import MessageSearch from './pages/MessageSearch';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import UserCreatedPage from './pages/UserCreatedPage';
@@ -90,7 +91,7 @@ function App() {
               <Route path="/testing" element={<TestingPage />} />
               <Route path="/testing2" element={<TestingPageNeo />} />
               <Route path="/error" element={<ErrorPage />} />
-              <Route path="/message" element={<MessagePage />} />
+              <Route path="/message" element={<UpdatedMessagePage />} />
               <Route path="/message/search" element={<MessageSearch />} />
               <Route path="/successful" element={<UserCreatedPage />} />
               
