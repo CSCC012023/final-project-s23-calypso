@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,6 +13,12 @@ function LoginPage2() {
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (cookies.token) {
+      removeCookie('token', { path: '/' });
+    }
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
