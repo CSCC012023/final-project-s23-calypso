@@ -7,7 +7,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie'
 import ErrorPage from "../Error/ErrorPage"
-import { format, parseISO, differenceInSeconds } from 'date-fns';
+import { format, parseISO, parse, differenceInSeconds } from 'date-fns';
 import HeaderNavBar from '../../components/common/HeaderNavBar';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -67,7 +67,6 @@ function BiddingPurchasePage({}: any) {
   const [artUser, setArtUser] = useState<any>(initUser); // For determining the user owning the artwork
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
-
   const [less, setLess] = useState<boolean>(false);
 
   const getArtworkById = async (queryParams: QueryParams) => {
@@ -271,7 +270,7 @@ function BiddingPurchasePage({}: any) {
           <div className="flex items-center">
             <img className="h-1/12 w-1/12 rounded-full" src={creatorPanel.img} alt="Creator" />
             <p className="text-2xl font-semibold mx-8"> {product.artist} </p>
-            <p className="text-2xl font-semibold flex-grow"> Bid Until: {bidProduct?.endDate} </p>
+            <p className="text-2xl font-semibold flex-grow"> Bid Until: {format(parse(bidProduct?.endDate, 'yyyy-MM-dd', new Date()), 'MMMM dd, yyyy')} </p>
           </div>
           <div className="flex justify-center">
             <img className="w-1/2 object-cover rounded-lg" src={product.imageSrc} alt="Preview Art" />
