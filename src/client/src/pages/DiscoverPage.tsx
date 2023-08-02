@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Menu from '../components/Menu'
-import MusicList from '../components/MusicList'
 import HeroBanner from '../components/allproducts/HeroBanner'
 import HeaderNavBar from '../components/common/HeaderNavBar'
 import Footer from '../components/common/Footer'
@@ -14,25 +12,25 @@ export default function DiscoverPage() {
     {
       name: 'Sculptures',
       bg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDAB6dPplY78j2wFW4wCxzKUuToO8WgII0Rg&usqp=CAU',
-      href:'/artworks?filter=sculpture',
+      href: '/artworks?filter=sculpture',
     },
     {
       name: 'Oil',
       bg: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c32e9ac6-a733-407e-8633-98063d432e97/dfnzmsr-11134f6c-fb51-4610-a6be-f1c0d0ed23b7.jpg/v1/fill/w_800,h_534,q_75,strp/wall_art__home_decor__oil_painting__374__by_nct_art_dfnzmsr-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTM0IiwicGF0aCI6IlwvZlwvYzMyZTlhYzYtYTczMy00MDdlLTg2MzMtOTgwNjNkNDMyZTk3XC9kZm56bXNyLTExMTM0ZjZjLWZiNTEtNDYxMC1hNmJlLWYxYzBkMGVkMjNiNy5qcGciLCJ3aWR0aCI6Ijw9ODAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.gvOgZ5FZ5g7zMcHXbxw_ftl5sw3YJNsxrwJG_BxR0g8',
-      href:'/artworks?filter=oil',
+      href: '/artworks?filter=oil',
     },
     {
       name: 'Photography',
       bg: 'https://expertphotography.b-cdn.net/wp-content/uploads/2018/07/close-up-photography-of-leaves.jpg',
-      href:'/artworks?filter=photography',
+      href: '/artworks?filter=photography',
     },
     {
       name: 'Painting',
       bg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/640px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-      href:'/artworks?filter=painting',
+      href: '/artworks?filter=painting',
     },
   ]
-  
+
   const musicCategories = [
     {
       name: 'New',
@@ -52,20 +50,21 @@ export default function DiscoverPage() {
     },
   ]
 
-  const [artworks, setArtworks] = useState([]);
+  const [artworks, setArtworks] = useState([])
 
   const getArtworks = async () => {
-      axios.get('http://localhost:8080/api/v0/artworks/all', {})
-          .then(response => {
-              const data = response.data;
-              console.log(data)
-              setArtworks(data);
-          })
-          .catch(error => {
-              console.error('Error fetching data:', error);
-          });
-  };
-  
+    axios
+      .get('http://localhost:8080/api/v0/artworks/all', {})
+      .then((response) => {
+        const data = response.data
+        console.log(data)
+        setArtworks(data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error)
+      })
+  }
+
   useEffect(() => {
     getArtworks()
     console.log(artworks)
@@ -99,9 +98,10 @@ export default function DiscoverPage() {
             <p className="text-2xl pb-3 pt-10 font-bold">
               Popular Sceneric Art
             </p>
-            <a 
-            href={'/artworks?filter=digitalmedium'}
-            className="text-lg pb-3 pt-10 font-semibold text-blue-900">
+            <a
+              href={'/artworks?filter=digitalmedium'}
+              className="text-lg pb-3 pt-10 font-semibold text-blue-900"
+            >
               View more
             </a>
           </div>
@@ -109,9 +109,20 @@ export default function DiscoverPage() {
           <div className="flex space-x-5">
             <div className="">
               <div className="flex space-x-5">
-                {artworks.filter((a: any) => { return a.style == "scenery"}).map((i: any, j) => {
-                  return j < 4 && <img src={i.imageSrc} className="h-72 w-72 object-cover" />
-                })}
+                {artworks
+                  .filter((a: any) => {
+                    return a.style == 'scenery'
+                  })
+                  .map((i: any, j) => {
+                    return (
+                      j < 4 && (
+                        <img
+                          src={i.imageSrc}
+                          className="h-72 w-72 object-cover"
+                        />
+                      )
+                    )
+                  })}
               </div>
             </div>
           </div>
@@ -124,25 +135,22 @@ export default function DiscoverPage() {
           <div className="flex">
             {artCategories.map((c, i) => {
               return (
-                  <a
-                    href={c.href}
-                    style={{ backgroundImage: `url(${c.bg})` }}
-                    className="py-5 w-1/6 mr-4 rounded-lg text-center"
-                  >
-                    <h1 className="text-center text-white text-2xl">
-                      {c.name}
-                    </h1>
-                  </a>
-                )
+                <a
+                  href={c.href}
+                  style={{ backgroundImage: `url(${c.bg})` }}
+                  className="py-5 w-1/6 mr-4 rounded-lg text-center"
+                >
+                  <h1 className="text-center text-white text-2xl">{c.name}</h1>
+                </a>
+              )
             })}
           </div>
           <div className="flex justify-between">
-            <p className="text-2xl pb-3 pt-10 font-bold">
-              Sculptures
-            </p>
-            <a 
-            href={'/artworks'}
-            className="text-lg pb-3 pt-10 font-semibold text-blue-900">
+            <p className="text-2xl pb-3 pt-10 font-bold">Sculptures</p>
+            <a
+              href={'/artworks'}
+              className="text-lg pb-3 pt-10 font-semibold text-blue-900"
+            >
               View more
             </a>
           </div>
@@ -150,19 +158,29 @@ export default function DiscoverPage() {
           <div className="flex space-x-5">
             <div className="">
               <div className="flex space-x-5">
-                {artworks.filter((a: any) => { return a.medium == "sculpture"}).map((i: any, j) => {
-                  return j < 4 && <img src={i.imageSrc} className="h-72 w-72 object-cover" />
-                })}
+                {artworks
+                  .filter((a: any) => {
+                    return a.medium == 'sculpture'
+                  })
+                  .map((i: any, j) => {
+                    return (
+                      j < 4 && (
+                        <img
+                          src={i.imageSrc}
+                          className="h-72 w-72 object-cover"
+                        />
+                      )
+                    )
+                  })}
               </div>
             </div>
           </div>
           <div className="flex justify-between">
-            <p className="text-2xl pb-3 pt-10 font-bold">
-              Photography
-            </p>
-            <a 
-            href={'/artworks'}
-            className="text-lg pb-3 pt-10 font-semibold text-blue-900">
+            <p className="text-2xl pb-3 pt-10 font-bold">Photography</p>
+            <a
+              href={'/artworks'}
+              className="text-lg pb-3 pt-10 font-semibold text-blue-900"
+            >
               View more
             </a>
           </div>
@@ -170,9 +188,20 @@ export default function DiscoverPage() {
           <div className="flex space-x-5">
             <div className="">
               <div className="flex space-x-5">
-                {artworks.filter((a: any) => { return a.style == "Photo"}).map((i: any, j) => {
-                  return j < 4 && <img src={i.imageSrc} className="h-72 w-72 object-cover" />
-                })}
+                {artworks
+                  .filter((a: any) => {
+                    return a.style == 'Photo'
+                  })
+                  .map((i: any, j) => {
+                    return (
+                      j < 4 && (
+                        <img
+                          src={i.imageSrc}
+                          className="h-72 w-72 object-cover"
+                        />
+                      )
+                    )
+                  })}
               </div>
             </div>
           </div>
@@ -182,21 +211,18 @@ export default function DiscoverPage() {
             </p>
           </div>
           <div className="flex">
-          {musicCategories.map((c, i) => {
+            {musicCategories.map((c, i) => {
               return (
-                  <a
-                    href={'/discover/' + c.name.toLowerCase()}
-                    style={{ backgroundImage: `url(${c.bg})` }}
-                    className="py-5 w-1/6 mr-4 rounded-lg text-center"
-                  >
-                    <h1 className="text-center text-white text-2xl">
-                      {c.name}
-                    </h1>
-                  </a>
-                )
+                <a
+                  href={'/discover/' + c.name.toLowerCase()}
+                  style={{ backgroundImage: `url(${c.bg})` }}
+                  className="py-5 w-1/6 mr-4 rounded-lg text-center"
+                >
+                  <h1 className="text-center text-white text-2xl">{c.name}</h1>
+                </a>
+              )
             })}
           </div>
-          
         </div>
         {/* Footer */}
         <Footer />
