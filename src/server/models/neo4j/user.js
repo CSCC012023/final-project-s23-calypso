@@ -49,7 +49,7 @@ const updateUser = async (session, id, user) => {
       n.name = '${user.name}', 
       n.description = '${user.description}', 
       n.pic = '${user.pic}', 
-      n.banner = '${user.banner},'
+      n.banner = '${user.banner}',
       n.visits = ${user.visits}`,
     'RETURN n'
   ].join('\n');
