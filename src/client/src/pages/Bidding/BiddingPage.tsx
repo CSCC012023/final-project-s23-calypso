@@ -6,6 +6,7 @@ import { formatCurrency } from '../../utils/formatCurrency';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import ErrorPage from "../Error/ErrorPage"
+import HeaderNavBar from '../../components/common/HeaderNavBar';
 
 type Product = {
   id: number
@@ -108,6 +109,10 @@ function BiddingPage({}: any) {
     return <div>Loading...</div>;
   }
 
+  const startingPriceText = bidProduct ? (
+    <p className="text-xl font-semibold">Starting Price: {formatCurrency(bidProduct?.startingBid)}</p>
+  ) : null;
+
   return (
     <div className="flex bg-darkestGrey text-white overflow-clip">
       <Menu />
@@ -132,7 +137,7 @@ function BiddingPage({}: any) {
               Product Material: {product.material}
             </p>
             <p className="text-xl font-semibold">Original Price: {formatCurrency(product.price)}</p>
-            <p className="text-xl font-semibold">Starting Price: {formatCurrency(bidProduct?.startingBid)} </p>
+            {startingPriceText}
           </div>
         </div>
         <div className="rounded-lg p-5 space-y-5 my-auto">

@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie'
 import ErrorPage from "../Error/ErrorPage"
 import { format, parseISO, differenceInSeconds } from 'date-fns';
+import HeaderNavBar from '../../components/common/HeaderNavBar';
 
 
 type Product = {
@@ -237,8 +238,12 @@ function BiddingPurchasePage({}: any) {
   }
 
   // Render loading state or error state if product is still loading or not found
-  if (!product) {
-    return <div>Loading...</div>;
+  if (!bidProduct || !product) {
+    return (
+    <div> 
+      {/* Bid Item does not exist */}
+      <ErrorPage />
+    </div>);
   }
   
 
@@ -271,13 +276,12 @@ function BiddingPurchasePage({}: any) {
               <p className="text-xl font-semibold">Starting Price: {formatCurrency(bidProduct?.startingBid)} </p>
             </div>
           </div>
-
-          <div className="rounded-lg p-4 space-y-5">
-            <p className="text-xl font-semibold ml-12  text-xl">Bid Amount</p>
+          <div className="rounded-lg p-4 space-y-3">
+            <p className="text-xl font-semibold ml-16  text-xl">Bid Amount</p>
             {less && <p className="text-red-500 text-sm ml-12">* Bid amount must be greater than 20</p>}
             <div className="flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-4 mr-24">
               <input
-                className="text-black rounded-xl p-4 ml-12 text-md"
+                className="text-black rounded-xl p-4 ml-16 text-md"
                 type="text"
                 placeholder="Enter Bid Amount"
                 pattern="[0-9]+"
