@@ -238,11 +238,20 @@ function BiddingPurchasePage({}: any) {
   }
 
   // Render loading state or error state if product is still loading or not found
-  if (!bidProduct || !product) {
+
+  if (!product) {
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  }
+
+  if (!bidProduct ) {
     return (
     <div> 
       {/* Bid Item does not exist */}
-      <ErrorPage />
+      {/* <ErrorPage /> */}
     </div>);
   }
   
