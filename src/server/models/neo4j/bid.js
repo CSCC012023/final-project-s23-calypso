@@ -13,7 +13,7 @@ const getBidById = async (session, bidId) => {
 };
 
 const getBidByProductId = async (session, productId) => {
-    let query = `MATCH (n: Bid {id: $productId}) RETURN n`;
+    let query = `MATCH (n: Bid {productId: "$productId"}) RETURN n`;
     const result = await session.run(query, { productId: productId });
 
     if (result.records.length === 0) {
@@ -52,7 +52,7 @@ const postBid = async (session, bid) => {
       const query = [
         `CREATE (a: Bid {
             id: "${bid.id}",
-            productId: ${bid.productId},
+            productId: "${bid.productId}",
             userId: "${bid.userId}",
             amount: ${bid.bidAmount}
         })`,

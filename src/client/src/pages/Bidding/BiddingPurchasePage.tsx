@@ -29,7 +29,7 @@ type Product = {
 
 type bid = {
   id: string
-  productId: number
+  productId: string
   userId: string
   bidAmount: number
 }
@@ -184,7 +184,7 @@ function BiddingPurchasePage({}: any) {
     }
   }, [bidData]);
 
-  const handleBid = (productId: number, userId: string, bidAmount: string, startingBid: number) => {
+  const handleBid = (productId: string, userId: string, bidAmount: string, startingBid: number) => {
     const parsedBidAmount = parseInt(bidAmount);
     if (parsedBidAmount < 20) { //TODO: Change this to the current bid amount instead of 20
       setLess(true);
@@ -300,7 +300,7 @@ function BiddingPurchasePage({}: any) {
                 value={bidAmount}
                 onChange={(e) => setBidAmount(e.target.value)}
               />
-              <button className="bg-white text-black text-center rounded-xl p-4 text-md" onClick = {(e) => handleBid(product.id, user.id, bidAmount, 20)} >Place Bid</button>
+              <button className="bg-white text-black text-center rounded-xl p-4 text-md" onClick = {(e) => handleBid((product.id).toString(), user.id, bidAmount, 20)} >Place Bid</button>
             </div>
           </div>
         </div>
