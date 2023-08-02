@@ -183,8 +183,6 @@ function BiddingPurchasePage({}: any) {
   }, [bidData]);
 
   const handleBid = (id: number, productId: number, userId: string, bidAmount: string, startingBid: number) => {
-    console.log(bidProduct);
-
     const parsedBidAmount = parseInt(bidAmount);
     if (parsedBidAmount < 20) { //TODO: Change this to the current bid amount instead of 20
       setLess(true);

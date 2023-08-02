@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import ErrorPage from "../Error/ErrorPage"
 
 type Product = {
   id: number
@@ -36,6 +37,8 @@ function BiddingPage({}: any) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
+  const [bidProduct, setBidProduct] = useState<bidProduct | null>(null);
+  const [pageError, setPageError] = useState<boolean>(false);
 
   const getArtworkById = async (queryParams: QueryParams) => {
     axios.get(`http://localhost:8080/api/v0/artworks/id/${id}`, {
@@ -51,12 +54,36 @@ function BiddingPage({}: any) {
         console.log(product);
   };
 
+  function getBidProduct(queryParams: QueryParams) {
+    axios.get(`http://localhost:8080/api/v0/bid/bidProduct/${id}`, { params: queryParams })
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setBidProduct(data);
+        } else {
+          setPageError(true);
+        }
+      })
+      .catch(err => setPageError(true));
+  }
+
+    // Fetch bid product data
+    useEffect(() => {
+      if (!product) {
+        return;
+      }
+      const queryParams: QueryParams = {};
+      getBidProduct(queryParams);
+    }, [product]);
+
   // Fetch artwork details when the component mounts
   useEffect(() => {
     const queryParams: QueryParams = {};
     // Add any query parameters if needed
     getArtworkById(queryParams);
   }, []);
+
+  
 
   // Navigates to the bidding purchase page
   const handleArtworkClick = (artworkId: number) => {
@@ -105,7 +132,7 @@ function BiddingPage({}: any) {
               Product Material: {product.material}
             </p>
             <p className="text-xl font-semibold">Original Price: {formatCurrency(product.price)}</p>
-            <p className="text-xl font-semibold">Starting Price: </p>
+            <p className="text-xl font-semibold">Starting Price: {formatCurrency(bidProduct?.startingBid)} </p>
           </div>
         </div>
         <div className="rounded-lg p-5 space-y-5 my-auto">
