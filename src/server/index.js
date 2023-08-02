@@ -18,6 +18,8 @@ require('dotenv').config();
 const connection = require("./mongodb");
 connection();
 
+
+
 //Initialize the express server
 const express = require('express');
 const app = express();
@@ -25,6 +27,9 @@ const cors = require("cors");
 console.log("App listen at port 8080");
 app.use(express.json());
 app.use(cors());
+
+const stripe = require("./routes/stripe");
+app.use("/api/stripe",stripe);
 
 app.use('/api/texts/', require('./routes/text'));
 app.use('/api/users/', require('./routes/user'));

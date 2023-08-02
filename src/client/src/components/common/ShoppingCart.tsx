@@ -6,7 +6,11 @@ import React from 'react';
 import { CartItem } from './CartItem';
 import sampleProductImage2 from '../../assets/sampleProductImage2.jpg';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import axios from 'axios';
+import {useSelector} from "react-redux";
+import PayButton from './PayButton';
 
+const YOUR_DOMAIN = 'http://localhost:3000';
 
 type CartItem = {
   id: number;
@@ -61,11 +65,12 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
         </Stack>
       </Offcanvas.Body>
       <div className="flex justify-end">
-        <a href="/checkout">
-          <button className="bg-gray-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4 mb-4">
+        {/* <a href="/checkout"> */}
+          {/* <button className="bg-gray-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4 mb-4" onClick={() => handleCheckout()}>
             Checkout
-          </button>
-        </a>
+          </button> */}
+          <PayButton ShoppingCartItems = {cartItems}/>
+        {/* </a> */}
       </div>
     </Offcanvas>
   );

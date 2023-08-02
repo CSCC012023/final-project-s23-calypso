@@ -66,7 +66,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/product/:id" element={<ProductPage/>} />
               <Route path="/transaction" element={<TransactionPage />} />
-              <Route path="/transaction/success" element = {<SuccessfulTransactionPage/>} />
+              <Route path="/checkout-success" element = {<SuccessfulTransactionPage/>} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/testing" element={<TestingPage />} />
               <Route path="/testing2" element={<TestingPageNeo />} />
