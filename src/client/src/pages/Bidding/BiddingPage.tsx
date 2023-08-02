@@ -138,7 +138,11 @@ function BiddingPage({}: any) {
         <div className="rounded-lg p-5 space-y-5 my-auto">
           <div className="flex justify-between ml-20 mr-40 space-x-4 md:space-x-16 text-md">
             <button className="bg-white text-black text-center rounded-xl p-4" onClick={() => navigate('/product/' + product.id)}>Purchase for myself</button>
-            <button className="bg-white text-black text-center rounded-xl p-4" onClick={ () => handleArtworkClick(product.id)}>Place Bid</button>
+            {bidProduct ? (
+              <button className="bg-white text-black text-center rounded-xl p-4" onClick={() => handleArtworkClick(product.id)}>Place Bid</button>
+            ) : (
+              <button className="bg-darkGrey text-white text-center rounded-xl p-4 cursor-not-allowed" disabled>Not up for bid</button>
+            )}
             <button className="bg-white text-black text-center rounded-xl p-4">Purchase as a gift</button>
           </div>
         </div>
