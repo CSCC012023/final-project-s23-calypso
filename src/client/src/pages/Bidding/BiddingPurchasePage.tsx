@@ -260,13 +260,13 @@ function BiddingPurchasePage({}: any) {
   
 
   return (
-    <div className="flex bg-darkestGrey text-white h-screen overflow-clip">
-      <Menu />
-      <div className="bg-darkestGrey text-white h-screen w-full px-10 mx-auto py-10 space-y-5 overflow-scroll">
-        <div>
-          <button className="bg-darkGrey text-white text-center font rounded-lg text-2xl px-3 py-2 space-y-5" onClick={() => navigate('/bidding/' + product.id)}>{"<"}</button>
+    <div className="flex flex-col bg-darkestGrey text-white h-screen overflow-clip">
+      <HeaderNavBar />
+      <div className="bg-darkestGrey text-white h-screen w-full px-10 py-10 space-y-5 overflow-scroll">
+        <div className="">
+          <button className="bg-darkGrey text-white text-center font text-sm rounded-lg px-3 py-2 space-y-5" onClick={() => navigate('/bidding/' + product.id)}>{"Go Back"}</button>
         </div>
-        <div className="ml-6 space-y-3">
+        <div className="ml-24 space-y-3">
           <h1 className="text-4xl font-semibold">{product.name}</h1>
           <div className="flex items-center">
             <img className="h-1/12 w-1/12 rounded-full" src={creatorPanel.img} alt="Creator" />
