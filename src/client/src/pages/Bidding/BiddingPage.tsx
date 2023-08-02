@@ -22,6 +22,12 @@ type Product = {
 
 }
 
+type bidProduct = {
+  id: number // Synonymous with the product id
+  startingBid: number
+  endDate: string
+}
+
 interface QueryParams {
   [key: string]: string[];
 }

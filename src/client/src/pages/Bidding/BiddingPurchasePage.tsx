@@ -7,6 +7,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie'
 import ErrorPage from "../Error/ErrorPage"
+import { format, parseISO, differenceInSeconds } from 'date-fns';
 
 
 type Product = {
@@ -27,9 +28,14 @@ type Product = {
 type bid = {
   id: number
   productId: number
-  userId: number
+  userId: string
   bidAmount: number
+}
+
+type bidProduct = {
+  id: number // Synonymous with the product id
   startingBid: number
+  endDate: string
 }
 
 interface QueryParams {
@@ -53,7 +59,7 @@ function BiddingPurchasePage({}: any) {
   const [bidData, setBidData] = useState<bid | null>(null);
   const [bidAmount, setBidAmount] = useState<string>('');
   const [clicked, setClicked] = useState<boolean>(false);
-
+  const [bidProduct, setBidProduct] = useState<bidProduct | null>(null);
   const [pageError, setPageError] = useState<boolean>(false);
   const [user, setUser] = useState<any>(initUser); // For determining the current user
   const [artUser, setArtUser] = useState<any>(initUser); // For determining the user owning the artwork
@@ -96,6 +102,19 @@ function BiddingPurchasePage({}: any) {
         if (response.status === 200) {
           const data = response.data;
           setArtUser(data);
+        } else {
+          setPageError(true);
+        }
+      })
+      .catch(err => setPageError(true));
+  }
+
+  function getBidProduct(queryParams: QueryParams) {
+    axios.get(`http://localhost:8080/api/v0/bid/bidProduct/${id}`, { params: queryParams })
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setBidProduct(data);
         } else {
           setPageError(true);
         }
@@ -163,7 +182,9 @@ function BiddingPurchasePage({}: any) {
     }
   }, [bidData]);
 
-  const handleBid = (id: number, productId: number, userId: number, bidAmount: string, startingBid: number) => {
+  const handleBid = (id: number, productId: number, userId: string, bidAmount: string, startingBid: number) => {
+    console.log(bidProduct);
+
     const parsedBidAmount = parseInt(bidAmount);
     if (parsedBidAmount < 20) { //TODO: Change this to the current bid amount instead of 20
       setLess(true);
@@ -178,7 +199,6 @@ function BiddingPurchasePage({}: any) {
         productId: productId,
         userId: userId,
         bidAmount: parseInt(bidAmount),
-        startingBid: startingBid,
       };
       setBidData(updatedBidData); // Update state, if needed for other purposes
     } else {
@@ -192,6 +212,15 @@ function BiddingPurchasePage({}: any) {
     // Add any query parameters if needed
     getArtworkById(queryParams);
   }, []);
+
+  // Fetch bid product data
+  useEffect(() => {
+    if (!product) {
+      return;
+    }
+    const queryParams: QueryParams = {};
+    getBidProduct(queryParams);
+  }, [product]);
 
 
 
@@ -227,6 +256,7 @@ function BiddingPurchasePage({}: any) {
           <div className="flex items-center">
             <img className="h-1/12 w-1/12 rounded-full" src={creatorPanel.img} alt="Creator" />
             <p className="text-2xl font-semibold mx-8"> {product.artist} </p>
+            <p className="text-2xl font-semibold flex-grow"> Bid Until: {bidProduct?.endDate} </p>
           </div>
           <div className="flex justify-center">
             <img className="w-1/2 object-cover rounded-lg" src={product.imageSrc} alt="Preview Art" />
@@ -240,7 +270,7 @@ function BiddingPurchasePage({}: any) {
                 Product Material: {product.material}
               </p>
               <p className="text-xl font-semibold">Original Price: {formatCurrency(product.price)}</p>
-              <p className="text-xl font-semibold">Starting Price: </p>
+              <p className="text-xl font-semibold">Starting Price: {formatCurrency(bidProduct?.startingBid)} </p>
             </div>
           </div>
 

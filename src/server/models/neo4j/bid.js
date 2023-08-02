@@ -36,6 +36,17 @@ const getHighestBid = async (session, productId) => {
     return bid;
 };
 
+const getBidProduct = async (session, id) => {
+  let query = `MATCH (n: BidProduct {productId: $id}) RETURN n`;
+  const result = await session.run(query, {id: id});
+  if (result.records.length === 0) {
+    return null; // Artwork not found
+  }
+  const bid = result.records[0].get('n').properties;
+
+  return bid;
+};
+
 const postBid = async (session, bid) => {
     try {
       const query = [
@@ -44,7 +55,7 @@ const postBid = async (session, bid) => {
             productId: ${bid.productId},
             userId: "${bid.userId}",
             amount: ${bid.bidAmount},
-            startingPrice: ${bid.startingBid}
+            startingBid: ${bid.startingBid}
         })`,
         `RETURN a`,
       ].join("\n");
@@ -66,10 +77,8 @@ const postBidProduct = async (session, bidProduct) => {
         const query = [
           `CREATE (a: BidProduct {
               id: ${bidProduct.id},
-              productId: ${bidProduct.productId},
-              startingPrice: ${bidProduct.startingBid},
-              highestBid: ${bidProduct.highestBid},
-              endDate: ${bidProduct.endDate}
+              startingBid: ${bidProduct.startingBid},
+              endDate: "${bidProduct.endDate}"
           })`,
           `RETURN a`,
         ].join("\n");
@@ -100,6 +109,7 @@ module.exports = {
     getBidById,
     getHighestBid,
     getBidByProductId,
+    getBidProduct,
     postBid,
     postBidProduct,
     deleteBid
