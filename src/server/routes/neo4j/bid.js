@@ -23,4 +23,6 @@ bid.post('/post/product/:id', bidController.postBidProduct);
 
 bid.delete('/delete/:id', bidController.deleteBid);
 
+bid.delete('/delete/product/:id', bidController.deleteBidProduct);
+
 module.exports = bid;

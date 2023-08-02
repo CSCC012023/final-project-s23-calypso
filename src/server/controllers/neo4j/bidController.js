@@ -113,6 +113,22 @@ const deleteBid = async (req, res) => {
     }
   }
 
+const deleteBidProduct = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!id) throw { message: "No bid product id provided", status: 400 }
+    const result = await artworkModel.deleteBid(dbUtils.getSession(req), id);
+    res.json(result);
+  }
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+  }
+
 module.exports = {
     getBidById,
     getBidByProductId,
@@ -120,5 +136,6 @@ module.exports = {
     getBidProduct,
     postBid,
     postBidProduct,
-    deleteBid
+    deleteBid,
+    deleteBidProduct
 }

@@ -51,7 +51,7 @@ const postBid = async (session, bid) => {
     try {
       const query = [
         `CREATE (a: Bid {
-            id: ${bid.id},
+            id: "${bid.id}",
             productId: ${bid.productId},
             userId: "${bid.userId}",
             amount: ${bid.bidAmount}
@@ -92,7 +92,15 @@ const postBidProduct = async (session, bidProduct) => {
         throw { message: "Error posting bid product", status: 500 };
       }
     };
-  
+
+const deleteBidProduct = async (session, id) => {
+    const query = [
+      `MATCH (a: BidProduct {id: ${id}})`,
+      `DETACH DELETE a`,
+      `RETURN a`
+  ].join('\n');
+  await session.run(query);
+  }
 
 const deleteBid = async (session, id) => {
     const query = [
@@ -111,5 +119,6 @@ module.exports = {
     getBidProduct,
     postBid,
     postBidProduct,
-    deleteBid
+    deleteBid,
+    deleteBidProduct
 }

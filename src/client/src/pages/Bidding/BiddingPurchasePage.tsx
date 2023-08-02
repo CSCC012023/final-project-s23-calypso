@@ -9,6 +9,7 @@ import { useCookies } from 'react-cookie'
 import ErrorPage from "../Error/ErrorPage"
 import { format, parseISO, differenceInSeconds } from 'date-fns';
 import HeaderNavBar from '../../components/common/HeaderNavBar';
+import { v4 as uuidv4 } from 'uuid';
 
 
 type Product = {
@@ -27,7 +28,7 @@ type Product = {
 }
 
 type bid = {
-  id: number
+  id: string
   productId: number
   userId: string
   bidAmount: number
@@ -52,7 +53,7 @@ const initUser = {
 }
 
 function BiddingPurchasePage({}: any) {
-
+  const uniqueId = uuidv4();
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState<Product | null>(null);
@@ -183,7 +184,7 @@ function BiddingPurchasePage({}: any) {
     }
   }, [bidData]);
 
-  const handleBid = (id: number, productId: number, userId: string, bidAmount: string, startingBid: number) => {
+  const handleBid = (productId: number, userId: string, bidAmount: string, startingBid: number) => {
     const parsedBidAmount = parseInt(bidAmount);
     if (parsedBidAmount < 20) { //TODO: Change this to the current bid amount instead of 20
       setLess(true);
@@ -192,9 +193,11 @@ function BiddingPurchasePage({}: any) {
       setLess(false); // Reset the error message when the bid amount is valid
     }
 
+    const uniqueId = uuidv4();
+
     if (bidAmount !== "") {
       const updatedBidData = {
-        id: id,
+        id: uniqueId,
         productId: productId,
         userId: userId,
         bidAmount: parseInt(bidAmount),
@@ -297,7 +300,7 @@ function BiddingPurchasePage({}: any) {
                 value={bidAmount}
                 onChange={(e) => setBidAmount(e.target.value)}
               />
-              <button className="bg-white text-black text-center rounded-xl p-4 text-md" onClick = {(e) => handleBid(1, product.id, user.id, bidAmount, 20)} >Place Bid</button>
+              <button className="bg-white text-black text-center rounded-xl p-4 text-md" onClick = {(e) => handleBid(product.id, user.id, bidAmount, 20)} >Place Bid</button>
             </div>
           </div>
         </div>
