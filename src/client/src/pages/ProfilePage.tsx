@@ -288,7 +288,7 @@ function ProfilePage() {
       <div className="flex flex-col bg-darkestGrey">
         <HeaderNavBar />
         <div className="w-full min-h-screen">
-          <div className="w-full px-4 py-10 sm:px-6 lg:px-10">
+          <div className="w-full px-0 py-0 sm:px-6 lg:px-10">
             <UserCard user={user} updateUser={updateUser} isLoggedIn={isLoggedIn} />
           </div>
           <div className="w-full mx-auto px-4 py-16 sm:px-6 sm:py-10 lg:px-10">

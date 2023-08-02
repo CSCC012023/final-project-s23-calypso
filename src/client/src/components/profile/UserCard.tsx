@@ -50,19 +50,19 @@ function UserCard({ user, updateUser, isLoggedIn }: Props) {
   }
 
   return (
-    <div className="flex flex-row h-64 rounded-3xl overflow-hidden justify-between relative shadow-lg">
-      <img className="h-full w-full object-cover absolute z-0" src={user.banner} alt="User Banner" />
+    <div className="flex flex-row h-64 rounded-sm overflow-hidden justify-between relative shadow-lg">
+      <img className="h-full w-full object-cover absolute z-0" src={user.banner} style={{ opacity: 0.4 }} alt="User Banner" />
       <div className="flex flex-row overflow-hidden md:items-center z-10 p-6 space-x-5 lg:p-10 lg:space-x-10">
-        <img className="border-2 object-cover flex items-center justify-center w-14 h-14 my-4 md:h-20 md:w-20 lg:h-32 lg:w-32 rounded-full"
+        <img className="border-4 object-cover flex items-center justify-center w-14 h-14 my-4 md:h-20 md:w-20 lg:h-36 lg:w-36 rounded-full"
           src={user.pic} alt="Profile Picture" />
         <div className="">
-          <p className="font-mono text-7xl font-bold text-white text-ellipsis overflow-hidden whitespace-nowrap">{user.username}</p>
-          <p className="font-sans text-xl break-words text-white">{user.description}</p>
+          <p className=" text-7xl font-semi-bold text-white text-ellipsis overflow-hidden whitespace-nowrap">{user.username}</p>
+          <p className="text-xl break-words text-white">{user.description}</p>
         </div>
       </div>
       {isLoggedIn ? (
         <div className="flex flex-col justify-end p-8 z-10">
-          <button className="w-12 h-12 lg:w-40 rounded-full justify-center items-center shadow-md bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-700 hover:to-blue-700 active:from-violet-800 active:to-blue-800 text-lg font-mono text-gray-300 font-semibold hover:text-white focus:outline-none focus:ring focus:ring-violet-300"
+          <button className="w-40 h-10  rounded justify-center items-center shadow-md bg-[#ffffff] text-medium text-gray-600 font-semibold hover:text-black focus:outline-none hover:bg-[#bab9b9]"
             onClick={() => setProfileEditIsOpen(true)}>
             <p className="hidden lg:inline-block">Edit Profile</p>
             <div className="flex lg:hidden justify-center">
