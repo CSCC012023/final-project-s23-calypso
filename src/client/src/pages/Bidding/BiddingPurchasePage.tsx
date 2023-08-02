@@ -55,8 +55,8 @@ function BiddingPurchasePage({}: any) {
   const [clicked, setClicked] = useState<boolean>(false);
 
   const [pageError, setPageError] = useState<boolean>(false);
-  const [user, setUser] = useState<any>(initUser);
-  const [artUser, setArtUser] = useState<any>(initUser);
+  const [user, setUser] = useState<any>(initUser); // For determining the current user
+  const [artUser, setArtUser] = useState<any>(initUser); // For determining the user owning the artwork
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
@@ -103,6 +103,37 @@ function BiddingPurchasePage({}: any) {
       .catch(err => setPageError(true));
   }
 
+    // New useEffect to fetch the current user's data
+    useEffect(() => {
+      const fetchUserData = async () => {
+        if (!cookies.token) {
+          console.log("No token found. User is not authenticated.");
+          return;
+        }
+    
+        try {
+          const { data } = await axios.post(
+            '/api/users/verify',
+            {}
+          );
+    
+          const { status, id } = data;
+          if (status) {
+            setIsLoggedIn(true);
+            getUserByID(id); // Fetch the current user's data
+          } else {
+            console.log("Token is invalid. User is not authenticated.");
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          setPageError(true); // Set an error state in case of an error
+        }
+      };
+    
+      fetchUserData();
+    }, [cookies.token, setIsLoggedIn]);
+  
+
   useEffect(() => {
     const postBid = async () => {
       if (bidData == null) {
@@ -134,8 +165,6 @@ function BiddingPurchasePage({}: any) {
 
   const handleBid = (id: number, productId: number, userId: number, bidAmount: string, startingBid: number) => {
     const parsedBidAmount = parseInt(bidAmount);
-    console.log(user);
-    console.log(product);
     if (parsedBidAmount < 20) { //TODO: Change this to the current bid amount instead of 20
       setLess(true);
       return;
@@ -157,7 +186,6 @@ function BiddingPurchasePage({}: any) {
     }
   };
 
-
   // Fetch artwork details when the component mounts
   useEffect(() => {
     const queryParams: QueryParams = {};
@@ -165,33 +193,7 @@ function BiddingPurchasePage({}: any) {
     getArtworkById(queryParams);
   }, []);
 
-  useEffect(() => {
-    getUserByUsername(product?.artist);
-  }, [product]);
 
-
-  // Verify user  is logged in
-  useEffect(() => {
-    const verify = async () => {
-      if (!cookies.token) {
-        navigate("/login");
-      }
-
-      const { data } = await axios.post(
-        "http://localhost:8080//api/users/verify", {}
-      );
-
-      const { status, id } = data;
-      if (status) {
-        setIsLoggedIn(true);
-        getUserByID(id);
-      } else {
-        removeCookie('token');
-        navigate("/login");
-      }
-      verify();
-    }
-  }, [removeCookie]);
 
   const previewArtPanel = {
     img: require("../../assets/previewArt.jpg"),
@@ -254,7 +256,7 @@ function BiddingPurchasePage({}: any) {
                 value={bidAmount}
                 onChange={(e) => setBidAmount(e.target.value)}
               />
-              <button className="bg-white text-black text-center rounded-xl p-4 text-md" onClick = {(e) => handleBid(1, product.id, 1, bidAmount, 20)} >Place Bid</button>
+              <button className="bg-white text-black text-center rounded-xl p-4 text-md" onClick = {(e) => handleBid(1, product.id, user.id, bidAmount, 20)} >Place Bid</button>
             </div>
           </div>
         </div>

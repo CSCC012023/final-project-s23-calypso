@@ -42,7 +42,7 @@ const postBid = async (session, bid) => {
         `CREATE (a: Bid {
             id: ${bid.id},
             productId: ${bid.productId},
-            userId: ${bid.userId},
+            userId: "${bid.userId}",
             amount: ${bid.bidAmount},
             startingPrice: ${bid.startingBid}
         })`,
