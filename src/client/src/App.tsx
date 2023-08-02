@@ -11,7 +11,7 @@ import LoginPageUpdate from './pages/LoginPage2';
 import ProductPage from './pages/ProductPage';
 import RegisterPage from './pages/RegisterPage';
 import RegisterPageUpdate from './pages/RegisterPage2';
-import TrendingPage from './pages/Discover/TrendingPage';
+import TrendingPage from './pages/TrendingPage';
 import DealsPage from './pages/Discover/DealsPage';
 import BeatsPage from './pages/Discover/BeatsPage';
 import SceneryPage from './pages/Discover/SceneryPage';
