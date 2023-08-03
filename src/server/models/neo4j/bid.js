@@ -75,7 +75,7 @@ const postBidProduct = async (session, bidProduct) => {
         console.log("Reached bidmodel");
         const query = [
           `CREATE (a: BidProduct {
-              id: ${bidProduct.id},
+              productId: "${bidProduct.id}",
               startingBid: ${bidProduct.startingBid},
               endDate: "${bidProduct.endDate}"
           })`,
@@ -95,7 +95,7 @@ const postBidProduct = async (session, bidProduct) => {
 
 const deleteBidProduct = async (session, id) => {
     const query = [
-      `MATCH (a: BidProduct {id: ${id}})`,
+      `MATCH (a: BidProduct {productId: "${id}"})`,
       `DETACH DELETE a`,
       `RETURN a`
   ].join('\n');
