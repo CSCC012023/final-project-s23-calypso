@@ -7,7 +7,7 @@ import axios from 'axios'
 
 
 
-const userID = 'arielle';
+const userID = 'Arielle';
 
 function SellerDashboardPage() {
     const [artworks, setArtworks] = useState([]);
