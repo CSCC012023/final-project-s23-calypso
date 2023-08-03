@@ -7,7 +7,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie'
 import ErrorPage from "../Error/ErrorPage"
-import { format, parseISO, parse, differenceInSeconds } from 'date-fns';
+import { format, parseISO, parse, differenceInSeconds, isAfter } from 'date-fns';
 import HeaderNavBar from '../../components/common/HeaderNavBar';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -265,12 +265,20 @@ function BiddingPurchasePage({}: any) {
         <div className="">
           <button className="bg-darkGrey text-white text-center font text-sm rounded-lg px-3 py-2 space-y-5" onClick={() => navigate('/bidding/' + product.id)}>{"Go Back"}</button>
         </div>
-        <div className="ml-24 space-y-3">
-          <h1 className="text-4xl font-semibold">{product.name}</h1>
+        <div className="ml-28 space-y-3">
+          <h1 className="text-5xl font-semibold">{product.name}</h1>
           <div className="flex items-center">
             <img className="h-1/12 w-1/12 rounded-full" src={creatorPanel.img} alt="Creator" />
             <p className="text-2xl font-semibold mx-8"> {product.artist} </p>
-            <p className="text-2xl font-semibold flex-grow"> Bid Until: {format(parse(bidProduct?.endDate, 'yyyy-MM-dd', new Date()), 'MMMM dd, yyyy')} </p>
+            {bidProduct && isAfter(new Date(), parse(bidProduct.endDate, 'yyyy-MM-dd', new Date())) ? (
+            <p className="text-2xl font-semibold flex-grow text-red-300">
+              Bidding Closed Time Up!
+            </p>
+            ) : (
+              <p className="text-2xl font-semibold flex-grow">
+                Bid Until: {format(parse(bidProduct.endDate, 'yyyy-MM-dd', new Date()), 'MMMM dd, yyyy')}
+              </p>
+            )}
           </div>
           <div className="flex justify-center">
             <img className="w-1/2 object-cover rounded-lg" src={product.imageSrc} alt="Preview Art" />
@@ -292,14 +300,20 @@ function BiddingPurchasePage({}: any) {
             {less && <p className="text-red-500 text-sm ml-12">* Bid amount must be greater than 20</p>}
             <div className="flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-4 mr-24">
               <input
-                className="text-black rounded-xl p-4 ml-16 text-md"
+                className={`rounded-xl p-4 ml-16 text-md ${isAfter(new Date(), parse(bidProduct?.endDate, 'yyyy-MM-dd', new Date())) ? 'text-gray-400 cursor-not-allowed' : 'text-black'}`}
                 type="text"
-                placeholder="Enter Bid Amount"
+                placeholder={isAfter(new Date(), parse(bidProduct?.endDate, 'yyyy-MM-dd', new Date())) ? "Bidding Closed" : "Enter Bid Amount"}
                 pattern="[0-9]+"
-                value={bidAmount}
+                value={isAfter(new Date(), parse(bidProduct?.endDate, 'yyyy-MM-dd', new Date())) ? "Bidding Closed" : bidAmount}
                 onChange={(e) => setBidAmount(e.target.value)}
               />
-              <button className="bg-white text-black text-center rounded-xl p-4 text-md" onClick = {(e) => handleBid((product.id).toString(), user.id, bidAmount, bidProduct?.startingBid)} >Place Bid</button>
+              <button
+                className={`bg-white text-black text-center rounded-xl p-4 text-md ${isAfter(new Date(), parse(bidProduct?.endDate, 'yyyy-MM-dd', new Date())) ? 'cursor-not-allowed' : ''}`}
+                onClick={(e) => handleBid((product.id).toString(), user.id, bidAmount, bidProduct?.startingBid)}
+                disabled={isAfter(new Date(), parse(bidProduct?.endDate, 'yyyy-MM-dd', new Date()))}
+              >
+                Place Bid
+              </button>
             </div>
           </div>
         </div>
