@@ -68,7 +68,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
             {/* <button >
               Checkout
             </button> */}
-            <PayButton ShoppingCartItems = {cartItems}/>
+            <PayButton/>
           </div>
         </CContainer>
       </COffcanvasBody>
