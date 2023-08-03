@@ -5,6 +5,7 @@ import { CartItem } from './CartItem';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { COffcanvas, COffcanvasHeader, COffcanvasTitle, COffcanvasBody, CButton, CCloseButton, CContainer, CListGroup, CListGroupItem } from '@coreui/react';
 import './shoppingcart.css'; // Import the custom CSS file
+import PayButton from './PayButton';
 
 type CartItem = {
   id: number;
@@ -64,9 +65,10 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
             Total: {formatCurrency(totalPrice)}
           </div>
           <div className="mt-4 flex justify-end">
-            <button color="dark" className="font-bold py-2 px-4 rounded border-2 border-black hover:text-white hover:bg-black">
+            {/* <button >
               Checkout
-            </button>
+            </button> */}
+            <PayButton ShoppingCartItems = {cartItems}/>
           </div>
         </CContainer>
       </COffcanvasBody>

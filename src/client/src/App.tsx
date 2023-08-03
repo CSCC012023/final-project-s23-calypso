@@ -22,6 +22,7 @@ import TransactionPage from './pages/Transaction/TransactionPage';
 import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransactionPage';
 import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
+import store from 'react-redux';
 
 
 import MessageSearch from './pages/MessageSearch';
@@ -73,7 +74,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/product/:id" element={<ProductPage/>} />
               <Route path="/transaction" element={<TransactionPage />} />
-              <Route path="/transaction/success" element = {<SuccessfulTransactionPage/>} />
+              <Route path="/checkout-success" element = {<SuccessfulTransactionPage/>} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/testing" element={<TestingPage />} />
               <Route path="/testing2" element={<TestingPageNeo />} />

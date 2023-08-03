@@ -35,4 +35,4 @@ router.post('/create-checkout-session', async (req, res) => {
   res.send(303,{url: session.url });
 });
 module.exports = router;
-app.listen(4242, () => console.log('Running on port 8080'));
+app.listen(4242, () => console.log('Running on port 4242'));
