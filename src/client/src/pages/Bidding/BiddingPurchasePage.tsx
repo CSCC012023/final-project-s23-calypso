@@ -299,7 +299,7 @@ function BiddingPurchasePage({}: any) {
                 value={bidAmount}
                 onChange={(e) => setBidAmount(e.target.value)}
               />
-              <button className="bg-white text-black text-center rounded-xl p-4 text-md" onClick = {(e) => handleBid((product.id).toString(), user.id, bidAmount, 20)} >Place Bid</button>
+              <button className="bg-white text-black text-center rounded-xl p-4 text-md" onClick = {(e) => handleBid((product.id).toString(), user.id, bidAmount, bidProduct?.startingBid)} >Place Bid</button>
             </div>
           </div>
         </div>
