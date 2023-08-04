@@ -292,7 +292,7 @@ function BiddingPurchasePage({}: any) {
               <p className="text-xl font-semibold">
                 Details:
               </p>
-              <p className="text-md opacity">
+              <p className="text-md opacity ml-4">
                 Product Rarity: {product.rarity} <br/>
                 Product Medium: {product.medium} <br/>
                 Product Material: {product.material}
