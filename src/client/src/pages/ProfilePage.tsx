@@ -22,6 +22,12 @@ const initUser = {
   banner: require('../assets/sampleLargeProductImage2.jpg')
 }
 
+type bidProduct = {
+  id: number // Synonymous with the product id
+  startingBid: number
+  endDate: string
+}
+
 function ProfilePage() {
   const [user, setUser] = useState<any>(initUser);
   const [artworks, setArtworks] = useState<any[]>([]);
@@ -253,6 +259,23 @@ function ProfilePage() {
       .catch(err => console.log(err));
   }
 
+  function addBidProduct(bidProduct: bidProduct) {
+    console.log(bidProduct.startingBid); 
+    axios.post('http://localhost:8080/api/v0/bid/post/bidProduct/', bidProduct , {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
   useEffect(() => {
     const url = window.location.pathname;
     if (url === "/profile" || url === "/profile/") {
@@ -292,7 +315,7 @@ function ProfilePage() {
             <UserCard user={user} updateUser={updateUser} isLoggedIn={isLoggedIn} />
           </div>
           <div className="w-full mx-auto px-4 py-16 sm:px-6 sm:py-10 lg:px-10">
-            <ArtworkList artworks={artworks} addArtwork={addArtwork} removeArtwork={removeArtwork} isLoggedIn={isLoggedIn} />
+            <ArtworkList artworks={artworks} addArtwork={addArtwork} removeArtwork={removeArtwork} isLoggedIn={isLoggedIn} addBidProduct={addBidProduct} />
           </div>
           <div className="w-full mx-auto px-4 py-16 sm:px-6 sm:py-10 lg:px-10">
             <MusicsList musics={musics} addMusic={addMusic} removeMusic={removeMusic} isLoggedIn={isLoggedIn} />
