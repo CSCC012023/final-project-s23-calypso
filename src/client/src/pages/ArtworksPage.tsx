@@ -26,95 +26,7 @@ interface QueryParams {
     [key: string]: string[];
 }
 
-const artworks2 = [
-    {
-        id: 1,
-        name: 'Lost Girl',
-        artist: 'Jennie Li',
-        style: 'Oil on canvas',
-        price: '$500',
-        href: 'product/1',
-        imageSrc: sampleProductImage2,
-        imageAlt: 'LOST GIRL - JENNIE LI',
-    },
-    {
-        id: 2,
-        name: 'Dystopian Future',
-        artist: 'Markus Lawerence',
-        style: 'Digital',
-        price: '$3000',
-        href: '#',
-        imageSrc: sampleLargeProductImage,
-        imageAlt: 'DYSTOPIAN FUTURE - MARKUS LAWERENCE',
-    },
-    {
-        id: 3,
-        name: 'Fox-Masked Boy',
-        artist: 'Natalie Hall',
-        style: 'Watercolor on paper',
-        price: '$50',
-        href: '#',
-        imageSrc: sampleProfilePicture1,
-        imageAlt: 'FOX MASKED BOY - NATALIE HALL',
-    },
-    {
-        id: 4,
-        name: 'Panda',
-        artist: 'Panda Man',
-        style: 'Sculpture',
-        price: '$900',
-        href: '#',
-        imageSrc: samplePanda,
-        imageAlt: 'PANDA - PANDA MAN',
-    },
-    {
-        id: 5,
-        name: 'Mountain Trees',
-        artist: 'Betty Whittaker',
-        style: 'Photography',
-        price: '$500',
-        href: '#',
-        imageSrc: 'https://images.pexels.com/photos/11157048/pexels-photo-11157048.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        imageAlt: 'MOUNTAIN TREES - BETTY WHITTAKER',
-    },
-    {
-        id: 6,
-        name: 'Dystopian Future',
-        artist: 'Markus Lawerence',
-        style: 'Digital',
-        price: '$3000',
-        href: '#',
-        imageSrc: sampleLargeProductImage,
-        imageAlt: 'DYSTOPIAN FUTURE - MARKUS LAWERENCE',
-    },
-    {
-        id: 7,
-        name: 'Fox-Masked Boy',
-        artist: 'Natalie Hall',
-        style: 'Watercolor on paper',
-        price: '$50',
-        href: '#',
-        imageSrc: sampleProfilePicture1,
-        imageAlt: 'FOX MASKED BOY - NATALIE HALL',
-    },
-    {
-        id: 8,
-        name: 'Panda',
-        artist: 'Panda Man',
-        style: 'Sculpture',
-        price: '$900',
-        href: '#',
-        imageSrc: samplePanda,
-        imageAlt: 'PANDA - PANDA MAN',
-    },
-]
-
-
-
-function ArtworksPage() {
-
-    const navigate = useNavigate();
-
+export default function ArtworksPage() {
     const [artworks, setArtworks] = useState([]);
 
     const getArtworks = async (queryParams: QueryParams) => {
@@ -128,23 +40,6 @@ function ArtworksPage() {
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
-    };
-
-    const incrementArtworkVisits = async (artworkId: string) => {
-        axios.put(`http://localhost:8080/api/v0/artworks/increment/${artworkId}`)
-            .then(response => {
-                console.log('Successfully incremented artwork visits');
-            })
-            .catch(error => {
-                console.error('Error incrementing artwork visits:', error);
-            }
-        ); 
-    }
-
-     const handleArtworkClick = (artworkId: string) => {
-        console.log('Clicked artwork ID:' + artworkId);
-        incrementArtworkVisits(artworkId);
-        navigate('/product/' + artworkId);
     };
 
     useEffect(() => {
@@ -186,9 +81,8 @@ function ArtworksPage() {
             </div>
 
             {/* Product List */}
-            <div className="">
-                <ProductList productsList={artworks} onArtworkClick={handleArtworkClick}/>
-                {/* <ArtGrid artList={artworks} /> */}
+            <div className="px-10">
+                <ArtGrid artList={artworks} />
             </div>
 
 
@@ -197,5 +91,3 @@ function ArtworksPage() {
         </div>
     )
 }
-
-export default ArtworksPage;

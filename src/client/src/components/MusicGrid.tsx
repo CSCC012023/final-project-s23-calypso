@@ -19,11 +19,11 @@ export default function MusicGrid(props: any) {
   }
 
   return (
-    <div className="overflow-clip flex justify-center space-x-10 px-10 py-5">
+    <div className="overflow-clip flex justify-center space-x-5 px-10 py-5">
         {
             [0,1,2,3].map(iter => {
                 return (
-                    <div className="mb-5 w-1/5">
+                    <div className="mb-5 w-1/4">
         {musicList.map((i: any, j: number) => {
           return (
             j % 4 == iter && (

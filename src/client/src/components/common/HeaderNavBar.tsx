@@ -14,8 +14,8 @@ const navigation = [
   { name: 'Artworks', href: 'http://localhost:3000/artworks', current: false },
   { name: 'Music', href: 'http://localhost:3000/music', current: false },
   { name: 'Discover', href: 'http://localhost:3000/discover', current: false },
-  { name: 'Trending Products', href: 'http://localhost:3000/discover/trending', current: false },
-  { name: 'Recommended for You', href: 'http://localhost:3000/discover/deals', current: false },
+  { name: 'Trending Products', href: 'http://localhost:3000/trending', current: false },
+  { name: 'Recommended for You', href: 'http://localhost:3000/recommended', current: false },
   { name: 'Dashboard', href: 'http://localhost:3000/dashboard/seller', current: false },
   { name: 'Messages', href: 'http://localhost:3000/message', current: false },
 ]
@@ -84,7 +84,7 @@ export default function HeaderNavBar() {
                   <div className="flex-shrink-0 flex items-center">
                     <a href='/landing'>
                       <img
-                        className="block h-16 w-auto"
+                        className="block h-16 w-auto py-2"
                         src={require('../../assets/logo-withoutbg.png')}
                         alt="Calypso Logo"
                       />

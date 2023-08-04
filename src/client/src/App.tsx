@@ -31,6 +31,7 @@ import UpdatedMessagePage from './pages/MessagePage2'
 import Landing2 from './pages/Landing2';
 import SellerDashboardPage from './pages/SellerDashboardPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import RecommendedPage from './pages/RecommendedPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -69,12 +70,13 @@ function App() {
               <Route path="/home" element={<HomePage />} /> 
               <Route path="/artworks" element={<ArtworksPage />} />
               <Route path="/music" element={<MusicPage />} />
+              <Route path="/recommended" element={<RecommendedPage />} />
 
               <Route path="/bidding/:id" element={<BiddingPage />} />
               <Route path="/bidding/purchase/:id" element={<BiddingPurchasePage />} />
 
               <Route path="/discover" element={<DiscoverPage />} />
-              <Route path="/discover/trending" element={<TrendingPage />} />
+              <Route path="/trending" element={<TrendingPage />} />
               <Route path="/discover/deals" element={<DealsPage />} />
               <Route path="/discover/beats" element={<BeatsPage />} />
               <Route path="/discover/scenery" element={<SceneryPage />} />
