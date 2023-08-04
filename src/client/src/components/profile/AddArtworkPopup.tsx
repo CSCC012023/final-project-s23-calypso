@@ -121,7 +121,7 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
             {/* <div className="py-4">
               <input id="apply" className="bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-700 hover:to-blue-700 active:from-violet-800 active:to-blue-800 text-white p-5 text-lg font-semibold tracking-widest rounded-lg w-80" type="submit" value="ADD" />
             </div> */}
-                        <div className="space-y-2 mt-1">
+            <div className="space-y-2 mt-4">
               <label className="leading-2 text-left block text-white">Bidding</label>
               <select
                 id="bidding"
