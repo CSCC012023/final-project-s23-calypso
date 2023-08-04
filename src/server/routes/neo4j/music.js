@@ -5,7 +5,7 @@ const musicController = require('../../controllers/neo4j/musicController');
 
 music.get('/', musicController.findAll);
 
-music.post('/find', musicController.findByNameAndArtist);
+music.get('/find/:artist/:song', musicController.findByNameAndArtist);
 
 music.get('/recommended/:id', musicController.getRecommendedSongs);
 
@@ -25,6 +25,6 @@ music.get('/category/:category', musicController.getByCategory);
 
 music.get('/username/:username', musicController.findByUsername);
 
-music.put('/increment/:id', musicController.incrementVisits);
+music.put('/increment/:artist/:song', musicController.incrementVisits);
 
 module.exports = music;

@@ -13,7 +13,10 @@ const findAll = async (req, res) => {
 
 const findByNameAndArtist = async (req, res) => {
   try {
-    const props = req.body.props;
+    const props = {
+      name: req.params.song.replace('-',' '),
+      artist: req.params.artist
+    }
     if (!props) throw { message: "Invalid ID", status: 400 };
     const result = await musicModel.findByNameAndArtist(dbUtils.getSession(req), props);
     res.json(result);
@@ -173,9 +176,13 @@ const getByCategory = async (req, res) => {
 
 const incrementVisits = async (req, res) => {
   try {
-      const id = req.params.id;
-      const session = dbUtils.getSession(req);
-      const result = await musicModel.incrementVisits(session, id);
+
+    const props = {
+      name: req.params.song.replace('-',' '),
+      artist: req.params.artist
+    }
+      console.log(props);
+      const result = await musicModel.incrementVisits(dbUtils.getSession(req), props);
       res.json(result);
   }
   catch (error) {
@@ -183,7 +190,7 @@ const incrementVisits = async (req, res) => {
       res.status(500).json({ message: "Encountered server error" });
   }
 }
-
+ 
 module.exports = {
   findAll: findAll,
   findByNameAndArtist: findByNameAndArtist,
