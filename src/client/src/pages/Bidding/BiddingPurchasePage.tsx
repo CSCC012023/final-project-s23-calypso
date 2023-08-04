@@ -68,6 +68,7 @@ function BiddingPurchasePage({}: any) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const [less, setLess] = useState<boolean>(false);
+  const [showBidSuccess, setShowBidSuccess] = useState<boolean>(false);
 
   const getArtworkById = async (queryParams: QueryParams) => {
     axios.get(`http://localhost:8080/api/v0/artworks/id/${id}`, {
@@ -166,12 +167,15 @@ function BiddingPurchasePage({}: any) {
           bidData,
           {
             headers: {
-              "Content-Type": "application/json", // Set the Content-Type header to indicate JSON data
+              "Content-Type": "application/json",
             },
           }
         );
         const data = response.data;
-        // setProduct(data);
+        setShowBidSuccess(true); // Show the success alert
+        setTimeout(() => {
+          setShowBidSuccess(false); // Hide the success alert after 3 seconds
+        }, 3000);
       } catch (error: any) {
         console.error("Error fetching data:", error.response.data);
       }
@@ -323,6 +327,15 @@ function BiddingPurchasePage({}: any) {
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className={`${
+          showBidSuccess
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-0"
+        } bg-green-500 text-white text-center py-3 fixed bottom-0 left-0 right-0 transition-opacity duration-1000 transform`}
+      >
+        Bid Successful! Congrats!
       </div>
     </div>
   );
