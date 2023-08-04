@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-
+import { format, parseISO, parse, differenceInSeconds, isAfter, set } from 'date-fns';
 import { XIcon } from '@heroicons/react/outline'
 
 interface Props {
@@ -11,11 +11,14 @@ interface Props {
 
 function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
   const [imageUrl, setImageUrl] = useState("");
-
+  const [showBiddingPriceInput, setShowBiddingPriceInput] = useState(false);
+  const [showEndDateInput, setShowEndDateInput] = useState(false);
+  
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    getValues
   } = useForm({
     defaultValues: {
       name: "",
@@ -26,6 +29,9 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
       medium: "",
       rarity: "",
       date: new Date().getFullYear(),
+      bidding: "no",
+      biddingPrice: 0.00,
+      endDate: ""
     }
   });
 
@@ -49,14 +55,15 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
         </div>
         {/* <hr className="bg-gray-300 w-full h-1" /> */}
         <div className="flex flex-row overflow-y-auto p-6 space-x-6">
-          <div className="flex">
+          <div className="flex-col">
             <div className="flex w-96 h-96 border-2 border-dashed border-gray-600 items-center justify-center object-contain rounded-lg text-white">
               {imageUrl !== "" ? (<img className="text-white" src={imageUrl} alt="Image" />) : "Image"}
             </div>
           </div>
           <form className="flex flex-col space-y-6"
             onSubmit={handleSubmit((data) => {
-              handleAddClick(data.name, data.style, data.material, data.medium, data.rarity, data.image, data.date, data.price);
+              const formValues = getValues();
+              handleAddClick(data.name, data.style, data.material, data.medium, data.rarity, data.image, data.date, data.price, formValues.bidding, Number(data.biddingPrice), data.endDate.toString());
             })}
           >
             <div className="space-y-2">
@@ -114,8 +121,53 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
             {/* <div className="py-4">
               <input id="apply" className="bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-700 hover:to-blue-700 active:from-violet-800 active:to-blue-800 text-white p-5 text-lg font-semibold tracking-widest rounded-lg w-80" type="submit" value="ADD" />
             </div> */}
+            <div className="space-y-2 mt-4">
+              <label className="leading-2 text-left block text-white">Bidding</label>
+              <select
+                id="bidding"
+                className="block w-full border border-white rounded-md p-2 text-base"
+                {...register("bidding")}
+                onChange={(e) => {
+                  setShowBiddingPriceInput(e.target.value === "yes")
+                  setShowEndDateInput(e.target.value === "yes");
+                }}
+              >
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+              {errors.bidding && <p className="text-[#FF0000] font-bold">{errors.bidding.message}</p>}
+            </div>
+            {showBiddingPriceInput && ( // Conditionally render the bidding price input based on the selected value
+              <div className="space-y-2 mt-3">
+                <label className="leading-2 text-left block text-white">Starting Bid</label>
+                <div className="flex flex-row items-center space-x-3">
+                  <p className="text-white">$</p>
+                  <input
+                    id="biddingPrice"
+                    className="w-full border border-white rounded-md p-2 text-base"
+                    {...register("biddingPrice", { required: "Bidding price is required" })}
+                    type="number"
+                    defaultValue={0.00}
+                    step="0.01"
+                  />
+                </div>
+                {errors.biddingPrice && <p className="text-[#FF0000] font-bold">{errors.biddingPrice.message}</p>}
+              </div>
+            )}
+            {showEndDateInput && (
+              <div className="space-y-2">
+                <label className="leading-2 text-left block text-white">End Date</label>
+                <input
+                  id="endDate"
+                  className="block w-full border border-white rounded-md p-2 text-base"
+                  {...register("endDate", { required: "End date is required" })}
+                  type="date"
+                />
+                {errors.endDate && <p className="text-[#FF0000] font-bold">{errors.endDate.message}</p>}
+              </div>
+            )}
             <div className="py-2 flex items-center justify-center">
-              <input id="apply" className="w-40 h-10  rounded justify-center items-center shadow-md bg-gray-300 text-medium text-gray-600 font-semibold hover:text-black focus:outline-none focus:ring focus:ring-white hover:bg-[#bab9b9]" type="submit" value="ADD"/>
+              <input id="apply" className="w-40 h-10  rounded justify-center items-center shadow-md bg-gray-300 text-medium text-gray-600 font-semibold hover:text-black focus:outline-none focus:ring focus:ring-white hover:bg-[#bab9b9]" type="submit" value="ADD" />
             </div>
           </form>
         </div>
