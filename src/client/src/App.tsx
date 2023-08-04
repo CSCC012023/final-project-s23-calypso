@@ -92,7 +92,7 @@ function App() {
               <Route path="/product/:id" element={<ProductPage/>} />
               <Route path="/music/:artist/:song" element={<MusicStream />} />
               <Route path="/transaction" element={<TransactionPage />} />
-              <Route path="/transaction/success" element = {<SuccessfulTransactionPage/>} />
+              <Route path="/checkout-success" element = {<SuccessfulTransactionPage/>} />
               <Route path="/register2" element={<RegisterPage />} />
               <Route path="/testing" element={<TestingPage />} />
               <Route path="/testing2" element={<TestingPageNeo />} />
