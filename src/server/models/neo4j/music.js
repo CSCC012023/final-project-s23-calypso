@@ -26,7 +26,7 @@ const getSongsByArtist = async (session, artist) => {
 const getRecommendedSongs = async (session, username) => {
   const query = [
     `MATCH (n: User)-[r:OWNS]->(sharedProduct:Music)<-[:OWNS]-(c: User)`,
-    `WHERE n.username = '${username}'`,
+    `WHERE n.id = '${username}'`,
     `MATCH (c)-[:OWNS]->(newProduct:Music)`,
     `WHERE newProduct.name <> sharedProduct.name`,
     `RETURN DISTINCT newProduct`,

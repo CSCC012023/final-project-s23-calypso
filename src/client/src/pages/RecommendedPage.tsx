@@ -21,32 +21,34 @@ interface QueryParams {
 }
 
 export default function RecommendedPage() {
-    // const [cookies, setCookie, removeCookie] = useCookies(['token']);
-    // const navigate = useNavigate();
-    // async function verify() {
-    //     if (!cookies.token) {
-    //         navigate("/login");
-    //     }
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const navigate = useNavigate();
+    async function verify() {
+        if (!cookies.token) {
+            navigate("/login");
+        }
 
-    //     const { data } = await axios.post('/api/users/verify', {});
-    //     const { status, id } = data;
-    //     if (status) {
-    //         console.log(id)
-    //     } else {
-    //         removeCookie('token');
-    //         navigate('/login');
-    //     }
+        const { data } = await axios.post('/api/users/verify', {});
+        const { status, id } = data;
+        if (status) {
+            console.log(id)
+            setId(id)
+        } else {
+            removeCookie('token');
+            navigate('/login');
+        }
 
-    // }
+    }
+    const [id, setId] = useState('') //'64b737c290640c6cba6c3f43')
 
-    // useEffect(() => { 
-    //     verify();
-    // }, []);
+    useEffect(() => { 
+        verify();
+    }, []);
 
     const [artworks, setArtworks] = useState([]);
 
     const getArtworks = async () => {
-        axios.get(`http://localhost:8080/api/v0/artworks/recommended/cassy`)
+        axios.get(`http://localhost:8080/api/v0/artworks/recommended/${id}`)
             .then(response => {
                 const data = response.data;
                 setArtworks(data)
@@ -59,7 +61,7 @@ export default function RecommendedPage() {
     const [music, setMusic] = useState([]);
 
     const getMusic = async () => {
-        axios.get(`http://localhost:8080/api/music/recommended/cassy`)
+        axios.get(`http://localhost:8080/api/music/recommended/${id}`)
             .then(response => {
                 const data = response.data;
                 setMusic(data)
@@ -70,18 +72,9 @@ export default function RecommendedPage() {
     };
 
     useEffect(() => {
-        const queryParams: QueryParams = {};
-        const params = new URLSearchParams(window.location.search);
-        params.forEach((value, key) => {
-            if (queryParams[key]) {
-                queryParams[key].push(value);
-            } else {
-                queryParams[key] = [value];
-            }
-        });
         getArtworks();
         getMusic();
-    });
+    }, [id]);
     const [show, setShow] = useState(0)
 
     return (
@@ -114,16 +107,19 @@ export default function RecommendedPage() {
           {/* <a onClick={() => setShow(2)}
           className={show == 2 ? "text-white font-bold": ""}>Artists</a> */}
         </div>
-        <div className="">
-          {show == 0 ? (
+        <div className="h-screen">
+          {show == 0 ? music.length > 0 ? (
             <>
               <MusicGrid musicList={music} />
             </>
-          ) : (
+          ): <p> You do not have any recommended music</p>
+          
+          : artworks.length > 0 ?(
             <>
               <ArtGrid artList={artworks} />
             </>
-          )}
+          )
+        : <p> You do not have any recommended art</p>}
           </div>
 
             {/* Footer */}

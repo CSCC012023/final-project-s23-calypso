@@ -162,7 +162,7 @@ const getByCategory = async (session, category) => {
 const getRecommendedArtworks = async (session, username) => {
     const query = [
       `MATCH (n: User)-[r:OWNS]->(sharedProduct:Artwork)<-[:OWNS]-(c: User)`,
-      `WHERE n.username = '${username}'`,
+      `WHERE n.id = '${username}'`,
       `MATCH (c)-[:OWNS]->(newProduct:Artwork)`,
       `WHERE newProduct.name <> sharedProduct.name`,
       `RETURN DISTINCT newProduct`,
