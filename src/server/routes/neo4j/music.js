@@ -1,26 +1,30 @@
 const express = require('express');
-const user = express.Router();
+const music = express.Router();
 
-const userController = require('../../controllers/neo4j/musicController');
+const musicController = require('../../controllers/neo4j/musicController');
 
-user.get('/', userController.findAll);
+music.get('/', musicController.findAll);
 
-user.post('/find', userController.findByNameAndArtist);
+music.post('/find', musicController.findByNameAndArtist);
 
-user.get('/recommended/:id', userController.getRecommendedSongs);
+music.get('/recommended/:id', musicController.getRecommendedSongs);
 
-user.post('/name', userController.searchByName);
+music.post('/name', musicController.searchByName);
 
-user.post('/post', userController.createMusic);
+music.post('/post', musicController.createMusic);
 
-user.put('/update/:name/:artist', userController.updateMusic);
+music.put('/update/:name/:artist', musicController.updateMusic);
 
-user.delete('/delete/:name/:artist', userController.deleteMusic);
+music.delete('/delete/:name/:artist', musicController.deleteMusic);
 
-user.get('/find/:name/:artist', userController.findSongByNameAndArtist);
+music.get('/find/:name/:artist', musicController.findSongByNameAndArtist);
 
-user.get('/userid/:id', userController.findByUserID);
+music.get('/userid/:id', musicController.findByUserID);
 
-user.get('/username/:username', userController.findByUsername);
+music.get('/category/:category', musicController.getByCategory);
 
-module.exports = user;
+music.get('/username/:username', musicController.findByUsername);
+
+music.put('/increment/:id', musicController.incrementVisits);
+
+module.exports = music;

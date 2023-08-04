@@ -16,6 +16,7 @@ import ErrorPage from "./Error/ErrorPage"
 const initUser = {
   id: 0,
   username: 'username',
+  name: "First Last",
   description: 'description',
   pic: require('../assets/sampleProfilePicture1.png'),
   banner: require('../assets/sampleLargeProductImage2.jpg')
@@ -30,12 +31,13 @@ function ProfilePage() {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const navigate = useNavigate();
 
-  function updateUser(user1: { id: number, username: string, description: string, pic: any, banner: any }) {
-    if (user.username !== user1.username) {
+  function updateUser(user1: { id: number, username: string, name: string, description: string, pic: any, banner: any, visits: number }) {
+    if (user.username !== user1.username || user.name !== user1.name) {
       // update artworks in DB
       artworks.forEach(artwork => {
         artwork.artist = user1.username;
-        artwork.imageAlt = artwork.name.toUpperCase() + '-' + artwork.artist.toUpperCase();
+        artwork.artistName = user1.name;
+        artwork.imageAlt = artwork.name.toUpperCase() + '-' + artwork.artistName.toUpperCase();
         axios.put(`http://localhost:8080/api/v0/artworks/update/${artwork.id}`, { artwork }, {
           headers: {
             'Content-Type': 'application/json'
@@ -54,6 +56,7 @@ function ProfilePage() {
       // update musics in DB
       musics.forEach(music => {
         music.artist = user1.username;
+        music.artistName = user1.name;
         axios.put(`http://localhost:8080/api/music/update/${music.name}/${user.username}`, { music }, {
           headers: {
             'Content-Type': 'application/json'
@@ -102,10 +105,11 @@ function ProfilePage() {
       .catch(err => console.log(err));
   }
 
-  function addArtwork(artwork: { id: string, name: string, artist: string, style: string, price: number, href: string, material: string, medium: string, rarity: string, imageSrc: string, imageAlt: string }) {
+  function addArtwork(artwork: { id: string, name: string, artist: string, artistName: string, style: string, price: number, href: string, material: string, medium: string, rarity: string, imageSrc: string, imageAlt: string, visits: number }) {
     // add artwork in DB
     artwork.artist = user.username;
-    artwork.imageAlt = artwork.name.toUpperCase() + '-' + artwork.artist.toUpperCase();
+    artwork.artistName = user.name;
+    artwork.imageAlt = artwork.name.toUpperCase() + '-' + artwork.artistName.toUpperCase();
     axios.post(`http://localhost:8080/api/v0/artworks/post/`, { artwork }, {
       headers: {
         'Content-Type': 'application/json'
@@ -135,9 +139,10 @@ function ProfilePage() {
       .catch(err => console.log(err));
   }
 
-  function addMusic(music: { name: string, artist: string, description: string, duration: string, genres: string[], pic: string, price: number }) {
+  function addMusic(music: { name: string, artist: string, artistName: string, description: string, duration: string, genres: string[], pic: string, price: number, visits: number }) {
     // update musics in DB
     music.artist = user.username;
+    music.artistName = user.name;
     axios.post(`http://localhost:8080/api/music/post`, { music }, {
       headers: {
         'Content-Type': 'application/json'
@@ -203,6 +208,7 @@ function ProfilePage() {
           setUser(data);
           getArtworksByUsername(data.username);
           getMusicByUsername(data.username);
+          //addVisit(data.id);
         } else {
           setPageError(true);
         }
@@ -232,6 +238,19 @@ function ProfilePage() {
           window.alert('something went wrong');
         }
       });
+  }
+
+  function addVisit(id: string) {
+    axios.put(`http://localhost:8080/api/v0/users/increment/${id}`)
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setUser(data);
+        } else {
+          window.alert('something went wrong');
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   useEffect(() => {
@@ -269,7 +288,7 @@ function ProfilePage() {
       <div className="flex flex-col bg-darkestGrey">
         <HeaderNavBar />
         <div className="w-full min-h-screen">
-          <div className="w-full px-4 py-10 sm:px-6 lg:px-10">
+          <div className="w-full px-0 py-0 sm:px-6 lg:px-10">
             <UserCard user={user} updateUser={updateUser} isLoggedIn={isLoggedIn} />
           </div>
           <div className="w-full mx-auto px-4 py-16 sm:px-6 sm:py-10 lg:px-10">

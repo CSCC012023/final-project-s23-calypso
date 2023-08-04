@@ -5,16 +5,19 @@ import SmallProductCard from "./SmallProductCard";
 interface Props {
     categoryTitle: string,
     productsList: any,
+    categoryLink: string,
+    onArtworkClick: (artworkId: string) => void;
 }
 
-export default function ProductsRow( {productsList, categoryTitle}: Props ) {
+export default function ProductsRow( {productsList, categoryTitle, categoryLink, onArtworkClick}: Props ) {
     return (
         <div className="py-24 lg:max-w-7xl lg:mx-auto sm:py-8 lg:py-24 lg:px-8">
             <div className="px-4 flex items-center justify-between sm:px-6 lg:px-0">
                 <h2 id="trending-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
                     {categoryTitle}
                 </h2>
-                <a href="#" className="hidden sm:block text-sm font-semibold text-sky-600 hover:text-sky-500">
+
+                <a href={"http://localhost:3000/artworks?sort=" + categoryLink} className="hidden sm:block text-sm font-semibold text-sky-600 hover:text-sky-500">
                     See more<span aria-hidden="true"> &rarr;</span>
                 </a>
             </div>
@@ -27,7 +30,7 @@ export default function ProductsRow( {productsList, categoryTitle}: Props ) {
                     >
                         {/* Product */}
                         {productsList.map((product:any) => (
-                            <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto">
+                            <li key={product.id} className="w-64 inline-flex flex-col text-center lg:w-auto" onClick={ () => onArtworkClick(product.id)}>
                                 <SmallProductCard productProp={product} />
                             </li>
                         ))}

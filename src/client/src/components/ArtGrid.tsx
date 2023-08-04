@@ -4,7 +4,7 @@ export default function ArtGrid(props: any) {
   const artList = props.artList
 
   return (
-    <div className="overflow-clip flex justify-between">
+    <div className="overflow-clip flex justify-between px-10 py-5">
         {
             [0,1,2,3].map(iter => {
                 return (
@@ -12,8 +12,8 @@ export default function ArtGrid(props: any) {
         {artList.map((i: any, j: number) => {
           return (
             j % 4 == iter && (
-              <div className="py-5">
-                <img src={i.img} className="w-full object-contain" />
+              <div className="py-2">
+                <img src={i.imageSrc} className="w-full object-contain" />
                 <div className="flex justify-between">
                   <p className="pt-2 text-xl font-medium">{i.name}</p>
                   <svg

@@ -3,19 +3,21 @@ import { useForm } from 'react-hook-form'
 import { XIcon } from '@heroicons/react/outline'
 
 interface Props {
+  username: string,
   name: string,
   description: string,
   handleApplyClick: any,
   handleCancelClick: any
 }
 
-function EditProfilePopup({ name, description, handleApplyClick, handleCancelClick }: Props) {
+function EditProfilePopup({ username, name, description, handleApplyClick, handleCancelClick }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm({
     defaultValues: {
+      username: username,
       name: name,
       description: description,
       profilePic: "",
@@ -38,22 +40,27 @@ function EditProfilePopup({ name, description, handleApplyClick, handleCancelCli
 
   return (
     <div className="fixed inset-0 flex flex-col items-center z-[100] p-[60px] bg-white bg-opacity-50">
-      <div className="bg-darkGrey shadow-lg flex flex-col items-center rounded-xl overflow-hidden">
+      <div className="bg-menu shadow-lg flex flex-col items-center rounded-xl overflow-hidden w-25">
         <div className="flex flex-row justify-between items-center p-4 w-full">
-          <label className="font-mono font-semibold text-xl text-white">Edit Profile</label>
-          <button className="h-8 w-8 rounded-full p-1 bg-gray-300 hover:bg-gray-400 active:bg-gray-600" onClick={handleCancelClick}>
+          <label className=" font-sans font-semibold text-2xl text-white">Edit Profile</label>
+          <button className="h-8 w-8 rounded-full p-1 bg-gray-300 hover:bg-[#bab9b9] active:bg-gray-600" onClick={handleCancelClick}>
             <XIcon color="#314555" />
           </button>
         </div>
-        <hr className="bg-gray-300 w-full h-1" />
-        <form className="flex flex-col p-6 space-y-6 overflow-y-auto"
+        {/* <hr className="bg-gray-300 w-full h-1" /> */}
+        <form className="flex flex-col p-2 space-y-6 overflow-y-auto w-80 mt-0"
           onSubmit={handleSubmit((data) => {
-            handleApplyClick(data.name, data.description, data.profilePic, data.banner)
+            handleApplyClick(data.username, data.name, data.description, data.profilePic, data.banner)
           })}
         >
           <div className="space-y-2">
+            <label className="leading-2 text-left block text-white">Username</label>
+            <input id="username" className="block w-full border border-white rounded-md p-2 text-base" {...register("username", { required: "Username cannot be empty", maxLength: { value: 30, message: "Username must be 30 characters or less" }, pattern: { value: /^[a-zA-Z0-9_]*$/, message: "Username must be alphanumeric" } })} type="text" />
+            {errors.username && <p className="text-[#FF0000] font-bold">{errors.username.message}</p>}
+          </div>
+          <div className="space-y-2">
             <label className="leading-2 text-left block text-white">Name</label>
-            <input id="name" className="block w-full border border-white rounded-md p-2 text-base" {...register("name", { required: "Name cannot be empty", maxLength: { value: 30, message: "Name must be 30 characters or less" } })} type="text" />
+            <input id="name" className="block w-full border border-white rounded-md p-2 text-base" {...register("name", { required: "Name cannot be empty", pattern: { value: /^[a-zA-Z ]*$/, message: "Please enter a valid name" } })} type="text" />
             {errors.name && <p className="text-[#FF0000] font-bold">{errors.name.message}</p>}
           </div>
           <div className="space-y-2">
@@ -71,8 +78,8 @@ function EditProfilePopup({ name, description, handleApplyClick, handleCancelCli
             <input id="banner" className="block w-full border border-white rounded-md p-2 text-base" {...register("banner", { validate: { checkUrl: async (url) => await isImgUrl(url) || "Please enter a valid image URL" } })} placeholder="URL" type="url" />
             {errors.banner && <p className="text-[#FF0000] font-bold">{errors.banner.message}</p>}
           </div>
-          <div className="py-4">
-            <input id="apply" className="bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-700 hover:to-blue-700 active:from-violet-800 active:to-blue-800 text-white p-5 text-lg font-semibold tracking-widest rounded-lg w-80" type="submit" value="APPLY"/>
+          <div className="py-2 flex items-center justify-center">
+            <input id="apply" className="w-40 h-10  rounded justify-center items-center shadow-md bg-gray-300 text-medium text-gray-600 font-semibold hover:text-black focus:outline-none focus:ring focus:ring-white hover:bg-[#bab9b9]" type="submit" value="APPLY"/>
           </div>
         </form>
       </div>

@@ -10,6 +10,7 @@ interface Props {
     id: string,
     name: string,
     artist: string,
+    artistName: string,
     style: string,
     price: number,
     href: string,
@@ -19,6 +20,7 @@ interface Props {
     imageSrc: string,
     imageAlt: string,
     date: number,
+    visits: number
   }[],
   addArtwork: Function,
   removeArtwork: Function,
@@ -49,6 +51,7 @@ function ArtworksList({ artworks, addArtwork, removeArtwork, isLoggedIn }: Props
       id: await getNewID(),
       name: name,
       artist: "",
+      artistName: "",
       style: style,
       price: price,
       href: "#",
@@ -58,6 +61,7 @@ function ArtworksList({ artworks, addArtwork, removeArtwork, isLoggedIn }: Props
       imageSrc: image,
       imageAlt: "",
       date: date,
+      visits: 0
     };
     addArtwork(newArtwork);
     setAddArtworkIsOpen(false);

@@ -1,3 +1,5 @@
+const music = require("../../routes/neo4j/music");
+
 const findAll = async (session) => {
   const result = await session.run('MATCH (n: Music) RETURN n');
   return result.records.map(i => i.get('n').properties);
@@ -47,11 +49,13 @@ const createMusic = async (session, music) => {
     `CREATE (m: Music {
       name: '${music.name}',
       artist: '${music.artist}',
+      artistName: '${music.artistName}',
       description: '${music.description}',
       genres: ${JSON.stringify(music.genres)},
       pic: '${music.pic}',
       duration: '${music.duration}',
-      price: ${music.price}
+      price: ${music.price},
+      visits: ${music.visits}
     })`,
     'RETURN m'
   ].join('\n');
@@ -66,11 +70,13 @@ const updateMusic = async (session, name, artist, music) => {
     `SET
       m.name = '${music.name}',
       m.artist = '${music.artist}',
+      m.artistName = '${music.artistName}',
       m.description = '${music.description}',
       m.genres = ${JSON.stringify(music.genres)},
       m.pic = '${music.pic}',
       m.duration = '${music.duration}',
-      m.price = ${music.price}`,
+      m.price = ${music.price},
+      m.visits = ${music.visits}`,
     'RETURN m'
   ].join('\n');
   const result = await session.run(query);
@@ -117,6 +123,25 @@ const findSongByNameAndArtist = async (session, name, artist) => {
   return result.records[0].get('m').properties;
 }
 
+const getByCategory = async (session, category) => {
+    
+  const query = [
+      `MATCH (m: Music)`,
+      `WHERE "${category}" IN m.genres`,
+      `RETURN m`
+  ].join('\n');
+  console.log(query)
+  const result = await session.run(query);
+  return result.records.map(i=>i._fields[0].properties)
+}
+
+const incrementVisits = async (session, id) => {
+  let query = 'MATCH (n: Music) WHERE n.id = "' + id + '" SET n.visits = n.visits + 1 RETURN n';
+  const result = await session.run(query);
+  music = result.records.map(i=>i._fields[0].properties)
+  return music
+}
+
 module.exports = {
   findAll: findAll,
   findByNameAndArtist: findByNameAndArtist,
@@ -128,5 +153,6 @@ module.exports = {
   deleteMusic: deleteMusic,
   findByUserID: findByUserID,
   findByUsername: findByUsername,
-  findSongByNameAndArtist: findSongByNameAndArtist
+  findSongByNameAndArtist: findSongByNameAndArtist,
+  getByCategory: getByCategory
 }

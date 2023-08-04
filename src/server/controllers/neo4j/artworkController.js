@@ -24,10 +24,9 @@ const getArtworks = async (req, res) => {
     const params = req.query;
     let sortParameter = '';
     let filters = [];
-
     // Check if the key 'sort' exists in the params array
     if (params.hasOwnProperty('sort')) {
-      const sort  = params['sort'][0];
+      const sort  = params['sort'];
 
       // Check which sort parameter was given
       if (sort === 'featured'){
@@ -41,6 +40,9 @@ const getArtworks = async (req, res) => {
       }
       else if (sort === 'newest'){
         sortParameter = 'date DESC';
+      } 
+      else if (sort === 'visits'){
+        sortParameter = 'visits DESC';
       }
     }
 
@@ -51,6 +53,31 @@ const getArtworks = async (req, res) => {
 
     const session = dbUtils.getSession(req);
     const result = await artworkModel.getArtworks(session, sortParameter, filters);
+    res.json(result);
+  }
+  catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Encountered server error" });
+  }
+}
+
+const getHomepageArtworks = async (req, res) => {
+  try {
+    const type = req.params.type;
+    let typeParameter = '';
+
+    if (type === 'featured') {
+      typeParameter = 'name ASC';
+    }
+    else if (type === 'pricelow') {
+      typeParameter = 'price ASC';
+    }
+    else if (type === 'newest') {
+      typeParameter = 'date DESC';
+    }
+
+    const session = dbUtils.getSession(req);
+    const result = await artworkModel.getHomepageArtworks(session, typeParameter);
     res.json(result);
   }
   catch (error) {
@@ -157,6 +184,47 @@ const deleteArtwork = async (req, res) => {
   }
 }
 
+const getByCategory = async (req, res) => {
+  try {
+    const category = req.params.category;
+    if (!category) throw { message: "No category provided", status: 400 }
+    const result = await artworkModel.getByCategory(dbUtils.getSession(req), category);
+    res.json(result);
+  }
+  catch (err) {
+    if (err.status) {
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+ }}
+
+const getRecommendedArtworks = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!id) throw { message: "Invalid Username", status: 400 };
+    const result = await artworkModel.getRecommendedArtworks(dbUtils.getSession(req), id);
+    res.json(result);
+  }
+  catch {
+    res.status(500).json({ message: "Encountered server error" });
+  }
+}
+
+const incrementVisits = async (req, res) => {
+  try {
+      const id = req.params.id;
+      const session = dbUtils.getSession(req);
+      const result = await artworkModel.incrementVisits(session, id);
+      res.json(result);
+  }
+  catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Encountered server error" });
+  }
+}
+
+
 module.exports = {
   getArtworks: getArtworks,
   getArtworkById:getArtworkById,
@@ -166,4 +234,8 @@ module.exports = {
   postArtwork: postArtwork,
   updateArtwork: updateArtwork,
   deleteArtwork: deleteArtwork,
+  getByCategory: getByCategory,
+  getRecommendedArtworks: getRecommendedArtworks,
+  incrementVisits: incrementVisits,
+  getHomepageArtworks: getHomepageArtworks,
 }

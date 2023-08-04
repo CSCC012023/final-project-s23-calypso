@@ -7,11 +7,13 @@ interface Props {
   musics: {
     name: string,
     artist: string,
+    artistName: string,
     description: string,
     duration: string,
     genres: string[],
     pic: string,
-    price: number
+    price: number,
+    visits: number
   }[],
   addMusic: Function,
   removeMusic: Function,
@@ -38,11 +40,13 @@ function MusicsList({ musics, addMusic, removeMusic, isLoggedIn }: Props) {
       const newMusic = {
         name: name,
         artist: "",
+        artistName: "",
         description: description,
         duration: duration,
         genres: genres.split(",").map((genre: string) => genre.trim()),
         pic: pic,
-        price: price
+        price: price,
+        visits: 0
       };
       addMusic(newMusic);
       setAddMusicIsOpen(false);

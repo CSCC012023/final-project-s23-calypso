@@ -40,14 +40,14 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
 
   return (
     <div className="fixed inset-0 flex flex-col items-center z-[100] p-[60px] bg-white bg-opacity-50">
-      <div className="bg-darkGrey shadow-lg flex flex-col items-center rounded-xl overflow-hidden">
+      <div className="bg-menu shadow-lg flex flex-col items-center rounded-xl overflow-hidden">
         <div className="flex flex-row justify-between items-center p-4 w-full">
-          <label className="font-mono font-semibold text-xl text-white">Add Artwork</label>
+          <label className=" font-semibold text-xl text-white">Add Artwork</label>
           <button className="h-8 w-8 rounded-full p-1 bg-gray-300 hover:bg-gray-400 active:bg-gray-600" onClick={handleCancelClick}>
             <XIcon color="#314555" />
           </button>
         </div>
-        <hr className="bg-gray-300 w-full h-1" />
+        {/* <hr className="bg-gray-300 w-full h-1" /> */}
         <div className="flex flex-row overflow-y-auto p-6 space-x-6">
           <div className="flex">
             <div className="flex w-96 h-96 border-2 border-dashed border-gray-600 items-center justify-center object-contain rounded-lg text-white">
@@ -111,8 +111,11 @@ function AddArtworkPopup({ handleAddClick, handleCancelClick }: Props) {
               </div>
               {errors.price && <p className="text-[#FF0000] font-bold">{errors.price.message}</p>}
             </div>
-            <div className="py-4">
+            {/* <div className="py-4">
               <input id="apply" className="bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-700 hover:to-blue-700 active:from-violet-800 active:to-blue-800 text-white p-5 text-lg font-semibold tracking-widest rounded-lg w-80" type="submit" value="ADD" />
+            </div> */}
+            <div className="py-2 flex items-center justify-center">
+              <input id="apply" className="w-40 h-10  rounded justify-center items-center shadow-md bg-gray-300 text-medium text-gray-600 font-semibold hover:text-black focus:outline-none focus:ring focus:ring-white hover:bg-[#bab9b9]" type="submit" value="ADD"/>
             </div>
           </form>
         </div>

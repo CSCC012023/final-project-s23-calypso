@@ -9,14 +9,14 @@ export default function MusicList(props: any) {
             <div
               className={
                 i > 0
-                  ? 'border-blue-50 border-t-[1px] border-opacity-20 py-2 flex justify-between px-10 hover:bg-darkGrey'
-                  : 'py-2 flex justify-between px-10 hover:bg-darkGrey'
+                  ? 'border-blue-950 border-t-[1px] border-opacity-20 py-3 flex justify-between hover:bg-gray-100'
+                  : 'py-3 flex justify-between hover:bg-gray-100'
               }
             >
               <div className="flex justify-between space-x-10 my-auto">
                 <p className="my-auto font-semibold">{i + 1}</p>
                 <img
-                  className=" w-14 h-14 object-cover rounded-lg"
+                  className=" w-32 h-32 object-cover rounded-lg"
                   src={s.pic}
                 />
                 <p className="my-auto">{s.name}</p>
