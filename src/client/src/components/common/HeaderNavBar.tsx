@@ -12,7 +12,7 @@ import { useCookies } from 'react-cookie';
 const navigation = [
   { name: 'Home', href: 'http://localhost:3000/home', current: false },
   { name: 'Artworks', href: 'http://localhost:3000/artworks', current: false },
-  { name: 'Music', href: 'http://localhost:3000/discover/beats', current: false },
+  { name: 'Music', href: 'http://localhost:3000/music', current: false },
   { name: 'Discover', href: 'http://localhost:3000/discover', current: false },
   { name: 'Trending Products', href: 'http://localhost:3000/discover/trending', current: false },
   { name: 'Recommended for You', href: 'http://localhost:3000/discover/deals', current: false },

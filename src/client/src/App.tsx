@@ -2,6 +2,8 @@ import React, { useState, useEffect, FormEvent } from 'react';
 import './App.css';
 import HomePage from './pages/HomePage';
 import ArtworksPage from './pages/ArtworksPage';
+import MusicPage from './pages/MusicPage';
+import MusicStream from './pages/MusicStream';
 import BiddingPage from './pages//Bidding/BiddingPage';
 import DiscoverPage from './pages/DiscoverPage';
 import LandingPage from './pages/LandingPage';
@@ -66,6 +68,7 @@ function App() {
               <Route path="/" element={<Navigate to="/landing"/>}/>
               <Route path="/home" element={<HomePage />} /> 
               <Route path="/artworks" element={<ArtworksPage />} />
+              <Route path="/music" element={<MusicPage />} />
 
               <Route path="/bidding/:id" element={<BiddingPage />} />
               <Route path="/bidding/purchase/:id" element={<BiddingPurchasePage />} />
@@ -85,6 +88,7 @@ function App() {
               <Route path="/profile/:username" element={<ProfilePage />} />
               <Route path="/login2" element={<LoginPage />} />
               <Route path="/product/:id" element={<ProductPage/>} />
+              <Route path="/music/:artist/:song" element={<MusicStream />} />
               <Route path="/transaction" element={<TransactionPage />} />
               <Route path="/transaction/success" element = {<SuccessfulTransactionPage/>} />
               <Route path="/register2" element={<RegisterPage />} />
