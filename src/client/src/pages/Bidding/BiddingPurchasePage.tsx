@@ -185,7 +185,7 @@ function BiddingPurchasePage({}: any) {
 
   const handleBid = (productId: string, userId: string, bidAmount: string, startingBid: number) => {
     const parsedBidAmount = parseInt(bidAmount);
-    if (parsedBidAmount < 20) { //TODO: Change this to the current bid amount instead of 20
+    if (bidProduct != null && parsedBidAmount < bidProduct.startingBid) { //TODO: Change this to the current bid amount instead of 20
       setLess(true);
       return;
     } else {
@@ -297,7 +297,7 @@ function BiddingPurchasePage({}: any) {
           </div>
           <div className="rounded-lg p-4 space-y-3">
             <p className="text-xl font-semibold ml-16  text-xl">Bid Amount</p>
-            {less && <p className="text-red-500 text-sm ml-12">* Bid amount must be greater than 20</p>}
+            {less && <p className="text-red-500 text-sm ml-12">* Bid amount must be greater than {bidProduct.startingBid}</p>}
             <div className="flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-4 mr-24">
               <input
                 className={`rounded-xl p-4 ml-16 text-md ${isAfter(new Date(), parse(bidProduct?.endDate, 'yyyy-MM-dd', new Date())) ? 'text-gray-400 cursor-not-allowed' : 'text-black'}`}
