@@ -85,7 +85,7 @@ export default function DiscoverPage() {
             bodyText={`Check out popular art and music`}
             imageSrc={sampleLargeProductImage}
             imageAlt="NEW_ARRIVALS1"
-            href="discover/new"
+            href="discover/"
           />
         </div>
 
@@ -214,7 +214,7 @@ export default function DiscoverPage() {
             {musicCategories.map((c, i) => {
               return (
                 <a
-                  href={'/discover/' + c.name.toLowerCase()}
+                  href={'/music/'}
                   style={{ backgroundImage: `url(${c.bg})` }}
                   className="py-5 w-1/6 mr-4 rounded-lg text-center"
                 >

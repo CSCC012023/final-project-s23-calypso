@@ -1,7 +1,27 @@
+import axios from 'axios';
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function ArtGrid(props: any) {
   const artList = props.artList
+  const navigate = useNavigate();
+  
+  const incrementArtworkVisits = async (artworkId: string) => {
+    axios.put(`http://localhost:8080/api/v0/artworks/increment/${artworkId}`)
+        .then(response => {
+            console.log('Successfully incremented artwork visits');
+        })
+        .catch(error => {
+            console.error('Error incrementing artwork visits:', error);
+        }
+    ); 
+}
+
+ const handleArtworkClick = (artworkId: string) => {
+    console.log('Clicked artwork ID:' + artworkId);
+    incrementArtworkVisits(artworkId);
+    navigate('/product/' + artworkId);
+};
 
   return (
     <div className="overflow-clip flex justify-between px-10 py-5">
@@ -12,7 +32,7 @@ export default function ArtGrid(props: any) {
         {artList.map((i: any, j: number) => {
           return (
             j % 4 == iter && (
-              <div className="py-2">
+              <button className="py-2 text-left" onClick={() => handleArtworkClick(i.id)}>
                 <img src={i.imageSrc} className="w-full object-contain" />
                 <div className="flex justify-between">
                   <p className="pt-2 text-xl font-medium">{i.name}</p>
@@ -31,9 +51,10 @@ export default function ArtGrid(props: any) {
                     />
                   </svg>
                 </div>
-                <p className="text-lg font-medium text-gray-400">{i.artist}</p>
-                <p className="text-md font-medium text-gray-300">$ {i.price}</p>
-              </div>
+                <p className="text-lg font-medium text-gray-400">{i.artistName}</p>
+                <p className="text-md italic font-medium text-gray-400">{i.style}, {i.date}</p>
+                <p className="text-md text-right font-medium text-gray-500">$ {i.price}</p>
+              </button>
             )
           )
         })}
