@@ -6,7 +6,8 @@ export default function MusicList(props: any) {
     {musicList.map((s: any, i: number) => {
         return (
           <>
-            <div
+            <a
+              href={'/music/'+s.artist+'/'+s.name.replace(' ', '-')}
               className={
                 i > 0
                   ? 'border-blue-950 border-t-[1px] border-opacity-20 py-3 flex justify-between hover:bg-gray-100'
@@ -54,7 +55,7 @@ export default function MusicList(props: any) {
                   />
                 </svg>
               </div>
-            </div>
+            </a>
           </>
         )
       })}

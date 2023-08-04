@@ -17,6 +17,7 @@ import sampleProfilePicture1 from '../assets/sampleProfilePicture1.png'
 import HeroBanner from "../components/allproducts/HeroBanner";
 import { Query } from "@testing-library/react";
 import { useNavigate } from 'react-router-dom';
+import ArtGrid from "../components/ArtGrid";
 
 
 
@@ -161,7 +162,7 @@ function ArtworksPage() {
 
 
     return (
-        <div className="bg-darkestGrey h-screen" >
+        <div className=" h-screen" >
             {/* Header Navigation bar */}
             <div className="">
                 <HeaderNavBar />
@@ -187,6 +188,7 @@ function ArtworksPage() {
             {/* Product List */}
             <div className="">
                 <ProductList productsList={artworks} onArtworkClick={handleArtworkClick}/>
+                {/* <ArtGrid artList={artworks} /> */}
             </div>
 
 

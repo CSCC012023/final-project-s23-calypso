@@ -135,11 +135,17 @@ const getByCategory = async (session, category) => {
   return result.records.map(i=>i._fields[0].properties)
 }
 
-const incrementVisits = async (session, id) => {
-  let query = 'MATCH (n: Music) WHERE n.id = "' + id + '" SET n.visits = n.visits + 1 RETURN n';
+const incrementVisits = async (session, props) => {
+  const query = [
+    `MATCH (m: Music)`,
+    `WHERE m.name='${props.name}' AND m.artist='${props.artist}'`,
+    "SET m.visits = m.visits + 1",
+    'RETURN m'
+  ].join('\n');
+  
   const result = await session.run(query);
-  music = result.records.map(i=>i._fields[0].properties)
-  return music
+  return result.records.map(i=>i._fields[0].properties)
+
 }
 
 module.exports = {
@@ -154,5 +160,6 @@ module.exports = {
   findByUserID: findByUserID,
   findByUsername: findByUsername,
   findSongByNameAndArtist: findSongByNameAndArtist,
-  getByCategory: getByCategory
+  getByCategory: getByCategory,
+  incrementVisits: incrementVisits
 }
