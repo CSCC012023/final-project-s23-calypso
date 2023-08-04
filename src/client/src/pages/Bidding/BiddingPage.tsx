@@ -34,12 +34,21 @@ interface QueryParams {
   [key: string]: string[];
 }
 
+const initUser = {
+  id: 0,
+  username: 'username',
+  description: 'description',
+  pic: require('../../assets/sampleProfilePicture1.png'),
+  banner: require('../../assets/sampleLargeProductImage2.jpg')
+}
+
 function BiddingPage({}: any) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [bidProduct, setBidProduct] = useState<bidProduct | null>(null);
   const [pageError, setPageError] = useState<boolean>(false);
+  const [user, setUser] = useState<any>(initUser); // For determining the current user
 
   const getArtworkById = async (queryParams: QueryParams) => {
     axios.get(`http://localhost:8080/api/v0/artworks/id/${id}`, {
@@ -68,6 +77,24 @@ function BiddingPage({}: any) {
       .catch(err => setPageError(true));
   }
 
+  function getUserByUsername(username: string | undefined) {
+    axios.get(`http://localhost:8080/api/v0/users/user/${username}`)
+      .then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          setUser(data);
+          //addVisit(data.id);
+        } else {
+          setPageError(true);
+        }
+      })
+      .catch(err => setPageError(true));
+  }
+
+  useEffect(() => {
+    getUserByUsername(product?.artist);
+  }, [product]);
+
     // Fetch bid product data
     useEffect(() => {
       if (!product) {
@@ -91,19 +118,6 @@ function BiddingPage({}: any) {
     navigate('/bidding/purchase/' + artworkId);
   };
 
-  const previewArtPanel = {
-    img: require("../../assets/previewArt.jpg"),
-    name: 'Preview Art',
-  };
-
-  const creatorPanel = {
-    img: require("../../assets/sampleProfilePicture1.png"),
-  };
-
-  const descriptionPanel = {
-    description: 'Description:',
-    price: 'Current Price:',
-  };
   // Render loading state or error state if product is still loading or not found
   if (!product) {
     return <div>Loading...</div>;
@@ -114,20 +128,20 @@ function BiddingPage({}: any) {
   ) : null;
 
   return (
-    <div className="flex flex-col min-h-screen bg-darkestGrey text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-darkestGrey text-white">
       <HeaderNavBar />
-      <div className="bg-darkestGrey text-white h-screen w-full px-10 mx-auto space-y-5 overflow-scroll">
-        <div>
-          <button className="bg-darkGrey text-white text-center ml-8 mt-8 font rounded-lg text-sm px-3 py-2" onClick={() => navigate('/product/' + product.id)}>{"Go Back"}</button>
-        </div>
-        <div className="bg-darkestGrey text-white h-screen w-3/4 mx-auto my-20 space-y-5 ml-12">
-        <h1 className="text-4xl font-semibold">{product.name}</h1>
-          <div className="flex items-center">
-            <img className="h-1/12 w-1/12 rounded-full" src={creatorPanel.img} alt="Creator" />
-            <p className="text-2xl font-semibold mx-8"> {product.artist} </p>
+      <div className="w-full px-10 space-y-5">
+        <div className="bg-darkestGrey text-white w-3/4 mx-auto my-10 space-y-5">
+          <h1 className="text-6xl font-semibold">{product.name}</h1>
+          <div className="flex items-center space-x-8">
+            <img className="h-16 w-16 rounded-full object-cover" src={user?.pic} alt={user?.pic} />
+            <p className="text-lg font-semibold"> By {product.artist} </p>
           </div>
-          <div className="flex justify-center">
-            <img className="max-h-96 w-1/2 object-cover rounded-lg" src={product.imageSrc} alt="Preview Art" />
+          <div className="flex justify-center space-x-24">
+            <div className="w-auto h-96 rounded-lg overflow-hidden">
+              <img className="w-full h-full object-cover object-center" src={product.imageSrc} alt="Preview Art" />
+            </div>
+            
             <div className="bg-darkGrey rounded-lg p-5 space-y-5">
               <p className="text-2xl font-semibold">
                 Description:
@@ -141,16 +155,14 @@ function BiddingPage({}: any) {
               {startingPriceText}
             </div>
           </div>
-          <div className="rounded-lg p-5 space-y-5 my-auto">
-            <div className="flex justify-between ml-20 mr-40 space-x-4 md:space-x-16 text-md">
-              <button className="bg-white text-black text-center rounded-xl p-4" onClick={() => navigate('/product/' + product.id)}>Purchase for myself</button>
-              {bidProduct ? (
-                <button className="bg-white text-black text-center rounded-xl p-4" onClick={() => handleArtworkClick(product.id)}>Place Bid</button>
-              ) : (
-                <button className="bg-darkGrey text-white text-center rounded-xl p-4 cursor-not-allowed" disabled>Not up for bid</button>
-              )}
-              <button className="bg-white text-black text-center rounded-xl p-4">Purchase as a gift</button>
-            </div>
+          <div className="flex justify-center space-x-4 md:space-x-16 text-md mt-5">
+            <button className="bg-white text-black text-center rounded-xl p-4" onClick={() => navigate('/product/' + product.id)}>Purchase for myself</button>
+            {bidProduct ? (
+              <button className="bg-white text-black text-center rounded-xl p-4" onClick={() => handleArtworkClick(product.id)}>Place Bid</button>
+            ) : (
+              <button className="bg-darkGrey text-white text-center rounded-xl p-4 cursor-not-allowed" disabled>Not up for bid</button>
+            )}
+            <button className="bg-white text-black text-center rounded-xl p-4">Purchase as a gift</button>
           </div>
         </div>
       </div>

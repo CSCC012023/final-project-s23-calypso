@@ -223,6 +223,10 @@ function BiddingPurchasePage({}: any) {
     getBidProduct(queryParams);
   }, [product]);
 
+  useEffect(() => {
+    getUserByUsername(product?.artist);
+  }, [product]);
+
 
 
   const previewArtPanel = {
@@ -259,32 +263,34 @@ function BiddingPurchasePage({}: any) {
   
 
   return (
-    <div className="flex flex-col bg-darkestGrey text-white h-screen overflow-clip">
+    <div className="flex flex-col bg-darkestGrey text-white min-h-screen items-center">
       <HeaderNavBar />
-      <div className="bg-darkestGrey text-white h-screen w-full px-10 py-10 space-y-5 overflow-scroll">
-        <div className="">
-          <button className="bg-darkGrey text-white text-center font text-sm rounded-lg px-3 py-2 space-y-5" onClick={() => navigate('/bidding/' + product.id)}>{"Go Back"}</button>
-        </div>
-        <div className="ml-28 space-y-3">
-          <h1 className="text-5xl font-semibold">{product.name}</h1>
-          <div className="flex items-center">
-            <img className="h-1/12 w-1/12 rounded-full" src={creatorPanel.img} alt="Creator" />
-            <p className="text-2xl font-semibold mx-8"> {product.artist} </p>
+      <div className="w-full px-10 py-10 space-y-5">
+        <div className="space-y-3">
+          <button className="bg-darkGrey text-white text-center font text-sm rounded-lg px-3 py-2 ml-28" onClick={() => navigate('/bidding/' + product.id)}>{"Go Back"}</button>
+          <h1 className="text-6xl font-semibold ml-28">{product.name}</h1>
+          <div className="flex items-center space-x-4 ml-28">
+            <div className="flex items-center space-x-4">
+              <img className="h-16 w-16 rounded-full object-cover" src={user?.pic} alt={user?.pic} />
+              <p className="text-lg font-semibold mx-4"> By {product.artist} </p>
+            </div>
             {bidProduct && isAfter(new Date(), parse(bidProduct.endDate, 'yyyy-MM-dd', new Date())) ? (
-            <p className="text-2xl font-semibold flex-grow text-red-300">
-              Bidding Closed Time Up!
-            </p>
+              <p className="text-lg font-semibold text-red-300">
+                Bidding Closed Time Up!
+              </p>
             ) : (
-              <p className="text-2xl font-semibold flex-grow">
+              <p className="text-lg font-semibold">
                 Bid Until: {format(parse(bidProduct.endDate, 'yyyy-MM-dd', new Date()), 'MMMM dd, yyyy')}
               </p>
             )}
           </div>
-          <div className="flex justify-center">
-            <img className="w-1/2 object-cover rounded-lg" src={product.imageSrc} alt="Preview Art" />
+          <div className="flex justify-center items-center space-x-24 ml-28">
+            <div className="w-auto h-96 rounded-lg overflow-hidden">
+              <img className="w-full h-full object-cover object-center" src={product.imageSrc} alt="Preview Art" />
+            </div>
             <div className="bg-darkGrey rounded-lg p-5 space-y-5">
-              <p className="text-2xl font-semibold">
-                Description:
+              <p className="text-xl font-semibold">
+                Details:
               </p>
               <p className="text-md opacity">
                 Product Rarity: {product.rarity} <br/>
@@ -295,12 +301,12 @@ function BiddingPurchasePage({}: any) {
               <p className="text-xl font-semibold">Starting Price: {formatCurrency(bidProduct?.startingBid)} </p>
             </div>
           </div>
-          <div className="rounded-lg p-4 space-y-3">
-            <p className="text-xl font-semibold ml-16  text-xl">Bid Amount</p>
-            {less && <p className="text-red-500 text-sm ml-12">* Bid amount must be greater than {bidProduct.startingBid}</p>}
-            <div className="flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-4 mr-24">
+          <div className="rounded-lg p-4 space-y-3 text-center">
+            <p className="text-xl font-semibold">Bid Amount</p>
+            {less && <p className="text-red-500 text-sm">* Bid amount must be greater than {bidProduct.startingBid}</p>}
+            <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
               <input
-                className={`rounded-xl p-4 ml-16 text-md ${isAfter(new Date(), parse(bidProduct?.endDate, 'yyyy-MM-dd', new Date())) ? 'text-gray-400 cursor-not-allowed' : 'text-black'}`}
+                className={`rounded-xl p-4 text-md ${isAfter(new Date(), parse(bidProduct?.endDate, 'yyyy-MM-dd', new Date())) ? 'text-gray-400 cursor-not-allowed' : 'text-black'}`}
                 type="text"
                 placeholder={isAfter(new Date(), parse(bidProduct?.endDate, 'yyyy-MM-dd', new Date())) ? "Bidding Closed" : "Enter Bid Amount"}
                 pattern="[0-9]+"
