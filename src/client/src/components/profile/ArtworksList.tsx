@@ -25,9 +25,16 @@ interface Props {
   addArtwork: Function,
   removeArtwork: Function,
   isLoggedIn: Boolean
+  addBidProduct: Function
 }
 
-function ArtworksList({ artworks, addArtwork, removeArtwork, isLoggedIn }: Props) {
+type bidProduct = {
+  id: number // Synonymous with the product id
+  startingBid: number
+  endDate: string
+}
+
+function ArtworksList({ artworks, addArtwork, removeArtwork, isLoggedIn, addBidProduct }: Props) {
   const [artworkEditMode, setArtworkEditMode] = useState(false);
   const [addArtworkIsOpen, setAddArtworkIsOpen] = useState(false);
 
@@ -46,7 +53,7 @@ function ArtworksList({ artworks, addArtwork, removeArtwork, isLoggedIn }: Props
     removeArtwork(id);
   }
 
-  async function handleAddClick(name: string, style: string, material: string, medium: string, rarity: string, image: string, date: number, price: number) {
+  async function handleAddClick(name: string, style: string, material: string, medium: string, rarity: string, image: string, date: number, price: number, bid: string, startingBid: number, endDate: string) {
     const newArtwork = {
       id: await getNewID(),
       name: name,
@@ -63,8 +70,17 @@ function ArtworksList({ artworks, addArtwork, removeArtwork, isLoggedIn }: Props
       date: date,
       visits: 0
     };
+    const biddingProduct = {
+      id: newArtwork.id,
+      startingBid: startingBid,
+      endDate: endDate
+    };
     addArtwork(newArtwork);
     setAddArtworkIsOpen(false);
+    console.log(biddingProduct)
+    if (bid === "yes") {
+      addBidProduct(biddingProduct);
+    }
   }
 
   return (
