@@ -80,11 +80,10 @@ const postBid = async (req, res) => {
   }
 
   const postBidProduct = async (req, res) => {
-
     try {
       const bidProduct = req.body;
-      if (!bid) throw { message: "No bid product provided", status: 400 }
-      const result = await bidModel.postBid(dbUtils.getSession(req), bidProduct);
+      if (!bidProduct) throw { message: "No bid product provided", status: 400 }
+      const result = await bidModel.postBidProduct(dbUtils.getSession(req), bidProduct);
       res.json(result);
     }
     catch (err) {

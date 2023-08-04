@@ -19,7 +19,7 @@ bid.get('/bidProduct/:id', bidController.getBidProduct);
 bid.post('/post', bidController.postBid);
 
 // TODO: Create a function for posting a BidProduct
-bid.post('/post/product/:id', bidController.postBidProduct);
+bid.post('/post/bidProduct/', bidController.postBidProduct);
 
 bid.delete('/delete/:id', bidController.deleteBid);
 
