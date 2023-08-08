@@ -86,6 +86,21 @@
   font-size: 16px; /* Set the desired font size of the button */
 }
 
+.text-content {
+  /* This will allow the content to take up all available space and center it */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Add this if you want to specifically style the h1 and h2 within .text-content */
+.text-content .section-heading {
+  /* Any specific styling for h1 and h2 can go here */
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

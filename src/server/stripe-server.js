@@ -17,7 +17,7 @@ app.post('/create-checkout-session', async (req, res) => {
     ],
     mode: 'payment',
     success_url: `${YOUR_DOMAIN}/checkout-success`,
-    cancel_url: `${YOUR_DOMAIN}/artworks`,
+    cancel_url: `${YOUR_DOMAIN}/checkout-unsuccessful`,
     automatic_tax: {enabled: false},
   });
 

@@ -24,6 +24,7 @@ import PortraitPage from './pages/Discover/PortraitPage';
 import BiddingPurchasePage from './pages/Bidding/BiddingPurchasePage';
 import TransactionPage from './pages/Transaction/TransactionPage';
 import SuccessfulTransactionPage from './pages/Transaction/SuccessfulTransactionPage';
+import UnsuccessfulTransactionPage from './pages/Transaction/UnsuccessfulTransactionPage';
 import ErrorPage from './pages/Error/ErrorPage';
 import MessagePage from './pages/MessagePage';
 import MessageSearch from './pages/MessageSearch';
@@ -93,6 +94,7 @@ function App() {
               <Route path="/music/:artist/:song" element={<MusicStream />} />
               <Route path="/transaction" element={<TransactionPage />} />
               <Route path="/checkout-success" element = {<SuccessfulTransactionPage/>} />
+              <Route path="/checkout-unsuccessful" element = {<UnsuccessfulTransactionPage/>} />
               <Route path="/register2" element={<RegisterPage />} />
               <Route path="/testing" element={<TestingPage />} />
               <Route path="/testing2" element={<TestingPageNeo />} />
