@@ -118,7 +118,8 @@ const chatController = {
             return res.status(400).send({ message: "Please Fill all the feilds" });
         }
         // add given emails to the user list
-        const users = req.body.users;
+        const promiseUsers = req.body.users.map(async (user) => await User.findById(user._id));
+        const users = await Promise.all(promiseUsers);
         const currentuser = await User.findById(req.body.id);
         users.unshift(currentuser);
         // the chat is not a group chat
