@@ -1,0 +1,113 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+.container {
+  display: flex;
+}
+
+.section-left {
+  /* flex: 1; */
+  /* background-color: blueviolet; */
+}
+.section-right {
+  flex: 1;
+  /* background-color:cornflowerblue; */
+  
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-heading {
+  color: white;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-left: 20px;
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-container > * {
+  margin-top: 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+
+.buy-button {
+
+  margin-top: 10px;
+  margin-left: 20px;
+  background-color: #9893da;
+
+  width: 150px; /* Set the desired width of the button */
+  height: 40px; /* Set the desired height of the button */
+  font-size: 16px; /* Set the desired font size of the button */
+}
+
+.text-content {
+  /* This will allow the content to take up all available space and center it */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Add this if you want to specifically style the h1 and h2 within .text-content */
+.text-content .section-heading {
+  /* Any specific styling for h1 and h2 can go here */
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
