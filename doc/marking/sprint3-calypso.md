@@ -24,9 +24,9 @@ Planning Meetings Total Mark: 2 / 2
   - 1 mark = Meeting is documented, participants are not recorded or the majority has not participated, not enough analysis has been done
   - 0 marks = No meeting document submitted or the submitted document contains no relevant information
   
-    Your Mark: 2
+    Your Mark: 1.5
  
-Sprint Review Total Mark: 2 / 2
+Sprint Review Total Mark: 1.5 / 2
 
 ---
 
@@ -39,9 +39,9 @@ Sprint Review Total Mark: 2 / 2
   - 1 marks = At least 1 group member has not sent their update or is low-quality
   - 0 mark = At least 2 group members or more have not sent their updates or is low-quality
   
-  Your Mark: 10
+  Your Mark: 9 (can be more detailed)
 
-Daily Stand-ups Total Mark: 10 / 10
+Daily Stand-ups Total Mark: 9 / 10
 
 ---
 
@@ -77,7 +77,7 @@ Daily Stand-ups Total Mark: 10 / 10
   - 1 mark = two or more stories in Jira Backlog not are prioritized in the order which matches the priority of their associated milestones
   - 0 marks = the majority of stories in Jira Backlog appear to be not prioritized in the order which matches the priority of their associated milestones
 
-  Your Mark: 2
+  Your Mark: 0.5 (which tasks are high/med/low priority?)
 
 - Clearly Defined Acceptance Criteria (max 2 marks)
 
@@ -85,9 +85,9 @@ Daily Stand-ups Total Mark: 10 / 10
   - 1 mark = one or more Sprint 3 stories do not have clearly defined or testable acceptance criteria
   - 0 marks = the majority of the Sprint 3 stories do not have clearly defined or testable acceptance criteria
 
-  Your Mark: 2
+  Your Mark: 1.5 (CAL-72, CAL-123)
 
-User Stories Total Mark: 10 / 10
+User Stories Total Mark: 8 / 10
 
 ---
 
@@ -167,7 +167,7 @@ User Stories Total Mark: 10 / 10
   - 1 mark = burndown chart present, matches JIRA chart, but no explanations provided, or explanations are not adequate.
   - 0 marks = document not available or not containing a valid burndown chart
 
-  Your Mark: 2
+  Your Mark: 1 (reasons for higher velocity this sprint?)
 
 - Schedule (max 2 marks)
 
@@ -177,7 +177,7 @@ User Stories Total Mark: 10 / 10
   
   Your Mark: 2
 
-Tracking on JIRA Total Mark: 23 / 24
+Tracking on JIRA Total Mark: 22 / 24
 
 ---
 
@@ -225,9 +225,9 @@ Sprint Completion Total Mark: 20 / 20
   - 1 mark = The Architecture Diagram is present, it is not formatted well, and it is unclear what Architecture it follows. There is no web link or other reference lending support to the presented diagram.
   - 0 marks = No diagram present or the presented document does not look like a software architecture diagram
 
-  Your Mark: 4
+  Your Mark: 3
 
-System Design Total Mark: 9.5 / 10
+System Design Total Mark: 8.5 / 10
 
 ## Documentation (max 3 mark)
 
@@ -275,7 +275,7 @@ Sprint Demo Total Mark: 14 / 14
 
 ## Total Mark
 
-93.5 / 95
+88 / 95
 
 
 
